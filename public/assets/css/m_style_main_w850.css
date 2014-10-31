@@ -1,0 +1,44 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+.half_if_m850 {width:50% !important;}
+.left_if_m850 {float:left !important;}
+.right_if_m850 {float:right !important;}
+.hide_if_l1280 {display:none !important}
+
+section.items .item.app {
+	width: 50%;
+}
+
+section.items .item.store {
+	width: 50%;
+}
+
+section.items .item_wrap.like {
+	width: 25%;
+	height: 106px;
+	padding-top: 7px;
+}
+
+section.items.fullw .item_wrap.like {
+	width: 12.5%;
+}
+
+section.items.fullw .item.comment {
+	width: 50%;
+}
+
+
+/* APP VIEWS AND STORES */
+.btn.app_latest {
+	height: 28px;
+	line-height: 29px;
+	padding: 0 10px;
+	font-size: 13px;
+	margin: 5px 0;
+}
+
+.btn.app_latest .version_info {
+	font-size: 9px;
+}

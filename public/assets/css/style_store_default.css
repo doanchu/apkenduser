@@ -1,0 +1,50 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.search_top input[type="text"] {border-color: #FF760D;}
+.search_top input[type="text"]::-webkit-input-placeholder {color: #FF760D;}
+.search_top input[type="text"]:-moz-placeholder {color: #FF760D;}
+.search_top input[type="text"]::-moz-placeholder {color: #FF760D;}
+.search_top input[type="submit"] {background-image: url(../../images/search_icon.png);}
+
+header.top_header, .css_loader > div {
+	background-color: #FF760D;
+}
+
+.app_screenshots, section.app_view > div:nth-of-type(1) {
+	border-bottom-color: #FF760D;
+}
+
+.app_comments > div > div, .app_comments > span > div > div {
+	border-left-color: #FF760D;
+}
+
+a, .btn.add_store, .app_section_title, 
+.btn.expand, .btn.vote,
+.window_title {
+	color: #FF760D;
+}
+
+.btn.expand:hover, .btn.vote:hover, .btn.vote.voted {
+	color: #FFC400;
+}
+
+.btn.vote.like > div:first-child {
+	background-image: url(../../images/icon_like_orange.png);
+}
+
+.btn.vote.dislike > div:first-child {
+	background-image: url(../../images/icon_dislike_orange.png);
+}
+
+header.store_header > div:nth-of-type(1), 
+header.store_header.appview > div:nth-of-type(1), 
+.switch_control div,
+select {
+	background: #ffa91b;
+	background: -moz-linear-gradient(top,  #ffa91b 0%, #ff9501 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffa91b), color-stop(100%,#ff9501));
+	background: -webkit-linear-gradient(top,  #ffa91b 0%,#ff9501 100%);
+	background: -o-linear-gradient(top,  #ffa91b 0%,#ff9501 100%);
+	background: linear-gradient(to bottom,  #ffa91b 0%,#ff9501 100%);
+}

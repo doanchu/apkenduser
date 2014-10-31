@@ -1,0 +1,89 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+.btn.aptoide_install,
+header.store_header .store_avatar {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+
+
+.btn.type1, 
+section.items .item .item_cont,
+.editors_install .entry,
+.switch_control,
+.switch_control div,
+.btn.add_store,
+.btn.add_comment,
+.app_flags > div > div,
+.app_comments > div > div, .app_comments > span > div > div,
+.login_form {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border: #ccc solid 1px;
+}
+
+
+.btn.type1:hover, 
+section.items .item .item_cont:hover,
+.editors_install .entry:hover,
+.btn.add_store:hover,
+.btn.add_comment:hover,
+.app_flags > div > div:hover
+ {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border: #e8e8e8 solid 1px;
+	background-color: #f8f8f8;
+}
+
+
+.search_top input[type="submit"] {background-image: url(../images/lowend/search_icon_lowend.png) !important;}
+.search_area input[type="submit"] {background-image: url(../images/lowend/search_icon.png);}
+div[data-window-control-close]{background-image: url(../images/lowend/close_window.png);}
+section.drawer > .drawer_close {background-image: url(../images/lowend/left_btn.png);}
+div[data-drawer-sub-indicator], div[data-drawer-sub-indicator="down"] {background-image: url(../images/lowend/drawer_menu_ind.png);}
+.btn.drawer {background-image: url(../images/lowend/drawer_ico.png);}
+.btn.search {background-image: url(../images/lowend/search_icon_white.png);}
+section.items .item.like .item_icon_overlay {background-image: url(../images/lowend/app_like_overlay.png);}
+section.items .item.like .item_icon_vote.like {background-image: url(../images/lowend/app_like.png);}
+section.items .item.like .item_icon_vote.dislike {background-image: url(../images/lowend/app_dislike.png);}
+.btn.aptoide_install > div:first-child, .btn.app_install > div:nth-of-type(1) {background-image: url(../images/lowend/bt_install_arrow.png);}
+.btn.app_malware.trusted > div:nth-of-type(1) {background-image: url(../images/lowend/seal_trusted.png);}
+.btn.app_malware.warning > div:nth-of-type(1) {background-image: url(../images/lowend/seal_warning.png);}
+.btn.app_malware.critical > div:nth-of-type(1) {background-image: url(../images/lowend/seal_critical.png);}
+.btn.app_malware.unknown > div:nth-of-type(1) {background-image: url(../images/lowend/seal_unknown.png);}
+.btn.vote.like > div:first-child {background-image: url(../images/lowend/icon_like_orange.png);}
+.btn.vote.dislike > div:first-child {background-image: url(../images/lowend/icon_dislike_orange.png);}
+.like_count div.likes {background-image: url(../images/lowend/icon_like.png);}
+.like_count div.dislikes {background-image: url(../images/lowend/icon_dislike.png);}
+.app_flags .apk_flag_review > div > div > div.flag_review_icon.good {background-image: url(../images/lowend/flag_good.png);}
+.app_flags .apk_flag_review > div > div > div.flag_review_icon.license {background-image: url(../images/lowend/flag_license.png);}
+.app_flags .apk_flag_review > div > div > div.flag_review_icon.fake {background-image: url(../images/lowend/flag_fake.png);}
+.app_flags .apk_flag_review > div > div > div.flag_review_icon.freeze {background-image: url(../images/lowend/flag_freeze.png);}
+.app_flags .apk_flag_review > div > div > div.flag_review_icon.virus {background-image: url(../images/lowend/flag_virus.png);}
+.form_container .form_logo {background-image: url(../images/logo_login.png);}
+.form .btn.captcha_refresh {background-image: url(../images/lowend/captcha_refresh.png);}
+.btn.social_submit.facebook > div {background-image: url(../images/lowend/face_ico.png);}
+.btn.social_submit.google > div {background-image: url(../images/lowend/google_ico.png);}
+.tooltip_balloon .tooltip_tl {background-image: url(../images/lowend/tooltip_tl.png);}
+.tooltip_balloon .tooltip_tr {background-image: url(../images/lowend/tooltip_tr.png);}
+.tooltip_balloon .tooltip_bl {background-image: url(../images/lowend/tooltip_bl.png);}
+.tooltip_balloon .tooltip_br {background-image: url(../images/lowend/tooltip_br.png);}
+.tooltip_balloon .tooltip_t {background-image: url(../images/lowend/tooltip_t.png);}
+.tooltip_balloon .tooltip_b {background-image: url(../images/lowend/tooltip_b.png);}
+.tooltip_balloon .tooltip_l {background-image: url(../images/lowend/tooltip_l.png);}
+.tooltip_balloon .tooltip_r {background-image: url(../images/lowend/tooltip_r.png);}
+.tooltip_balloon[data-tooltip-c="bottom-left"] .tooltip_c {background-image: url(../images/lowend/tooltip_cb.png);}
+.tooltip_balloon[data-tooltip-c="bottom-right"] .tooltip_c {background-image: url(../images/lowend/tooltip_cb.png);}
+.tooltip_balloon[data-tooltip-c="top-left"] .tooltip_c {background-image: url(../images/lowend/tooltip_ct.png);}
+.tooltip_balloon[data-tooltip-c="top-right"] .tooltip_c {background-image: url(../images/lowend/tooltip_ct.png);}
+.tooltip_balloon[data-tooltip-c="left-top"] .tooltip_c {background-image: url(../images/lowend/tooltip_cl.png);}
+.tooltip_balloon[data-tooltip-c="left-bottom"] .tooltip_c {background-image: url(../images/lowend/tooltip_cl.png);}
+.tooltip_balloon[data-tooltip-c="right-top"] .tooltip_c {background-image: url(../images/lowend/tooltip_cr.png);}
+.tooltip_balloon[data-tooltip-c="right-bottom"] .tooltip_c {background-image: url(../images/lowend/tooltip_cr.png);}
+.load_circ {background-image: url(../images/lowend/load_circ_small.gif);}
