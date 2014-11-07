@@ -7,6 +7,41 @@ import "strconv"
 import "log"
 import "github.com/doanchu/apkenduser/models"
 
+///comments/PARTNER/APP_ID/PAGE/LIMIT
+
+func CommentsHandler(w http.ResponseWriter, r *http.Request) {
+	var err error
+	vars := mux.Vars(r)
+	app_id := vars["app_id"]
+	page, err := strconv.Atoi(vars["page"])
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	limit, err := strconv.Atoi(vars["limit"])
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	result := Mongo.GetCommentsByAppId(app_id, page, limit)
+	if result == nil {
+		w.Write([]byte("There are some errors"))
+		return
+	}
+
+	var byteResult []byte
+	byteResult, err = json.Marshal(result)
+	w.Header().Set("Content-Type", "application/json")
+	if err != nil {
+		log.Println(err.Error())
+		w.Write([]byte(err.Error()))
+	} else {
+		w.Write(byteResult)
+	}
+}
+
 func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	vars := mux.Vars(r)

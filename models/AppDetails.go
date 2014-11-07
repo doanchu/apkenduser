@@ -3,12 +3,12 @@ package models
 type AppDetails struct {
 	Cid            int               `json:"cid"`
 	Cname          string            `json:"cname"`
-	Desc           string            `json:desc`
+	Desc           string            `json:"desc"`
 	Id             string            `json:"id"`
 	Name           string            `json:"name"`
 	Vendor         string            `json:"vendor"`
 	Name_seo       string            `json:"name_seo"`
-	Size           string            `json:"site"`
+	Size           string            `json:"size"`
 	Ss             []string          `json:"ss"`
 	Status         int               `json:"status"`
 	Thumbnail      string            `json:"thumbnail"`

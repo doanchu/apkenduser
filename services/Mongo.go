@@ -10,6 +10,20 @@ type Mongo struct {
 	DB      string
 }
 
+func (m *Mongo) GetCommentsByAppId(id string, page int, limit int) []*models.Comment {
+	session := m.Session.Clone()
+	defer session.Close()
+	db := session.DB(m.DB)
+	c := db.C("comment_app")
+	var result []*models.Comment
+	err := c.Find(bson.M{"app_id": id}).Sort("-_id").Skip((page - 1) * limit).Limit(limit).All(&result)
+	if err != nil {
+		log.Println(err.Error())
+		return nil
+	}
+	return result
+}
+
 func (m *Mongo) GetCommonAppById(id string) *models.AppCommon {
 	session := m.Session.Clone()
 	defer session.Close()
@@ -45,7 +59,7 @@ func (m *Mongo) GetPartnerApps(partner string, page int, limit int) []*models.Pa
 	db := session.DB(m.DB)
 	c := db.C("partner_app_info")
 	var result []*models.PartnerAppInfo
-	err := c.Find(bson.M{"partner": partner}).Skip(page * limit).Limit(limit).All(&result)
+	err := c.Find(bson.M{"partner": partner}).Skip((page - 1) * limit).Limit(limit).All(&result)
 
 	// var byteResult []byte
 	// byteResult, err = json.Marshal(result)

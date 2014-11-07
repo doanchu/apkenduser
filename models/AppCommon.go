@@ -5,12 +5,12 @@ import "gopkg.in/mgo.v2/bson"
 type AppCommon struct {
 	Oid           bson.ObjectId     `bson:"_id" json:"oid"`
 	Name          string            `bson:"name" json:"name"`
-	Cid           string            `json:"cid"`
+	Cid           int            `json:"cid"`
 	Desc          string            `json:"desc"`
 	Id            string            `json:"id"`
 	Name_seo      string            `json:"name_seo"`
 	Order         int               `json:"order"`
-	Size          string            `json:"site"`
+	Size          string            `json:"size"`
 	Ss            []string          `json:"ss"`
 	Status        int               `json:"status"`
 	User_created  string            `json:"user_created"`

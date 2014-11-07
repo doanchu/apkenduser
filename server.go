@@ -7,8 +7,6 @@ import "gopkg.in/mgo.v2"
 
 import "github.com/doanchu/apkenduser/handlers"
 import "github.com/doanchu/apkenduser/services"
-import "reflect"
-import "fmt"
 
 var session *mgo.Session
 
@@ -16,22 +14,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "public/index.html")
 }
 
-type King struct {
-}
-
 func main() {
-
-	b := true
-	s := ""
-	n := 1
-	f := 1.0
-	a := []string{"foo", "bar", "baz"}
-
-	fmt.Println(reflect.TypeOf(b))
-	fmt.Println(reflect.TypeOf(s))
-	fmt.Println(reflect.TypeOf(n))
-	fmt.Println(reflect.TypeOf(f))
-	fmt.Println(reflect.TypeOf(a))
 
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	var err error
@@ -65,6 +48,8 @@ func main() {
 		DB:   handlers.Mongo,
 	}
 
+	// comments := handlers.Mongo.GetCommentsByAppId("com.facebook.katana", 1, 10)
+	// log.Println(*comments[0])
 	// cache.SetCommonAppById("com.loveframecollage.loveframe.collage", appInfo)
 	// appInfo = handlers.Mongo.GetCommonAppById("com.bfusoftware.ohtv")
 	// cache.SetCommonAppById("com.bfusoftware.ohtv", appInfo)
@@ -74,9 +59,10 @@ func main() {
 	// log.Println(myResult)
 	router := mux.NewRouter()
 
-	router.HandleFunc("/rest/apps-partner/{partner}/{page}/{limit}", handlers.AppPartnerHandler)
+	router.HandleFunc("/api/apps-partner/{partner}/{page}/{limit}", handlers.AppPartnerHandler)
+	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
 	router.PathPrefix("/assets").Handler(http.FileServer(http.Dir("public")))
 	router.PathPrefix("/").HandlerFunc(handleIndex)
 	http.Handle("/", router)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":3000", nil)
 }

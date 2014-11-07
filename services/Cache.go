@@ -34,7 +34,7 @@ func (c *Cache) GetCommonAppById(id string) *models.AppCommon {
 	defer conn.Close()
 
 	//Get Info By Id
-	strResult, err := redis.String(conn.Do("GET", id))
+	strResult, err := redis.String(conn.Do("GET", "apkvn::" + id))
 	if err != nil && err != redis.ErrNil {
 		log.Println(err.Error())
 		return nil
@@ -48,7 +48,7 @@ func (c *Cache) GetCommonAppById(id string) *models.AppCommon {
 		c.SetCommonAppById(id, appCommon)
 		return appCommon
 	}
-
+	
 	result := &models.AppCommon{}
 	err = json.Unmarshal([]byte(strResult), result)
 	if err != nil {
@@ -88,5 +88,5 @@ func (c *Cache) SetCommonAppById(id string, app *models.AppCommon) {
 	if err != nil {
 		return
 	}
-	conn.Do("SET", id, result)
+	conn.Do("SET", "apkvn::" + id, result)
 }
