@@ -5,14 +5,10 @@ import "log"
 import "github.com/gorilla/mux"
 import "gopkg.in/mgo.v2"
 
-//import "gopkg.in/mgo.v2/bson"
 import "github.com/doanchu/apkenduser/handlers"
-
-// type AppInfo struct {
-// 	Name string
-// 	King *map[string]string
-// 	Size *[]int
-// }
+import "github.com/doanchu/apkenduser/services"
+import "reflect"
+import "fmt"
 
 var session *mgo.Session
 
@@ -20,45 +16,65 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "public/index.html")
 }
 
+type King struct {
+}
+
 func main() {
+
+	b := true
+	s := ""
+	n := 1
+	f := 1.0
+	a := []string{"foo", "bar", "baz"}
+
+	fmt.Println(reflect.TypeOf(b))
+	fmt.Println(reflect.TypeOf(s))
+	fmt.Println(reflect.TypeOf(n))
+	fmt.Println(reflect.TypeOf(f))
+	fmt.Println(reflect.TypeOf(a))
+
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	var err error
-	session, err = mgo.Dial("localhost")
+	var host string = "sv12.mway.vn:27017"
+	session, err = mgo.Dial(host)
 	if err != nil {
 		log.Fatal("Fatal")
 	} else {
-		log.Println("good")
+		log.Println("Ready to connect to mongodb")
 	}
-	handlers.Session = session
+	var newApkCred = &mgo.Credential{
+		Username: "newapk",
+		Password: "teamapk1@#$",
+		Source:   "newapk",
+	}
 
-	// var err error
-	// slice1 := []int{}
-	// slice1 = append(slice1, 1, 2, 3)
-	// session, err = mgo.Dial("localhost")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// defer session.Close()
+	err = session.Login(newApkCred)
+	if err != nil {
+		log.Fatal("Failed to authenticate")
+	}
 
-	// c := session.DB("test").C("app_info")
-	// myAppInfo := AppInfo{}
-	// iter := c.Find(bson.M{}).Iter()
-	// result := AppInfo{}
-	// for iter.Next(&result) {
-	// 	log.Println(result.Name)
-	// }
-	// return
-	// log.Println(len(*myAppInfo.Size))
-	// // return
-	// tmpKing := make(map[string]string)
-	// tmpKing["this"] = "foo"
-	// tmpKing["that"] = "bar"
-	// err = c.Insert(&AppInfo{Name: "heyyou", King: &tmpKing, Size: &slice1})
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	handlers.Mongo = &services.Mongo{
+		DB:      "newapk",
+		Session: session,
+	}
+
+	// appInfo := handlers.Mongo.GetCommonAppById("com.loveframecollage.loveframe.collage")
+
+	handlers.Cache = &services.Cache{
+		Pool: services.NewRedisPool("localhost:6379"),
+		DB:   handlers.Mongo,
+	}
+
+	// cache.SetCommonAppById("com.loveframecollage.loveframe.collage", appInfo)
+	// appInfo = handlers.Mongo.GetCommonAppById("com.bfusoftware.ohtv")
+	// cache.SetCommonAppById("com.bfusoftware.ohtv", appInfo)
+	// ids := []interface{}{}
+	// ids = append(ids, "com.loveframecollage.loveframe.collage", "com.bfusoftware.ohtv1")
+	// myResult := cache.GetCommonAppByIds(ids...)
+	// log.Println(myResult)
 	router := mux.NewRouter()
-	//http.Handle("/", http.FileServer(http.Dir("public")))
-	router.HandleFunc("/app/list/{page}/{limit}", handlers.AppListHandler)
+
+	router.HandleFunc("/rest/apps-partner/{partner}/{page}/{limit}", handlers.AppPartnerHandler)
 	router.PathPrefix("/assets").Handler(http.FileServer(http.Dir("public")))
 	router.PathPrefix("/").HandlerFunc(handleIndex)
 	http.Handle("/", router)
