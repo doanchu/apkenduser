@@ -142,7 +142,7 @@ var AppList = React.createClass({
     return {data: []};
   },
   componentDidMount: function() {
-    $.get("http://localhost:3000/api/apps-partner/duyhungws/1/10", function(result) {
+    $.get("/api/apps-partner/duyhungws/1/10", function(result) {
       if (this.isMounted()) {
         this.setState({data: result})
       }
