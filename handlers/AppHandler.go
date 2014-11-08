@@ -139,6 +139,42 @@ func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
 
 }
 
+func CollectionsHandler(w http.ResponseWriter, r *http.Request) {
+	var err error
+	vars := mux.Vars(r)
+
+	partner := vars["partner"]
+
+	page, err := strconv.Atoi(vars["page"])
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	limit, err := strconv.Atoi(vars["limit"])
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	result := Mongo.GetCollectionsByPartner(partner, page, limit)
+	if result == nil {
+		w.Write([]byte("[]"))
+		return
+	}
+
+	var byteResult []byte
+	byteResult, err = json.Marshal(result)
+	w.Header().Set("Content-Type", "application/json")
+	if err != nil {
+		log.Println(err.Error())
+		w.Write([]byte(err.Error()))
+	} else {
+		w.Write(byteResult)
+	}
+
+}
+
 ///comments/PARTNER/APP_ID/PAGE/LIMIT
 
 func CommentsHandler(w http.ResponseWriter, r *http.Request) {

@@ -89,3 +89,43 @@ func (m *Mongo) GetPartnerAppsByCategory(partner string, cid int, page int, limi
 		return result
 	}
 }
+
+type PartnerAppCollection struct {
+	Col_id bson.ObjectId
+}
+
+func (m *Mongo) GetCollectionsByPartner(partner string, page int, limit int) []*models.Collection {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	partnerCol := db.C("partner_app_collection")
+	var result []*PartnerAppCollection
+	err := partnerCol.Find(bson.M{}).All(&result)
+
+	if err != nil {
+		log.Println(err.Error())
+		return nil
+	}
+
+	ids := []bson.ObjectId{}
+	for _, col := range result {
+		ids = append(ids, col.Col_id)
+	}
+
+	c := db.C("app_collection")
+
+	var resultCol []*models.Collection
+
+	err = c.Find(bson.M{"status": 1, "_id": bson.M{"$in": ids}}).All(&resultCol)
+	if err != nil {
+		log.Println(err.Error())
+		return nil
+	}
+	return resultCol
+	// var parterResul []*interface {
+	// 	oid
+	// }
+	// partnerCol.Find(bson.M{"partner": partner, "col_id": bson.M{"$in", ids}}).All()
+
+}

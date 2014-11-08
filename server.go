@@ -44,9 +44,12 @@ func main() {
 	// appInfo := handlers.Mongo.GetCommonAppById("com.loveframecollage.loveframe.collage")
 
 	handlers.Cache = &services.Cache{
-		Pool: services.NewRedisPool("localhost:6379"),
+		Pool: services.NewRedisPool("sv12.mway.vn:6379"),
 		DB:   handlers.Mongo,
 	}
+
+	// collectionResult := handlers.Mongo.GetCollectionsByPartner("duyhungws", 1, 1)
+	// log.Println(collectionResult)
 
 	// comments := handlers.Mongo.GetCommentsByAppId("com.facebook.katana", 1, 10)
 	// log.Println(*comments[0])
@@ -57,12 +60,13 @@ func main() {
 	// ids = append(ids, "com.loveframecollage.loveframe.collage", "com.bfusoftware.ohtv1")
 	// myResult := cache.GetCommonAppByIds(ids...)
 	// log.Println(myResult)
-	charMap := map[string]string{"À": "A"}
-	log.Println(charMap["À"])
+	// charMap := map[string]string{"À": "A", "Á": "A"}
+	// log.Println(charMap["Á"])
 	router := mux.NewRouter()
 
 	router.HandleFunc("/api/apps-category/{partner}/{cid}/{page}/{limit}", handlers.AppCategoryHandler)
 	router.HandleFunc("/api/apps-{condition}/{partner}/{page}/{limit}", handlers.AppPartnerHandler)
+	router.HandleFunc("/api/collections/{partner}/{page}/{limit}", handlers.CollectionsHandler)
 	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
 	router.PathPrefix("/assets").Handler(http.FileServer(http.Dir("public")))
 	router.PathPrefix("/").HandlerFunc(handleIndex)
