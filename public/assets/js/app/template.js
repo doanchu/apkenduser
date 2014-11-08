@@ -4,7 +4,7 @@ var Item = React.createClass({
        
 <a href="/app/us.porrassoft.tattoo.gun.camera.html" className="item app">
         <div className="item_cont">
-          <img alt="" data-postload-img-onerror="if (this.getAttribute('error') != 1){this.setAttribute('src','http://cdn3.aptoide.com/includes/themes/mobile2014/images/app_icon_default_mdpi.png');this.setAttribute('error',1);}" data-postload-img="http://apk.vn/static/images/2014/10/29/1414549748/86.png" src="http://apk.vn/static/images/2014/10/29/1414549748/86.png" className="item_icon" />
+          <img alt="" data-postload-img-onerror="if (this.getAttribute('error') != 1){this.setAttribute('src','http://cdn3.aptoide.com/includes/themes/mobile2014/images/app_icon_default_mdpi.png');this.setAttribute('error',1);}" data-postload-img="http://apk.vn/static/images/2014/10/29/1414549748/86.png" src={this.props.thumbnail} className="item_icon" />
           <div className="item_meta">
             <div className="item_name">{this.props.name}</div>
             <div className="stars"><div style={{width: 52}} /></div>
@@ -138,12 +138,22 @@ var NavTop = React.createClass({
 
 
 var AppList = React.createClass({
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    $.get("http://localhost:3000/api/apps-partner/duyhungws/1/10", function(result) {
+      if (this.isMounted()) {
+        this.setState({data: result})
+      }
+    }.bind(this))
+  },
   render: function() {    
-    var data = [{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}]
+    //var data = [{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}]
     
-    var items = data.map(function(item){
+    var items = this.state.data.map(function(item){
         return (
-          <Item name={item.name} downloads={item.downloads} />
+          <Item name={item.name} downloads={item.total_download} thumbnail={item.thumbnail}/>
         );
     })
     return (
