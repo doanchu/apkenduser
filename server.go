@@ -5,7 +5,7 @@ import "log"
 import "github.com/gorilla/mux"
 import "gopkg.in/mgo.v2"
 
-import "github.com/doanchu/apkenduser/handlers"
+import "./handlers"
 import "github.com/doanchu/apkenduser/services"
 
 var session *mgo.Session
@@ -57,9 +57,12 @@ func main() {
 	// ids = append(ids, "com.loveframecollage.loveframe.collage", "com.bfusoftware.ohtv1")
 	// myResult := cache.GetCommonAppByIds(ids...)
 	// log.Println(myResult)
+	charMap := map[string]string{"À": "A"}
+	log.Println(charMap["À"])
 	router := mux.NewRouter()
 
-	router.HandleFunc("/api/apps-partner/{partner}/{page}/{limit}", handlers.AppPartnerHandler)
+	router.HandleFunc("/api/apps-category/{partner}/{cid}/{page}/{limit}", handlers.AppCategoryHandler)
+	router.HandleFunc("/api/apps-{condition}/{partner}/{page}/{limit}", handlers.AppPartnerHandler)
 	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
 	router.PathPrefix("/assets").Handler(http.FileServer(http.Dir("public")))
 	router.PathPrefix("/").HandlerFunc(handleIndex)

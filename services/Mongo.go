@@ -52,14 +52,33 @@ func (m *Mongo) GetCategoryById(id int) *models.Category {
 	return result
 }
 
-func (m *Mongo) GetPartnerApps(partner string, page int, limit int) []*models.PartnerAppInfo {
+func (m *Mongo) GetPartnerApps(partner string, page int, limit int, sortCondition string) []*models.PartnerAppInfo {
 	session := m.Session.Clone()
 	defer session.Close()
 
 	db := session.DB(m.DB)
 	c := db.C("partner_app_info")
 	var result []*models.PartnerAppInfo
-	err := c.Find(bson.M{"partner": partner}).Skip((page - 1) * limit).Limit(limit).All(&result)
+	err := c.Find(bson.M{"partner": partner}).Sort(sortCondition).Skip((page - 1) * limit).Limit(limit).All(&result)
+
+	// var byteResult []byte
+	// byteResult, err = json.Marshal(result)
+	if err != nil {
+		log.Println(err.Error())
+		return nil
+	} else {
+		return result
+	}
+}
+
+func (m *Mongo) GetPartnerAppsByCategory(partner string, cid int, page int, limit int) []*models.PartnerAppInfo {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("partner_app_info")
+	var result []*models.PartnerAppInfo
+	err := c.Find(bson.M{"partner": partner, "cid": cid}).Skip((page - 1) * limit).Limit(limit).All(&result)
 
 	// var byteResult []byte
 	// byteResult, err = json.Marshal(result)
