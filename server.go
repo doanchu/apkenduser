@@ -9,6 +9,8 @@ import "./handlers"
 import "github.com/doanchu/apkenduser/services"
 
 import "html/template"
+import "code.google.com/p/goconf/conf"
+import "strconv"
 
 var session *mgo.Session
 
@@ -32,10 +34,57 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	//http.ServeFile(w, r, "public/index.html")
 }
 
+var mongoHost string
+var mongoPort int
+
+var redisHost string
+var redisPort int
+
+var serverHost string
+var serverPort int
+
+func readConfiguration() {
+	c, err := conf.ReadConfigFile("web.cfg")
+	if err != nil {
+		log.Fatal("Cannot read configuration file")
+		return
+	}
+	mongoHost, err = c.GetString("mongodb", "host")
+	if err != nil {
+		log.Fatal("Mongodb host is missing or invalid")
+		return
+	}
+	mongoPort, err = c.GetInt("mongodb", "port")
+	if err != nil {
+		log.Fatal("Mongodb port is missing or invalid")
+	}
+	redisHost, err = c.GetString("redis", "host")
+	if err != nil {
+		log.Fatal("Redis host is missing or invalid")
+		return
+	}
+	redisPort, err = c.GetInt("redis", "port")
+	if err != nil {
+		log.Fatal("Redis port is missing or invalid")
+		return
+	}
+	serverHost, err = c.GetString("default", "host")
+	if err != nil {
+		log.Fatal("Host is missing or invalid")
+		return
+	}
+	serverPort, err = c.GetInt("default", "port")
+	if err != nil {
+		log.Fatal("Port is missing or invalid")
+		return
+	}
+}
+
 func main() {
+	readConfiguration()
 
 	var err error
-	var host string = "sv12.mway.vn:27017"
+	var host string = mongoHost + ":" + strconv.Itoa(mongoPort)
 	session, err = mgo.Dial(host)
 	if err != nil {
 		log.Fatal("Fatal")
@@ -61,7 +110,7 @@ func main() {
 	// appInfo := handlers.Mongo.GetCommonAppById("com.loveframecollage.loveframe.collage")
 
 	handlers.Cache = &services.Cache{
-		Pool: services.NewRedisPool("sv12.mway.vn:6379"),
+		Pool: services.NewRedisPool(redisHost + strconv.Itoa(redisPort)),
 		DB:   handlers.Mongo,
 	}
 
@@ -86,10 +135,10 @@ func main() {
 	router.HandleFunc("/api/collections/{partner}/{page}/{limit}", handlers.CollectionsHandler)
 	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
 
-	subRouter := router.Host("{subdomain}.apk.de").Subrouter()
+	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
 	subRouter.PathPrefix("/assets").Handler(http.FileServer(http.Dir("public")))
 	subRouter.PathPrefix("/").HandlerFunc(handleIndex)
 	http.Handle("/", router)
-	err = http.ListenAndServe(":3000", nil)
+	err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
 	log.Println(err)
 }
