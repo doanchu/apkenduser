@@ -11,6 +11,8 @@ import "github.com/doanchu/apkenduser/services"
 import "html/template"
 import "code.google.com/p/goconf/conf"
 import "strconv"
+import "github.com/codegangsta/negroni"
+import "github.com/phyber/negroni-gzip/gzip"
 
 var session *mgo.Session
 
@@ -110,7 +112,7 @@ func main() {
 	// appInfo := handlers.Mongo.GetCommonAppById("com.loveframecollage.loveframe.collage")
 
 	handlers.Cache = &services.Cache{
-		Pool: services.NewRedisPool(redisHost + strconv.Itoa(redisPort)),
+		Pool: services.NewRedisPool(redisHost + ":" + strconv.Itoa(redisPort)),
 		DB:   handlers.Mongo,
 	}
 
@@ -138,7 +140,12 @@ func main() {
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
 	subRouter.PathPrefix("/assets").Handler(http.FileServer(http.Dir("public")))
 	subRouter.PathPrefix("/").HandlerFunc(handleIndex)
-	http.Handle("/", router)
-	err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
+	//http.Handle("/", router)
+	//err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
+
+	n := negroni.New()
+	n.Use(gzip.Gzip(gzip.DefaultCompression))
+	n.UseHandler(router)
+	n.Run(":" + strconv.Itoa(serverPort))
 	log.Println(err)
 }
