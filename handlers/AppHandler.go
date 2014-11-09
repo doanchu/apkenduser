@@ -196,6 +196,42 @@ func AppCollectionHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func AppsInCollectionHandler(w http.ResponseWriter, r *http.Request) {
+	var err error
+	_ = err
+	vars := mux.Vars(r)
+
+	//partner := vars["partner"]
+
+	col_id := vars["col_id"]
+
+	if !bson.IsObjectIdHex(col_id) {
+		w.Write([]byte("There are some errors"))
+		return
+	}
+	objectId := bson.ObjectIdHex(col_id)
+	result := Mongo.GetCollectionById(objectId)
+
+	ids := make([]string, len(result.Apps))
+	for key, value := range result.Apps {
+		ids[key] = value
+	}
+
+	log.Println(ids)
+	appCommons := Mongo.GetCommonAppsByIds(ids)
+
+	var byteResult []byte
+	byteResult, err = json.Marshal(appCommons)
+	w.Header().Set("Content-Type", "application/json")
+	if err != nil {
+		log.Println(err.Error())
+		w.Write([]byte(err.Error()))
+	} else {
+		w.Write(byteResult)
+	}
+
+}
+
 func CollectionsHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	vars := mux.Vars(r)
