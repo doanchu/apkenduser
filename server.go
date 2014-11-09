@@ -4,6 +4,7 @@ import "net/http"
 import "log"
 import "github.com/gorilla/mux"
 import "gopkg.in/mgo.v2"
+import _ "gopkg.in/mgo.v2/bson"
 
 import "./handlers"
 import "github.com/doanchu/apkenduser/services"
@@ -20,7 +21,6 @@ var indexTemplate *template.Template
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	log.Println(vars)
 	template, err := indexTemplate.ParseFiles("public/index.html")
 	if err != nil {
 		w.Write([]byte("There are some errors"))
@@ -116,6 +116,15 @@ func main() {
 		DB:   handlers.Mongo,
 	}
 
+	// colResult := handlers.Mongo.GetCollectionById(bson.ObjectIdHex("545e003560e24d82ea541e21"))
+	// log.Println(colResult)
+
+	appCommons := handlers.Mongo.GetCommonAppsByIds([]string{"com.digiplex.game", "com.dotgears.flappybird"})
+	for _, value := range appCommons {
+		log.Println(value)
+	}
+	//log.Println(appCommons)
+
 	//indexTemplate = template.New("indexTemplate")
 	// collectionResult := handlers.Mongo.GetCollectionsByPartner("duyhungws", 1, 1)
 	// log.Println(collectionResult)
@@ -132,8 +141,9 @@ func main() {
 	// charMap := map[string]string{"À": "A", "Á": "A"}
 	// log.Println(charMap["Á"])
 	router := mux.NewRouter()
+	router.HandleFunc("/api/collection-details/{partner}/{col_id}", handlers.AppCollectionHandler)
 	router.HandleFunc("/api/apps-category/{partner}/{cid}/{page}/{limit}", handlers.AppCategoryHandler)
-	router.HandleFunc("/api/apps-{condition}/{partner}/{page}/{limit}", handlers.AppPartnerHandler)
+	router.HandleFunc("/api/apps-{condition}/{partner}/{page}/{limit}", handlers.AppsPartnerHandler)
 	router.HandleFunc("/api/collections/{partner}/{page}/{limit}", handlers.CollectionsHandler)
 	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
 

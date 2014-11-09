@@ -38,6 +38,24 @@ func (m *Mongo) GetCommonAppById(id string) *models.AppCommon {
 	return result
 }
 
+func (m *Mongo) GetCommonAppsByIds(ids []string) []*models.AppCommon {
+	session := m.Session.Clone()
+	defer session.Close()
+	db := session.DB(m.DB)
+	c := db.C("app_common")
+	var result []*models.AppCommon
+	err := c.Find(bson.M{"id": bson.M{"$in": ids}}).All(&result)
+	if err != nil && err != mgo.ErrNotFound {
+		log.Println(err.Error())
+		return nil
+	}
+	for _, value := range result {
+		value.Desc = ""
+		value.Ss = []string{}
+	}
+	return result
+}
+
 func (m *Mongo) GetCategoryById(id int) *models.Category {
 	session := m.Session.Clone()
 	defer session.Close()
@@ -92,6 +110,18 @@ func (m *Mongo) GetPartnerAppsByCategory(partner string, cid int, page int, limi
 
 type PartnerAppCollection struct {
 	Col_id bson.ObjectId
+}
+
+func (m *Mongo) GetCollectionById(id bson.ObjectId) *models.Collection {
+	session := m.Session.Clone()
+	defer session.Close()
+	db := session.DB(m.DB)
+	c := db.C("app_collection")
+
+	result := &models.Collection{}
+
+	c.Find(bson.M{"_id": id}).One(&result)
+	return result
 }
 
 func (m *Mongo) GetCollectionsByPartner(partner string, page int, limit int) []*models.Collection {

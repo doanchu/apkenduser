@@ -6,6 +6,7 @@ import "encoding/json"
 import "strconv"
 import "log"
 import "github.com/doanchu/apkenduser/models"
+import "gopkg.in/mgo.v2/bson"
 
 func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -54,7 +55,7 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
+func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	vars := mux.Vars(r)
 	log.Println(vars)
@@ -145,6 +146,53 @@ func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
 	}
 
 	return appDetails
+
+}
+
+func AppCollectionHandler(w http.ResponseWriter, r *http.Request) {
+	var err error
+	_ = err
+	vars := mux.Vars(r)
+
+	//partner := vars["partner"]
+
+	col_id := vars["col_id"]
+
+	if !bson.IsObjectIdHex(col_id) {
+		w.Write([]byte("There are some errors"))
+		return
+	}
+	objectId := bson.ObjectIdHex(col_id)
+	result := Mongo.GetCollectionById(objectId)
+
+	ids := make([]string, len(result.Apps))
+	for key, value := range result.Apps {
+		ids[key] = value
+	}
+
+	log.Println(ids)
+	appCommons := Mongo.GetCommonAppsByIds(ids)
+
+	resultDetails := &models.CollectionDetails{
+		Oid:       result.Oid,
+		Name:      result.Name,
+		Banner:    result.Banner,
+		Desc:      result.Desc,
+		Permalink: result.Permalink,
+		Apps:      appCommons,
+		Status:    result.Status,
+		Partner:   result.Partner,
+	}
+
+	var byteResult []byte
+	byteResult, err = json.Marshal(resultDetails)
+	w.Header().Set("Content-Type", "application/json")
+	if err != nil {
+		log.Println(err.Error())
+		w.Write([]byte(err.Error()))
+	} else {
+		w.Write(byteResult)
+	}
 
 }
 
