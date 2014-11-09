@@ -9,7 +9,6 @@ import "./handlers"
 import "github.com/doanchu/apkenduser/services"
 
 import "html/template"
-import "os"
 
 var session *mgo.Session
 
@@ -35,13 +34,6 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	mgo.SetDebug(true)
-
-	var aLogger *log.Logger
-	aLogger = log.New(os.Stderr, "", log.LstdFlags)
-	mgo.SetLogger(aLogger)
-
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	var err error
 	var host string = "sv12.mway.vn:27017"
 	session, err = mgo.Dial(host)
@@ -94,7 +86,7 @@ func main() {
 	router.HandleFunc("/api/collections/{partner}/{page}/{limit}", handlers.CollectionsHandler)
 	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
 
-	subRouter := router.Host("{subdomain}.apk.vn").Subrouter()
+	subRouter := router.Host("{subdomain}.apk.de").Subrouter()
 	subRouter.PathPrefix("/assets").Handler(http.FileServer(http.Dir("public")))
 	subRouter.PathPrefix("/").HandlerFunc(handleIndex)
 	http.Handle("/", router)

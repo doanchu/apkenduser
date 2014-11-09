@@ -153,9 +153,11 @@ var AppList = React.createClass({
     //var data = [{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}]
     
     var items = this.state.data.map(function(item){
+      if (item != null) {
         return (
           <Item name={item.name} downloads={item.total_download} thumbnail={item.thumbnail}/>
         );
+      }
     })
     return (
 <section className="items list_app">
