@@ -4,7 +4,7 @@ var Item = React.createClass({displayName: 'Item',
        
 React.createElement("a", {href: "/app/us.porrassoft.tattoo.gun.camera.html", className: "item app"}, 
         React.createElement("div", {className: "item_cont"}, 
-          React.createElement("img", {alt: "", 'data-postload-img-onerror': "if (this.getAttribute('error') != 1){this.setAttribute('src','http://cdn3.aptoide.com/includes/themes/mobile2014/images/app_icon_default_mdpi.png');this.setAttribute('error',1);}", 'data-postload-img': "http://apk.vn/static/images/2014/10/29/1414549748/86.png", src: "http://apk.vn/static/images/2014/10/29/1414549748/86.png", className: "item_icon"}), 
+          React.createElement("img", {alt: "", src: this.props.thumbnail, className: "item_icon"}), 
           React.createElement("div", {className: "item_meta"}, 
             React.createElement("div", {className: "item_name"}, this.props.name), 
             React.createElement("div", {className: "stars"}, React.createElement("div", {style: {width: 52}})), 
@@ -138,12 +138,23 @@ var NavTop = React.createClass({displayName: 'NavTop',
 
 
 var AppList = React.createClass({displayName: 'AppList',
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    var url = "/api/apps-partner/" + document.partner + "/1/10";
+    $.get(url, function(result) {
+      if (this.isMounted()) {
+        this.setState({data: result})
+      }
+    }.bind(this))
+  },
   render: function() {    
-    var data = [{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000},{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}]
+    //var data = [{name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}, {name: "item1", downloads: 1000}]
     
-    var items = data.map(function(item){
+    var items = this.state.data.map(function(item){
         return (
-          React.createElement(Item, {name: item.name, downloads: item.downloads})
+          React.createElement(Item, {name: item.name, downloads: item.total_download, thumbnail: item.thumbnail})
         );
     })
     return (
