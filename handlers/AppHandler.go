@@ -57,6 +57,7 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	vars := mux.Vars(r)
+	log.Println(vars)
 	myPartner := vars["partner"]
 	page, err := strconv.Atoi(vars["page"])
 	if err != nil {

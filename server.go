@@ -8,13 +8,38 @@ import "gopkg.in/mgo.v2"
 import "./handlers"
 import "github.com/doanchu/apkenduser/services"
 
+import "html/template"
+import "os"
+
 var session *mgo.Session
 
+var indexTemplate *template.Template
+
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "public/index.html")
+	vars := mux.Vars(r)
+	log.Println(vars)
+	template, err := indexTemplate.ParseFiles("public/index.html")
+	if err != nil {
+		w.Write([]byte("There are some errors"))
+		return
+	}
+	data := struct {
+		Partner string
+	}{
+		Partner: vars["subdomain"],
+	}
+	log.Println(data.Partner)
+	template.Execute(w, data)
+	//http.ServeFile(w, r, "public/index.html")
 }
 
 func main() {
+
+	mgo.SetDebug(true)
+
+	var aLogger *log.Logger
+	aLogger = log.New(os.Stderr, "", log.LstdFlags)
+	mgo.SetLogger(aLogger)
 
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	var err error
@@ -48,6 +73,7 @@ func main() {
 		DB:   handlers.Mongo,
 	}
 
+	//indexTemplate = template.New("indexTemplate")
 	// collectionResult := handlers.Mongo.GetCollectionsByPartner("duyhungws", 1, 1)
 	// log.Println(collectionResult)
 
@@ -63,13 +89,15 @@ func main() {
 	// charMap := map[string]string{"À": "A", "Á": "A"}
 	// log.Println(charMap["Á"])
 	router := mux.NewRouter()
-
 	router.HandleFunc("/api/apps-category/{partner}/{cid}/{page}/{limit}", handlers.AppCategoryHandler)
 	router.HandleFunc("/api/apps-{condition}/{partner}/{page}/{limit}", handlers.AppPartnerHandler)
 	router.HandleFunc("/api/collections/{partner}/{page}/{limit}", handlers.CollectionsHandler)
 	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
-	router.PathPrefix("/assets").Handler(http.FileServer(http.Dir("public")))
-	router.PathPrefix("/").HandlerFunc(handleIndex)
+
+	subRouter := router.Host("{subdomain}.apk.vn").Subrouter()
+	subRouter.PathPrefix("/assets").Handler(http.FileServer(http.Dir("public")))
+	subRouter.PathPrefix("/").HandlerFunc(handleIndex)
 	http.Handle("/", router)
-	http.ListenAndServe(":3000", nil)
+	err = http.ListenAndServe(":3000", nil)
+	log.Println(err)
 }
