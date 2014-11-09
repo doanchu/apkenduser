@@ -75,7 +75,7 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 
 	var sortCondition string
 	switch condition {
-	case "partner":
+	case "partner", "partner-min":
 		sortCondition = "-time_order"
 	case "like":
 		sortCondition = "-total_like"
@@ -102,6 +102,7 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println(myPartner)
 
 	result := Mongo.GetPartnerApps(myPartner, page, limit, sortCondition)
+
 	// var result []*models.PartnerAppInfo
 	// if isGetByCat == true {
 	// 	result = Mongo.GetPartnerAppsByCategory(myPartner, cid, page, limit)
@@ -114,6 +115,13 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	appDetails := CreateAppDetails(result)
+
+	if condition == "partner-min" {
+		for _, value := range appDetails {
+			value.Desc = ""
+			value.Ss = nil
+		}
+	}
 
 	var byteResult []byte
 	byteResult, err = json.Marshal(appDetails)
