@@ -89,6 +89,25 @@ func (m *Mongo) GetPartnerApps(partner string, page int, limit int, sortConditio
 	}
 }
 
+func (m *Mongo) SearchCommonApps(query string, page int, limit int) []*models.AppCommon {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("app_common")
+	var result []*models.AppCommon
+	err := c.Find(bson.M{"$text": bson.M{"$search": query}}).Sort("-total_download").Skip((page - 1) * limit).Limit(limit).All(&result)
+
+	// var byteResult []byte
+	// byteResult, err = json.Marshal(result)
+	if err != nil {
+		log.Println(err.Error())
+		return nil
+	} else {
+		return result
+	}
+}
+
 func (m *Mongo) GetPartnerAppsByCategory(partner string, cid int, page int, limit int) []*models.PartnerAppInfo {
 	session := m.Session.Clone()
 	defer session.Close()

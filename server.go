@@ -14,6 +14,7 @@ import "code.google.com/p/goconf/conf"
 import "strconv"
 import "github.com/codegangsta/negroni"
 import "github.com/phyber/negroni-gzip/gzip"
+import "github.com/doanchu/apkenduser/utils"
 
 var session *mgo.Session
 
@@ -85,6 +86,11 @@ func readConfiguration() {
 func main() {
 	readConfiguration()
 
+	s := "Bỏ dấu tiếng việt"
+
+	s = utils.ClearVietnameseChars(s)
+	log.Println(s)
+
 	var err error
 	var host string = mongoHost + ":" + strconv.Itoa(mongoPort)
 	session, err = mgo.Dial(host)
@@ -143,6 +149,7 @@ func main() {
 	router := mux.NewRouter()
 	router.PathPrefix("/static").Handler(http.FileServer(http.Dir("public")))
 	router.HandleFunc("/api/app/{partner}/{app_id}", handlers.AppPartnerHandler)
+	router.HandleFunc("/app/search/{query}/{page}/{limit}", handlers.SearchAppsHandler)
 	router.HandleFunc("/app/download/{partner}/{app_id}", handlers.AppDownloadHandler)
 	router.HandleFunc("/api/collection-details/{partner}/{col_id}", handlers.AppCollectionHandler)
 	router.HandleFunc("/api/apps-in-collection/{partner}/{col_id}", handlers.AppsInCollectionHandler)

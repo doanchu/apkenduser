@@ -161,14 +161,14 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 
 	appDetails := CreateAppDetails(result)
 
-	if condition == "partner-min" || condition == "partner" {
-		for _, value := range appDetails {
-			if value != nil {
-				value.Desc = ""
-				value.Ss = nil
-			}
+	//if condition == "partner-min" || condition == "partner" {
+	for _, value := range appDetails {
+		if value != nil {
+			value.Desc = ""
+			value.Ss = nil
 		}
 	}
+	//}
 
 	var byteResult []byte
 	byteResult, err = json.Marshal(appDetails)
@@ -259,6 +259,32 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	//w.Write([]byte(downloadLink))
 }
 
+func SearchAppsHandler(w http.ResponseWriter, r *http.Request) {
+	var err error
+	_ = err
+	vars := mux.Vars(r)
+
+	//partner := vars["partner"]
+
+	query := vars["query"]
+	query = "\"" + query + "\""
+
+	page, err := strconv.Atoi(vars["page"])
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	limit, err := strconv.Atoi(vars["limit"])
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	appCommons := Mongo.SearchCommonApps(query, page, limit)
+
+	WriteJsonResult(w, appCommons)
+}
 func AppCollectionHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	_ = err
