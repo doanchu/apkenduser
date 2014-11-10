@@ -239,7 +239,7 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 		downloadLink = appCommon.Download_link["campaign"]
 	}
 	log.Println("Download link is", downloadLink)
-	http.Redirect(w, r, downloadLink, http.StatusMovedPermanently)
+	http.Redirect(w, r, downloadLink, http.StatusFound)
 	//w.Write([]byte(downloadLink))
 }
 
