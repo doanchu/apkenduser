@@ -187,8 +187,13 @@ func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
 	for key, value := range apps {
 		id := value.Id
 		appCommon := Cache.GetCommonAppById(id)
-		category := Mongo.GetCategoryById(value.Cid)
-		appDetails[key] = models.NewAppDetails(value, appCommon, category)
+		if appCommon.Status == 1 {
+			category := Mongo.GetCategoryById(value.Cid)
+			appDetails[key] = models.NewAppDetails(value, appCommon, category)
+		} else {
+			appDetails[key] = nil
+		}
+
 	}
 
 	return appDetails
