@@ -108,6 +108,40 @@ func (m *Mongo) GetPartnerAppsByCategory(partner string, cid int, page int, limi
 	}
 }
 
+func (m *Mongo) GetAppCommonByAppId(appId string) *models.AppCommon {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("app_common")
+	result := &models.AppCommon{}
+	err := c.Find(bson.M{"id": appId}).One(&result)
+
+	if err != nil {
+		log.Println(err.Error())
+		return nil
+	} else {
+		return result
+	}
+}
+
+func (m *Mongo) GetPartnerAppById(partner string, appId string) *models.PartnerAppInfo {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("partner_app_info")
+	result := &models.PartnerAppInfo{}
+	err := c.Find(bson.M{"partner": partner, "id": appId}).One(&result)
+
+	if err != nil {
+		log.Println(err.Error())
+		return nil
+	} else {
+		return result
+	}
+}
+
 type PartnerAppCollection struct {
 	Col_id bson.ObjectId
 }

@@ -50,3 +50,26 @@ func NewAppDetails(p *PartnerAppInfo, a *AppCommon, c *Category) *AppDetails {
 		Time_order:     p.Time_order,
 	}
 }
+
+func NewAppDetailsFromAppCommon(a *AppCommon, c *Category) *AppDetails {
+	return &AppDetails{
+		Name:           a.Name,
+		Desc:           a.Desc,
+		Id:             a.Id,
+		Cid:            a.Cid,
+		Cname:          c.Name,
+		Vendor:         a.Vendor,
+		Name_seo:       a.Name_seo,
+		Partner:        "",
+		Status:         a.Status,
+		Total_download: 0,
+		Total_like:     0,
+		Total_share:    0,
+		Size:           a.Size,
+		Ss:             a.Ss,
+		Thumbnail:      a.Thumbnail,
+		Version:        a.Version,
+		Download_link:  a.Download_link,
+		Download_type:  a.Download_type,
+	}
+}

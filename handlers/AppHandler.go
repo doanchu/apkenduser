@@ -55,6 +55,51 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	log.Println(vars)
+	partner := vars["partner"]
+
+	appId := vars["app_id"]
+
+	appCommon := Mongo.GetCommonAppById(appId)
+	if appCommon == nil {
+		w.Write([]byte("{}"))
+		return
+	}
+	log.Println(appCommon)
+	appPartner := Mongo.GetPartnerAppById(partner, appId)
+
+	category := Mongo.GetCategoryById(appCommon.Cid)
+
+	var appDetails *models.AppDetails
+
+	if appPartner == nil {
+		appDetails = models.NewAppDetailsFromAppCommon(appCommon, category)
+	} else {
+		appDetails = models.NewAppDetails(appPartner, appCommon, category)
+	}
+
+	WriteJsonResult(w, appDetails)
+}
+
+func CreateAppDetail(appCommon *models.AppCommon, appPartner *models.PartnerAppInfo, category *models.Category) {
+
+}
+
+func WriteJsonResult(w http.ResponseWriter, result interface{}) {
+	var err error
+	var byteResult []byte
+	byteResult, err = json.Marshal(result)
+	w.Header().Set("Content-Type", "application/json")
+	if err != nil {
+		log.Println(err.Error())
+		w.Write([]byte(err.Error()))
+	} else {
+		w.Write(byteResult)
+	}
+}
+
 func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	vars := mux.Vars(r)

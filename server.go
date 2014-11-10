@@ -6,7 +6,7 @@ import "github.com/gorilla/mux"
 import "gopkg.in/mgo.v2"
 import _ "gopkg.in/mgo.v2/bson"
 
-import "./handlers"
+import "github.com/doanchu/apkenduser/handlers"
 import "github.com/doanchu/apkenduser/services"
 
 import "html/template"
@@ -141,6 +141,7 @@ func main() {
 	// charMap := map[string]string{"À": "A", "Á": "A"}
 	// log.Println(charMap["Á"])
 	router := mux.NewRouter()
+	router.HandleFunc("/api/app/{partner}/{app_id}", handlers.AppPartnerHandler)
 	router.HandleFunc("/api/collection-details/{partner}/{col_id}", handlers.AppCollectionHandler)
 	router.HandleFunc("/api/apps-in-collection/{partner}/{col_id}", handlers.AppsInCollectionHandler)
 	router.HandleFunc("/api/apps-category/{partner}/{cid}/{page}/{limit}", handlers.AppCategoryHandler)
