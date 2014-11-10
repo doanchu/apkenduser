@@ -7,6 +7,9 @@ import "strconv"
 import "log"
 import "github.com/doanchu/apkenduser/models"
 import "gopkg.in/mgo.v2/bson"
+import "strings"
+import "os"
+import "io"
 
 func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -81,10 +84,6 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	WriteJsonResult(w, appDetails)
-}
-
-func CreateAppDetail(appCommon *models.AppCommon, appPartner *models.PartnerAppInfo, category *models.Category) {
-
 }
 
 func WriteJsonResult(w http.ResponseWriter, result interface{}) {
@@ -192,6 +191,56 @@ func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
 
 	return appDetails
 
+}
+
+func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	appId := vars["app_id"]
+	partner := vars["partner"]
+
+	appCommon := Mongo.GetCommonAppById(appId)
+	var downloadLink string = ""
+	switch appCommon.Download_type {
+	case "adflex":
+		adFlexLink := appCommon.Download_link["adflex"]
+		downloadLink = strings.Replace(adFlexLink, "{refcode}", partner, -1)
+		resp, err := http.Get(downloadLink)
+		defer resp.Body.Close()
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("There are some errors"))
+			return
+		}
+		dir := "public/static/adflex/" + partner
+		err = os.MkdirAll(dir, 0777)
+		if err != nil {
+			log.Println(err.Error())
+		}
+
+		//Get file name http://sv8.mway.vn:88/AdFlexWrapperService/download2/
+		prefix := "http://sv8.mway.vn:88/AdFlexWrapperService/download2/" + appId + "/"
+		fileName := strings.Replace(strings.Replace(adFlexLink, prefix, "", -1), "?partner={refcode}", "", -1)
+		//http: //sv8.mway.vn:88/AdFlexWrapperService/download2/com.sunshinesoft.findanimal/Tim_thu_vat__tre_em_hoc_tap.apk?partner={refcode}
+		log.Println("Prefix is:", prefix)
+		log.Println("AdFlex link is: ", adFlexLink)
+		log.Println("file name is", fileName)
+		out, err := os.Create(dir + "/" + fileName)
+		defer out.Close()
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			w.Write([]byte("There are some errors"))
+			return
+		}
+		io.Copy(out, resp.Body)
+		downloadLink = "/static/adflex/" + partner + "/" + fileName
+	case "static":
+		downloadLink = appCommon.Download_link["static"]
+	case "campaign":
+		downloadLink = appCommon.Download_link["campaign"]
+	}
+	log.Println("Download link is", downloadLink)
+	http.Redirect(w, r, downloadLink, http.StatusMovedPermanently)
+	//w.Write([]byte(downloadLink))
 }
 
 func AppCollectionHandler(w http.ResponseWriter, r *http.Request) {

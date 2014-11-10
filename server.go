@@ -141,7 +141,9 @@ func main() {
 	// charMap := map[string]string{"À": "A", "Á": "A"}
 	// log.Println(charMap["Á"])
 	router := mux.NewRouter()
+	router.PathPrefix("/static").Handler(http.FileServer(http.Dir("public")))
 	router.HandleFunc("/api/app/{partner}/{app_id}", handlers.AppPartnerHandler)
+	router.HandleFunc("/app/download/{partner}/{app_id}", handlers.AppDownloadHandler)
 	router.HandleFunc("/api/collection-details/{partner}/{col_id}", handlers.AppCollectionHandler)
 	router.HandleFunc("/api/apps-in-collection/{partner}/{col_id}", handlers.AppsInCollectionHandler)
 	router.HandleFunc("/api/apps-category/{partner}/{cid}/{page}/{limit}", handlers.AppCategoryHandler)
