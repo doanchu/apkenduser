@@ -161,10 +161,12 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 
 	appDetails := CreateAppDetails(result)
 
-	if condition == "partner-min" {
+	if condition == "partner-min" || condition == "partner" {
 		for _, value := range appDetails {
-			value.Desc = ""
-			value.Ss = nil
+			if value != nil {
+				value.Desc = ""
+				value.Ss = nil
+			}
 		}
 	}
 
