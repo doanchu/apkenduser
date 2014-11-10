@@ -203,35 +203,48 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	switch appCommon.Download_type {
 	case "adflex":
 		adFlexLink := appCommon.Download_link["adflex"]
-		downloadLink = strings.Replace(adFlexLink, "{refcode}", partner, -1)
-		resp, err := http.Get(downloadLink)
-		defer resp.Body.Close()
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("There are some errors"))
-			return
-		}
 		dir := "public/static/adflex/" + partner
-		err = os.MkdirAll(dir, 0777)
-		if err != nil {
-			log.Println(err.Error())
+
+		//Check if directory exists
+		//If not create directory
+		if _, err := os.Stat(dir); os.IsNotExist(err) {
+			err = os.MkdirAll(dir, 0777)
+			if err != nil {
+				log.Println(err.Error())
+			}
+
 		}
 
-		//Get file name http://sv8.mway.vn:88/AdFlexWrapperService/download2/
+		//Get file from Adflex
 		prefix := "http://sv8.mway.vn:88/AdFlexWrapperService/download2/" + appId + "/"
 		fileName := strings.Replace(strings.Replace(adFlexLink, prefix, "", -1), "?partner={refcode}", "", -1)
-		//http: //sv8.mway.vn:88/AdFlexWrapperService/download2/com.sunshinesoft.findanimal/Tim_thu_vat__tre_em_hoc_tap.apk?partner={refcode}
-		log.Println("Prefix is:", prefix)
-		log.Println("AdFlex link is: ", adFlexLink)
-		log.Println("file name is", fileName)
-		out, err := os.Create(dir + "/" + fileName)
-		defer out.Close()
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte("There are some errors"))
-			return
+		filePath := dir + "/" + fileName
+		//First check if the file exists
+		//If not create the file
+
+		// log.Println("Prefix is:", prefix)
+		// log.Println("AdFlex link is: ", adFlexLink)
+		// log.Println("file name is", fileName)
+		if _, err := os.Stat(filePath); os.IsNotExist(err) {
+			downloadLink = strings.Replace(adFlexLink, "{refcode}", partner, -1)
+			resp, err := http.Get(downloadLink)
+			defer resp.Body.Close()
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				w.Write([]byte("There are some errors"))
+				return
+			}
+
+			out, err := os.Create(filePath)
+			defer out.Close()
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				w.Write([]byte("There are some errors"))
+				return
+			}
+			io.Copy(out, resp.Body)
+
 		}
-		io.Copy(out, resp.Body)
 		downloadLink = "/static/adflex/" + partner + "/" + fileName
 	case "static":
 		downloadLink = appCommon.Download_link["static"]
