@@ -221,7 +221,7 @@ func (m *Mongo) GetAllCategories() []*models.Category {
 	c := db.C("category_app")
 
 	var result []*models.Category
-	err := c.Find(bson.M{}).All(&result)
+	err := c.Find(bson.M{"status": 1).All(&result)
 	if err != nil {
 		return nil
 	}
