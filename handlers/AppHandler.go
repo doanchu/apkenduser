@@ -39,13 +39,14 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 
 	var result []*models.PartnerAppInfo
 	result = Mongo.GetPartnerAppsByCategory(myPartner, cid, page, limit)
+	log.Println(result)
 	if result == nil {
 		w.Write([]byte("[]"))
 		return
 	}
 
 	appDetails := CreateAppDetails(result)
-
+	log.Println(appDetails)
 	var byteResult []byte
 	byteResult, err = json.Marshal(appDetails)
 	w.Header().Set("Content-Type", "application/json")
@@ -188,7 +189,9 @@ func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
 		id := value.Id
 		appCommon := Cache.GetCommonAppById(id)
 		if appCommon == nil {
-			return nil
+			log.Println(value.Id)
+			appDetails[key] = nil
+			continue
 		}
 		if appCommon.Status == 1 {
 			category := Mongo.GetCategoryById(value.Cid)
