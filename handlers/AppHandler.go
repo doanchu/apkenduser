@@ -237,7 +237,7 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 		downloadLink = appCommon.Download_link["static"]
 	case "campaign":
 		downloadLink = appCommon.Download_link["campaign"]
-		downloadLink = strings.Replace(downloadLink, "{partner}", partner)
+		downloadLink = strings.Replace(downloadLink, "{partner}", partner, -1)
 	}
 	log.Println("Download link is", downloadLink)
 	http.Redirect(w, r, downloadLink, http.StatusFound)
