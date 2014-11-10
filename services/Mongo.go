@@ -212,3 +212,18 @@ func (m *Mongo) GetCollectionsByPartner(partner string, page int, limit int) []*
 	// partnerCol.Find(bson.M{"partner": partner, "col_id": bson.M{"$in", ids}}).All()
 
 }
+
+func (m *Mongo) GetAllCategories() []*models.Category {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("category_app")
+
+	var result []*models.Category
+	err := c.Find(bson.M{}).All(&result)
+	if err != nil {
+		return nil
+	}
+	return result
+}

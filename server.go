@@ -157,6 +157,7 @@ func main() {
 	router.HandleFunc("/api/apps-{condition}/{partner}/{page}/{limit}", handlers.AppsPartnerHandler)
 	router.HandleFunc("/api/collections/{partner}/{page}/{limit}", handlers.CollectionsHandler)
 	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
+	router.HandleFunc("/api/categories", handlers.CategoriesHandler)
 
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
 	subRouter.PathPrefix("/assets").Handler(http.FileServer(http.Dir("public")))

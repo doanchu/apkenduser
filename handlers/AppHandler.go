@@ -450,3 +450,12 @@ func CommentsHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write(byteResult)
 	}
 }
+
+func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
+	result := Mongo.GetAllCategories()
+	if result == nil {
+		w.Write([]byte("[]"))
+		return
+	}
+	WriteJsonResult(w, result)
+}
