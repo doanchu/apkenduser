@@ -56,7 +56,7 @@ var Banner = React.createClass({displayName: 'Banner',
           React.createElement("div", {className: "item"}, React.createElement("a", {href: "#"}, React.createElement("img", {src: "/assets/images/fullimage5.jpg", alt: "Mirror Edge"})))
         ), 
       React.createElement("div", {className: "wfull center"}, 
-        React.createElement("a", {className: "btn apk_install", href: "/"}, React.createElement("div", null), "  Cài Đặt Store")
+        React.createElement("a", {className: "btn apk_install", href: "http://" + document.partner + ".apk.vn/store/download"}, React.createElement("div", null), "  Cài Đặt Store")
       )
 
       )
