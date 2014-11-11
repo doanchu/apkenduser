@@ -1,3 +1,4 @@
+var Navigation = ReactRouter.Navigation;
 var Item = React.createClass({
   handleDownload: function(e) {
     e.preventDefault();
@@ -87,6 +88,10 @@ var LayoutFootter = React.createClass({
 
 
 var Header = React.createClass({
+  mixins: [Navigation],  
+  getInitialState: function() {
+    return {search: ""}
+  },
   componentDidMount: function(){    
     if ($('#search_btn_top[data-search-hidden]').length){
       $(window).scroll(function(e){
@@ -99,20 +104,32 @@ var Header = React.createClass({
     $('#search_btn_top').click(function(){
       $(this).removeAttr('data-search-hidden').fadeOut('fast');
       $('#top_logo').fadeOut('fast');
-      $('#search_top').fadeIn('fast', function(){$(this).find('input[type="text"][name="search"]').focus();});
+      $('#search_top').fadeIn('fast', function(){$(this).removeClass('nodisplay');});
       return false;
     });         
   },
+  back: function(e) {
+    window.history.back()
+  },
+  search: function(e) {
+    e.preventDefault();
+    var query = this.state.search;    
+    this.transitionTo("/app/search/" + query);    
+  },
+  handleChange: function(e) {
+    this.setState({search: e.target.value})
+  },
   render: function() {
+    var value = this.state.search
     return (
       <header data-fixed-header="" className="top_header">
-        <a id="btn_back" onclick="goBack()" href="javascript('goBack()'):;" className="btn drawer btn_back" />
+        <a id="btn_back" onClick={this.back} className="btn drawer btn_back" />
         <div className="top_logo_area">
           <a href="/" id="top_logo" className="top_logo"><img className="logo" alt="" src="/assets/images/logo.png" /></a>
         </div>
         <div id="search_top" className="search_top nodisplay">
-          <form method="get" action="/">
-            <input type="text" placeholder="Tìm kiếm ứng dụng ..." value="" name="search" />
+          <form method="get" onSubmit={this.search} action="/">
+            <input type="text" placeholder="Tìm kiếm ứng dụng ..." id="search_input" value={value} name="search" onChange={this.handleChange}/>
             <input type="submit" className="btn" value="" />
           </form>
         </div>
@@ -239,6 +256,7 @@ var Footer = React.createClass({
 
 
 var Home = React.createClass({
+
   render: function() {
     return (
       <div className="body">
@@ -411,6 +429,69 @@ var TopStandings = React.createClass({
 <div className="body_container">
 <NavTop route="standings" />
 <Content route="standings" />
+</div>
+<Footer />    
+    </div>
+    )
+  }
+})
+
+
+var SearchContent = React.createClass({
+  getInitialState: function() {
+    return {data: [], page: 1}
+  },
+  getMoreContent: function() {    
+    // var page = this.state.page + 1; 
+    // var prefix = "/api/apps-partner/";
+    // if (this.props.route == "home") {
+    //   prefix = "/api/apps-partner/";
+    // } else if (this.props.route == "topdownload") {
+    //   prefix = "/api/apps-download/";
+    // } else if (this.props.route == "standings") {
+    //   prefix = "/api/apps-like/";
+    // }      
+    // var url = prefix + document.partner + "/" + this.state.page + "/10";
+    // $.get(url, function(result) {      
+    //   if (this.isMounted()) {
+    //     if (result != null && $.isArray(result) && result.length > 0) {
+    //       var newData = this.state.data.concat(result)
+    //       this.setState({data: newData, page: page})
+    //     }
+    //   }
+    // }.bind(this))    
+  },
+  componentDidMount: function() {
+    var prefix = "/app/search/" + this.props.query;
+    var url = prefix + "/1/10";
+    $.get(url, function(result) {
+      if (this.isMounted()) {
+        this.setState({data: result})
+      }
+    }.bind(this))
+  },
+  render: function() {
+    return (
+      <div>
+      <AppList data={this.state.data}/>
+        <div className="clear" />
+        <div id="loading_gif" className="wfull center">
+          <div style={{width: 160, height: 15}} className="css_loader"><div style={{top: 0, left: 0, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0s', WebkitAnimationDelay: '0s', MsAnimationDelay: '0s', OAnimationDelay: '0s', animationDelay: '0s'}} /><div style={{top: 0, left: 20, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.125s', WebkitAnimationDelay: '0.125s', MsAnimationDelay: '0.125s', OAnimationDelay: '0.125s', animationDelay: '0.125s'}} /><div style={{top: 0, left: 40, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.25s', WebkitAnimationDelay: '0.25s', MsAnimationDelay: '0.25s', OAnimationDelay: '0.25s', animationDelay: '0.25s'}} /><div style={{top: 0, left: 60, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.375s', WebkitAnimationDelay: '0.375s', MsAnimationDelay: '0.375s', OAnimationDelay: '0.375s', animationDelay: '0.375s'}} /><div style={{top: 0, left: 80, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.5s', WebkitAnimationDelay: '0.5s', MsAnimationDelay: '0.5s', OAnimationDelay: '0.5s', animationDelay: '0.5s'}} /><div style={{top: 0, left: 100, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.625s', WebkitAnimationDelay: '0.625s', MsAnimationDelay: '0.625s', OAnimationDelay: '0.625s', animationDelay: '0.625s'}} /><div style={{top: 0, left: 120, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.75s', WebkitAnimationDelay: '0.75s', MsAnimationDelay: '0.75s', OAnimationDelay: '0.75s', animationDelay: '0.75s'}} /><div style={{top: 0, left: 140, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.875s', WebkitAnimationDelay: '0.875s', MsAnimationDelay: '0.875s', OAnimationDelay: '0.875s', animationDelay: '0.875s'}} /></div>
+        </div>        
+        <p className="btn-view" onClick={this.getMoreContent}>Xem thêm</p>
+        </div>      
+    )
+  }    
+});
+
+var AppSearch = React.createClass({
+  render: function() {
+    return (
+      <div className="body">
+<Header />
+<div className="body_container">
+<NavTop route="search" />
+<SearchContent route="search" query={this.props.params.query} />
 </div>
 <Footer />    
     </div>

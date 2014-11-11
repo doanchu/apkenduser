@@ -12,8 +12,11 @@ var routes = (
     </Route>
     <Route name="TopStandings" path="/app/standings" handler={TopStandings}>    
     </Route>
-    <Route name="AppDetails" path="/app/:appId.html" handler={AppDetails}>    
+    <Route name="AppDetails" path="/app/:appId.html" handler={AppDetails}>        
     </Route>
+    <Route name="AppSearch" path="/app/search/:query" handler={AppSearch}>        
+    </Route>
+
   </Routes>
 );
 
