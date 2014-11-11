@@ -172,8 +172,16 @@ var Content = React.createClass({displayName: 'Content',
     return {data: [], page: 1}
   },
   getMoreContent: function() {    
-    var page = this.state.page + 1;    
-    var url = "/api/apps-partner/" + document.partner + "/" + this.state.page + "/10";
+    var page = this.state.page + 1; 
+    var prefix = "/api/apps-partner/";
+    if (this.props.route == "home") {
+      prefix = "/api/apps-partner/";
+    } else if (this.props.route == "topdownload") {
+      prefix = "/api/apps-download/";
+    } else if (this.props.route == "standings") {
+      prefix = "/api/apps-like/";
+    }      
+    var url = prefix + document.partner + "/" + this.state.page + "/10";
     $.get(url, function(result) {      
       if (this.isMounted()) {
         if (result != null && $.isArray(result) && result.length > 0) {
@@ -184,7 +192,15 @@ var Content = React.createClass({displayName: 'Content',
     }.bind(this))    
   },
   componentDidMount: function() {
-    var url = "/api/apps-partner-min/" + document.partner + "/1/10";
+    var prefix = "/api/apps-partner/";
+    if (this.props.route == "home") {
+      prefix = "/api/apps-partner/";
+    } else if (this.props.route == "topdownload") {
+      prefix = "/api/apps-download/";
+    } else if (this.props.route == "standings") {
+      prefix = "/api/apps-like/";
+    }       
+    var url = prefix + document.partner + "/1/10";
     $.get(url, function(result) {
       if (this.isMounted()) {
         this.setState({data: result})

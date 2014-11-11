@@ -129,6 +129,10 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 		sortCondition = "-total_like"
 	case "share":
 		sortCondition = "-total_share"
+	case "download":
+		sortCondition = "-total_download"
+	case "new":
+		sortCondition = "-_id"
 	default:
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))
