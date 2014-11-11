@@ -56,7 +56,7 @@ var Banner = React.createClass({
           <div className="item"><a href="#"><img src="/assets/images/fullimage5.jpg" alt="Mirror Edge" /></a></div>
         </div>
       <div className="wfull center">
-        <a className="btn apk_install" href={"http://" + document.partner + ".apk.vn/store/download"}><div></div>&nbsp;&nbsp;Cài Đặt Store</a>
+        <a className="btn apk_install" href={"http://beta.apk.vn/store/download/" + document.partner}><div></div>&nbsp;&nbsp;Cài Đặt Store</a>
       </div>
 
       </section>
