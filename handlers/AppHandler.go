@@ -396,23 +396,24 @@ func AppsInCollectionHandler(w http.ResponseWriter, r *http.Request) {
 
 func CollectionsHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
-	vars := mux.Vars(r)
+	//vars := mux.Vars(r)
 
-	partner := vars["partner"]
+	// partner := vars["partner"]
 
-	page, err := strconv.Atoi(vars["page"])
-	if err != nil {
-		w.Write([]byte(err.Error()))
-		return
-	}
+	// page, err := strconv.Atoi(vars["page"])
+	// if err != nil {
+	// 	w.Write([]byte(err.Error()))
+	// 	return
+	// }
 
-	limit, err := strconv.Atoi(vars["limit"])
-	if err != nil {
-		w.Write([]byte(err.Error()))
-		return
-	}
+	// limit, err := strconv.Atoi(vars["limit"])
+	// if err != nil {
+	// 	w.Write([]byte(err.Error()))
+	// 	return
+	// }
 
-	result := Mongo.GetCollectionsByPartner(partner, page, limit)
+	//result := Mongo.GetCollectionsByPartner(partner, page, limit)
+	result := Mongo.GetAllCollections()
 	if result == nil {
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))

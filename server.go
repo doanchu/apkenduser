@@ -155,7 +155,7 @@ func main() {
 	router.HandleFunc("/api/apps-in-collection/{partner}/{col_id}", handlers.AppsInCollectionHandler)
 	router.HandleFunc("/api/apps-category/{partner}/{cid}/{page}/{limit}", handlers.AppCategoryHandler)
 	router.HandleFunc("/api/apps-{condition}/{partner}/{page}/{limit}", handlers.AppsPartnerHandler)
-	router.HandleFunc("/api/collections/{partner}/{page}/{limit}", handlers.CollectionsHandler)
+	router.HandleFunc("/api/collections", handlers.CollectionsHandler)
 	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
 	router.HandleFunc("/api/categories", handlers.CategoriesHandler)
 
