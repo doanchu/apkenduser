@@ -4,8 +4,15 @@ var Routes = ReactRouter.Routes;
 var DefaultRoute = ReactRouter.DefaultRoute;
 var Link = ReactRouter.Link;
 
+
+var loc = "history";
+if (window.history && window.history.pushState) {
+    loc = "history";
+} else {
+    loc = "hash";
+}
 var routes = (
-  <Routes location="history">
+  <Routes location={loc}>
     <Route name="Home" path="/" handler={Home}>    
     </Route>
     <Route name="TopDownload" path="/app/topdownload" handler={TopDownload}>    
