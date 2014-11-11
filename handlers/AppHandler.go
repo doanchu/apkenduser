@@ -29,6 +29,7 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 
 	cid, err := strconv.Atoi((vars["cid"]))
 	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))
 		return
 	}
@@ -41,6 +42,7 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	result = Mongo.GetPartnerAppsByCategory(myPartner, cid, page, limit)
 	log.Println(result)
 	if result == nil {
+		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))
 		return
 	}
@@ -128,6 +130,7 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	case "share":
 		sortCondition = "-total_share"
 	default:
+		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))
 		return
 	}
@@ -156,6 +159,7 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	// 	result = Mongo.GetPartnerApps(myPartner, page, limit)
 	// }
 	if result == nil {
+		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))
 		return
 	}
@@ -399,6 +403,7 @@ func CollectionsHandler(w http.ResponseWriter, r *http.Request) {
 
 	result := Mongo.GetCollectionsByPartner(partner, page, limit)
 	if result == nil {
+		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))
 		return
 	}
@@ -436,6 +441,7 @@ func CommentsHandler(w http.ResponseWriter, r *http.Request) {
 
 	result := Mongo.GetCommentsByAppId(app_id, page, limit)
 	if result == nil {
+		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))
 		return
 	}
@@ -454,6 +460,7 @@ func CommentsHandler(w http.ResponseWriter, r *http.Request) {
 func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 	result := Mongo.GetAllCategories()
 	if result == nil {
+		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))
 		return
 	}
