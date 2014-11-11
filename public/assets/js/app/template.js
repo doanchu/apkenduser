@@ -1,8 +1,13 @@
 var Item = React.createClass({
+  handleDownload: function(e) {
+    e.preventDefault();
+    window.location = e.currentTarget.getAttribute("href");
+    return false;
+  },
   render:function(){
       return (
        
-<a href="/app/us.porrassoft.tattoo.gun.camera.html" className="item app">
+<a href={"/app/" + this.props.appId + ".html"} className="item app">
         <div className="item_cont">
           <img alt="" src={this.props.thumbnail} className="item_icon" />
           <div className="item_meta">
@@ -11,7 +16,7 @@ var Item = React.createClass({
             <div className="item_info2">{this.props.downloads} downloads</div>
             <div className="item_info2 orange">Apps</div>
           </div>
-          <p className="btn-download" href="">Cài đặt</p>
+          <p  onClick={this.handleDownload} className="btn-download" href={"/app/download/" + this.props.appId}>Cài đặt</p>
         </div>
       </a>
         
@@ -155,7 +160,7 @@ var AppList = React.createClass({
     var items = this.props.data.map(function(item){
       if (item != null) {
         return (
-          <Item name={item.name} downloads={item.total_download} thumbnail={item.thumbnail}/>
+          <Item appId={item.id} name={item.name} downloads={item.total_download} thumbnail={item.thumbnail}/>
         );
       }
     })
