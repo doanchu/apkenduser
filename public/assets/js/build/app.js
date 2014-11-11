@@ -12,8 +12,11 @@ var routes = (
     ), 
     React.createElement(Route, {name: "TopStandings", path: "/app/standings", handler: TopStandings}
     ), 
-    React.createElement(Route, {name: "AppDetails", path: "/app/:app_id/html", handler: AppDetails}
+    React.createElement(Route, {name: "AppDetails", path: "/app/:appId.html", handler: AppDetails}
+    ), 
+    React.createElement(Route, {name: "AppSearch", path: "/app/search/:query", handler: AppSearch}
     )
+
   )
 );
 
