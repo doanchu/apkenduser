@@ -10,6 +10,7 @@ import "gopkg.in/mgo.v2/bson"
 import "strings"
 import "os"
 import "io"
+import "github.com/doanchu/apkenduser/utils"
 
 func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -286,6 +287,7 @@ func SearchAppsHandler(w http.ResponseWriter, r *http.Request) {
 	//partner := vars["partner"]
 
 	query := vars["query"]
+	query = utils.ClearVietnameseChars(query)
 	query = "\"" + query + "\""
 
 	page, err := strconv.Atoi(vars["page"])
