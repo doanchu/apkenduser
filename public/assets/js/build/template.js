@@ -153,8 +153,8 @@ var NavTop = React.createClass({displayName: 'NavTop',
           React.createElement("div", {className: "tabs"}, 
             React.createElement(Link, {to: "/", className: this.props.route == "home" ? "active" : ""}, "Trang chủ"), 
             React.createElement(Link, {to: "/app/topdownload", className: this.props.route == "topdownload" ? "active" : ""}, "Tải nhiều"), 
-            /*<Link to="/app/standings" className={this.props.route == "standings" ? "active" : ""}>Thứ hạng</Link>*/
-            React.createElement("a", {href: "/page", className: ""}, "Chọn lọc")
+            React.createElement(Link, {to: "/app/standings", className: this.props.route == "standings" ? "active" : ""}, "Thứ hạng")
+            /*<a href="/page" className="">Chọn lọc</a>*/
           )
         )
       )
