@@ -264,6 +264,15 @@ React.createElement(Footer, null)
   }
 });
 
+
+var AppDetails = React.createClass({displayName: 'AppDetails',
+  render: function() {
+    return (
+      React.createElement("div", null, "Fuck")
+    )
+  }
+});
+
 var TopStandings = React.createClass({displayName: 'TopStandings',
   render: function() {
     return (

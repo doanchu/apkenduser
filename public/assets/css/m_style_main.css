@@ -1790,6 +1790,7 @@ section.store_controls .label {
 
 section.app_view {
 	width: 100%;
+	margin-top: 15px;
 }
 
 section.app_view > div:nth-of-type(1){
@@ -2079,8 +2080,7 @@ section.app_view .app_controls {
 	height: 320px;
 }
 
-.app_flags, .app_flags div {
-	width: 100%;
+.app_flags, .app_flags div {	
 	text-align: center;
 	position: relative;
 }
@@ -2094,7 +2094,7 @@ section.app_view .app_controls {
 }
 
 .app_flags > div {
-	width: 20%;
+	width: 50%;
 	padding: 0 7px;
 	float: left;
 }

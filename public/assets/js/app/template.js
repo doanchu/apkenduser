@@ -264,6 +264,140 @@ var TopDownload = React.createClass({
   }
 });
 
+
+var Details = React.createClass({
+  render: function() {
+      var images = this.props.data.ss.map(function(item){
+      if (item != null) {
+        return (
+            <a className="group1">
+              <img alt="Barcode Scanner screenshot 1" className="portrait group1" src={item} />
+            </a>
+
+        );
+      }
+    })
+
+    return (
+
+      <section className="app_view">
+        <div>
+          <div className="app_meta_data">
+            <img alt="" src={this.props.data.thumbnail} className="app_icon" />
+            <p className="app_name">{this.props.data.name}</p>
+            <div className="app_meta mt5">
+              Phiên bản: {this.props.data.version} | 
+              Kích thước: {this.props.data.size}
+            </div>
+            <div className="app_meta">
+              Lượt tải: {this.props.data.total_download}
+              <a data-window-call-id="app_info" href="#"></a>
+            </div>
+            <div className="app_meta install_area">
+              <a href="http://webservices.aptoide.com/apkinstall/apk?uid=7217417" className="btn app_install trusted">
+                <div />
+                Cài Đặt
+              </a>
+            </div>
+          </div>
+          <div className="app_controls">
+            <span data-ajax-url="http://m.eoliveira.store.aptoide.com/phpajax/do_like_vote.php?appid=7217417&repo=eoliveira" data-ajax="likes" className="neverdisplay">
+              Submitting vote...   
+              <div className="load_circ" />
+            </span>
+          </div>
+        </div>
+        <div className="app_screenshots non_select">
+          <div id="app_screenshots" className="slider_section">
+            <span data-sld-btn-prev="" className="neverdisplay" />
+            <span data-sld-btn-next="" className="neverdisplay" />
+            <div id="app_screenshots_sld" data-sld-resizeable="" data-sld-view="" className="slider_area">
+            {images}
+            </div>
+          </div>
+        </div>
+        <div className="app_extended_meta">
+          <div className="app_section_title">Mô tả</div>
+          <div className="app_description">
+            <div data-content-expand-id="description" dangerouslySetInnerHTML={{__html: this.props.data.desc}} >            
+            </div>            
+          </div>
+        </div>
+        <div className="app_extended_meta">
+          <div className="app_section_title">Đánh giá ứng dụng</div>
+          <div className="app_flags mt10">
+            <span data-ajax-url="http://m.eoliveira.store.aptoide.com/phpajax/do_apk_flag.php?appid=7217417&repo=eoliveira" data-ajax="flags" className="neverdisplay">
+              Submitting flag...   
+              <div className="load_circ" />
+            </span>
+            <div>
+              <div className="good ">
+                <img alt="" src="http://cdn3.aptoide.com/includes/themes/mobile2014/images/flag_good.png" />
+                <div>Thích</div>
+                <div data-flag-vote-good-count="">{this.props.data.total_like}</div>
+                <div data-login-btn-trigger="" className="btn">
+                  <div>Thích</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="license ">
+                <img alt="" src="http://cdn3.aptoide.com/includes/themes/mobile2014/images/flag_license.png" />
+                <div>Chia sẻ</div>
+                <div data-flag-vote-license-count="">{this.props.data.total_share}</div>
+                <div data-login-btn-trigger="" className="btn">
+                  <div>Chia sẻ</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div className="clear"><br /></div>
+        </div>
+      </section>
+    );
+  }
+});
+
+var AppDetails = React.createClass({
+  getInitialState: function() {
+    return {
+      data: {
+      name: "",
+      version: "",
+      size: "",
+      total_download: 0,
+      total_like: 0,
+      total_share: 0,
+      thumbnail: "#",
+      ss: [
+      "#"     
+      ],
+      desc: ""
+    }}
+  },
+  componentDidMount: function() {      
+    var url = "/api/app/" + document.partner + "/" + this.props.params.appId;
+    $.get(url, function(result) {      
+      if (this.isMounted()) {                
+        this.setState({data: result})        
+      }
+    }.bind(this))    
+
+  },
+  render: function() {    
+    return (
+      <div className="body">
+<Header />
+<div className="body_container">
+<Details data={this.state.data}/>
+</div>
+<Footer />    
+    </div>
+    )
+  }
+});
+
 var TopStandings = React.createClass({
   render: function() {
     return (

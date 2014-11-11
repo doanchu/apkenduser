@@ -11,8 +11,9 @@ var routes = (
     React.createElement(Route, {name: "TopDownload", path: "/app/topdownload", handler: TopDownload}
     ), 
     React.createElement(Route, {name: "TopStandings", path: "/app/standings", handler: TopStandings}
+    ), 
+    React.createElement(Route, {name: "AppDetails", path: "/app/:app_id/html", handler: AppDetails}
     )
-
   )
 );
 
