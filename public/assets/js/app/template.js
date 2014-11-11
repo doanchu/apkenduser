@@ -1,7 +1,7 @@
 var Item = React.createClass({
   handleDownload: function(e) {
     e.preventDefault();
-    window.location = e.currentTarget.getAttribute("href");
+    window.location = "http://apk.vn:3000/" + e.currentTarget.getAttribute("href");
     return false;
   },
   render:function(){
