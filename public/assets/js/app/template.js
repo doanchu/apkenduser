@@ -1,7 +1,7 @@
 var Item = React.createClass({
   handleDownload: function(e) {
     e.preventDefault();
-    window.location = "http://apk.vn:3000/" + e.currentTarget.getAttribute("href");
+    window.location.href = "http://apk.vn:3000/" + e.currentTarget.getAttribute("href");
     return false;
   },
   render:function(){
@@ -16,7 +16,7 @@ var Item = React.createClass({
             <div className="item_info2">{this.props.downloads} downloads</div>
             <div className="item_info2 orange">Apps</div>
           </div>
-          <p  onClick={this.handleDownload} className="btn-download" href={"/app/download/" + this.props.appId}>Cài đặt</p>
+          <p  onClick={this.handleDownload} className="btn-download" href={"/app/download/" + document.partner + "/" + this.props.appId}>Cài đặt</p>
         </div>
       </a>
         
@@ -299,7 +299,7 @@ var Details = React.createClass({
               <a data-window-call-id="app_info" href="#"></a>
             </div>
             <div className="app_meta install_area">
-              <a href="http://webservices.aptoide.com/apkinstall/apk?uid=7217417" className="btn app_install trusted">
+              <a href={"/app/download/" + document.partner + "/" + this.props.data.id} className="btn app_install trusted">
                 <div />
                 Cài Đặt
               </a>
