@@ -296,12 +296,17 @@ func SearchAppsHandler(w http.ResponseWriter, r *http.Request) {
 
 	limit, err := strconv.Atoi(vars["limit"])
 	if err != nil {
-		w.Write([]byte(err.Error()))
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte("[]"))
 		return
 	}
 
 	appCommons := Mongo.SearchCommonApps(query, page, limit)
-
+	if appCommons == nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte("[]"))
+		return
+	}
 	WriteJsonResult(w, appCommons)
 }
 func AppCollectionHandler(w http.ResponseWriter, r *http.Request) {

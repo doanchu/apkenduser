@@ -114,7 +114,11 @@ var Header = React.createClass({
   search: function(e) {
     e.preventDefault();
     var query = this.state.search;    
-    this.transitionTo("/app/search/" + query);    
+    if (this.props.route != null && this.props.route == "search") {            
+      this.props.updateSearchQuery(query)
+    } else {
+      this.transitionTo("/app/search/" + query);          
+    }   
   },
   handleChange: function(e) {
     this.setState({search: e.target.value})
@@ -462,18 +466,12 @@ var SearchContent = React.createClass({
     // }.bind(this))    
   },
   componentDidMount: function() {
-    var prefix = "/app/search/" + this.props.query;
-    var url = prefix + "/1/10";
-    $.get(url, function(result) {
-      if (this.isMounted()) {
-        this.setState({data: result})
-      }
-    }.bind(this))
+
   },
   render: function() {
     return (
       <div>
-      <AppList data={this.state.data}/>
+      <AppList data={this.props.data}/>
         <div className="clear" />
         <div id="loading_gif" className="wfull center">
           <div style={{width: 160, height: 15}} className="css_loader"><div style={{top: 0, left: 0, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0s', WebkitAnimationDelay: '0s', MsAnimationDelay: '0s', OAnimationDelay: '0s', animationDelay: '0s'}} /><div style={{top: 0, left: 20, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.125s', WebkitAnimationDelay: '0.125s', MsAnimationDelay: '0.125s', OAnimationDelay: '0.125s', animationDelay: '0.125s'}} /><div style={{top: 0, left: 40, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.25s', WebkitAnimationDelay: '0.25s', MsAnimationDelay: '0.25s', OAnimationDelay: '0.25s', animationDelay: '0.25s'}} /><div style={{top: 0, left: 60, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.375s', WebkitAnimationDelay: '0.375s', MsAnimationDelay: '0.375s', OAnimationDelay: '0.375s', animationDelay: '0.375s'}} /><div style={{top: 0, left: 80, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.5s', WebkitAnimationDelay: '0.5s', MsAnimationDelay: '0.5s', OAnimationDelay: '0.5s', animationDelay: '0.5s'}} /><div style={{top: 0, left: 100, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.625s', WebkitAnimationDelay: '0.625s', MsAnimationDelay: '0.625s', OAnimationDelay: '0.625s', animationDelay: '0.625s'}} /><div style={{top: 0, left: 120, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.75s', WebkitAnimationDelay: '0.75s', MsAnimationDelay: '0.75s', OAnimationDelay: '0.75s', animationDelay: '0.75s'}} /><div style={{top: 0, left: 140, height: 15, width: 15, MozAnimationName: 'css_anim', MozAnimationDuration: '1s', MozAnimationIterationCount: 'infinite', MozAnimationDirection: 'linear', MozTransform: 'scale(.3)', WebkitAnimationName: 'css_anim', WebkitAnimationDuration: '1s', WebkitAnimationIterationCount: 'infinite', WebkitAnimationDirection: 'linear', WebkitTransform: 'scale(.3)', MsAnimationName: 'css_anim', MsAnimationDuration: '1s', MsAnimationIterationCount: 'infinite', MsAnimationDirection: 'linear', MsTransform: 'scale(.3)', OAnimationName: 'css_anim', OAnimationDuration: '1s', OAnimationIterationCount: 'infinite', OAnimationDirection: 'linear', OTransform: 'scale(.3)', animationName: 'css_anim', animationDuration: '1s', animationIterationCount: 'infinite', animationDirection: 'linear', transform: 'scale(.3)', MozAnimationDelay: '0.875s', WebkitAnimationDelay: '0.875s', MsAnimationDelay: '0.875s', OAnimationDelay: '0.875s', animationDelay: '0.875s'}} /></div>
@@ -485,13 +483,35 @@ var SearchContent = React.createClass({
 });
 
 var AppSearch = React.createClass({
+  getInitialState: function() {
+      return {query: this.props.params.query, data: []};
+  },
+  updateSearchQuery: function(query) {      
+    var prefix = "/app/search/" + query;
+    var url = prefix + "/1/10";    
+    $.get(url, function(result) {
+      if (this.isMounted()) {
+        this.setState({data: result, query: query})
+      }
+    }.bind(this));    
+
+  },
+  componentDidMount: function() {
+    var prefix = "/app/search/" + this.props.params.query;
+    var url = prefix + "/1/10";    
+    $.get(url, function(result) {
+      if (this.isMounted()) {
+        this.setState({data: result, query: this.props.params.query})
+      }
+    }.bind(this));    
+  },
   render: function() {
     return (
       <div className="body">
-<Header />
+<Header route="search" updateSearchQuery={this.updateSearchQuery}/>
 <div className="body_container">
 <NavTop route="search" />
-<SearchContent route="search" query={this.props.params.query} />
+<SearchContent route="search" query={this.state.query} data={this.state.data} />
 </div>
 <Footer />    
     </div>
