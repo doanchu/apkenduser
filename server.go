@@ -146,6 +146,8 @@ func main() {
 	// log.Println(myResult)
 	// charMap := map[string]string{"À": "A", "Á": "A"}
 	// log.Println(charMap["Á"])
+	rootRouter := mux.NewRouter()
+
 	router := mux.NewRouter()
 	router.PathPrefix("/static").Handler(http.FileServer(http.Dir("public")))
 	router.HandleFunc("/api/app/{partner}/{app_id}", handlers.AppPartnerHandler)
@@ -164,10 +166,15 @@ func main() {
 	subRouter.PathPrefix("/").HandlerFunc(handleIndex)
 	//http.Handle("/", router)
 	//err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
-
+	rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(http.Dir("public")))
+	rootRouter.PathPrefix("/").Handler(negroni.New(
+		gzip.Gzip(gzip.DefaultCompression),
+		negroni.Wrap(router),
+	))
 	n := negroni.New()
-	n.Use(gzip.Gzip(gzip.DefaultCompression))
-	n.UseHandler(router)
+	//n.Use(gzip.Gzip(gzip.DefaultCompression))
+	n.UseHandler(rootRouter)
 	n.Run(":" + strconv.Itoa(serverPort))
+	//router.Handle("/king", negroni.New())
 	log.Println(err)
 }

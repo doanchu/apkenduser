@@ -2,7 +2,7 @@ var Navigation = ReactRouter.Navigation;
 var Item = React.createClass({displayName: 'Item',
   handleDownload: function(e) {
     e.preventDefault();
-    window.location.href = "http://apk.vn:3000/" + e.currentTarget.getAttribute("href");
+    window.location.href = e.currentTarget.getAttribute("href");
     return false;
   },
   render:function(){

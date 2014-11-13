@@ -12,7 +12,7 @@ type AppCommon struct {
 	Order          int               `json:"order"`
 	Size           string            `json:"size"`
 	Ss             []string          `json:"ss"`
-	Status         int               `json:"status"`
+	Status         int64             `json:"status"`
 	User_created   string            `json:"user_created"`
 	Thumbnail      string            `json:"thumbnail"`
 	Version        string            `json:"version"`

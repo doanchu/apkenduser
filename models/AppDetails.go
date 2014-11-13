@@ -10,16 +10,16 @@ type AppDetails struct {
 	Name_seo       string            `json:"name_seo"`
 	Size           string            `json:"size"`
 	Ss             []string          `json:"ss"`
-	Status         int               `json:"status"`
+	Status         int64             `json:"status"`
 	Thumbnail      string            `json:"thumbnail"`
 	Version        string            `json:"version"`
 	Download_link  map[string]string `json:"download_link"`
 	Download_type  string            `json:"download_type"`
 	Partner        string            `json:"partner"`
-	Total_download int               `json:"total_download"`
-	Total_like     int               `json:"total_like"`
-	Total_share    int               `json:"total_share"`
-	Total_rate     int               `json:"total_rate"`
+	Total_download int64             `json:"total_download"`
+	Total_like     int64             `json:"total_like"`
+	Total_share    int64             `json:"total_share"`
+	Total_rate     int64             `json:"total_rate"`
 	Rate           int               `json:"rate"`
 	Time_order     int64             `json:"time_order"`
 }
