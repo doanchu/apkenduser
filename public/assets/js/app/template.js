@@ -207,7 +207,7 @@ var Content = React.createClass({
     } else if (this.props.route == "standings") {
       prefix = "/api/apps-like/";
     }      
-    var url = prefix + document.partner + "/" + this.state.page + "/10";
+    var url = prefix + document.partner + "/" + page + "/10";
     $.get(url, function(result) {      
       if (this.isMounted()) {
         if (result != null && $.isArray(result) && result.length > 0) {

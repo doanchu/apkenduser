@@ -7,6 +7,7 @@ import "strconv"
 import "log"
 import "github.com/doanchu/apkenduser/models"
 import "gopkg.in/mgo.v2/bson"
+import _ "gopkg.in/mgo.v2"
 import "strings"
 import "os"
 import "io"
@@ -155,7 +156,16 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 
 	log.Println(myPartner)
 
-	result := Mongo.GetPartnerApps(myPartner, page, limit, sortCondition)
+	partnerApp, err := Mongo.GetPartnerApp(myPartner)
+
+	if partnerApp == nil {
+		appCommon := Mongo.GetCommonApps(page, limit, sortCondition)
+		appDetails := CreateAppDetailsFromAppCommon(appCommon)
+		WriteJsonResult(w, appDetails)
+		return
+	}
+
+	result, err := Mongo.GetPartnerApps(myPartner, page, limit, sortCondition)
 
 	// var result []*models.PartnerAppInfo
 	// if isGetByCat == true {
@@ -163,7 +173,9 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	// } else {
 	// 	result = Mongo.GetPartnerApps(myPartner, page, limit)
 	// }
-	if result == nil {
+
+	//If there is an error or there is no partner app on page 1
+	if err != nil {
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))
 		return
@@ -179,16 +191,16 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	//}
+	WriteJsonResult(w, appDetails)
+}
 
-	var byteResult []byte
-	byteResult, err = json.Marshal(appDetails)
-	w.Header().Set("Content-Type", "application/json")
-	if err != nil {
-		log.Println(err.Error())
-		w.Write([]byte(err.Error()))
-	} else {
-		w.Write(byteResult)
+func CreateAppDetailsFromAppCommon(apps []*models.AppCommon) []*models.AppDetails {
+	var appDetails = make([]*models.AppDetails, len(apps))
+	for key, value := range apps {
+		category := Mongo.GetCategoryById(value.Cid)
+		appDetails[key] = models.NewAppDetailsFromAppCommon(value, category)
 	}
+	return appDetails
 }
 
 func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
