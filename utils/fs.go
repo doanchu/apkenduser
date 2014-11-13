@@ -411,7 +411,7 @@ func serveFile(w http.ResponseWriter, r *http.Request, fs FileSystem, name strin
 	// serverContent will check modification time
 	sizeFunc := func() (int64, error) { return d.Size(), nil }
 	err = serveContent(w, r, d.Name(), d.ModTime(), sizeFunc, f)
-	log.Println("Error is: ", err)
+	log.Println("Error is: ", name, err)
 }
 
 // localRedirect gives a Moved Permanently response.
