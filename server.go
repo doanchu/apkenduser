@@ -15,6 +15,7 @@ import "strconv"
 import "github.com/codegangsta/negroni"
 import "github.com/phyber/negroni-gzip/gzip"
 import "github.com/doanchu/apkenduser/utils"
+import "strings"
 
 var session *mgo.Session
 
@@ -35,6 +36,16 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	log.Println(data.Partner)
 	template.Execute(w, data)
 	//http.ServeFile(w, r, "public/index.html")
+}
+
+func handleDownload(w http.ResponseWriter, r *http.Request) {
+	upath := r.URL.Path
+	if !strings.HasPrefix(upath, "/") {
+		upath = "/" + upath
+		r.URL.Path = upath
+	}
+	utils.ServeFile(w, r, "public"+upath)
+
 }
 
 var mongoHost string
@@ -166,7 +177,8 @@ func main() {
 	subRouter.PathPrefix("/").HandlerFunc(handleIndex)
 	//http.Handle("/", router)
 	//err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
-	rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(http.Dir("public")))
+	//rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(http.Dir("public")))
+	rootRouter.PathPrefix("/static/adflex").HandlerFunc(handleDownload)
 	rootRouter.PathPrefix("/").Handler(negroni.New(
 		gzip.Gzip(gzip.DefaultCompression),
 		negroni.Wrap(router),
