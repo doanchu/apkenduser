@@ -244,7 +244,7 @@ func serveContent(w http.ResponseWriter, r *http.Request, name string, modtime t
 						return
 					}
 					if _, err := io.CopyN(part, content, ra.length); err != nil {
-						log.Println("My error is: ", err)
+						log.Println("My error is: ", name, err)
 						pw.CloseWithError(err)
 						return
 					}
