@@ -28,10 +28,20 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("There are some errors"))
 		return
 	}
+
+	store := mongo.GetStoreByPartnerId(vars["subdomain"])
+	name := "Android Store"
+
+	if store != nil {
+		name = store.Name
+	}
+
 	data := struct {
 		Partner string
+		Name    string
 	}{
 		Partner: vars["subdomain"],
+		Name:    name,
 	}
 	log.Println(data.Partner)
 	template.Execute(w, data)
@@ -94,6 +104,8 @@ func readConfiguration() {
 	}
 }
 
+var mongo *services.Mongo
+
 func main() {
 	readConfiguration()
 
@@ -121,10 +133,11 @@ func main() {
 		log.Fatal("Failed to authenticate")
 	}
 
-	handlers.Mongo = &services.Mongo{
+	mongo = &services.Mongo{
 		DB:      "newapk",
 		Session: session,
 	}
+	handlers.Mongo = mongo
 
 	// appInfo := handlers.Mongo.GetCommonAppById("com.loveframecollage.loveframe.collage")
 
@@ -177,8 +190,8 @@ func main() {
 	subRouter.PathPrefix("/").HandlerFunc(handleIndex)
 	//http.Handle("/", router)
 	//err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
-	//rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(http.Dir("public")))
-	rootRouter.PathPrefix("/static/adflex").HandlerFunc(handleDownload)
+	rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(http.Dir("public")))
+	//rootRouter.PathPrefix("/static/adflex").HandlerFunc(handleDownload)
 	rootRouter.PathPrefix("/").Handler(negroni.New(
 		gzip.Gzip(gzip.DefaultCompression),
 		negroni.Wrap(router),

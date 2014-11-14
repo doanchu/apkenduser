@@ -10,6 +10,25 @@ type Mongo struct {
 	DB      string
 }
 
+func (m *Mongo) GetStoreByPartnerId(partner string) *models.Store {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("app_store")
+
+	result := &models.Store{}
+
+	err := c.Find(bson.M{"partner": partner}).One(result)
+
+	if err != nil {
+		log.Println(err.Error())
+		return nil
+	}
+
+	return result
+}
+
 func (m *Mongo) GetCommentsByAppId(id string, page int, limit int) []*models.Comment {
 	session := m.Session.Clone()
 	defer session.Close()
