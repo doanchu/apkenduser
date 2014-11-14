@@ -134,7 +134,7 @@ func (m *Mongo) SearchCommonApps(query string, page int, limit int) []*models.Ap
 	db := session.DB(m.DB)
 	c := db.C("app_common")
 	var result []*models.AppCommon
-	err := c.Find(bson.M{"$text": bson.M{"$search": query}, "status": 1}).Sort("-total_download").Skip((page - 1) * limit).Limit(limit).All(&result)
+	err := c.Find(bson.M{"$text": bson.M{"$search": query}, "status": 1}).Select(bson.M{"score": bson.M{"$meta": "textScore"}}).Sort("$textScore:score").Skip((page - 1) * limit).Limit(limit).All(&result)
 
 	// var byteResult []byte
 	// byteResult, err = json.Marshal(result)
