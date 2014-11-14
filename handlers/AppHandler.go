@@ -315,8 +315,6 @@ func SearchAppsHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("[]"))
 		return
 	}
-	page = 1
-	limit = 10
 	appCommons := Mongo.SearchCommonApps(query, page, limit)
 	if appCommons == nil {
 		w.Header().Set("Content-Type", "application/json")
