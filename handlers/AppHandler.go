@@ -12,6 +12,7 @@ import "strings"
 import "os"
 import "io"
 import "github.com/doanchu/apkenduser/utils"
+import "time"
 
 func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -60,7 +61,6 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		w.Write(byteResult)
 	}
-
 }
 
 func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
@@ -89,6 +89,10 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	WriteJsonResult(w, appDetails)
+	timeStr := time.Now().Format("060102")
+	timeInt, _ := strconv.Atoi(timeStr)
+	Mongo.IncAppView(partner, appId, timeInt)
+
 }
 
 func WriteJsonResult(w http.ResponseWriter, result interface{}) {
@@ -287,6 +291,9 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 		downloadLink = appCommon.Download_link["campaign"]
 		downloadLink = strings.Replace(downloadLink, "{partner}", partner, -1)
 	}
+	timeStr := time.Now().Format("060102")
+	timeInt, _ := strconv.Atoi(timeStr)
+	Mongo.IncAppDownload(partner, appId, timeInt)
 	log.Println("Download link is", downloadLink)
 	http.Redirect(w, r, downloadLink, http.StatusFound)
 	//w.Write([]byte(downloadLink))

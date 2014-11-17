@@ -146,6 +146,35 @@ func (m *Mongo) SearchCommonApps(query string, page int, limit int) []*models.Ap
 	}
 }
 
+func (m *Mongo) IncAppDownload(partner string, id string, date int) {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("daily_app_stats")
+	c.Upsert(bson.M{"partner": partner,
+		"id":   id,
+		"date": date},
+		bson.M{"$inc": bson.M{"download": 1}})
+
+	c = db.C("partner_app_info")
+	c.Upsert(bson.M{"id": id,
+		"partner": partner},
+		bson.M{"$inc": bson.M{"total_download": 1}})
+}
+
+func (m *Mongo) IncAppView(partner string, id string, date int) {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("daily_app_stats")
+	c.Upsert(bson.M{"partner": partner,
+		"id":   id,
+		"date": date},
+		bson.M{"$inc": bson.M{"view": 1}})
+}
+
 func (m *Mongo) GetPartnerAppsByCategory(partner string, cid int, page int, limit int) []*models.PartnerAppInfo {
 	session := m.Session.Clone()
 	defer session.Close()

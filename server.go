@@ -16,6 +16,7 @@ import "github.com/codegangsta/negroni"
 import "github.com/phyber/negroni-gzip/gzip"
 import "github.com/doanchu/apkenduser/utils"
 import "strings"
+import _ "time"
 
 var session *mgo.Session
 
@@ -138,6 +139,14 @@ func main() {
 		Session: session,
 	}
 	handlers.Mongo = mongo
+
+	// mySession := session.Clone()
+	// mySession.DB("newapk").C("daily_app_stats").Upsert(bson.M{"partner": "leduykhanhit",
+	// 	"id":   "vn.nmt.gamebaitienlen",
+	// 	"date": 141108},
+	// 	bson.M{"$inc": bson.M{"download": 1}})
+	// mySession.Close()
+	mongo.IncAppDownload("leduykhanhit", "vn.nmt.gamebaitienlen", 141108)
 
 	// appInfo := handlers.Mongo.GetCommonAppById("com.loveframecollage.loveframe.collage")
 
