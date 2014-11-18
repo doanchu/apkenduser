@@ -50,7 +50,7 @@ func (m *Mongo) GetCommonAppById(id string) *models.AppCommon {
 	c := db.C("app_common")
 	result := &models.AppCommon{}
 	err := c.Find(bson.M{"id": id}).One(result)
-	if err != nil && err != mgo.ErrNotFound {
+	if err != nil /*&& err != mgo.ErrNotFound*/ {
 		log.Println(err.Error())
 		return nil
 	}

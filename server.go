@@ -16,6 +16,7 @@ import "github.com/codegangsta/negroni"
 import "github.com/phyber/negroni-gzip/gzip"
 import "github.com/doanchu/apkenduser/utils"
 import "strings"
+import "os"
 import _ "time"
 
 var session *mgo.Session
@@ -105,11 +106,31 @@ func readConfiguration() {
 	}
 }
 
+type justFilesFilesystem struct {
+	fs http.FileSystem
+}
+
+func (fs justFilesFilesystem) Open(name string) (http.File, error) {
+	f, err := fs.fs.Open(name)
+	if err != nil {
+		return nil, err
+	}
+	return neuteredReaddirFile{f}, nil
+}
+
+type neuteredReaddirFile struct {
+	http.File
+}
+
+func (f neuteredReaddirFile) Readdir(count int) ([]os.FileInfo, error) {
+	return nil, nil
+}
+
 var mongo *services.Mongo
 
 func main() {
 	readConfiguration()
-
+	fs := justFilesFilesystem{http.Dir("public")}
 	s := "Bỏ dấu tiếng việt"
 
 	s = utils.ClearVietnameseChars(s)
@@ -182,7 +203,7 @@ func main() {
 	rootRouter := mux.NewRouter()
 
 	router := mux.NewRouter()
-	router.PathPrefix("/static").Handler(http.FileServer(http.Dir("public")))
+	router.PathPrefix("/static").Handler(http.FileServer(fs))
 	router.HandleFunc("/api/app/{partner}/{app_id}", handlers.AppPartnerHandler)
 	router.HandleFunc("/app/search/{query}/{page}/{limit}", handlers.SearchAppsHandler)
 	router.HandleFunc("/app/download/{partner}/{app_id}", handlers.AppDownloadHandler)
@@ -195,11 +216,11 @@ func main() {
 	router.HandleFunc("/api/categories", handlers.CategoriesHandler)
 
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
-	subRouter.PathPrefix("/assets").Handler(http.FileServer(http.Dir("public")))
+	subRouter.PathPrefix("/assets").Handler(http.FileServer(fs))
 	subRouter.PathPrefix("/").HandlerFunc(handleIndex)
 	//http.Handle("/", router)
 	//err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
-	rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(http.Dir("public")))
+	rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(fs))
 	//rootRouter.PathPrefix("/static/adflex").HandlerFunc(handleDownload)
 	rootRouter.PathPrefix("/").Handler(negroni.New(
 		gzip.Gzip(gzip.DefaultCompression),
