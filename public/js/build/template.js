@@ -589,20 +589,7 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
           /* Your main view, should have "view-main" class*/
           React.createElement("div", {className: "view view-main"}, 
             /* Top Navbar*/
-            React.createElement("div", {className: "navbar"}, 
-              /* Navbar inner for Index page*/
-              React.createElement("div", {'data-page': "index", className: "navbar-inner"}, 
-                React.createElement("div", {className: "left"}, 
-                  /* Right link contains only icon - additional "icon-only" class*/React.createElement("a", {href: "#", className: "link icon-only open-panel"}, "  ", React.createElement("i", {className: "glyph-icon flaticon-left216"})
-                  )
-                ), 
-                /* We have home navbar without left link*/
-                React.createElement("div", {className: "center"}, "Kho ứng dụng"), 
-                React.createElement("div", {className: "right"}, 
-                  /* Right link contains only icon - additional "icon-only" class*/React.createElement("a", {href: "#", className: "link icon-only open-panel"}, "  ", React.createElement("i", {className: "glyph-icon"}))
-                )
-              )
-            ), 
+            React.createElement(Navbar, null), 
             /* Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes*/
             React.createElement("div", {className: "pages navbar-through toolbar-through"}, 
               /* Index Page*/
