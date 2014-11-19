@@ -1,0 +1,348 @@
+html, body {
+	background-color: #222222;
+	
+}
+
+#sb-site {
+	box-shadow: 0 0 30px 10px rgba(0, 0, 0, 0.3); /* Shadow cast onto the slidebars when opened. */
+	padding: 30px 0 30px 0;
+}
+
+#adverts {
+	margin-top: 20px;
+}
+
+.advert {
+	border-radius: 3px;
+	border: 1px solid #727272;
+	margin-bottom: 10px;
+	padding: 3px;
+}
+
+.navbar {
+	box-shadow: /* Shadow beneath the bar and edge highlights. */
+		/* Layered single pixel shadows to create a one sided shadow effect. */
+		0 5px 0 0 rgba(0, 0, 0, 0.01),
+		0 4px 0 0 rgba(0, 0, 0, 0.02),
+		0 3px 0 0 rgba(0, 0, 0, 0.04),
+		0 2px 0 0 rgba(0, 0, 0, 0.06),
+		0 1px 0 0 rgba(0, 0, 0, 0.08),
+		/* Top highlight */
+		0 1px 0 0 rgba(255, 255, 255, 0.1) inset,
+		/* Left highlight */
+		1px 0 0 0 rgba(255, 255, 255, 0.1) inset,
+		/* Right highlight */
+		-1px 0 0 0 rgba(255, 255, 255, 0.1) inset,
+		/* Bottom lowlight */
+		0 -1px 0 0 rgba(0, 0, 0, 0.1) inset;
+		
+	/* Glass gradient overlay. */
+background: rgb(214,48,45); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(214,48,45,1) 41%, rgba(185,27,0,1) 93%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(41%,rgba(214,48,45,1)), color-stop(93%,rgba(185,27,0,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(214,48,45,1) 41%,rgba(185,27,0,1) 93%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(214,48,45,1) 41%,rgba(185,27,0,1) 93%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(214,48,45,1) 41%,rgba(185,27,0,1) 93%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(214,48,45,1) 41%,rgba(185,27,0,1) 93%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6302d', endColorstr='#b91b00',GradientType=0 ); /* IE6-9 */
+
+	background-size: 100%;
+	background-repeat: no-repeat;
+	
+	/* Bootstrap Changes */
+	border: none;
+	width: 100%;
+	left: auto;
+	right: auto;
+	
+}
+
+.sb-android .navbar {
+	position: absolute;
+}
+
+#logo {
+	margin-top: 4px;
+	text-align: center;
+}
+
+#top-arrow {
+	padding-top: 17px;
+	padding-bottom: 13px;
+}
+
+.navbar .sb-toggle-left {
+	width: 58px;
+	float: left;
+	padding: 14px;
+}
+
+.navbar .sb-toggle-right {
+	width: 58px;
+	float: right;
+	padding: 14px;
+}
+
+.sb-toggle-left, .sb-toggle-right, .sb-open-left, .sb-open-right, .sb-close {
+	cursor: pointer;
+}
+
+.sb-right {
+	margin-top: 50px;
+}
+
+.navicon-line {
+	width: 24px;
+	height: 4px;
+	border-radius: 1px;
+	margin-bottom: 3px;
+	background-color: #fff;
+}
+
+ul.navbar-nav {
+	display: none;
+}
+
+footer {
+	margin-top: 30px;
+}
+
+/* Slidebars */
+
+.sb-slidebar {
+	background-color: #222222;
+	background-color: #525050;
+}
+
+/* Left */
+
+
+.sb-menu li .sb-open-right, .sb-menu li small {
+	display: inline-block;
+	padding: 14px;
+}
+
+.sb-menu li img {
+	/*margin: 14px;*/
+	margin-right:10px;
+	width: 25px;
+	height: 25px;
+}
+
+/* Right */
+aside#about-me {
+	padding: 14px 14px 14px 14px;
+}
+
+img.img-me {
+	margin: 14px auto;
+	border: 4px solid #fff;
+}
+
+/* Slidebar Type */
+
+.sb-slidebar, .sb-slidebar h3 {
+	color: #F0F0F0;
+}
+
+.sb-slidebar ul.sb-nav li a {
+	color: #DEDEDE;
+}
+
+.sb-slidebar ul.sb-nav li a:hover {
+	color: #C7C7C7;
+	text-decoration: none;
+}
+
+.sb-slidebar ul.sb-nav li span:hover {
+	color: #C7C7C7;
+}
+
+/* Anchor Links */
+#download, #api, #options, #helper-classes {
+	margin-top: -50px;
+	padding-top: 50px;
+}
+
+/* Helper Classes */
+.add-bottom-margin {
+	margin-bottom: 15px;
+}
+
+.no-bottom-margin {
+	margin-bottom: 0;
+}
+
+.add-top-margin {
+	margin-top: 15px;
+}
+
+.no-top-margin {
+	margin-top: 0;
+}
+
+.push-down {
+	position: relative;
+	top: 2px;
+}
+
+@media (min-width: 768px) {
+	ul.navbar-nav {
+		display: block;
+	}
+	
+	#logo {
+		text-align: left;
+	}
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}
+.sb-submenu-active li{
+	background-color: #E6E6E6;
+}
+.sb-submenu-active li a{
+	color: #767676;
+}
+
+.list-game{
+	width: 100%;
+}
+.list-game .item{
+	width: 99% !important;
+	
+	padding: 5px;
+	margin: 2px 0px;
+
+
+
+}
+.list-game .item .img{
+	float: left;
+}
+.list-game .line{
+	width: 100% !important;
+}
+.list-game .item .des{
+	float: left;
+	font-weight: inherit;
+	padding: 0px 5px;
+	font-size: 16px;
+	color: #767676;
+	display: block;
+	text-align: left;
+		line-height: 18px;
+
+	width: 70%;
+}
+.list-game .item .des span{
+	display: block;
+}
+.list-game .item .download{
+	float: right;
+margin-top: 5px;
+padding: 17px 18px;
+border-radius: 3px;
+background-color: #FFF;
+background-image: url('../img/icon-down.png');
+background-repeat: no-repeat;
+background-color: #3F3F3F;
+background-position: center;
+	
+}
+.title_category{
+	font-size: 20px;
+	margin:20px 0px -20px 0px;
+	padding: 0px;
+	text-align: center;
+	font-family: arial;
+	color:#373737;
+}
+.view-item{
+	background-position: right center;
+	background-image: url('../img/icon-next.png');
+	background-repeat: no-repeat;
+ padding: 0 25px;
+ color: #767676;
+
+}
+#content{
+	overflow: hidden;
+}
+
+
+.detail-item{
+	margin-top: 15px;
+	padding: 20px;
+}
+.detail-item .img{
+	float: left;
+
+}
+.detail-item .des{
+	float: right;
+	width: 70%;
+	text-align: left;
+
+}
+.detail-item .des span{
+	display: block;
+	line-height: 20px;
+}
+.detail-item .des .category_name{
+	color: #767676;
+	font-size: 12px;
+}
+.detail-item .des img{
+	display: block;
+}
+.download{
+	text-align: center;
+
+}
+.download a{
+	width: 47%;
+padding: 10px;
+padding-left: 40px;
+border-radius: 3px;
+background-position: 5px;
+color: #FFF;
+border: 1px solid #CCC;
+display: block;
+float: left;
+
+font-weight: bold;
+text-align: left;
+
+font-size: 12px;
+}
+.download .android{
+	background-image: url('../img/icon-download-android.png');
+	background-repeat: no-repeat;
+	margin-left: 2%;
+	background-color: #a2c437;
+}
+.download .ios{
+	margin-left: 1%;
+	margin-right: 2%;
+	background-image: url('../img/icon-download-ios.png');
+	background-repeat: no-repeat;
+	background-color: #0685d4;
+	
+}
+.description{
+	padding: 0px 10px;
+}
+.description h3{
+	margin: 0px;
+}
+.description p{
+	font-size: 14px;
+	text-align: left;
+	font-weight: normal;
+}

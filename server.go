@@ -204,6 +204,13 @@ func main() {
 
 	router := mux.NewRouter()
 	router.PathPrefix("/static").Handler(http.FileServer(fs))
+	router.PathPrefix("/css").Handler(http.FileServer(fs))
+	router.PathPrefix("/img").Handler(http.FileServer(fs))
+	router.PathPrefix("/js").Handler(http.FileServer(fs))
+	router.PathPrefix("/material").Handler(http.FileServer(fs))
+	router.PathPrefix("/owl-carousel").Handler(http.FileServer(fs))
+	router.PathPrefix("/slick").Handler(http.FileServer(fs))
+
 	router.HandleFunc("/api/app/{partner}/{app_id}", handlers.AppPartnerHandler)
 	router.HandleFunc("/app/search/{query}/{page}/{limit}", handlers.SearchAppsHandler)
 	router.HandleFunc("/app/download/{partner}/{app_id}", handlers.AppDownloadHandler)

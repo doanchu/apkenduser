@@ -1,57 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>{{.Name}}</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="/css/framework7.min.css">
+	<link href="/css/framework7.themes.css" rel="stylesheet">
+   <link rel="stylesheet" type="text/css" href="/material/flaticon.css">
+    <!-- Path to your custom app styles-->
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta content="61a1c1f169ff532dcda5c1dadcda74" name="inmobi-site-verification">
-	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-	<meta content="text/css" http-equiv="Content-Style-Type">
-	<meta content="text/javascript" http-equiv="Content-Script-Type">
-	<meta content="android, Apk, market, apktor, apps, download" name="keywords">
+<!-- Owl Carousel Assets -->
+    <link href="/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="/owl-carousel/owl.theme.css" rel="stylesheet">
 
-	<meta content="Apk is the largest independent Android app store and allows one to setup and manage your own Android Store. Upload, test and approve your apps." name="description">
 
-	<link href="/assets/images/favicon.png" rel="shortcut icon">
+    <link rel="stylesheet" href="/css/my-app.css">
+    <link rel="stylesheet" href="/css/style.css">
 
-	<meta content="Apk - Own Your Android Market." property="og:title">
-
-	<meta content="Apk is the largest independent Android app store and allows one to setup and manage your own Android Store. Upload, test and approve your apps." property="og:description">
-	
-	<meta content="product" property="og:type">
-
-	<meta content="" property="og:url">
-
-	<meta content="" property="og:image">
-
-	<title>{{.Name}}</title>
-
-	<link href="/assets/css/reset.css" type="text/css" rel="stylesheet">
-		
-	<link href="/assets/css/m_style_main.css" type="text/css" rel="stylesheet">
-		
-	<link media="screen and (min-width: 1280px)" href="/assets/css/m_style_main_w1280.css" type="text/css" rel="stylesheet">
-		
-	<link media="screen and (min-width: 850px) and (max-width: 1279px)" href="/assets/css/m_style_main_w850.css" type="text/css" rel="stylesheet">
-		
-	<link media="screen and (min-width: 480px) and (max-width: 849px)" href="/assets/css/m_style_main_w480.css" type="text/css" rel="stylesheet">
-		
-	<link media="screen and (max-width: 479px)" href="/assets/css/m_style_main_w320.css" type="text/css" rel="stylesheet">
-
-    <!-- Owl Carousel Assets -->
-    <link href="/assets/css/owl-carousel/owl.carousel.css" rel="stylesheet">
-   	<script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script> 	   	
-   	<script type="text/javascript" src="/assets/css/owl-carousel/owl.carousel.js"></script>
-   	<link href="/assets/css/style.css" rel="stylesheet">
-
-	<script src="/assets/js/vendor/react-with-addons.js"></script>	
-	<script src="/assets/js/vendor/react-router.js"></script>		
 	<script type="text/javascript">
 		document.partner="{{.Partner}}";
 	</script>
-</head>
-<body data-ismobile-scroll="1" >
-<script type="text/javascript" src="/assets/js/build/template.js"></script>
-<script type="text/javascript" src="/assets/js/build/app.js"></script>
-</body>
+
+  </head>
+  <body id="apk">
+    <!-- Path to Framework7 Library JS-->    
+    <!-- Path to your app js-->
+  <script src="/owl-carousel/jquery-1.9.1.min.js"></script>
+    <script src="/owl-carousel/owl.carousel.min.js"></script>
+ 	<script src="/assets/js/vendor/react-with-addons.js"></script>	
+ 	<script src="/assets/js/vendor/JSXTransformer.js"></script>
+	<script src="/assets/js/vendor/react-router.js"></script>		  
+<script type="text/jsx" src="/js/app/template.js"></script>
+<script type="text/jsx" src="/js/app/app.js"></script>
+    
+  </body>
 </html>
