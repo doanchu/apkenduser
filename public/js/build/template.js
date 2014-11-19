@@ -91,7 +91,7 @@ var Item = React.createClass({displayName: 'Item',
   render: function() {
     return (
     React.createElement("li", null, 
-      React.createElement("a", {href: "", className: "item-link item-content"}, 
+      React.createElement("a", {href: "/app/" + this.props.appId + ".html", className: "item-link item-content"}, 
         React.createElement("div", {className: "item-media"}, React.createElement("img", {src: this.props.thumbnail, width: 80})), 
         React.createElement("div", {className: "item-inner"}, 
           React.createElement("div", {className: "item-title-row"}, 

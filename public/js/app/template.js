@@ -91,7 +91,7 @@ var Item = React.createClass({
   render: function() {
     return (
     <li>
-      <a href="" className="item-link item-content">
+      <a href={"/app/" + this.props.appId + ".html"} className="item-link item-content">
         <div className="item-media"><img src={this.props.thumbnail} width={80} /></div>
         <div className="item-inner">
           <div className="item-title-row">
