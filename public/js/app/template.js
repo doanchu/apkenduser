@@ -589,20 +589,7 @@ var AppDetails = React.createClass({
           {/* Your main view, should have "view-main" class*/}
           <div className="view view-main">
             {/* Top Navbar*/}
-            <div className="navbar">
-              {/* Navbar inner for Index page*/}
-              <div data-page="index" className="navbar-inner">
-                <div className="left">
-                  {/* Right link contains only icon - additional "icon-only" class*/}<a href="#" className="link icon-only open-panel">  <i className="glyph-icon flaticon-left216" /> 
-                  </a>
-                </div>
-                {/* We have home navbar without left link*/}
-                <div className="center">Kho ứng dụng</div>
-                <div className="right">
-                  {/* Right link contains only icon - additional "icon-only" class*/}<a href="#" className="link icon-only open-panel">  <i className="glyph-icon" /></a>
-                </div>
-              </div>
-            </div>
+            <Navbar />
             {/* Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes*/}
             <div className="pages navbar-through toolbar-through">
               {/* Index Page*/}
