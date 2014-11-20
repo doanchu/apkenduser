@@ -223,6 +223,11 @@ var TopStandings = React.createClass({displayName: 'TopStandings',
   }
 })
 
+var TopNew = React.createClass({displayName: 'TopNew',
+  render: function() {
+    return (React.createElement(TopApp, {route: "/top/new"}))
+  }
+})
 
 var TopApp = React.createClass({displayName: 'TopApp',
   componentDidMount: function() {    
@@ -233,6 +238,8 @@ var TopApp = React.createClass({displayName: 'TopApp',
       url = "/api/apps-download/" + document.partner + "/";
     } if (this.props.route == "/top/standings") {
       url = "/api/apps-like/" + document.partner + "/";
+    } if (this.props.route == "/top/new") {
+      url = "/api/apps-partner/" + document.partner + "/";  
     }
 return (
       React.createElement("div", {style: {height: '100%'}}, 
@@ -265,7 +272,8 @@ return (
                       React.createElement("div", {className: "buttons-row"}, 
                         /* Link to 1st tab, active */
                          React.createElement(Link, {to: "/top/downloads", className: this.props.route == "/top/downloads" ? "ttab-link active button" : "tab-link button"}, "Tải nhiều"), 
-                         React.createElement(Link, {to: "/top/standings", className: this.props.route == "/top/standings" ? "ttab-link active button" : "tab-link button"}, "Ưa thích")
+                         React.createElement(Link, {to: "/top/standings", className: this.props.route == "/top/standings" ? "ttab-link active button" : "tab-link button"}, "Ưa thích"), 
+                         React.createElement(Link, {to: "/top/new", className: this.props.route == "/top/new" ? "ttab-link active button" : "tab-link button"}, "Mới nhất")
                         /* Link to 3rd tab */
                       )
                     ), 

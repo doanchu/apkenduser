@@ -223,6 +223,11 @@ var TopStandings = React.createClass({
   }
 })
 
+var TopNew = React.createClass({
+  render: function() {
+    return (<TopApp route="/top/new"/>)
+  }
+})
 
 var TopApp = React.createClass({
   componentDidMount: function() {    
@@ -233,6 +238,8 @@ var TopApp = React.createClass({
       url = "/api/apps-download/" + document.partner + "/";
     } if (this.props.route == "/top/standings") {
       url = "/api/apps-like/" + document.partner + "/";
+    } if (this.props.route == "/top/new") {
+      url = "/api/apps-partner/" + document.partner + "/";  
     }
 return (
       <div style={{height: '100%'}}>
@@ -266,6 +273,7 @@ return (
                         {/* Link to 1st tab, active */}
                          <Link to="/top/downloads" className={this.props.route == "/top/downloads" ? "ttab-link active button" : "tab-link button"}>Tải nhiều</Link>
                          <Link to="/top/standings" className={this.props.route == "/top/standings" ? "ttab-link active button" : "tab-link button"}>Ưa thích</Link>                        
+                         <Link to="/top/new" className={this.props.route == "/top/new" ? "ttab-link active button" : "tab-link button"}>Mới nhất</Link>                        
                         {/* Link to 3rd tab */}                        
                       </div>
                     </div>
