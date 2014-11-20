@@ -84,19 +84,20 @@ var Banner = React.createClass({displayName: 'Banner',
 
 var Item = React.createClass({displayName: 'Item',
   handleDownload: function(e) {
-    e.preventDefault();    
+    e.preventDefault();
+    alert("fuck");
     window.location.href = e.currentTarget.getAttribute("href");
     return false;
   },
   render: function() {
     return (
     React.createElement("li", null, 
-      React.createElement("a", {href: "/app/" + this.props.appId + ".html", className: "item-link item-content"}, 
+      React.createElement("a", {href: "/app/" + this.props.appId + ".html", className: "item-link item-content", onClick: this.handleDownload}, 
         React.createElement("div", {className: "item-media"}, React.createElement("img", {src: this.props.thumbnail, width: 80})), 
         React.createElement("div", {className: "item-inner"}, 
           React.createElement("div", {className: "item-title-row"}, 
             React.createElement("div", {className: "item-title"}, this.props.name), 
-            React.createElement("div", {className: "item-after", onClick: this.handleDownload, href: "/app/download/" + document.partner + "/" + this.props.appId, style: {zIndex: '6000'}}, React.createElement("i", {className: "glyph-icon  flaticon-download164"}))
+            React.createElement("div", {className: "item-after"}, React.createElement("i", {className: "glyph-icon  flaticon-download164", onClick: this.handleDownload, href: "/app/download/" + document.partner + "/" + this.props.appId}))
           ), 
           React.createElement("div", {className: "item-subtitle"}, this.props.downloads, " Lượt Tải"), 
           React.createElement("div", {className: "item-text"}, this.props.cname)
