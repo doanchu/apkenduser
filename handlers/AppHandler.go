@@ -232,6 +232,63 @@ func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
 
 }
 
+func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	appId := vars["app_id"]
+	partner := vars["partner"]
+
+	store := Mongo.GetStoreByPartnerId(partner)
+
+	name := "Android Store"
+	icon_36 := ""
+	icon_48 := ""
+	icon_72 := ""
+	icon_96 := ""
+	icon_144 := ""
+	download_id := appId
+
+	if store != nil {
+		icon_36 = store.Img[0]
+		icon_48 = store.Img[1]
+		icon_72 = store.Img[2]
+		icon_96 = store.Img[3]
+		icon_144 = store.Img[4]
+		name = store.Name
+	}
+
+	dir := "public/static/adflex/" + partner + "/store"
+	storeServiceLink := fmt.Sprintf("http://sv11.mway.vn:88/ApkStoreService/build?partner=%s&app_name=%s&icon_36=%s&icon_48=%s&icon_72=%s&icon_96=%s&icon_144=%s&download_id=%s", partner, name, icon_36, icon_48, icon_72, icon_96, icon_144, appId)
+}
+
+func DownloadFile(link string, destDir string, fileName string) error {
+	//If destination directory does not exist, create the directory
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		err = os.MkdirAll(dir, 0777)
+		if err != nil {
+			return err
+		}
+
+	}
+
+	//Download file
+	resp, err := http.Get(downloadLink)
+	defer resp.Body.Close()
+	if err != nil {
+		return err
+	}
+
+	//Store it to the destination dir with name of fileName
+	out, err := os.Create(destDir + "/" + fileName)
+	defer out.Close()
+
+	if err != nil {
+		return err
+	}
+	io.Copy(out, resp.Body)
+	return nil
+
+}
+
 func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	appId := vars["app_id"]
