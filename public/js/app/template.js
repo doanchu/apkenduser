@@ -539,7 +539,7 @@ var AppDetails = React.createClass({
         pagination:false,
        
         // "singleItem:true" is a shortcut for:
-         items : 1, 
+         items : 3, 
          itemsDesktop : false,
          itemsDesktopSmall : false,
          itemsTablet: false,
