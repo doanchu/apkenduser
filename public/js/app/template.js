@@ -96,7 +96,7 @@ var Item = React.createClass({
         <div className="item-inner">
           <div className="item-title-row">
             <div className="item-title">{this.props.name}</div>
-            <div className="item-after"><span onClick={this.handleDownload} className=" btn-download" href={"/app/download/" + document.partner + "/" + this.props.appId}>Cài đặt +</span></div>
+            <div className="item-after" onClick={this.handleDownload} href={"/app/download/" + document.partner + "/" + this.props.appId}><i className="glyph-icon  flaticon-download164"></i></div>
           </div>
           <div className="item-subtitle">{this.props.downloads} Lượt Tải</div>
           <div className="item-text">{this.props.cname}</div>

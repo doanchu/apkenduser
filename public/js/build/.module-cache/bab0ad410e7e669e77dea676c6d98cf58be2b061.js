@@ -96,7 +96,7 @@ var Item = React.createClass({displayName: 'Item',
         React.createElement("div", {className: "item-inner"}, 
           React.createElement("div", {className: "item-title-row"}, 
             React.createElement("div", {className: "item-title"}, this.props.name), 
-            React.createElement("div", {className: "item-after", onClick: this.handleDownload, href: "/app/download/" + document.partner + "/" + this.props.appId}, React.createElement("i", {className: "glyph-icon  flaticon-download164"}))
+            React.createElement("div", {className: "item-after"}, React.createElement("span", {onClick: this.handleDownload, className: " btn-download", href: "/app/download/" + document.partner + "/" + this.props.appId}, "Cài đặt +"))
           ), 
           React.createElement("div", {className: "item-subtitle"}, this.props.downloads, " Lượt Tải"), 
           React.createElement("div", {className: "item-text"}, this.props.cname)

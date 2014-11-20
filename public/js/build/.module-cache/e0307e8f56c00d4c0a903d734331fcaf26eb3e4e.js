@@ -96,7 +96,7 @@ var Item = React.createClass({displayName: 'Item',
         React.createElement("div", {className: "item-inner"}, 
           React.createElement("div", {className: "item-title-row"}, 
             React.createElement("div", {className: "item-title"}, this.props.name), 
-            React.createElement("div", {className: "item-after", onClick: this.handleDownload, href: "/app/download/" + document.partner + "/" + this.props.appId}, React.createElement("i", {className: "glyph-icon  flaticon-download164"}))
+            React.createElement("div", {className: "item-after"}, React.createElement("span", {onClick: this.handleDownload, className: " btn-download", href: "/app/download/" + document.partner + "/" + this.props.appId}, "Cài đặt +"))
           ), 
           React.createElement("div", {className: "item-subtitle"}, this.props.downloads, " Lượt Tải"), 
           React.createElement("div", {className: "item-text"}, this.props.cname)
@@ -589,7 +589,20 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
           /* Your main view, should have "view-main" class*/
           React.createElement("div", {className: "view view-main"}, 
             /* Top Navbar*/
-            React.createElement(Navbar, null), 
+            React.createElement("div", {className: "navbar"}, 
+              /* Navbar inner for Index page*/
+              React.createElement("div", {'data-page': "index", className: "navbar-inner"}, 
+                React.createElement("div", {className: "left"}, 
+                  /* Right link contains only icon - additional "icon-only" class*/React.createElement("a", {href: "#", className: "link icon-only open-panel"}, "  ", React.createElement("i", {className: "glyph-icon flaticon-left216"})
+                  )
+                ), 
+                /* We have home navbar without left link*/
+                React.createElement("div", {className: "center"}, "Kho ứng dụng"), 
+                React.createElement("div", {className: "right"}, 
+                  /* Right link contains only icon - additional "icon-only" class*/React.createElement("a", {href: "#", className: "link icon-only open-panel"}, "  ", React.createElement("i", {className: "glyph-icon"}))
+                )
+              )
+            ), 
             /* Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes*/
             React.createElement("div", {className: "pages navbar-through toolbar-through"}, 
               /* Index Page*/
