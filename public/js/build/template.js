@@ -573,9 +573,6 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
       descItem.css("height", "0px");
     }    
   },
-  handleDownload: function() {
-
-  },
   componentDidMount: function() {
 
 
