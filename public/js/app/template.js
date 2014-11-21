@@ -524,7 +524,7 @@ var AppDetails = React.createClass({
   handleDownload: function(e) {
     e.preventDefault();     
     var currentTarget = e.currentTarget;
-    if (document.partner == "duyhứngws") {
+    if (document.partner == "duyhungws") {
       alert("http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.state.data.appId);
     }
     $.ajax({
