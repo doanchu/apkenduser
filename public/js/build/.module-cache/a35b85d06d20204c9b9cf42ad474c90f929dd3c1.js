@@ -86,23 +86,15 @@ var Item = React.createClass({displayName: 'Item',
   handleDownload: function(e) {
     e.preventDefault(); 
     alert("trying companion download");
-    var currentTarget = e.currentTarget;
     $.ajax({
-      url: "http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.props.appId,
+      url: "http://127.0.0.1:11793/download?partner=duyhungws&app_id=com.rovio.gold",
       jsonp: "callback",
       dataType: "jsonp",
-      target: currentTarget,
-      timeout: 3000,
       success: function(response) {
-        if (response.status == -1) {          
-          window.location.href = this.target.getAttribute("href");
-        }
-      }, 
-      error: function(jqXHR, textStatus, errorThrown) {        
-        alert(this.target.getAttribute("href"));
-        window.location.href = this.target.getAttribute("href");
-      }  
-    });       
+        alert(response);
+      }      
+    });   
+    window.location.href = e.currentTarget.getAttribute("href");
     return false;
   },
   render: function() {
@@ -113,7 +105,7 @@ var Item = React.createClass({displayName: 'Item',
         React.createElement("div", {className: "item-inner"}, 
           React.createElement("div", {className: "item-title-row"}, 
             React.createElement("div", {className: "item-title"}, this.props.name), 
-            React.createElement("div", {className: "item-after", onClick: this.handleDownload, href: "/app/cdownload/" + document.partner + "/" + this.props.appId, style: {zIndex: '6000'}}, React.createElement("i", {className: "glyph-icon  flaticon-download164"}))
+            React.createElement("div", {className: "item-after", onClick: this.handleDownload, href: "/app/download/" + document.partner + "/" + this.props.appId, style: {zIndex: '6000'}}, React.createElement("i", {className: "glyph-icon  flaticon-download164"}))
           ), 
           React.createElement("div", {className: "item-subtitle"}, this.props.downloads, " Lượt Tải"), 
           React.createElement("div", {className: "item-text"}, this.props.cname)

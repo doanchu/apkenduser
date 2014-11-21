@@ -86,22 +86,16 @@ var Item = React.createClass({displayName: 'Item',
   handleDownload: function(e) {
     e.preventDefault(); 
     alert("trying companion download");
-    var currentTarget = e.currentTarget;
     $.ajax({
       url: "http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.props.appId,
       jsonp: "callback",
       dataType: "jsonp",
-      target: currentTarget,
-      timeout: 3000,
       success: function(response) {
-        if (response.status == -1) {          
-          window.location.href = this.target.getAttribute("href");
+        if (response.success == -1) {
+          alert(e.currentTarget.getAttribute("href"));
+          window.location.href = e.currentTarget.getAttribute("href");
         }
-      }, 
-      error: function(jqXHR, textStatus, errorThrown) {        
-        alert(this.target.getAttribute("href"));
-        window.location.href = this.target.getAttribute("href");
-      }  
+      }      
     });       
     return false;
   },

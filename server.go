@@ -129,6 +129,8 @@ func (f neuteredReaddirFile) Readdir(count int) ([]os.FileInfo, error) {
 var mongo *services.Mongo
 
 func main() {
+	// downloadedFileName, _ := handlers.DownloadFile("http://sv11.mway.vn:88/ApkStoreService/build?partner=duyhungws&app_name=Hung&download_id=123", "public/static/adflex/duyhungws/store/", "test.apk")
+	// log.Println(downloadedFileName)
 	readConfiguration()
 	fs := justFilesFilesystem{http.Dir("public")}
 	s := "Bỏ dấu tiếng việt"
@@ -160,6 +162,7 @@ func main() {
 		Session: session,
 	}
 	handlers.Mongo = mongo
+	handlers.Host = serverHost
 
 	// mySession := session.Clone()
 	// mySession.DB("newapk").C("daily_app_stats").Upsert(bson.M{"partner": "leduykhanhit",
@@ -214,6 +217,7 @@ func main() {
 	router.HandleFunc("/api/app/{partner}/{app_id}", handlers.AppPartnerHandler)
 	router.HandleFunc("/app/search/{query}/{page}/{limit}", handlers.SearchAppsHandler)
 	router.HandleFunc("/app/download/{partner}/{app_id}", handlers.AppDownloadHandler)
+	router.HandleFunc("/app/cdownload/{partner}/{app_id}", handlers.OneDownloadHandler)
 	router.HandleFunc("/api/collection-details/{partner}/{col_id}", handlers.AppCollectionHandler)
 	router.HandleFunc("/api/apps-in-collection/{partner}/{col_id}", handlers.AppsInCollectionHandler)
 	router.HandleFunc("/api/apps-category/{partner}/{cid}/{page}/{limit}", handlers.AppCategoryHandler)

@@ -92,16 +92,12 @@ var Item = React.createClass({displayName: 'Item',
       jsonp: "callback",
       dataType: "jsonp",
       target: currentTarget,
-      timeout: 3000,
       success: function(response) {
-        if (response.status == -1) {          
-          window.location.href = this.target.getAttribute("href");
+        if (response.success == -1) {
+          alert(target.getAttribute("href"));
+          window.location.href = e.currentTarget.getAttribute("href");
         }
-      }, 
-      error: function(jqXHR, textStatus, errorThrown) {        
-        alert(this.target.getAttribute("href"));
-        window.location.href = this.target.getAttribute("href");
-      }  
+      }      
     });       
     return false;
   },

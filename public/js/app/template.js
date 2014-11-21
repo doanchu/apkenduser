@@ -84,8 +84,23 @@ var Banner = React.createClass({
 
 var Item = React.createClass({
   handleDownload: function(e) {
-    e.preventDefault();    
-    window.location.href = e.currentTarget.getAttribute("href");
+    e.preventDefault();     
+    var currentTarget = e.currentTarget;
+    $.ajax({
+      url: "http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.props.appId,
+      jsonp: "callback",
+      dataType: "jsonp",
+      target: currentTarget,
+      timeout: 3000,
+      success: function(response) {
+        if (response.status == -1) {          
+          window.location.href = this.target.getAttribute("href");
+        }
+      }, 
+      error: function(jqXHR, textStatus, errorThrown) {                
+        window.location.href = this.target.getAttribute("href");
+      }  
+    });       
     return false;
   },
   render: function() {
@@ -96,7 +111,7 @@ var Item = React.createClass({
         <div className="item-inner">
           <div className="item-title-row">
             <div className="item-title">{this.props.name}</div>
-            <div className="item-after" onClick={this.handleDownload} href={"/app/download/" + document.partner + "/" + this.props.appId} style={{zIndex: '6000'}} ><i className="glyph-icon  flaticon-download164" ></i></div>
+            <div className="item-after" onClick={this.handleDownload} href={"/app/cdownload/" + document.partner + "/" + this.props.appId} style={{zIndex: '6000'}} ><i className="glyph-icon  flaticon-download164" ></i></div>
           </div>
           <div className="item-subtitle">{this.props.downloads} Lượt Tải</div>
           <div className="item-text">{this.props.cname}</div>

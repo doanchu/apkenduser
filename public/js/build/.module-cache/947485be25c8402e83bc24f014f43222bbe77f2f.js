@@ -94,13 +94,14 @@ var Item = React.createClass({displayName: 'Item',
       target: currentTarget,
       timeout: 3000,
       success: function(response) {
-        if (response.status == -1) {          
+        if (response.status == -1) {
+          alert(this.target.getAttribute("href"));
           window.location.href = this.target.getAttribute("href");
         }
       }, 
-      error: function(jqXHR, textStatus, errorThrown) {        
-        alert(this.target.getAttribute("href"));
-        window.location.href = this.target.getAttribute("href");
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert("Error");
+        console.log(textStatus, errorThrown);
       }  
     });       
     return false;

@@ -13,6 +13,8 @@ import "os"
 import "io"
 import "github.com/doanchu/apkenduser/utils"
 import "time"
+import "fmt"
+import "net/url"
 
 func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -245,47 +247,64 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	icon_72 := ""
 	icon_96 := ""
 	icon_144 := ""
-	download_id := appId
 
 	if store != nil {
-		icon_36 = store.Img[0]
-		icon_48 = store.Img[1]
-		icon_72 = store.Img[2]
-		icon_96 = store.Img[3]
-		icon_144 = store.Img[4]
+		icon_36 = Host + "/" + store.Img[0]
+		icon_48 = Host + "/" + store.Img[1]
+		icon_72 = Host + "/" + store.Img[2]
+		icon_96 = Host + "/" + store.Img[3]
+		icon_144 = Host + "/" + store.Img[4]
 		name = store.Name
 	}
-
+	log.Println(icon_36)
 	dir := "public/static/adflex/" + partner + "/store"
-	storeServiceLink := fmt.Sprintf("http://sv11.mway.vn:88/ApkStoreService/build?partner=%s&app_name=%s&icon_36=%s&icon_48=%s&icon_72=%s&icon_96=%s&icon_144=%s&download_id=%s", partner, name, icon_36, icon_48, icon_72, icon_96, icon_144, appId)
+	queryString := fmt.Sprintf("partner=%s&app_name=%s&icon_36=%s&icon_48=%s&icon_72=%s&icon_96=%s&icon_144=%s&download_id=%s", url.QueryEscape(partner), url.QueryEscape(name), url.QueryEscape(icon_36), url.QueryEscape(icon_48), url.QueryEscape(icon_72), url.QueryEscape(icon_96), url.QueryEscape(icon_144), url.QueryEscape(appId))
+	storeServiceLink := fmt.Sprintf("http://sv11.mway.vn:88/ApkStoreService/build?%s", queryString)
+	fileName := "android_store.apk"
+	log.Println(storeServiceLink)
+	downloadedFileName, _ := DownloadFile(storeServiceLink, dir, fileName)
+	http.Redirect(w, r, "/static/adflex/"+partner+"/store/"+downloadedFileName, http.StatusFound)
 }
 
-func DownloadFile(link string, destDir string, fileName string) error {
+func DownloadFile(link string, dir string, fileName string) (string, error) {
 	//If destination directory does not exist, create the directory
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
 		err = os.MkdirAll(dir, 0777)
 		if err != nil {
-			return err
+			return "", err
 		}
 
 	}
 
 	//Download file
-	resp, err := http.Get(downloadLink)
-	defer resp.Body.Close()
+	resp, err := http.Get(link)
 	if err != nil {
-		return err
+		return "", err
+	}
+	defer resp.Body.Close()
+
+	if resp.Header["Content-Disposition"] != nil {
+		contentDisp := resp.Header["Content-Disposition"][0]
+		index := strings.Index(contentDisp, "filename=")
+		if index != -1 {
+			fileName = contentDisp[index+9 : len(contentDisp)]
+		}
 	}
 
 	//Store it to the destination dir with name of fileName
-	out, err := os.Create(destDir + "/" + fileName)
-	defer out.Close()
+	filePath := dir + "/" + fileName
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		out, err := os.Create(dir + "/" + fileName)
+		defer out.Close()
 
-	if err != nil {
-		return err
+		if err != nil {
+			return "", err
+		}
+		io.Copy(out, resp.Body)
+		return fileName, nil
+	} else {
+		return fileName, nil
 	}
-	io.Copy(out, resp.Body)
-	return nil
 
 }
 
