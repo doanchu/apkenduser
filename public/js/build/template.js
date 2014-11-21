@@ -34,6 +34,7 @@ var Toolbar = React.createClass({displayName: 'Toolbar',
         React.createElement("div", {className: "toolbar-inner"}, 
           React.createElement(Link, {to: "/", className: this.props.route == "home" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-home149"})), 
           React.createElement(Link, {to: "/top/downloads", className: this.props.route == "/top/downloads" || this.props.route == "/top/standings" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-list88"})), 
+          React.createElement(Link, {to: "/app/categories", className: this.props.route == "/app/categories" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-menu55"})), 
           React.createElement(Link, {to: "/app/search", className: this.props.route == "/app/search" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-search100"}))
         )
       )
@@ -195,8 +196,13 @@ var ItemList = React.createClass({displayName: 'ItemList',
     if (this.state.title) {
      title = React.createElement("div", {className: "content-block-title"}, this.state.title)     
     }    
+    var iscategory = this.props.iscategory;
+    var categoryName = "";
     var items = this.state.data.map(function(item){
       if (item != null) {
+        if (iscategory == "true") {
+          categoryName = item.cname;
+        }
         return (
           React.createElement(Item, {appId: item.id, name: item.name, downloads: item.total_download, cname: item.cname, thumbnail: item.thumbnail})
         );
@@ -213,6 +219,9 @@ var ItemList = React.createClass({displayName: 'ItemList',
         more = "";
       }
     }  
+    if (iscategory == "true") {
+      title = React.createElement("div", {className: "content-block-title"}, categoryName);
+    }
 
     return (
       React.createElement("div", null, 
@@ -470,7 +479,7 @@ var AppSearch = React.createClass({displayName: 'AppSearch',
     }    
     return (
       React.createElement("div", {style: {height: '100%'}}, 
-        React.createElement("div", {className: "loading"}, 
+        React.createElement("div", {className: "loading", id: "loading"}, 
           React.createElement("h5", null, "Đang tải ", React.createElement("img", {src: "/img/ajax-loader.gif"}), " ")
         ), 
         /* Status bar overlay for fullscreen mode*/
@@ -515,7 +524,7 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
   handleDownload: function(e) {
     e.preventDefault();     
     var currentTarget = e.currentTarget;
-    if (document.partner == "duyhungws") {
+    if (document.partner == "duyhứngws") {
       alert("http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.state.data.appId);
     }
     $.ajax({
@@ -622,7 +631,7 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
     
     return (
       React.createElement("div", {style: {height: "100%"}}, 
-        React.createElement("div", {className: "loading"}, 
+        React.createElement("div", {className: "loading", id: "loading"}, 
           React.createElement("h5", null, "Đang tải ", React.createElement("img", {src: "img/ajax-loader.gif"}), " ")
         ), 
         /* Status bar overlay for fullscreen mode*/
@@ -892,3 +901,139 @@ React.createElement(CommentList, {appId: this.props.appId}),
     );    
   }
 })
+
+var CategoryItem = React.createClass({displayName: 'CategoryItem',
+  render: function() {
+    return (
+      React.createElement("div", {className: "col-33 item"}, 
+        React.createElement(Link, {to: "/app/category/" + this.props.id}, 
+          React.createElement("img", {src: this.props.icon}), 
+          React.createElement("span", null, this.props.name)
+        )
+      )
+      )    
+  }
+});
+
+var CategoriesList = React.createClass({displayName: 'CategoriesList',
+  getInitialState: function() {
+    return {data:[{name: "Game online", icon: "http://image.sangame.net/images/2014/04/10/O8Yeh.png"}]}
+  },
+  componentDidMount: function() {
+    // }     
+    $("#loading").css("display", "block");     
+    //var url = prefix + document.partner + "/1/10";    
+    var url = "/api/categories";
+    $.get(url, function(result) {      
+      $("#loading").css("display", "none");
+      if (this.isMounted()) {
+        this.setState({data: result})
+      }
+    }.bind(this))
+  },
+  render: function() {
+    var items = this.state.data.map(function(item){
+      if (item != null) {
+        return (
+          React.createElement(CategoryItem, {icon: item.icon, name: item.name, id: item.id})
+        );
+      }
+    }) 
+
+    return (
+      React.createElement("div", {className: "row lst_category"}, 
+        items
+      )
+
+      )   
+
+  }
+});
+
+var Categories = React.createClass({displayName: 'Categories',
+render: function() {
+    return (
+      React.createElement("div", {style: {height: '100%'}}, 
+        React.createElement("div", {className: "loading", id: "loading"}, 
+          React.createElement("h5", null, "Đang tải ", React.createElement("img", {src: "/img/ajax-loader.gif"}), " ")
+        ), 
+        React.createElement("div", {className: "panel-overlay"}), 
+        /* Left panel with reveal effect*/
+        React.createElement("div", {className: "panel panel-left panel-reveal"}, 
+          React.createElement("div", {className: "content-block"}, 
+            React.createElement("p", null, "Left panel content goes here")
+          )
+        ), 
+        /* Views*/
+        React.createElement("div", {className: "views"}, 
+          /* Your main view, should have "view-main" class*/
+          React.createElement("div", {className: "view view-main"}, 
+            /* Top Navbar*/
+            React.createElement(Navbar, null), 
+            /* Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes*/
+            React.createElement("div", {className: "pages navbar-through toolbar-through"}, 
+              /* Index Page*/
+              React.createElement("div", {'data-page': "index", className: "page"}, 
+                /* Scrollable page content*/
+                React.createElement("div", {className: "page-content"}, 
+                  React.createElement(DownloadStoreButton, null), 
+                  React.createElement("div", {className: "content-block-title title_category"}, "Danh mục ứng dụng"), 
+                  React.createElement(CategoriesList, null)
+                )
+              )
+              /* About Page*/
+              /* Services Page*/
+              /* Form Page*/
+            ), 
+            /* Bottom Toolbar*/
+            React.createElement(Toolbar, {route: "/app/categories"})
+          )
+        )
+      )
+    );
+  }  
+})
+
+var AppCategory = React.createClass({displayName: 'AppCategory',
+render: function() {
+    var url = "/api/apps-category/" + document.partner + "/" + this.props.params.cid + "/";
+    return (      
+      React.createElement("div", {style: {height: "100%"}}, 
+        React.createElement("div", {className: "loading", id: "loading"}, 
+          React.createElement("h5", null, "Đang tải ", React.createElement("img", {src: "img/ajax-loader.gif"}), " ")
+        ), 
+
+        React.createElement("div", {className: "panel-overlay"}), 
+        /* Left panel with reveal effect*/
+        React.createElement("div", {className: "panel panel-left panel-reveal"}, 
+          React.createElement("div", {className: "content-block"}, 
+            React.createElement("p", null, "Left panel content goes here")
+          )
+        ), 
+        /* Views*/
+        React.createElement("div", {className: "views"}, 
+          /* Your main view, should have "view-main" class*/
+          React.createElement("div", {className: "view view-main"}, 
+            /* Top Navbar*/
+            React.createElement(Navbar, null), 
+            /* Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes*/
+            React.createElement("div", {className: "pages navbar-through toolbar-through"}, 
+              React.createElement("div", {'data-page': "index", className: "page detailt-colection"}, 
+                /* Scrollable page content*/
+                React.createElement("div", {className: "page-content"}, 
+                  React.createElement(DownloadStoreButton, null), 
+                  React.createElement(ItemList, {url: url, title: "", iscategory: "true"}), 
+                  React.createElement("div", {className: "clear"})
+                )
+              )
+              /* About Page*/
+              /* Services Page*/
+              /* Form Page*/
+            ), 
+            /* Bottom Toolbar*/
+            React.createElement(Toolbar, {route: "/app/category"})
+          )
+        )
+      )
+    );
+  }})

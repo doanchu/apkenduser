@@ -34,7 +34,8 @@ var Toolbar = React.createClass({
         <div className="toolbar-inner">
           <Link to="/" className={this.props.route == "home" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-home149" /></Link>
           <Link to="/top/downloads" className={this.props.route == "/top/downloads" || this.props.route == "/top/standings" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-list88" /></Link>                    
-          <Link to="/app/search" className={this.props.route == "/app/search" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-search100" /></Link>                    
+          <Link to="/app/categories" className={this.props.route == "/app/categories" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-menu55" /></Link>                    
+          <Link to="/app/search" className={this.props.route == "/app/search" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-search100" /></Link>                              
         </div>
       </div>
     );
@@ -195,8 +196,13 @@ var ItemList = React.createClass({
     if (this.state.title) {
      title = <div className="content-block-title">{this.state.title}</div>     
     }    
+    var iscategory = this.props.iscategory;
+    var categoryName = "";
     var items = this.state.data.map(function(item){
       if (item != null) {
+        if (iscategory == "true") {
+          categoryName = item.cname;
+        }
         return (
           <Item appId={item.id} name={item.name} downloads={item.total_download} cname={item.cname} thumbnail={item.thumbnail}/>
         );
@@ -213,6 +219,9 @@ var ItemList = React.createClass({
         more = "";
       }
     }  
+    if (iscategory == "true") {
+      title = <div className="content-block-title">{categoryName}</div>;
+    }
 
     return (
       <div>
@@ -470,7 +479,7 @@ var AppSearch = React.createClass({
     }    
     return (
       <div style={{height: '100%'}}>
-        <div className="loading">
+        <div className="loading" id="loading">
           <h5>Đang tải <img src="/img/ajax-loader.gif" /> </h5>
         </div>
         {/* Status bar overlay for fullscreen mode*/}
@@ -515,7 +524,7 @@ var AppDetails = React.createClass({
   handleDownload: function(e) {
     e.preventDefault();     
     var currentTarget = e.currentTarget;
-    if (document.partner == "duyhungws") {
+    if (document.partner == "duyhứngws") {
       alert("http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.state.data.appId);
     }
     $.ajax({
@@ -622,7 +631,7 @@ var AppDetails = React.createClass({
     
     return (
       <div style={{height: "100%"}}>
-        <div className="loading">
+        <div className="loading" id="loading">
           <h5>Đang tải <img src="img/ajax-loader.gif" /> </h5>
         </div>
         {/* Status bar overlay for fullscreen mode*/}
@@ -892,3 +901,139 @@ return (
     );    
   }
 })
+
+var CategoryItem = React.createClass({
+  render: function() {
+    return (
+      <div className="col-33 item">        
+        <Link to={"/app/category/" + this.props.id}>
+          <img src={this.props.icon} />
+          <span>{this.props.name}</span>        
+        </Link>
+      </div>
+      )    
+  }
+});
+
+var CategoriesList = React.createClass({
+  getInitialState: function() {
+    return {data:[{name: "Game online", icon: "http://image.sangame.net/images/2014/04/10/O8Yeh.png"}]}
+  },
+  componentDidMount: function() {
+    // }     
+    $("#loading").css("display", "block");     
+    //var url = prefix + document.partner + "/1/10";    
+    var url = "/api/categories";
+    $.get(url, function(result) {      
+      $("#loading").css("display", "none");
+      if (this.isMounted()) {
+        this.setState({data: result})
+      }
+    }.bind(this))
+  },
+  render: function() {
+    var items = this.state.data.map(function(item){
+      if (item != null) {
+        return (
+          <CategoryItem icon={item.icon} name={item.name} id={item.id}/>
+        );
+      }
+    }) 
+
+    return (
+      <div className="row lst_category">
+        {items}
+      </div>
+
+      )   
+
+  }
+});
+
+var Categories = React.createClass({
+render: function() {
+    return (
+      <div style={{height: '100%'}}>
+        <div className="loading" id="loading">
+          <h5>Đang tải <img src="/img/ajax-loader.gif" /> </h5>
+        </div>            
+        <div className="panel-overlay" />
+        {/* Left panel with reveal effect*/}
+        <div className="panel panel-left panel-reveal">
+          <div className="content-block">
+            <p>Left panel content goes here</p>
+          </div>
+        </div>
+        {/* Views*/}
+        <div className="views">
+          {/* Your main view, should have "view-main" class*/}
+          <div className="view view-main">
+            {/* Top Navbar*/}
+            <Navbar />
+            {/* Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes*/}
+            <div className="pages navbar-through toolbar-through">
+              {/* Index Page*/}
+              <div data-page="index" className="page">
+                {/* Scrollable page content*/}
+                <div className="page-content">
+                  <DownloadStoreButton />
+                  <div className="content-block-title title_category">Danh mục ứng dụng</div>
+                  <CategoriesList />
+                </div>
+              </div>
+              {/* About Page*/}
+              {/* Services Page*/}
+              {/* Form Page*/}
+            </div>
+            {/* Bottom Toolbar*/}
+            <Toolbar route="/app/categories" />
+          </div>
+        </div>
+      </div>
+    );
+  }  
+})
+
+var AppCategory = React.createClass({
+render: function() {
+    var url = "/api/apps-category/" + document.partner + "/" + this.props.params.cid + "/";
+    return (      
+      <div style={{height: "100%"}}>
+        <div className="loading" id="loading">
+          <h5>Đang tải <img src="img/ajax-loader.gif" /> </h5>
+        </div>
+
+        <div className="panel-overlay" />
+        {/* Left panel with reveal effect*/}
+        <div className="panel panel-left panel-reveal">
+          <div className="content-block">
+            <p>Left panel content goes here</p>
+          </div>
+        </div>
+        {/* Views*/}
+        <div className="views">
+          {/* Your main view, should have "view-main" class*/}
+          <div className="view view-main">
+            {/* Top Navbar*/}
+            <Navbar />
+            {/* Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes*/}
+            <div className="pages navbar-through toolbar-through">
+              <div data-page="index" className="page detailt-colection">
+                {/* Scrollable page content*/}
+                <div className="page-content">
+                  <DownloadStoreButton />
+                  <ItemList url={url} title="" iscategory="true" />
+                  <div className="clear" />
+                </div>
+              </div>
+              {/* About Page*/}
+              {/* Services Page*/}
+              {/* Form Page*/}
+            </div>
+            {/* Bottom Toolbar*/}
+            <Toolbar route="/app/category" />
+          </div>
+        </div>
+      </div>
+    );
+  }})

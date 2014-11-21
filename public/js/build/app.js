@@ -24,7 +24,12 @@ var routes = (
     React.createElement(Route, {name: "AppSearch", path: "/app/search", route: "/app/search", handler: AppSearch}
     ), 
     React.createElement(Route, {name: "AppDetails", path: "/app/:appId.html", handler: AppDetails}
+    ), 
+    React.createElement(Route, {name: "Categories", path: "/app/categories", handler: Categories}
+    ), 
+    React.createElement(Route, {name: "AppCategory", path: "/app/category/:cid", handler: AppCategory}
     )
+
   )
 );
 

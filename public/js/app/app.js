@@ -25,6 +25,11 @@ var routes = (
     </Route>    
     <Route name="AppDetails" path="/app/:appId.html" handler={AppDetails}>        
     </Route>    
+    <Route name="Categories" path="/app/categories" handler={Categories}>
+    </Route>
+    <Route name="AppCategory" path="/app/category/:cid" handler={AppCategory}>        
+    </Route>        
+
   </Routes>
 );
 
