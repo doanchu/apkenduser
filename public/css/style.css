@@ -50,7 +50,7 @@ i.glyph-icon:before {
 margin: 0px auto;
 font:13px "Myriad Set Pro", "Lucida Grande", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
 
-border: 1px solid #CCC;
+
 overflow: hidden;
 }
 #apk .page{
@@ -62,14 +62,18 @@ background: #eaeef1;
 	margin-right: 10px;
 	width: 100%;
 }
+#apk .page-content{
+	overflow: none;
+}
 #apk .searchbar .searchbar-input,#apk .searchbar .searchbar-input input{
 	width: 100%;
 	border-radius: 0px;
 }
 
 #apk .button{
-	border: 1px solid #03A9F4;
-
+	border: 1px solid rgba(90, 181, 70, 0.77);
+	color: rgb(82, 82, 82);
+	font-weight: bold;
 }
 
 #apk .toolbar-inner .active i.glyph-icon:before{
@@ -84,8 +88,9 @@ background: #eaeef1;
 }
 
 #apk .navbar{
-	background-color: #03A9F4;
+	background-color: rgba(90, 181, 70, 0.77);
 	color: #FFF;
+	border: 0px;
 }
 
 #apk .navbar a.icon-only{
@@ -106,6 +111,7 @@ background: #eaeef1;
 	background-image: url('../img/download-bt.png');
 	background-repeat: no-repeat;
 	background-size: 80px;
+	opacity: 0.9;
 }
 #apk .lst_item .item-after i.glyph-icon:before{
 	color: #4caf50;
@@ -117,7 +123,7 @@ background: #eaeef1;
 	height: 30px;
 display: block;
 color: #FFF;
-background-color: #03A9F4;
+background-color: rgba(90, 181, 70, 0.77);
 box-shadow: 0px;
 margin: 10px;
 margin-bottom: 20px;
@@ -142,24 +148,23 @@ line-height: 30px;
 	font-size: 14px;
 	text-align: center;
 
-font-weight: normal;
-
-text-align: center;
-white-space: nowrap;
-vertical-align: middle;
-cursor: pointer;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-background-image: none;
+	font-weight: normal;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
 }
 
 
 #apk .btn_store{
 	border-radius: 2px;
 	position: relative;
-	background: #f44336;
+	background: rgba(208, 12, 12, 0.79);
 	padding: 15px 5px;
 	display: block;
 	text-align: center;
@@ -214,7 +219,7 @@ background-image: none;
 	width: 70px;
 }
 #apk .lst_item i.glyph-icon:before{
-	color: #03A9F4;
+	color: rgba(90, 181, 70, 0.77);
 	 font-size: 38px;
 }
 #apk .item-title-row{
@@ -268,7 +273,7 @@ background-image: none;
 }
 #apk .lst_topapp .buttons-row .active{
 	
-	background-color: #03A9F4;
+	background-color: rgba(90, 181, 70, 0.77);
 
 }
 #apk .lst_topapp .info-app{
@@ -386,7 +391,7 @@ background-image: none;
 	color: #767676;
 }
 #apk .lst_vote .active i.glyph-icon:before,#apk .lst_vote .active a{
-	color: #03A9F4;
+	color: rgba(90, 181, 70, 0.77);
 }
 
 #apk .lst_comment{

@@ -586,9 +586,10 @@ var AppDetails = React.createClass({
         autoplayHoverPause:true,
         singleItem:false,
         pagination:false,
+        autoHeight: true,
        
         // "singleItem:true" is a shortcut for:
-         items : 3, 
+         items : 1, 
          itemsDesktop : false,
          itemsDesktopSmall : false,
          itemsTablet: false,
