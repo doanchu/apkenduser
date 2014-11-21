@@ -30,12 +30,12 @@ var Toolbar = React.createClass({displayName: 'Toolbar',
   render: function() {    
         return (
 
-      React.createElement("div", {className: "toolbar tabbar"}, 
+      React.createElement("div", {className: "toolbar tabbar "}, 
         React.createElement("div", {className: "toolbar-inner"}, 
-          React.createElement(Link, {to: "/", className: this.props.route == "home" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-home149"})), 
-          React.createElement(Link, {to: "/top/downloads", className: this.props.route == "/top/downloads" || this.props.route == "/top/standings" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-list88"})), 
-          React.createElement(Link, {to: "/app/categories", className: this.props.route == "/app/categories" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-menu55"})), 
-          React.createElement(Link, {to: "/app/search", className: this.props.route == "/app/search" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-search100"}))
+          React.createElement(Link, {to: "/", className: this.props.route == "home" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-home149"}), React.createElement("span", {class: "tabbar-label"}, "Trang chủ")), 
+          React.createElement(Link, {to: "/top/downloads", className: this.props.route == "/top/downloads" || this.props.route == "/top/standings" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-list88"}), React.createElement("span", {class: "tabbar-label"}, "Hot")), 
+          React.createElement(Link, {to: "/app/categories", className: this.props.route == "/app/categories" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-menu55"}), React.createElement("span", {class: "tabbar-label"}, "Danh mục")), 
+          React.createElement(Link, {to: "/app/search", className: this.props.route == "/app/search" ? "tab-link active" : "tab-link "}, React.createElement("i", {className: "glyph-icon flaticon-search100"}), React.createElement("span", {class: "tabbar-label"}, "Tìm kiếm"))
         )
       )
     );

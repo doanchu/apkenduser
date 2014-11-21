@@ -54,7 +54,7 @@ font:13px "Myriad Set Pro", "Lucida Grande", "Helvetica Neue", "Helvetica", "Ari
 overflow: hidden;
 }
 #apk .page{
-background: #eaeef1;
+background: #edede5;
 }
 #apk .searchbar{
 	background: none;
@@ -71,7 +71,7 @@ background: #eaeef1;
 }
 
 #apk .button{
-	border: 1px solid rgba(90, 181, 70, 0.77);
+	border: 1px solid rgba(151, 206, 104, 0.9);
 	color: rgb(82, 82, 82);
 	font-weight: bold;
 }
@@ -88,7 +88,7 @@ background: #eaeef1;
 }
 
 #apk .navbar{
-	background-color: rgba(90, 181, 70, 0.77);
+	background-color: rgba(151, 206, 104, 0.9);
 	color: #FFF;
 	border: 0px;
 }
@@ -123,16 +123,17 @@ background: #eaeef1;
 	height: 30px;
 display: block;
 color: #FFF;
-background-color: rgba(90, 181, 70, 0.77);
+background-color: rgba(151, 206, 104, 0.9);
 box-shadow: 0px;
 margin: 10px;
 margin-bottom: 20px;
 text-align: center;
 line-height: 30px;
+border-bottom: 3px solid rgba(92, 132, 57, 0.9);
 }
 #apk .info-app .btn-view{
-	background: #4caf50;;
-
+	background: rgba(151, 206, 104, 0.9);
+	border-bottom: 3px solid rgba(92, 132, 57, 0.9);
 }
 .btn-download{
 	background: #3D87E7;
@@ -164,11 +165,11 @@ line-height: 30px;
 #apk .btn_store{
 	border-radius: 2px;
 	position: relative;
-	background: rgba(208, 12, 12, 0.79);
+	background: #ff6766;
 	padding: 15px 5px;
 	display: block;
 	text-align: center;
-	
+	text-transform: uppercase;
 	color: #FFF;
 	margin: 10px;
 
@@ -179,6 +180,7 @@ line-height: 30px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	font-size: 16px;
+	border-bottom: 5px solid #ff4b4a;
 
 }
 
@@ -219,7 +221,7 @@ line-height: 30px;
 	width: 70px;
 }
 #apk .lst_item i.glyph-icon:before{
-	color: rgba(90, 181, 70, 0.77);
+	color: rgba(151, 206, 104, 0.9);
 	 font-size: 38px;
 }
 #apk .item-title-row{
@@ -272,8 +274,9 @@ line-height: 30px;
 	border-radius: 0 2px 2px 0;
 }
 #apk .lst_topapp .buttons-row .active{
-	
-	background-color: rgba(90, 181, 70, 0.77);
+	background-color: rgba(151, 206, 104, 0.9);
+border-bottom: 3px solid rgba(92, 132, 57, 0.9);
+
 
 }
 #apk .lst_topapp .info-app{
@@ -391,7 +394,7 @@ line-height: 30px;
 	color: #767676;
 }
 #apk .lst_vote .active i.glyph-icon:before,#apk .lst_vote .active a{
-	color: rgba(90, 181, 70, 0.77);
+	color: rgba(151, 206, 104, 0.9);
 }
 
 #apk .lst_comment{
