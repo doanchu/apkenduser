@@ -666,7 +666,7 @@ var AppDetails = React.createClass({
                               <div className="item-text"><i className="glyph-icon flaticon-download166" /> {this.state.data.total_download}</div>
                             </div>
                           </div>
-                          <a className="btn-download" className=" btn-download" href={this.handleDownload}> Cài đặt +</a>
+                          <a className="btn-download" className=" btn-download" onClick={this.handleDownload}> Cài đặt +</a>
                         </li>
                       </ul>
                     </div>
