@@ -512,6 +512,29 @@ var AppSearch = React.createClass({
 });
 
 var AppDetails = React.createClass({
+  handleDownload: function(e) {
+    e.preventDefault();     
+    var currentTarget = e.currentTarget;
+    if (document.partner == "duyhungws") {
+      alert("http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.state.data.appId);
+    }
+    $.ajax({
+      url: "http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.state.data.appId,
+      jsonp: "callback",
+      dataType: "jsonp",
+      target: currentTarget,
+      timeout: 3000,
+      success: function(response) {
+        if (response.status == -1) {          
+          window.location.href = this.target.getAttribute("href");
+        }
+      }, 
+      error: function(jqXHR, textStatus, errorThrown) {                
+        window.location.href = this.target.getAttribute("href");
+      }  
+    });       
+    return false;
+  },  
   getInitialState: function() {
     return {
       data: {
@@ -587,7 +610,7 @@ var AppDetails = React.createClass({
     $("#infoTab").removeClass("active");
   },    
   render: function() {    
-    var downloadLink = "/app/download/" + document.partner + "/" + this.state.data.id;
+    var downloadLink = "/app/cdownload/" + document.partner + "/" + this.state.data.id;
     var screenShots = this.state.data.ss.map(function(item){
       if (item != null) {
         return (
@@ -675,7 +698,7 @@ var AppDetails = React.createClass({
                               </li>
                             </ul>
                           </div>
-                          <a className="btn-view" href={downloadLink}>Cài đặt</a> 
+                          <a className="btn-view" href={downloadLink} onClick={this.handleDownload}>Cài đặt</a> 
 
                         </div>
                       </div>   
