@@ -84,8 +84,7 @@ var Banner = React.createClass({displayName: 'Banner',
 
 var Item = React.createClass({displayName: 'Item',
   handleDownload: function(e) {
-    e.preventDefault(); 
-    alert("trying companion download");
+    e.preventDefault();     
     var currentTarget = e.currentTarget;
     $.ajax({
       url: "http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.props.appId,
@@ -98,8 +97,7 @@ var Item = React.createClass({displayName: 'Item',
           window.location.href = this.target.getAttribute("href");
         }
       }, 
-      error: function(jqXHR, textStatus, errorThrown) {        
-        alert(this.target.getAttribute("href"));
+      error: function(jqXHR, textStatus, errorThrown) {                
         window.location.href = this.target.getAttribute("href");
       }  
     });       
