@@ -100,9 +100,12 @@ background: #eaeef1;
 
 #apk .lst_item .item-after{
 	position: absolute;
-	right: -5px;
-	bottom: -44px;
-	padding: 10px;
+	right: -2px;
+	bottom: -45px;
+	padding: 15px 40px;
+	background-image: url('../img/download-bt.png');
+	background-repeat: no-repeat;
+	background-size: 80px;
 }
 #apk .lst_item .item-after i.glyph-icon:before{
 	color: #4caf50;
@@ -160,9 +163,17 @@ background-image: none;
 	padding: 15px 5px;
 	display: block;
 	text-align: center;
-	font-weight: bold;
+	
 	color: #FFF;
 	margin: 10px;
+
+	font-weight: 500;
+	flex-shrink: 1;
+	white-space: nowrap;
+	position: relative;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 16px;
 
 }
 
@@ -182,6 +193,8 @@ background-image: none;
 #apk .lst_item .item-title-row{
 	position: relative;
 	padding-right: 0px;
+	font-size: 14px;
+
 }
 #apk .lst_item .item-content{
 	padding: 10px;
@@ -210,6 +223,8 @@ background-image: none;
 
 #apk .lst_item .item-title{
 	color: #3F4041;
+	font-weight: bold;
+	padding-bottom: 5px;
 }
 #apk .lst_item .item-subtitle{
 	color: rgb(152, 152, 152);

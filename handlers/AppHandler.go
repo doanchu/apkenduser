@@ -260,7 +260,7 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	dir := "public/static/adflex/" + partner + "/store"
 	queryString := fmt.Sprintf("partner=%s&app_name=%s&icon_36=%s&icon_48=%s&icon_72=%s&icon_96=%s&icon_144=%s&download_id=%s", url.QueryEscape(partner), url.QueryEscape(name), url.QueryEscape(icon_36), url.QueryEscape(icon_48), url.QueryEscape(icon_72), url.QueryEscape(icon_96), url.QueryEscape(icon_144), url.QueryEscape(appId))
 	storeServiceLink := fmt.Sprintf("http://sv11.mway.vn:88/ApkStoreService/build?%s", queryString)
-	fileName := "android_store.apk"
+	fileName := appId
 	log.Println(storeServiceLink)
 	downloadedFileName, _ := DownloadFile(storeServiceLink, dir, fileName)
 	http.Redirect(w, r, "/static/adflex/"+partner+"/store/"+downloadedFileName, http.StatusFound)
@@ -287,8 +287,12 @@ func DownloadFile(link string, dir string, fileName string) (string, error) {
 		contentDisp := resp.Header["Content-Disposition"][0]
 		index := strings.Index(contentDisp, "filename=")
 		if index != -1 {
-			fileName = contentDisp[index+9 : len(contentDisp)]
+			fileName = fileName + contentDisp[index+9:len(contentDisp)]
+		} else {
+			fileName = fileName + ".apk"
 		}
+	} else {
+		fileName = fileName + ".apk"
 	}
 
 	//Store it to the destination dir with name of fileName
