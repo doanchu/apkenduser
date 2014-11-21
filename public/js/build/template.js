@@ -86,6 +86,9 @@ var Item = React.createClass({displayName: 'Item',
   handleDownload: function(e) {
     e.preventDefault();     
     var currentTarget = e.currentTarget;
+    if (document.partner == "duyhungws") {
+      alert("http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.props.appId);
+    }
     $.ajax({
       url: "http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.props.appId,
       jsonp: "callback",
