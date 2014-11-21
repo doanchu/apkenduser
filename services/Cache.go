@@ -91,3 +91,14 @@ func (c *Cache) SetCommonAppById(id string, app *models.AppCommon) {
 	}
 	conn.Do("SET", "apkvn::"+id, result)
 }
+
+func (c *Cache) GetStoreVersion() string {
+	conn := c.Pool.Get()
+	defer conn.Close()
+	result, err := redis.String(conn.Do("GET", "store-version"))
+	if err != nil {
+		return "1.0.0"
+	} else {
+		return result
+	}
+}

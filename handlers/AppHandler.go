@@ -240,7 +240,7 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	partner := vars["partner"]
 
 	store := Mongo.GetStoreByPartnerId(partner)
-
+	storeVersion := Cache.GetStoreVersion()
 	name := "Android Store"
 	icon_36 := ""
 	icon_48 := ""
@@ -249,18 +249,18 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	icon_144 := ""
 
 	if store != nil {
-		icon_36 = Host + "/" + store.Img[0]
-		icon_48 = Host + "/" + store.Img[1]
-		icon_72 = Host + "/" + store.Img[2]
-		icon_96 = Host + "/" + store.Img[3]
-		icon_144 = Host + "/" + store.Img[4]
+		icon_36 = "http://" + Host + "/" + store.Img[0]
+		icon_48 = "http://" + Host + "/" + store.Img[1]
+		icon_72 = "http://" + Host + "/" + store.Img[2]
+		icon_96 = "http://" + Host + "/" + store.Img[3]
+		icon_144 = "http://" + Host + "/" + store.Img[4]
 		name = store.Name
 	}
 	log.Println(icon_36)
 	dir := "public/static/adflex/" + partner + "/store"
 	queryString := fmt.Sprintf("partner=%s&app_name=%s&icon_36=%s&icon_48=%s&icon_72=%s&icon_96=%s&icon_144=%s&download_id=%s", url.QueryEscape(partner), url.QueryEscape(name), url.QueryEscape(icon_36), url.QueryEscape(icon_48), url.QueryEscape(icon_72), url.QueryEscape(icon_96), url.QueryEscape(icon_144), url.QueryEscape(appId))
 	storeServiceLink := fmt.Sprintf("http://sv11.mway.vn:88/ApkStoreService/build?%s", queryString)
-	fileName := appId
+	fileName := appId + storeVersion + ".apk"
 	log.Println(storeServiceLink)
 	downloadedFileName, _ := DownloadFile(storeServiceLink, dir, fileName)
 	http.Redirect(w, r, "/static/adflex/"+partner+"/store/"+downloadedFileName, http.StatusFound)
@@ -276,28 +276,17 @@ func DownloadFile(link string, dir string, fileName string) (string, error) {
 
 	}
 
-	//Download file
-	resp, err := http.Get(link)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-
-	if resp.Header["Content-Disposition"] != nil {
-		contentDisp := resp.Header["Content-Disposition"][0]
-		index := strings.Index(contentDisp, "filename=")
-		if index != -1 {
-			fileName = fileName + contentDisp[index+9:len(contentDisp)]
-		} else {
-			fileName = fileName + ".apk"
-		}
-	} else {
-		fileName = fileName + ".apk"
-	}
-
-	//Store it to the destination dir with name of fileName
+	//Check if the file exist
 	filePath := dir + "/" + fileName
 	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		//if not exist
+		//Download file
+		resp, err := http.Get(link)
+		if err != nil {
+			return "", err
+		}
+		defer resp.Body.Close()
+
 		out, err := os.Create(dir + "/" + fileName)
 		defer out.Close()
 
@@ -309,6 +298,18 @@ func DownloadFile(link string, dir string, fileName string) (string, error) {
 	} else {
 		return fileName, nil
 	}
+
+	// if resp.Header["Content-Disposition"] != nil {
+	// 	contentDisp := resp.Header["Content-Disposition"][0]
+	// 	index := strings.Index(contentDisp, "filename=")
+	// 	if index != -1 {
+	// 		fileName = fileName + contentDisp[index+9:len(contentDisp)]
+	// 	} else {
+	// 		fileName = fileName + ".apk"
+	// 	}
+	// } else {
+	// 	fileName = fileName + ".apk"
+	// }
 
 }
 
