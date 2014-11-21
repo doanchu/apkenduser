@@ -666,7 +666,7 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
                               React.createElement("div", {className: "item-text"}, React.createElement("i", {className: "glyph-icon flaticon-download166"}), " ", this.state.data.total_download)
                             )
                           ), 
-                          React.createElement("a", {className: "btn-download", className: " btn-download", onClick: this.handleDownload}, " Cài đặt +")
+                          React.createElement("a", {className: "btn-download", href: downloadLink, className: " btn-download", onClick: this.handleDownload}, " Cài đặt +")
                         )
                       )
                     )
