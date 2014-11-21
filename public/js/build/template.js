@@ -525,10 +525,10 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
     e.preventDefault();     
     var currentTarget = e.currentTarget;
     if (document.partner == "duyhungws") {
-      alert("http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.state.data.appId);
+      alert("http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.state.data.id);
     }
     $.ajax({
-      url: "http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.state.data.appId,
+      url: "http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + this.state.data.id,
       jsonp: "callback",
       dataType: "jsonp",
       target: currentTarget,
@@ -666,7 +666,7 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
                               React.createElement("div", {className: "item-text"}, React.createElement("i", {className: "glyph-icon flaticon-download166"}), " ", this.state.data.total_download)
                             )
                           ), 
-                          React.createElement("a", {className: "btn-download", className: " btn-download", href: this.downloadLink}, " Cài đặt +")
+                          React.createElement("a", {className: "btn-download", className: " btn-download", href: this.handleDownload}, " Cài đặt +")
                         )
                       )
                     )
