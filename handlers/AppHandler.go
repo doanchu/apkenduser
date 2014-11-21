@@ -45,7 +45,7 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 
 	var result []*models.PartnerAppInfo
 	result = Mongo.GetPartnerAppsByCategory(myPartner, cid, page, limit)
-	log.Println(result)
+	// log.Println(result)
 	if result == nil {
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))
@@ -53,7 +53,7 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	appDetails := CreateAppDetails(result)
-	log.Println(appDetails)
+	// log.Println(appDetails)
 	var byteResult []byte
 	byteResult, err = json.Marshal(appDetails)
 	w.Header().Set("Content-Type", "application/json")
@@ -67,7 +67,7 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 
 func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	log.Println(vars)
+	// log.Println(vars)
 	partner := vars["partner"]
 
 	appId := vars["app_id"]
@@ -77,7 +77,7 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("{}"))
 		return
 	}
-	log.Println(appCommon)
+	// log.Println(appCommon)
 	appPartner := Mongo.GetPartnerAppById(partner, appId)
 
 	category := Mongo.GetCategoryById(appCommon.Cid)
@@ -431,7 +431,7 @@ func AppCollectionHandler(w http.ResponseWriter, r *http.Request) {
 		ids[key] = value
 	}
 
-	log.Println(ids)
+	// log.Println(ids)
 	appCommons := Mongo.GetCommonAppsByIds(ids)
 
 	resultDetails := &models.CollectionDetails{
@@ -478,7 +478,7 @@ func AppsInCollectionHandler(w http.ResponseWriter, r *http.Request) {
 		ids[key] = value
 	}
 
-	log.Println(ids)
+	// log.Println(ids)
 	appCommons := Mongo.GetCommonAppsByIds(ids)
 
 	var byteResult []byte

@@ -129,8 +129,8 @@ func (f neuteredReaddirFile) Readdir(count int) ([]os.FileInfo, error) {
 var mongo *services.Mongo
 
 func main() {
-	// downloadedFileName, _ := handlers.DownloadFile("http://sv11.mway.vn:88/ApkStoreService/build?partner=duyhungws&app_name=Hung&download_id=123", "public/static/adflex/duyhungws/store/", "test.apk")
-	// log.Println(downloadedFileName)
+	downloadedFileName, _ := handlers.DownloadFile("http://sv11.mway.vn:88/ApkStoreService/build?partner=duyhungws&app_name=Hung&download_id=123", "public/static/adflex/duyhungws/store/", "test")
+	log.Println(downloadedFileName)
 	readConfiguration()
 	fs := justFilesFilesystem{http.Dir("public")}
 	s := "Bỏ dấu tiếng việt"
