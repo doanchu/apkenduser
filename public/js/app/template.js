@@ -30,7 +30,7 @@ var Toolbar = React.createClass({
   render: function() {    
         return (
 
-      <div className="toolbar tabbar ">
+      <div className="toolbar tabbar tabbar-labels">
         <div className="toolbar-inner">
           <Link to="/" className={this.props.route == "home" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-home149" /><span class="tabbar-label">Trang chủ</span></Link>
           <Link to="/top/downloads" className={this.props.route == "/top/downloads" || this.props.route == "/top/standings" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-list88" /><span class="tabbar-label">Hot</span></Link>                    
