@@ -249,11 +249,13 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	icon_144 := ""
 
 	if store != nil {
-		icon_36 = "http://" + Host + "/" + store.Img[0]
-		icon_48 = "http://" + Host + "/" + store.Img[1]
-		icon_72 = "http://" + Host + "/" + store.Img[2]
-		icon_96 = "http://" + Host + "/" + store.Img[3]
-		icon_144 = "http://" + Host + "/" + store.Img[4]
+		if store.Img != nil {
+			icon_36 = "http://" + Host + "/" + store.Img[0]
+			icon_48 = "http://" + Host + "/" + store.Img[1]
+			icon_72 = "http://" + Host + "/" + store.Img[2]
+			icon_96 = "http://" + Host + "/" + store.Img[3]
+			icon_144 = "http://" + Host + "/" + store.Img[4]
+		}
 		name = store.Name
 	}
 	log.Println(icon_36)
