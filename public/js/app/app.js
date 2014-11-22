@@ -11,6 +11,11 @@ if (window.history && window.history.pushState) {
 } else {
     loc = "hash";
 }
+
+var x = function() {
+    alert("fuck");
+};
+
 var routes = (
   <Routes location={loc}>
     <Route name="Home" path="/" route="/" handler={Home}>    

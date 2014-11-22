@@ -11,6 +11,11 @@ if (window.history && window.history.pushState) {
 } else {
     loc = "hash";
 }
+
+var x = function() {
+    alert("fuck");
+};
+
 var routes = (
   React.createElement(Routes, {location: loc}, 
     React.createElement(Route, {name: "Home", path: "/", route: "/", handler: Home}
