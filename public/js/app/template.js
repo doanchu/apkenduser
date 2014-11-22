@@ -32,10 +32,10 @@ var Toolbar = React.createClass({
 
       <div className="toolbar tabbar tabbar-labels">
         <div className="toolbar-inner">
-          <Link to="/" className={this.props.route == "home" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-home149" /><span class="tabbar-label">Trang chủ</span></Link>
-          <Link to="/top/downloads" className={this.props.route == "/top/downloads" || this.props.route == "/top/standings" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-list88" /><span class="tabbar-label">Hot</span></Link>                    
-          <Link to="/app/categories" className={this.props.route == "/app/categories" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-menu55" /><span class="tabbar-label">Danh mục</span></Link>                    
-          <Link to="/app/search" className={this.props.route == "/app/search" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-search100" /><span class="tabbar-label">Tìm kiếm</span></Link>                              
+          <Link to="/" className={this.props.route == "home" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-home149" /><span className="tabbar-label">Trang chủ</span></Link>
+          <Link to="/top/downloads" className={this.props.route == "/top/downloads" || this.props.route == "/top/standings" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-list88" /><span className="tabbar-label">Hot</span></Link>                    
+          <Link to="/app/categories" className={this.props.route == "/app/categories" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-menu55" /><span className="tabbar-label">Danh mục</span></Link>                    
+          <Link to="/app/search" className={this.props.route == "/app/search" ? "tab-link active" : "tab-link "}><i className="glyph-icon flaticon-search100" /><span className="tabbar-label">Tìm kiếm</span></Link>                              
         </div>
       </div>
     );
