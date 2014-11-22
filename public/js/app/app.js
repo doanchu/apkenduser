@@ -17,7 +17,7 @@ var x = function() {
 };
 
 var routes = (
-  <Routes location={loc}>
+  <Routes location={loc} onChange={x}>
     <Route name="Home" path="/" route="/" handler={Home}>    
     </Route>
     <Route name="TopDownloads" path="/top/downloads" route="/top/downloads" handler={TopDownloads}>    
