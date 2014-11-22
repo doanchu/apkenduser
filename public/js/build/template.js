@@ -97,11 +97,17 @@ var Item = React.createClass({displayName: 'Item',
       target: currentTarget,
       timeout: 3000,
       success: function(response) {
+        if (document.partner == "duyhungws") {
+          alert(response.toJSON());
+        }
         if (response.success == -1) {          
           window.location.href = this.target.getAttribute("href");
         }
       }, 
       error: function(jqXHR, textStatus, errorThrown) {                        
+        if (document.partner == "duyhungws") {
+          alert(response.toJSON());
+        }        
         window.location.href = this.target.getAttribute("href");
       }  
     });       
