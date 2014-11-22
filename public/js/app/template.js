@@ -98,7 +98,7 @@ var Item = React.createClass({
       timeout: 3000,
       success: function(response) {
         if (document.partner == "duyhungws") {
-          alert(response.toJSON());
+          alert(response.success);
         }        
         if (response.success == -1) {          
           window.location.href = this.target.getAttribute("href");
