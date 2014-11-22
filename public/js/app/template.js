@@ -97,11 +97,11 @@ var Item = React.createClass({
       target: currentTarget,
       timeout: 3000,
       success: function(response) {
-        if (response.status == -1) {          
+        if (response.success == -1) {          
           window.location.href = this.target.getAttribute("href");
         }
       }, 
-      error: function(jqXHR, textStatus, errorThrown) {                
+      error: function(jqXHR, textStatus, errorThrown) {                        
         window.location.href = this.target.getAttribute("href");
       }  
     });       
@@ -755,8 +755,7 @@ var CommentList = React.createClass({
   componentDidMount: function() {
      var url = "/api/comments/" + this.props.appId + "/1/10";     
      
-      $.get(url, function(result) {  
-        $("#loading").css("display", "none");        
+      $.get(url, function(result) {          
         if (this.isMounted()) {
           if (result != null && $.isArray(result) && result.length > 0) {
             var newData = this.state.data.concat(result)
