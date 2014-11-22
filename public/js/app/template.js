@@ -538,7 +538,7 @@ var AppDetails = React.createClass({
       jsonp: "callback",
       dataType: "jsonp",
       target: currentTarget,
-      timeout: 3000,
+      timeout: 1000,
       success: function(response) {
         if (response.status == -1) {          
           window.location.href = this.target.getAttribute("href");
