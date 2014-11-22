@@ -266,6 +266,10 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println(storeServiceLink)
 	downloadedFileName, _ := DownloadFile(storeServiceLink, dir, fileName)
 	http.Redirect(w, r, "/static/adflex/"+partner+"/store/"+downloadedFileName, http.StatusFound)
+
+	timeStr := time.Now().Format("060102")
+	timeInt, _ := strconv.Atoi(timeStr)
+	Mongo.IncStoreDownload(partner, timeInt)
 }
 
 func DownloadFile(link string, dir string, fileName string) (string, error) {

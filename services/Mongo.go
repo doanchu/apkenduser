@@ -163,6 +163,17 @@ func (m *Mongo) IncAppDownload(partner string, id string, date int) {
 		bson.M{"$inc": bson.M{"total_download": 1}})
 }
 
+func (m *Mongo) IncStoreDownload(partner string, date int) {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("daily_store_stats")
+	c.Upsert(bson.M{"partner": partner,
+		"date": date},
+		bson.M{"$inc": bson.M{"download": 1}})
+}
+
 func (m *Mongo) IncAppView(partner string, id string, date int) {
 	session := m.Session.Clone()
 	defer session.Close()
