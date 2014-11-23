@@ -494,6 +494,19 @@ var Content = React.createClass({
       }
     });      
     var downloadLink = "/app/cdownload/" + document.partner + "/" + this.state.data.id;
+    var size = parseInt(this.state.data.size);
+    if (!isNaN(size)) {
+        size = Math.floor(size / (1024*1024));
+        if (size == 0) {
+          size = parseInt(this.state.data.size);
+          size = Math.floor(size / 1024)  ;
+          size = size + " KB";
+        } else {
+          size = size + " MB";          
+        }        
+    } else {
+      size = this.state.data.size;
+    }
     return (
 <div itemscope="itemscope" itemtype="http://schema.org/MobileApplication" id="body-content" role="main">      
 <div>
@@ -505,7 +518,7 @@ var Content = React.createClass({
           <div>{this.state.data.name}</div>
         </div>
         <div itemprop="author" itemscope="" itemtype="http://schema.org/Organization">                      
-          <div className="document-subtitle primary"> <span itemprop="name">{this.state.data.size} MB - {this.state.data.total_download} Lượt tải</span> </div>                            
+          <div className="document-subtitle primary"> <span itemprop="name">{size} - {this.state.data.total_download} Lượt tải</span> </div>                            
         </div>
         <div>  <a className="document-subtitle category" href="/store/apps/category/PERSONALIZATION"> <span itemprop="genre">{this.state.data.cname}</span> </a></div>
         <div className="details-actions">

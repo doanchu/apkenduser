@@ -494,6 +494,19 @@ var Content = React.createClass({displayName: 'Content',
       }
     });      
     var downloadLink = "/app/cdownload/" + document.partner + "/" + this.state.data.id;
+    var size = parseInt(this.state.data.size);
+    if (!isNaN(size)) {
+        size = Math.floor(size / (1024*1024));
+        if (size == 0) {
+          size = parseInt(this.state.data.size);
+          size = Math.floor(size / 1024)  ;
+          size = size + " KB";
+        } else {
+          size = size + " MB";          
+        }        
+    } else {
+      size = this.state.data.size;
+    }
     return (
 React.createElement("div", {itemscope: "itemscope", itemtype: "http://schema.org/MobileApplication", id: "body-content", role: "main"}, 
 React.createElement("div", null, 
@@ -505,7 +518,7 @@ React.createElement("div", null,
           React.createElement("div", null, this.state.data.name)
         ), 
         React.createElement("div", {itemprop: "author", itemscope: "", itemtype: "http://schema.org/Organization"}, 
-          React.createElement("div", {className: "document-subtitle primary"}, " ", React.createElement("span", {itemprop: "name"}, this.state.data.size, " MB - ", this.state.data.total_download, " Lượt tải"), " ")
+          React.createElement("div", {className: "document-subtitle primary"}, " ", React.createElement("span", {itemprop: "name"}, size, " - ", this.state.data.total_download, " Lượt tải"), " ")
         ), 
         React.createElement("div", null, "  ", React.createElement("a", {className: "document-subtitle category", href: "/store/apps/category/PERSONALIZATION"}, " ", React.createElement("span", {itemprop: "genre"}, this.state.data.cname), " ")), 
         React.createElement("div", {className: "details-actions"}, 
