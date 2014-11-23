@@ -280,6 +280,7 @@ var ActionBar = React.createClass({
               <div className="mobile-nav-separator" />
             </li>
             <li> <Link to="/app/categories" className="apps mobile-nav-item default"> <span className="icon" /> <span className="label">Thể loại</span> </Link> </li>
+            <li> <Link to="/app/collections" className="apps mobile-nav-item default"> <span className="icon" /> <span className="label">Chọn lọc</span> </Link> </li>
           </ul>
         </ul>         
         <div className="mobile-action-bar">
@@ -312,6 +313,7 @@ var VerticalShortcuts = React.createClass({
           <li className="shortcut"> <Link to="/top/downloads" className="play-button">Tải nhiều</Link> </li>
           <li className="shortcut"> <Link to="/top/standings" className="play-button">Yêu thích</Link> </li>
           <li className="shortcut"> <Link to="/app/categories" className="play-button">Thể loại</Link> </li>
+          <li className="shortcut"> <Link to="/app/collections" className="play-button">Chọn lọc</Link> </li>
         </ul>
       </div>
     );
@@ -954,6 +956,221 @@ var AppCategory = React.createClass({
               <div className="cluster-container">
                 <div className="cluster id-track-impression normal square-cover apps show-all id-track-chomp" data-fetch-start={18} data-original-classes="cluster normal square-cover apps show-all" data-short-classes="cluster tight square-cover apps show-all" data-uitype={400}>
                   <AppCategoryList cid={this.props.params.cid} />                  
+                </div>                
+              </div>
+            </div>
+          </div>         
+          <div className="overlay-background" style={{display: 'none'}} />
+          <div className="overlay-wrapper" style={{display: 'none'}}>
+            <div className="overlay-content-wrapper">
+              <div id="overlay-content" />
+            </div>
+          </div>
+          <div style={{clear: 'both'}} />         
+          <Footer />
+        </div>
+        <div className="loaded" id="page-load-indicator" />
+        <div className="modal-dialog" tabindex={-1} role="dialog" style={{display: 'none'}}>
+          <div className="id-contents-wrapper">
+            <div className="contents">
+            This is content
+            </div>
+          </div>
+        </div>
+        <div className="modal-dialog-overlay" style={{display: 'none'}} />
+        <div id="roster-for-Google-Help" style={{display: 'none'}} />
+      </div>
+    );
+  }
+})
+
+var CollectionItem = React.createClass({
+  render: function() {
+    var collectionURL = "/app/collection/" + this.props.colid;
+    return (
+        <div className="card no-rationale wide-cover apps small" data-original-classes="card no-rationale square-cover apps small" data-short-classes="card no-rationale square-cover apps tiny">
+          <div className="card-content id-track-click id-track-impression"  data-uitype={500}>
+            <Link to={collectionURL} className="card-click-target" href={collectionURL} aria-hidden="true" tabindex={-1} /> 
+            <div className="cover">
+              <div className="cover-image-container">
+                <div className="cover-outer-align">
+                  <div className="cover-inner-align"> <img className="cover-image" alt={this.props.name} src={this.props.banner} aria-hidden="true" /> </div>
+                </div>
+              </div>
+              <Link to={collectionURL} className="card-click-target" href={collectionURL} aria-hidden="true" tabindex={-1}>  <span className="movies preordered-overlay-container id-preordered-overlay-container" style={{display: 'none'}}> <span className="preordered-label">Pre-ordered</span> </span> <span className="preview-overlay-container" ></span></Link> 
+            </div>
+            <div className="details">
+              <Link to={collectionURL} className="card-click-target" href={collectionURL} aria-hidden="true" tabindex={-1} />  
+              <h2> <Link to={collectionURL} className="title" href={collectionURL} title={this.props.name}>{this.props.name}<span className="paragraph-end" /> </Link> </h2>
+            </div>
+          </div>
+        </div>        
+      );    
+  }  
+})
+
+var CollectionList = React.createClass({
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {    
+   
+    $("#loading").css("display", "block");     
+    //var url = prefix + document.partner + "/1/10";      
+    var url = "/api/collections";           
+    $.get(url, function(result) {      
+      $("#loading").css("display", "none");      
+      if (this.isMounted()) {
+        this.setState({data: result})
+      }
+    }.bind(this))
+  },         
+  render: function() {
+
+      var searchResult = <div><div className="bottom-loading" id="loading" style={{display: 'none'}} />        </div>;      
+      if (this.state.data.length == 0) {
+      } else {
+        var items = this.state.data.map(function(item){
+          if (item != null) {
+            return (
+              <CollectionItem colid={item.Oid} name={item.name} banner={item.banner} />
+            );
+          }
+        })          
+        searchResult = (        
+        <div>
+          <div className="card-list">
+            {items}                   
+          </div>                  
+        </div>
+        )
+      }
+
+      
+      return searchResult;
+    }
+})
+
+
+
+var Collections = React.createClass({
+  getInitialState: function() {
+    return {data:[]};
+  }, 
+  render: function() {
+    return (
+      <div>     
+        <ActionBar />      
+        <div className="wrapper-with-footer phone-optimized-top" id="wrapper">
+          <div className="butterbar-container"><span id="butterbar" /></div>
+          <div className="body-content-loading-overlay" style={{display: 'none'}}>
+            <div className="body-content-loading-spinner" />
+          </div>
+          <div className="id-body-content-beginning" aria-labelledby="main-title" tabindex={-1} />
+          <div id="body-content" role="main">   
+            <VerticalShortcuts />                   
+            <div className="browse-page">
+              <div className="cluster-container">
+                <div className="cluster id-track-impression normal square-cover apps show-all id-track-chomp" data-fetch-start={18} data-original-classes="cluster normal square-cover apps show-all" data-short-classes="cluster tight square-cover apps show-all" data-uitype={400}>
+                  <CollectionList />                  
+                </div>                
+              </div>
+            </div>
+          </div>         
+          <div className="overlay-background" style={{display: 'none'}} />
+          <div className="overlay-wrapper" style={{display: 'none'}}>
+            <div className="overlay-content-wrapper">
+              <div id="overlay-content" />
+            </div>
+          </div>
+          <div style={{clear: 'both'}} />         
+          <Footer />
+        </div>
+        <div className="loaded" id="page-load-indicator" />
+        <div className="modal-dialog-overlay" style={{display: 'none'}} />
+        <div id="roster-for-Google-Help" style={{display: 'none'}} />
+      </div>
+    );
+  }
+});
+
+
+var AppCollectionList = React.createClass({
+  mixins: [RouterState],
+  getInitialState: function() {
+    return {data: [], name: "", banner: "", id: ""};
+  },
+  componentDidMount: function() {    
+    // var prefix = "/api/apps-partner/";
+    // if (this.props.route == "/") {
+    //   prefix = "/api/apps-partner/";
+    // } else if (this.props.route == "topdownload" || this.props.route == "/top/downloads") {
+    //   prefix = "/api/apps-download/";
+    // } else if (this.props.route == "standings" || this.props.route == "/top/standings") {
+    //   prefix = "/api/apps-like/";
+    // }     
+    $("#loading").css("display", "block");     
+    //var url = prefix + document.partner + "/1/10";    
+    $("#show-more-button").addClass("disabled");    
+    var url = "/api/collection-details/" + document.partner + "/" + this.props.cid;                
+    $.get(url, function(result) {      
+      $("#loading").css("display", "none");
+      $("#show-more-button").removeClass("disabled");
+      if (this.isMounted()) {
+        if (result != null && $.isArray(result.apps) && result.apps.length > 0) {
+          this.setState({data: result.apps, name: result.name, banner: result.banner, id: result.Oid});
+        }
+      }
+    }.bind(this))
+  },         
+  render: function() {
+
+      var searchResult = <div><div className="bottom-loading" id="loading" style={{display: 'none'}} /></div>;      
+      if (this.state.data.length == 0) {
+      } else {        
+        var items = this.state.data.map(function(item){
+          if (item != null) {
+            return (
+              <Item appId={item.id} name={item.name} downloads={item.total_download} cname={item.cname} thumbnail={item.thumbnail}/>
+            );
+          }
+        })          
+        searchResult = (        
+        <div>        
+          <CollectionItem colid={this.state.id} name={this.state.name} banner={this.state.banner} />                  
+          <div className="card-list">
+            {items}                   
+          </div>
+          <div className="bottom-loading" id="loading" style={{display: 'none'}} />                  
+        </div>
+        )
+      }
+
+      
+      return searchResult;
+    }
+});
+
+var AppCollection = React.createClass({
+  getInitialState: function() {
+    return {data:[]};
+  }, 
+  render: function() {
+    return (
+      <div>     
+        <ActionBar />      
+        <div className="wrapper-with-footer phone-optimized-top" id="wrapper">
+          <div className="butterbar-container"><span id="butterbar" /></div>
+          <div className="body-content-loading-overlay" style={{display: 'none'}}>
+            <div className="body-content-loading-spinner" />
+          </div>
+          <div className="id-body-content-beginning" aria-labelledby="main-title" tabindex={-1} />
+          <div id="body-content" role="main">   
+            <VerticalShortcuts />                   
+            <div className="browse-page">
+              <div className="cluster-container">
+                <div className="cluster id-track-impression normal square-cover apps show-all id-track-chomp" data-fetch-start={18} data-original-classes="cluster normal square-cover apps show-all" data-short-classes="cluster tight square-cover apps show-all" data-uitype={400}>
+                  <AppCollectionList cid={this.props.params.cid} />                  
                 </div>                
               </div>
             </div>

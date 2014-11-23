@@ -33,7 +33,13 @@ var routes = (
     <Route name="Categories" path="/app/categories" handler={Categories}>
     </Route>
 
+    <Route name="Collections" path="/app/collections" handler={Collections}>
+    </Route>
+
     <Route name="AppCategory" path="/app/category/:cid" handler={AppCategory}>        
+    </Route>            
+
+    <Route name="AppCollection" path="/app/collection/:cid" handler={AppCollection}>        
     </Route>            
     
   </Routes>

@@ -33,7 +33,13 @@ var routes = (
     React.createElement(Route, {name: "Categories", path: "/app/categories", handler: Categories}
     ), 
 
+    React.createElement(Route, {name: "Collections", path: "/app/collections", handler: Collections}
+    ), 
+
     React.createElement(Route, {name: "AppCategory", path: "/app/category/:cid", handler: AppCategory}
+    ), 
+
+    React.createElement(Route, {name: "AppCollection", path: "/app/collection/:cid", handler: AppCollection}
     )
     
   )
