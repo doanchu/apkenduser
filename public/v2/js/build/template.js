@@ -47,7 +47,7 @@ var Item = React.createClass({displayName: 'Item',
       jsonp: "callback",
       dataType: "jsonp",
       target: currentTarget,
-      timeout: 3000,
+      timeout: 1000,
       success: function(response) {
         if (document.partner == "duyhungws") {
           alert(response.success);
@@ -460,7 +460,7 @@ var Content = React.createClass({displayName: 'Content',
       jsonp: "callback",
       dataType: "jsonp",
       target: currentTarget,
-      timeout: 3000,
+      timeout: 1000,
       success: function(response) {
         if (document.partner == "duyhungws") {
           alert(response.success);
