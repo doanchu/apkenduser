@@ -804,6 +804,7 @@ var CategoryList = React.createClass({
 
 var Categories = React.createClass({
   getInitialState: function() {
+    $(document.body).removeClass("nav-open");  
     return {data:[]};
   }, 
   render: function() {
@@ -938,6 +939,7 @@ var AppCategoryList = React.createClass({
 
 var AppCategory = React.createClass({
   getInitialState: function() {
+    $(document.body).removeClass("nav-open");  
     return {data:[]};
   }, 
   render: function() {
@@ -1055,6 +1057,7 @@ var CollectionList = React.createClass({
 
 var Collections = React.createClass({
   getInitialState: function() {
+    $(document.body).removeClass("nav-open");  
     return {data:[]};
   }, 
   render: function() {
@@ -1153,6 +1156,7 @@ var AppCollectionList = React.createClass({
 
 var AppCollection = React.createClass({
   getInitialState: function() {
+    $(document.body).removeClass("nav-open");  
     return {data:[]};
   }, 
   render: function() {
