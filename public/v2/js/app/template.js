@@ -282,7 +282,7 @@ var ActionBar = React.createClass({
           </ul>
         </ul>         
         <div className="mobile-action-bar">
-          <span className="action-bar-menu-button" onClick={this.showMenuBar}> <span className="menu-icon" /> </span> <a className="play-logo" href="/store" /> <span className="action-bar-search-button" onClick={this.showSearchBar}> <span className="search-icon" /> </span> 
+          <span className="action-bar-menu-button" onClick={this.showMenuBar}> <span className="menu-icon" /> </span> <Link to="/" className="play-logo" href="/" /> <span className="action-bar-search-button" onClick={this.showSearchBar}> <span className="search-icon" /> </span> 
           <div className={"mobile-search-bar " + searchClass} id="search-bar">
             <span className="search-container">
               <form className="search-text-box" action="/store/search" id="gbqf" onSubmit={this.searchSubmit}>
