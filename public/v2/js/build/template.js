@@ -804,6 +804,7 @@ var CategoryList = React.createClass({displayName: 'CategoryList',
 
 var Categories = React.createClass({displayName: 'Categories',
   getInitialState: function() {
+    $(document.body).removeClass("nav-open");  
     return {data:[]};
   }, 
   render: function() {
@@ -938,6 +939,7 @@ var AppCategoryList = React.createClass({displayName: 'AppCategoryList',
 
 var AppCategory = React.createClass({displayName: 'AppCategory',
   getInitialState: function() {
+    $(document.body).removeClass("nav-open");  
     return {data:[]};
   }, 
   render: function() {
@@ -1055,6 +1057,7 @@ var CollectionList = React.createClass({displayName: 'CollectionList',
 
 var Collections = React.createClass({displayName: 'Collections',
   getInitialState: function() {
+    $(document.body).removeClass("nav-open");  
     return {data:[]};
   }, 
   render: function() {
@@ -1153,6 +1156,7 @@ var AppCollectionList = React.createClass({displayName: 'AppCollectionList',
 
 var AppCollection = React.createClass({displayName: 'AppCollection',
   getInitialState: function() {
+    $(document.body).removeClass("nav-open");  
     return {data:[]};
   }, 
   render: function() {
