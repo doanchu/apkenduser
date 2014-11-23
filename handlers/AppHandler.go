@@ -65,6 +65,67 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func V2AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
+	var err error
+	vars := mux.Vars(r)
+	myPartner := vars["partner"]
+	page, err := strconv.Atoi(vars["page"])
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	limit, err := strconv.Atoi(vars["limit"])
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	cid, err := strconv.Atoi((vars["cid"]))
+	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte("[]"))
+		return
+	}
+
+	category := Mongo.GetCategoryById(cid)
+
+	if category == nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte("{}"))
+		return
+	}
+
+	var result []*models.PartnerAppInfo
+	result = Mongo.GetPartnerAppsByCategory(myPartner, cid, page, limit)
+	// log.Println(result)
+	if result == nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte("[]"))
+		return
+	}
+
+	appDetails := CreateAppDetailsWithCategory(result, category)
+	var finalResult = struct {
+		Cname string               `json:"cname"`
+		Apps  []*models.AppDetails `json:"apps"`
+	}{
+		Cname: category.Name,
+		Apps:  appDetails,
+	}
+
+	// log.Println(appDetails)
+	var byteResult []byte
+	byteResult, err = json.Marshal(finalResult)
+	w.Header().Set("Content-Type", "application/json")
+	if err != nil {
+		log.Println(err.Error())
+		w.Write([]byte(err.Error()))
+	} else {
+		w.Write(byteResult)
+	}
+}
+
 func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	// log.Println(vars)
@@ -233,7 +294,32 @@ func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
 	}
 
 	return appDetails
+}
 
+func CreateAppDetailsWithCategory(apps []*models.PartnerAppInfo, category *models.Category) []*models.AppDetails {
+	var appDetails = make([]*models.AppDetails, len(apps))
+
+	for key, value := range apps {
+		id := value.Id
+		appCommon := Mongo.GetCommonAppById(id)
+		if appCommon == nil {
+			log.Println(value.Id)
+			appDetails[key] = nil
+			continue
+		}
+		log.Println(appCommon.Status)
+		if appCommon.Status == 1 {
+			//category := Mongo.GetCategoryById(value.Cid)
+			appDetails[key] = models.NewAppDetails(value, appCommon, category)
+			appDetails[key].Desc = ""
+			appDetails[key].Ss = nil
+		} else {
+			appDetails[key] = nil
+		}
+
+	}
+
+	return appDetails
 }
 
 func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {

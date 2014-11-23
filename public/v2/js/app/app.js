@@ -30,7 +30,12 @@ var routes = (
     <Route name="AppSearch" path="/app/search" handler={AppSearch}>        
     </Route>    
 
+    <Route name="Categories" path="/app/categories" handler={Categories}>
+    </Route>
 
+    <Route name="AppCategory" path="/app/category/:cid" handler={AppCategory}>        
+    </Route>            
+    
   </Routes>
 );
 

@@ -82,7 +82,7 @@ var Item = React.createClass({displayName: 'Item',
               React.createElement(Link, {to: "/app/" + this.props.appId + ".html", className: "card-click-target", href: "/app/" + this.props.appId + ".html", 'aria-hidden': "true", tabindex: -1}), 
               React.createElement("h2", null, " ", React.createElement(Link, {to: "/app/" + this.props.appId + ".html", className: "title", href: "/app/" + this.props.appId + ".html", title: this.props.name}, this.props.name, React.createElement("span", {className: "paragraph-end"}), " "), " "), 
               React.createElement("div", {className: "subtitle-container"}, 
-                React.createElement("a", {className: "subtitle", href: "#"}, this.props.cname), 
+                React.createElement(Link, {to: "/app/category/" + this.props.cid, className: "subtitle", href: "#"}, this.props.cname), 
                 React.createElement("span", {className: "price-container"}, 
                   React.createElement("span", {className: "paragraph-end"}), 
                   React.createElement("span", {className: "apps is-price-tag buy-button-container", 'data-doc-fetch-skip-cache': 0, 'data-doc-fetch-vouchers': 0}, 
@@ -196,7 +196,7 @@ var ItemList = React.createClass({displayName: 'ItemList',
         var items = this.state.data.map(function(item){
           if (item != null) {
             return (
-              React.createElement(Item, {appId: item.id, name: item.name, downloads: item.total_download, cname: item.cname, thumbnail: item.thumbnail})
+              React.createElement(Item, {appId: item.id, name: item.name, downloads: item.total_download, cname: item.cname, cid: item.cid, thumbnail: item.thumbnail})
             );
           }
         })  
@@ -278,7 +278,8 @@ var ActionBar = React.createClass({displayName: 'ActionBar',
             React.createElement("li", null, " ", React.createElement(Link, {to: "/top/standings", className: "mobile-nav-item secondary id-track-click", href: "/settings"}, " ", React.createElement("span", {className: "icon"}), " ", React.createElement("span", {className: "label"}, "Yêu thích"), " "), " "), 
             React.createElement("li", null, 
               React.createElement("div", {className: "mobile-nav-separator"})
-            )
+            ), 
+            React.createElement("li", null, " ", React.createElement(Link, {to: "/app/categories", className: "apps mobile-nav-item default"}, " ", React.createElement("span", {className: "icon"}), " ", React.createElement("span", {className: "label"}, "Thể loại"), " "), " ")
           )
         ), 
         React.createElement("div", {className: "mobile-action-bar"}, 
@@ -309,7 +310,8 @@ var VerticalShortcuts = React.createClass({displayName: 'VerticalShortcuts',
         React.createElement("ul", {className: "vertical-shortcuts-inner"}, 
           React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/new", className: "play-button"}, "Mới nhất"), " "), 
           React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/downloads", className: "play-button"}, "Tải nhiều"), " "), 
-          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/standings", className: "play-button"}, "Yêu thích"), " ")
+          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/standings", className: "play-button"}, "Yêu thích"), " "), 
+          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/app/categories", className: "play-button"}, "Thể loại"), " ")
         )
       )
     );
@@ -727,3 +729,255 @@ var AppSearch = React.createClass({displayName: 'AppSearch',
     );    
   }
 });
+
+
+
+var CategoryItem = React.createClass({displayName: 'CategoryItem',  
+  render: function() {
+    var categoryURL = "/app/category/" + this.props.id;
+    return (
+        React.createElement("div", {className: "card no-rationale square-cover apps small", 'data-original-classes': "card no-rationale square-cover apps small", 'data-short-classes': "card no-rationale square-cover apps tiny"}, 
+          React.createElement("div", {className: "card-content id-track-click id-track-impression", 'data-uitype': 500}, 
+            React.createElement(Link, {to: categoryURL, className: "card-click-target", href: categoryURL, 'aria-hidden': "true", tabindex: -1}), 
+            React.createElement("div", {className: "cover"}, 
+              React.createElement("div", {className: "cover-image-container"}, 
+                React.createElement("div", {className: "cover-outer-align"}, 
+                  React.createElement("div", {className: "cover-inner-align"}, " ", React.createElement("img", {className: "cover-image", alt: this.props.name, src: this.props.icon, 'aria-hidden': "true"}), " ")
+                )
+              ), 
+              React.createElement(Link, {to: categoryURL, className: "card-click-target", href: categoryURL, 'aria-hidden': "true", tabindex: -1}, "  ", React.createElement("span", {className: "movies preordered-overlay-container id-preordered-overlay-container", style: {display: 'none'}}, " ", React.createElement("span", {className: "preordered-label"}, "Pre-ordered"), " "), " ", React.createElement("span", {className: "preview-overlay-container"}))
+            ), 
+            React.createElement("div", {className: "details"}, 
+              React.createElement(Link, {to: categoryURL, className: "card-click-target", href: categoryURL, 'aria-hidden': "true", tabindex: -1}), 
+              React.createElement("h2", null, " ", React.createElement(Link, {to: categoryURL, className: "title", href: categoryURL, title: this.props.name}, this.props.name, React.createElement("span", {className: "paragraph-end"}), " "), " ")
+            )
+          )
+        )        
+      );    
+  }
+});
+
+var CategoryList = React.createClass({displayName: 'CategoryList',  
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {    
+   
+    $("#loading").css("display", "block");     
+    //var url = prefix + document.partner + "/1/10";      
+    var url = "/api/categories";           
+    $.get(url, function(result) {      
+      $("#loading").css("display", "none");      
+      if (this.isMounted()) {
+        this.setState({data: result})
+      }
+    }.bind(this))
+  },         
+  render: function() {
+
+      var searchResult = React.createElement("div", null, React.createElement("div", {className: "bottom-loading", id: "loading", style: {display: 'none'}}), "        ");      
+      if (this.state.data.length == 0) {
+      } else {
+        var items = this.state.data.map(function(item){
+          if (item != null) {
+            return (
+              React.createElement(CategoryItem, {id: item.id, name: item.name, icon: item.icon})
+            );
+          }
+        })          
+        searchResult = (        
+        React.createElement("div", null, 
+          React.createElement("div", {className: "card-list"}, 
+            items
+          )
+        )
+        )
+      }
+
+      
+      return searchResult;
+    }
+});
+
+
+var Categories = React.createClass({displayName: 'Categories',
+  getInitialState: function() {
+    return {data:[]};
+  }, 
+  render: function() {
+    return (
+      React.createElement("div", null, 
+        React.createElement(ActionBar, null), 
+        React.createElement("div", {className: "wrapper-with-footer phone-optimized-top", id: "wrapper"}, 
+          React.createElement("div", {className: "butterbar-container"}, React.createElement("span", {id: "butterbar"})), 
+          React.createElement("div", {className: "body-content-loading-overlay", style: {display: 'none'}}, 
+            React.createElement("div", {className: "body-content-loading-spinner"})
+          ), 
+          React.createElement("div", {className: "id-body-content-beginning", 'aria-labelledby': "main-title", tabindex: -1}), 
+          React.createElement("div", {id: "body-content", role: "main"}, 
+            React.createElement(VerticalShortcuts, null), 
+            React.createElement("div", {className: "browse-page"}, 
+              React.createElement("div", {className: "cluster-container"}, 
+                React.createElement("div", {className: "cluster id-track-impression normal square-cover apps show-all id-track-chomp", 'data-fetch-start': 18, 'data-original-classes': "cluster normal square-cover apps show-all", 'data-short-classes': "cluster tight square-cover apps show-all", 'data-uitype': 400}, 
+                  React.createElement(CategoryList, null)
+                )
+              )
+            )
+          ), 
+          React.createElement("div", {className: "overlay-background", style: {display: 'none'}}), 
+          React.createElement("div", {className: "overlay-wrapper", style: {display: 'none'}}, 
+            React.createElement("div", {className: "overlay-content-wrapper"}, 
+              React.createElement("div", {id: "overlay-content"})
+            )
+          ), 
+          React.createElement("div", {style: {clear: 'both'}}), 
+          React.createElement(Footer, null)
+        ), 
+        React.createElement("div", {className: "loaded", id: "page-load-indicator"}), 
+        React.createElement("div", {className: "modal-dialog", tabindex: -1, role: "dialog", style: {display: 'none'}}, 
+          React.createElement("div", {className: "id-contents-wrapper"}, 
+            React.createElement("div", {className: "contents"}, 
+            "This is content"
+            )
+          )
+        ), 
+        React.createElement("div", {className: "modal-dialog-overlay", style: {display: 'none'}}), 
+        React.createElement("div", {id: "roster-for-Google-Help", style: {display: 'none'}})
+      )
+    );
+  }
+});
+
+
+var AppCategoryList = React.createClass({displayName: 'AppCategoryList',
+  mixins: [RouterState],
+  getInitialState: function() {
+    return {data: [], page: 1, cname: ""};
+  },
+  getMoreContent: function() {    
+    var page = this.state.page + 1; 
+    // var prefix = "/api/apps-partner/";
+    // if (this.props.route == "/") {
+    //   prefix = "/api/apps-partner/";
+    // } else if (this.props.route == "topdownload" || this.props.route == "/top/downloads") {
+    //   prefix = "/api/apps-download/";
+    // } else if (this.props.route == "standings" || this.props.route == "/top/standings") {
+    //   prefix = "/api/apps-like/";
+    // }      
+    //var url = prefix + document.partner + "/" + page + "/10";
+    var url = "/api/v2/apps-category/" + document.partner + "/" + this.props.cid + "/" + page + "/10";        
+    $("#loading").css("display", "block");
+    $("#show-more-button").addClass("disabled");
+    $.get(url, function(result) {      
+      $("#loading").css("display", "none");
+      $("#show-more-button").removeClass("disabled");
+      if (this.isMounted()) {
+        if (result != null && $.isArray(result.apps) && result.apps.length > 0) {
+          var newData = this.state.data.concat(result.apps)
+          this.setState({data: newData, page: page, cname: result.cname})
+        } else {
+          this.setState({data: this.state.data, page: page, cname: this.state.cname});
+        }
+      }
+    }.bind(this))    
+  }, 
+  componentDidMount: function() {    
+    // var prefix = "/api/apps-partner/";
+    // if (this.props.route == "/") {
+    //   prefix = "/api/apps-partner/";
+    // } else if (this.props.route == "topdownload" || this.props.route == "/top/downloads") {
+    //   prefix = "/api/apps-download/";
+    // } else if (this.props.route == "standings" || this.props.route == "/top/standings") {
+    //   prefix = "/api/apps-like/";
+    // }     
+    $("#loading").css("display", "block");     
+    //var url = prefix + document.partner + "/1/10";    
+    $("#show-more-button").addClass("disabled");
+    var url = "/api/v2/apps-category/" + document.partner + "/" + this.props.cid + "/1/10";                
+    $.get(url, function(result) {      
+      $("#loading").css("display", "none");
+      $("#show-more-button").removeClass("disabled");
+      if (this.isMounted()) {
+        if (result != null && $.isArray(result.apps) && result.apps.length > 0) {
+          this.setState({data: result.apps, page: 1, cname: result.cname});
+        }
+      }
+    }.bind(this))
+  },         
+  render: function() {
+
+      var searchResult = React.createElement("div", null, React.createElement("div", {className: "bottom-loading", id: "loading", style: {display: 'none'}}));      
+      if (this.state.data.length == 0) {
+      } else {
+        var items = this.state.data.map(function(item){
+          if (item != null) {
+            return (
+              React.createElement(Item, {appId: item.id, name: item.name, downloads: item.total_download, cname: item.cname, thumbnail: item.thumbnail})
+            );
+          }
+        })  
+        more = React.createElement("button", {className: "play-button", id: "show-more-button", style: {display: 'block'}, onClick: this.getMoreContent}, "Xem thêm");
+        searchResult = (        
+        React.createElement("div", null, 
+          React.createElement("h1", {className: "cluster-heading"}, this.state.cname), 
+          React.createElement("div", {className: "card-list"}, 
+            items
+          ), 
+          React.createElement("div", {className: "bottom-loading", id: "loading", style: {display: 'none'}}), 
+          more
+        )
+        )
+      }
+
+      
+      return searchResult;
+    }
+});
+
+var AppCategory = React.createClass({displayName: 'AppCategory',
+  getInitialState: function() {
+    return {data:[]};
+  }, 
+  render: function() {
+    return (
+      React.createElement("div", null, 
+        React.createElement(ActionBar, null), 
+        React.createElement("div", {className: "wrapper-with-footer phone-optimized-top", id: "wrapper"}, 
+          React.createElement("div", {className: "butterbar-container"}, React.createElement("span", {id: "butterbar"})), 
+          React.createElement("div", {className: "body-content-loading-overlay", style: {display: 'none'}}, 
+            React.createElement("div", {className: "body-content-loading-spinner"})
+          ), 
+          React.createElement("div", {className: "id-body-content-beginning", 'aria-labelledby': "main-title", tabindex: -1}), 
+          React.createElement("div", {id: "body-content", role: "main"}, 
+            React.createElement(VerticalShortcuts, null), 
+            React.createElement("div", {className: "browse-page"}, 
+              React.createElement("div", {className: "cluster-container"}, 
+                React.createElement("div", {className: "cluster id-track-impression normal square-cover apps show-all id-track-chomp", 'data-fetch-start': 18, 'data-original-classes': "cluster normal square-cover apps show-all", 'data-short-classes': "cluster tight square-cover apps show-all", 'data-uitype': 400}, 
+                  React.createElement(AppCategoryList, {cid: this.props.params.cid})
+                )
+              )
+            )
+          ), 
+          React.createElement("div", {className: "overlay-background", style: {display: 'none'}}), 
+          React.createElement("div", {className: "overlay-wrapper", style: {display: 'none'}}, 
+            React.createElement("div", {className: "overlay-content-wrapper"}, 
+              React.createElement("div", {id: "overlay-content"})
+            )
+          ), 
+          React.createElement("div", {style: {clear: 'both'}}), 
+          React.createElement(Footer, null)
+        ), 
+        React.createElement("div", {className: "loaded", id: "page-load-indicator"}), 
+        React.createElement("div", {className: "modal-dialog", tabindex: -1, role: "dialog", style: {display: 'none'}}, 
+          React.createElement("div", {className: "id-contents-wrapper"}, 
+            React.createElement("div", {className: "contents"}, 
+            "This is content"
+            )
+          )
+        ), 
+        React.createElement("div", {className: "modal-dialog-overlay", style: {display: 'none'}}), 
+        React.createElement("div", {id: "roster-for-Google-Help", style: {display: 'none'}})
+      )
+    );
+  }
+})

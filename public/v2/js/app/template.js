@@ -82,7 +82,7 @@ var Item = React.createClass({
               <Link to={"/app/" + this.props.appId + ".html"} className="card-click-target" href={"/app/" + this.props.appId + ".html"} aria-hidden="true" tabindex={-1} />  
               <h2> <Link to={"/app/" + this.props.appId + ".html"} className="title" href={"/app/" + this.props.appId + ".html"} title={this.props.name}>{this.props.name}<span className="paragraph-end" /> </Link> </h2>
               <div className="subtitle-container">
-                <a className="subtitle" href="#">{this.props.cname}</a>   
+                <Link to={"/app/category/" + this.props.cid} className="subtitle" href="#">{this.props.cname}</Link>   
                 <span className="price-container">
                   <span className="paragraph-end" />   
                   <span className="apps is-price-tag buy-button-container" data-doc-fetch-skip-cache={0} data-doc-fetch-vouchers={0} >
@@ -196,13 +196,13 @@ var ItemList = React.createClass({
         var items = this.state.data.map(function(item){
           if (item != null) {
             return (
-              <Item appId={item.id} name={item.name} downloads={item.total_download} cname={item.cname} thumbnail={item.thumbnail}/>
+              <Item appId={item.id} name={item.name} downloads={item.total_download} cname={item.cname} cid={item.cid} thumbnail={item.thumbnail}/>
             );
           }
         })  
         more = <button className="play-button" id="show-more-button" style={{display: 'block'}} onClick={this.getMoreContent}>Xem thêm</button>;
         searchResult = (        
-        <div>
+        <div>          
           <div className="card-list">
             {items}                   
           </div>
@@ -279,6 +279,7 @@ var ActionBar = React.createClass({
             <li>
               <div className="mobile-nav-separator" />
             </li>
+            <li> <Link to="/app/categories" className="apps mobile-nav-item default"> <span className="icon" /> <span className="label">Thể loại</span> </Link> </li>
           </ul>
         </ul>         
         <div className="mobile-action-bar">
@@ -310,6 +311,7 @@ var VerticalShortcuts = React.createClass({
           <li className="shortcut"> <Link to="/top/new" className="play-button">Mới nhất</Link> </li>
           <li className="shortcut"> <Link to="/top/downloads" className="play-button">Tải nhiều</Link> </li>
           <li className="shortcut"> <Link to="/top/standings" className="play-button">Yêu thích</Link> </li>
+          <li className="shortcut"> <Link to="/app/categories" className="play-button">Thể loại</Link> </li>
         </ul>
       </div>
     );
@@ -727,3 +729,255 @@ var AppSearch = React.createClass({
     );    
   }
 });
+
+
+
+var CategoryItem = React.createClass({  
+  render: function() {
+    var categoryURL = "/app/category/" + this.props.id;
+    return (
+        <div className="card no-rationale square-cover apps small" data-original-classes="card no-rationale square-cover apps small" data-short-classes="card no-rationale square-cover apps tiny">
+          <div className="card-content id-track-click id-track-impression"  data-uitype={500}>
+            <Link to={categoryURL} className="card-click-target" href={categoryURL} aria-hidden="true" tabindex={-1} /> 
+            <div className="cover">
+              <div className="cover-image-container">
+                <div className="cover-outer-align">
+                  <div className="cover-inner-align"> <img className="cover-image" alt={this.props.name} src={this.props.icon} aria-hidden="true" /> </div>
+                </div>
+              </div>
+              <Link to={categoryURL} className="card-click-target" href={categoryURL} aria-hidden="true" tabindex={-1}>  <span className="movies preordered-overlay-container id-preordered-overlay-container" style={{display: 'none'}}> <span className="preordered-label">Pre-ordered</span> </span> <span className="preview-overlay-container" ></span></Link> 
+            </div>
+            <div className="details">
+              <Link to={categoryURL} className="card-click-target" href={categoryURL} aria-hidden="true" tabindex={-1} />  
+              <h2> <Link to={categoryURL} className="title" href={categoryURL} title={this.props.name}>{this.props.name}<span className="paragraph-end" /> </Link> </h2>
+            </div>
+          </div>
+        </div>        
+      );    
+  }
+});
+
+var CategoryList = React.createClass({  
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {    
+   
+    $("#loading").css("display", "block");     
+    //var url = prefix + document.partner + "/1/10";      
+    var url = "/api/categories";           
+    $.get(url, function(result) {      
+      $("#loading").css("display", "none");      
+      if (this.isMounted()) {
+        this.setState({data: result})
+      }
+    }.bind(this))
+  },         
+  render: function() {
+
+      var searchResult = <div><div className="bottom-loading" id="loading" style={{display: 'none'}} />        </div>;      
+      if (this.state.data.length == 0) {
+      } else {
+        var items = this.state.data.map(function(item){
+          if (item != null) {
+            return (
+              <CategoryItem id={item.id} name={item.name} icon={item.icon} />
+            );
+          }
+        })          
+        searchResult = (        
+        <div>
+          <div className="card-list">
+            {items}                   
+          </div>                  
+        </div>
+        )
+      }
+
+      
+      return searchResult;
+    }
+});
+
+
+var Categories = React.createClass({
+  getInitialState: function() {
+    return {data:[]};
+  }, 
+  render: function() {
+    return (
+      <div>     
+        <ActionBar />      
+        <div className="wrapper-with-footer phone-optimized-top" id="wrapper">
+          <div className="butterbar-container"><span id="butterbar" /></div>
+          <div className="body-content-loading-overlay" style={{display: 'none'}}>
+            <div className="body-content-loading-spinner" />
+          </div>
+          <div className="id-body-content-beginning" aria-labelledby="main-title" tabindex={-1} />
+          <div id="body-content" role="main">   
+            <VerticalShortcuts />                   
+            <div className="browse-page">
+              <div className="cluster-container">
+                <div className="cluster id-track-impression normal square-cover apps show-all id-track-chomp" data-fetch-start={18} data-original-classes="cluster normal square-cover apps show-all" data-short-classes="cluster tight square-cover apps show-all" data-uitype={400}>
+                  <CategoryList />                  
+                </div>                
+              </div>
+            </div>
+          </div>         
+          <div className="overlay-background" style={{display: 'none'}} />
+          <div className="overlay-wrapper" style={{display: 'none'}}>
+            <div className="overlay-content-wrapper">
+              <div id="overlay-content" />
+            </div>
+          </div>
+          <div style={{clear: 'both'}} />         
+          <Footer />
+        </div>
+        <div className="loaded" id="page-load-indicator" />
+        <div className="modal-dialog" tabindex={-1} role="dialog" style={{display: 'none'}}>
+          <div className="id-contents-wrapper">
+            <div className="contents">
+            This is content
+            </div>
+          </div>
+        </div>
+        <div className="modal-dialog-overlay" style={{display: 'none'}} />
+        <div id="roster-for-Google-Help" style={{display: 'none'}} />
+      </div>
+    );
+  }
+});
+
+
+var AppCategoryList = React.createClass({
+  mixins: [RouterState],
+  getInitialState: function() {
+    return {data: [], page: 1, cname: ""};
+  },
+  getMoreContent: function() {    
+    var page = this.state.page + 1; 
+    // var prefix = "/api/apps-partner/";
+    // if (this.props.route == "/") {
+    //   prefix = "/api/apps-partner/";
+    // } else if (this.props.route == "topdownload" || this.props.route == "/top/downloads") {
+    //   prefix = "/api/apps-download/";
+    // } else if (this.props.route == "standings" || this.props.route == "/top/standings") {
+    //   prefix = "/api/apps-like/";
+    // }      
+    //var url = prefix + document.partner + "/" + page + "/10";
+    var url = "/api/v2/apps-category/" + document.partner + "/" + this.props.cid + "/" + page + "/10";        
+    $("#loading").css("display", "block");
+    $("#show-more-button").addClass("disabled");
+    $.get(url, function(result) {      
+      $("#loading").css("display", "none");
+      $("#show-more-button").removeClass("disabled");
+      if (this.isMounted()) {
+        if (result != null && $.isArray(result.apps) && result.apps.length > 0) {
+          var newData = this.state.data.concat(result.apps)
+          this.setState({data: newData, page: page, cname: result.cname})
+        } else {
+          this.setState({data: this.state.data, page: page, cname: this.state.cname});
+        }
+      }
+    }.bind(this))    
+  }, 
+  componentDidMount: function() {    
+    // var prefix = "/api/apps-partner/";
+    // if (this.props.route == "/") {
+    //   prefix = "/api/apps-partner/";
+    // } else if (this.props.route == "topdownload" || this.props.route == "/top/downloads") {
+    //   prefix = "/api/apps-download/";
+    // } else if (this.props.route == "standings" || this.props.route == "/top/standings") {
+    //   prefix = "/api/apps-like/";
+    // }     
+    $("#loading").css("display", "block");     
+    //var url = prefix + document.partner + "/1/10";    
+    $("#show-more-button").addClass("disabled");
+    var url = "/api/v2/apps-category/" + document.partner + "/" + this.props.cid + "/1/10";                
+    $.get(url, function(result) {      
+      $("#loading").css("display", "none");
+      $("#show-more-button").removeClass("disabled");
+      if (this.isMounted()) {
+        if (result != null && $.isArray(result.apps) && result.apps.length > 0) {
+          this.setState({data: result.apps, page: 1, cname: result.cname});
+        }
+      }
+    }.bind(this))
+  },         
+  render: function() {
+
+      var searchResult = <div><div className="bottom-loading" id="loading" style={{display: 'none'}} /></div>;      
+      if (this.state.data.length == 0) {
+      } else {
+        var items = this.state.data.map(function(item){
+          if (item != null) {
+            return (
+              <Item appId={item.id} name={item.name} downloads={item.total_download} cname={item.cname} thumbnail={item.thumbnail}/>
+            );
+          }
+        })  
+        more = <button className="play-button" id="show-more-button" style={{display: 'block'}} onClick={this.getMoreContent}>Xem thêm</button>;
+        searchResult = (        
+        <div>
+          <h1 className="cluster-heading">{this.state.cname}</h1>           
+          <div className="card-list">
+            {items}                   
+          </div>
+          <div className="bottom-loading" id="loading" style={{display: 'none'}} />        
+          {more}        
+        </div>
+        )
+      }
+
+      
+      return searchResult;
+    }
+});
+
+var AppCategory = React.createClass({
+  getInitialState: function() {
+    return {data:[]};
+  }, 
+  render: function() {
+    return (
+      <div>     
+        <ActionBar />      
+        <div className="wrapper-with-footer phone-optimized-top" id="wrapper">
+          <div className="butterbar-container"><span id="butterbar" /></div>
+          <div className="body-content-loading-overlay" style={{display: 'none'}}>
+            <div className="body-content-loading-spinner" />
+          </div>
+          <div className="id-body-content-beginning" aria-labelledby="main-title" tabindex={-1} />
+          <div id="body-content" role="main">   
+            <VerticalShortcuts />                   
+            <div className="browse-page">
+              <div className="cluster-container">
+                <div className="cluster id-track-impression normal square-cover apps show-all id-track-chomp" data-fetch-start={18} data-original-classes="cluster normal square-cover apps show-all" data-short-classes="cluster tight square-cover apps show-all" data-uitype={400}>
+                  <AppCategoryList cid={this.props.params.cid} />                  
+                </div>                
+              </div>
+            </div>
+          </div>         
+          <div className="overlay-background" style={{display: 'none'}} />
+          <div className="overlay-wrapper" style={{display: 'none'}}>
+            <div className="overlay-content-wrapper">
+              <div id="overlay-content" />
+            </div>
+          </div>
+          <div style={{clear: 'both'}} />         
+          <Footer />
+        </div>
+        <div className="loaded" id="page-load-indicator" />
+        <div className="modal-dialog" tabindex={-1} role="dialog" style={{display: 'none'}}>
+          <div className="id-contents-wrapper">
+            <div className="contents">
+            This is content
+            </div>
+          </div>
+        </div>
+        <div className="modal-dialog-overlay" style={{display: 'none'}} />
+        <div id="roster-for-Google-Help" style={{display: 'none'}} />
+      </div>
+    );
+  }
+})

@@ -45,8 +45,8 @@ func NewAppDetails(p *PartnerAppInfo, a *AppCommon, c *Category) *AppDetails {
 		Ss:             a.Ss,
 		Thumbnail:      a.Thumbnail,
 		Version:        a.Version,
-		Download_link:  a.Download_link,
-		Download_type:  a.Download_type,
+		Download_link:  nil,
+		Download_type:  "",
 		Time_order:     p.Time_order,
 	}
 }
@@ -69,7 +69,7 @@ func NewAppDetailsFromAppCommon(a *AppCommon, c *Category) *AppDetails {
 		Ss:             a.Ss,
 		Thumbnail:      a.Thumbnail,
 		Version:        a.Version,
-		Download_link:  a.Download_link,
-		Download_type:  a.Download_type,
+		Download_link:  nil,
+		Download_type:  "",
 	}
 }

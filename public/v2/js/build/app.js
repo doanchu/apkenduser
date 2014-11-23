@@ -28,9 +28,14 @@ var routes = (
     React.createElement(Route, {name: "AppSearchQuery", path: "/app/search/:query", handler: AppSearch}
     ), 
     React.createElement(Route, {name: "AppSearch", path: "/app/search", handler: AppSearch}
+    ), 
+
+    React.createElement(Route, {name: "Categories", path: "/app/categories", handler: Categories}
+    ), 
+
+    React.createElement(Route, {name: "AppCategory", path: "/app/category/:cid", handler: AppCategory}
     )
-
-
+    
   )
 );
 

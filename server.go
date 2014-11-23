@@ -222,6 +222,7 @@ func main() {
 	router.HandleFunc("/api/collection-details/{partner}/{col_id}", handlers.AppCollectionHandler)
 	router.HandleFunc("/api/apps-in-collection/{partner}/{col_id}", handlers.AppsInCollectionHandler)
 	router.HandleFunc("/api/apps-category/{partner}/{cid}/{page}/{limit}", handlers.AppCategoryHandler)
+	router.HandleFunc("/api/v2/apps-category/{partner}/{cid}/{page}/{limit}", handlers.V2AppCategoryHandler)
 	router.HandleFunc("/api/apps-{condition}/{partner}/{page}/{limit}", handlers.AppsPartnerHandler)
 	router.HandleFunc("/api/collections", handlers.CollectionsHandler)
 	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
