@@ -224,6 +224,8 @@ func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
 		if appCommon.Status == 1 {
 			category := Mongo.GetCategoryById(value.Cid)
 			appDetails[key] = models.NewAppDetails(value, appCommon, category)
+			appDetails[key].Desc = ""
+			appDetails[key].Ss = nil
 		} else {
 			appDetails[key] = nil
 		}

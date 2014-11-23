@@ -17,7 +17,7 @@ var x = function() {
 };
 
 var routes = (
-  <Routes location={loc} onChange={x}>
+  <Routes location={loc} onChange={fn}>
     <Route name="Home" path="/" route="/" handler={Home}>    
     </Route>
     <Route name="TopDownloads" path="/top/downloads" route="/top/downloads" handler={TopDownloads}>    
@@ -33,7 +33,7 @@ var routes = (
     <Route name="Categories" path="/app/categories" handler={Categories}>
     </Route>
     <Route name="AppCategory" path="/app/category/:cid" handler={AppCategory}>        
-    </Route>        
+    </Route>            
 
   </Routes>
 );

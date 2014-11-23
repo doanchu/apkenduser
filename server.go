@@ -25,7 +25,7 @@ var indexTemplate *template.Template
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	template, err := indexTemplate.ParseFiles("public/index.html")
+	template, err := indexTemplate.ParseFiles("public/index.v2.html")
 	if err != nil {
 		w.Write([]byte("There are some errors"))
 		return
@@ -213,6 +213,7 @@ func main() {
 	router.PathPrefix("/material").Handler(http.FileServer(fs))
 	router.PathPrefix("/owl-carousel").Handler(http.FileServer(fs))
 	router.PathPrefix("/slick").Handler(http.FileServer(fs))
+	router.PathPrefix("/v2").Handler(http.FileServer(fs))
 
 	router.HandleFunc("/api/app/{partner}/{app_id}", handlers.AppPartnerHandler)
 	router.HandleFunc("/app/search/{query}/{page}/{limit}", handlers.SearchAppsHandler)

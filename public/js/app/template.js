@@ -272,7 +272,7 @@ var TopApp = React.createClass({
     } if (this.props.route == "/top/standings") {
       url = "/api/apps-like/" + document.partner + "/";
     } if (this.props.route == "/top/new") {
-      url = "/api/apps-partner/" + document.partner + "/";  
+      url = "/api/apps-partner/" + document.partner + "/";        
     }
 return (
       <div style={{height: '100%'}}>
@@ -1039,3 +1039,4 @@ render: function() {
       </div>
     );
   }})
+
