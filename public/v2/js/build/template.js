@@ -94,7 +94,7 @@ var Item = React.createClass({displayName: 'Item',
             ), 
             React.createElement("div", {className: "reason-set"}, 
               React.createElement("span", {className: "stars-container"}, 
-                React.createElement(Link, {to: "/app/" + this.props.appId + ".html", href: "/app/" + this.props.appId + ".html", tabindex: -1}, 
+                React.createElement("a", {'data-href': "/app/cdownload/" + document.partner + "/" + this.props.appId, onClick: this.handleDownload, tabindex: -1}, 
                   React.createElement("div", {className: "reason-set-star-rating"}, 
                     React.createElement("div", {className: "tiny-star star-rating-non-editable-container", 'aria-label': "Rated 4.3 stars out of five stars"}, 
                       React.createElement("div", {className: "current-rating", style: {width: '85.64302444458008%'}})

@@ -94,13 +94,13 @@ var Item = React.createClass({
             </div>
             <div className="reason-set">
               <span className="stars-container">
-                <Link to={"/app/" + this.props.appId + ".html"} href={"/app/" + this.props.appId + ".html"} tabindex={-1}>
+                <a data-href={"/app/cdownload/" + document.partner + "/" + this.props.appId} onClick={this.handleDownload} tabindex={-1}>
                   <div className="reason-set-star-rating">
                     <div className="tiny-star star-rating-non-editable-container" aria-label="Rated 4.3 stars out of five stars">
                       <div className="current-rating" style={{width: '85.64302444458008%'}} />
                     </div>
                   </div>
-                </Link>
+                </a>
                 <span className="price-container">
                   <span className="paragraph-end" />   
                   <span className="apps is-price-tag buy-button-container" data-doc-fetch-skip-cache={0} data-doc-fetch-vouchers={0} >
