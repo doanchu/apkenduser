@@ -590,7 +590,7 @@ var RecommendedList = React.createClass({
       items = this.state.data.map(function(item){
         if (item != null) {
           return (
-            <Item appId={item.id} name={item.name} downloads={item.total_download} cname={item.cname} thumbnail={item.thumbnail}/>
+            <Item appId={item.id} name={item.name} downloads={item.total_download} cname={item.cname} cid={item.cid} thumbnail={item.thumbnail}/>
           );
         }
       })  
