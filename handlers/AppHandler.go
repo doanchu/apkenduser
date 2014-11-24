@@ -672,3 +672,13 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	WriteJsonResult(w, result)
 }
+
+func BannersHandler(w http.ResponseWriter, r *http.Request) {
+	result := Mongo.GetAllBanners()
+	if result == nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte("[]"))
+		return
+	}
+	WriteJsonResult(w, result)
+}

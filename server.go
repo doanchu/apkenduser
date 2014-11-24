@@ -237,6 +237,7 @@ func main() {
 	router.HandleFunc("/api/collections", handlers.CollectionsHandler)
 	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
 	router.HandleFunc("/api/categories", handlers.CategoriesHandler)
+	router.HandleFunc("/api/banners", handlers.BannersHandler)
 
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
 	subRouter.PathPrefix("/assets").Handler(http.FileServer(fs))

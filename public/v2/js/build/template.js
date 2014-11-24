@@ -2,7 +2,23 @@ var Navigation = ReactRouter.Navigation;
 var RouterState = ReactRouter.ActiveState;
 
 var Banner = React.createClass({displayName: 'Banner',  
-  componentDidMount: function() {
+  getInitialState: function() {
+    return {data: []}
+  },
+  componentDidMount: function() {    
+    $("#loading").css("display", "block");     
+    //var url = prefix + document.partner + "/1/10";        
+    var url = "/api/banners";
+    $.get(url, function(result) {     
+      $("#loading").css("display", "none");      
+      if (this.isMounted()) {
+        if (result != null && $.isArray(result) && result.length > 0) {
+          this.setState({data: result});
+        }
+      }
+    }.bind(this))       
+  },
+  componentDidUpdate: function(prevProps, prevState) {     
     $("#owl-demo").owlCarousel({
    
         autoplay:true,
@@ -18,18 +34,24 @@ var Banner = React.createClass({displayName: 'Banner',
          itemsTablet: false,
          itemsMobile : false
    
-    });
+    });    
   },
   render: function() {
+    var banner = React.createElement("div", {className: "bottom-loading", id: "loading", style: {display: 'none'}})
+    if (this.state.data.length != 0) {
+        bannerList = this.state.data.map(function(item){
+          if (item != null) {
+            var link = item.link.replace("{partner}", document.partner);
+            return (
+                React.createElement("div", {className: "item"}, React.createElement("a", {href: link}, React.createElement("img", {src: item.banner, alt: item.name})))              
+              )            
+          }
+        });
+        banner = React.createElement("div", {id: "owl-demo", className: "owl-carousel owl-theme"}, bannerList);
+    }
     return (
-
-      React.createElement("div", {id: "owl-demo", className: "owl-carousel owl-theme"}, 
-        React.createElement("div", {className: "item"}, React.createElement("img", {src: "http://tinhwrl.beta.apk.vn/assets/images/fullimage4.jpg", alt: "The Last of us"})), 
-        React.createElement("div", {className: "item"}, React.createElement("img", {src: "http://tinhwrl.beta.apk.vn/assets/images/fullimage3.jpg", alt: "GTA V"})), 
-        React.createElement("div", {className: "item"}, React.createElement("img", {src: "http://tinhwrl.beta.apk.vn/assets/images/fullimage1.jpg", alt: "Mirror Edge"})), 
-        React.createElement("div", {className: "item"}, React.createElement("img", {src: "http://tinhwrl.beta.apk.vn/assets/images/fullimage4.jpg", alt: "The Last of us"})), 
-        React.createElement("div", {className: "item"}, React.createElement("img", {src: "http://tinhwrl.beta.apk.vn/assets/images/fullimage3.jpg", alt: "GTA V"})), 
-        React.createElement("div", {className: "item"}, React.createElement("img", {src: "http://tinhwrl.beta.apk.vn/assets/images/fullimage1.jpg", alt: "Mirror Edge"}))
+      React.createElement("div", null, 
+      banner
       )
     );
   }

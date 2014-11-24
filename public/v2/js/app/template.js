@@ -2,7 +2,23 @@ var Navigation = ReactRouter.Navigation;
 var RouterState = ReactRouter.ActiveState;
 
 var Banner = React.createClass({  
-  componentDidMount: function() {
+  getInitialState: function() {
+    return {data: []}
+  },
+  componentDidMount: function() {    
+    $("#loading").css("display", "block");     
+    //var url = prefix + document.partner + "/1/10";        
+    var url = "/api/banners";
+    $.get(url, function(result) {     
+      $("#loading").css("display", "none");      
+      if (this.isMounted()) {
+        if (result != null && $.isArray(result) && result.length > 0) {
+          this.setState({data: result});
+        }
+      }
+    }.bind(this))       
+  },
+  componentDidUpdate: function(prevProps, prevState) {     
     $("#owl-demo").owlCarousel({
    
         autoplay:true,
@@ -18,18 +34,24 @@ var Banner = React.createClass({
          itemsTablet: false,
          itemsMobile : false
    
-    });
+    });    
   },
   render: function() {
+    var banner = <div className="bottom-loading" id="loading" style={{display: 'none'}} />
+    if (this.state.data.length != 0) {
+        bannerList = this.state.data.map(function(item){
+          if (item != null) {
+            var link = item.link.replace("{partner}", document.partner);
+            return (
+                <div className="item"><a href={link}><img src={item.banner} alt={item.name} /></a></div>              
+              )            
+          }
+        });
+        banner = <div id="owl-demo" className="owl-carousel owl-theme">{bannerList}</div>;
+    }
     return (
-
-      <div id="owl-demo" className="owl-carousel owl-theme">
-        <div className="item"><img src="http://tinhwrl.beta.apk.vn/assets/images/fullimage4.jpg" alt="The Last of us" /></div>
-        <div className="item"><img src="http://tinhwrl.beta.apk.vn/assets/images/fullimage3.jpg" alt="GTA V" /></div>
-        <div className="item"><img src="http://tinhwrl.beta.apk.vn/assets/images/fullimage1.jpg" alt="Mirror Edge" /></div>
-        <div className="item"><img src="http://tinhwrl.beta.apk.vn/assets/images/fullimage4.jpg" alt="The Last of us" /></div>
-        <div className="item"><img src="http://tinhwrl.beta.apk.vn/assets/images/fullimage3.jpg" alt="GTA V" /></div>
-        <div className="item"><img src="http://tinhwrl.beta.apk.vn/assets/images/fullimage1.jpg" alt="Mirror Edge" /></div>
+      <div>
+      {banner}
       </div>
     );
   }

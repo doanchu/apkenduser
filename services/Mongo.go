@@ -392,3 +392,18 @@ func (m *Mongo) GetAllCategories() []*models.Category {
 	}
 	return result
 }
+
+func (m *Mongo) GetAllBanners() []*models.Banner {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("banner_ads")
+
+	var result []*models.Banner
+	err := c.Find(bson.M{"status": 1}).All(&result)
+	if err != nil {
+		return nil
+	}
+	return result
+}
