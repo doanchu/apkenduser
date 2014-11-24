@@ -212,7 +212,7 @@ func (m *Mongo) GetPartnerApp(partner string) (*models.PartnerAppInfo, error) {
 	db := session.DB(m.DB)
 	c := db.C("partner_app_info")
 	result := &models.PartnerAppInfo{}
-	err := c.Find(bson.M{"partner": partner}).One(result)
+	err := c.Find(bson.M{"partner": partner, "status": 1}).One(result)
 	if err != nil {
 		log.Println(err.Error())
 		return nil, err
@@ -244,7 +244,7 @@ func (m *Mongo) GetPartnerAppById(partner string, appId string) *models.PartnerA
 	db := session.DB(m.DB)
 	c := db.C("partner_app_info")
 	result := &models.PartnerAppInfo{}
-	err := c.Find(bson.M{"partner": partner, "id": appId}).One(&result)
+	err := c.Find(bson.M{"partner": partner, "id": appId, "status": 1}).One(&result)
 
 	if err != nil {
 		log.Println(err.Error())
