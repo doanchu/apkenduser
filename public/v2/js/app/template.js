@@ -312,7 +312,6 @@ var VerticalShortcuts = React.createClass({
           <li className="shortcut"> <Link to="/top/new" className="play-button">Mới nhất</Link> </li>
           <li className="shortcut"> <Link to="/top/downloads" className="play-button">Tải nhiều</Link> </li>
           <li className="shortcut"> <Link to="/top/standings" className="play-button">Yêu thích</Link> </li>
-          <li className="shortcut"> <Link to="/app/categories" className="play-button">Thể loại</Link> </li>
           <li className="shortcut"> <Link to="/app/collections" className="play-button">Chọn lọc</Link> </li>
         </ul>
       </div>
@@ -365,6 +364,7 @@ var TopApp = React.createClass({
             <VerticalShortcuts />                   
             <div className="browse-page">
               <div className="cluster-container">
+                <Banner />              
                 <div className="cluster id-track-impression normal square-cover apps show-all id-track-chomp" data-fetch-start={18} data-original-classes="cluster normal square-cover apps show-all" data-short-classes="cluster tight square-cover apps show-all" data-uitype={400}>
                   <h1 className="cluster-heading">
                     {title}

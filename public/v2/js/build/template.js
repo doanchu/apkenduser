@@ -312,7 +312,6 @@ var VerticalShortcuts = React.createClass({displayName: 'VerticalShortcuts',
           React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/new", className: "play-button"}, "Mới nhất"), " "), 
           React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/downloads", className: "play-button"}, "Tải nhiều"), " "), 
           React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/standings", className: "play-button"}, "Yêu thích"), " "), 
-          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/app/categories", className: "play-button"}, "Thể loại"), " "), 
           React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/app/collections", className: "play-button"}, "Chọn lọc"), " ")
         )
       )
@@ -365,6 +364,7 @@ var TopApp = React.createClass({displayName: 'TopApp',
             React.createElement(VerticalShortcuts, null), 
             React.createElement("div", {className: "browse-page"}, 
               React.createElement("div", {className: "cluster-container"}, 
+                React.createElement(Banner, null), 
                 React.createElement("div", {className: "cluster id-track-impression normal square-cover apps show-all id-track-chomp", 'data-fetch-start': 18, 'data-original-classes': "cluster normal square-cover apps show-all", 'data-short-classes': "cluster tight square-cover apps show-all", 'data-uitype': 400}, 
                   React.createElement("h1", {className: "cluster-heading"}, 
                     title
