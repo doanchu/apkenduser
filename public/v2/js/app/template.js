@@ -297,7 +297,7 @@ var ActionBar = React.createClass({
             <span className="close-button" onClick={this.closeSearchBar}> <span className="close-icon" /> </span> 
           </div>
         </div>
-        <div id="mobile-menu-overlay" onClick={this.hideMenuBar} style={{opacity: '0.8', display: 'none', zIndex: 20}} />        
+        <div id="mobile-menu-overlay" onClick={this.hideMenuBar} style={{opacity: '0.8', display: 'none', zIndex: 3}} />        
       </div>
       )
   }

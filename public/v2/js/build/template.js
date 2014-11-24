@@ -297,7 +297,7 @@ var ActionBar = React.createClass({displayName: 'ActionBar',
             React.createElement("span", {className: "close-button", onClick: this.closeSearchBar}, " ", React.createElement("span", {className: "close-icon"}), " ")
           )
         ), 
-        React.createElement("div", {id: "mobile-menu-overlay", onClick: this.hideMenuBar, style: {opacity: '0.8', display: 'none', zIndex: 20}})
+        React.createElement("div", {id: "mobile-menu-overlay", onClick: this.hideMenuBar, style: {opacity: '0.8', display: 'none', zIndex: 3}})
       )
       )
   }
