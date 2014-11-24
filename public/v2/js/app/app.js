@@ -12,7 +12,10 @@ if (window.history && window.history.pushState) {
     loc = "hash";
 }
 var fn = function() {
-    ga('send', 'pageview');
+    ga('send', 'pageview', {
+        'page': this.getCurrentPath(),
+        'title': this.getCurrentPath()
+    });
 };
 
 
