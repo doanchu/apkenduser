@@ -324,7 +324,7 @@ var Footer = React.createClass({displayName: 'Footer',
     return (
       React.createElement("div", {id: "footer-content"}, 
         React.createElement("div", {className: "footer"}, 
-          React.createElement("div", {className: "footer-links-container"}, " ", React.createElement("span", {className: "copyright"}, "©2014 Eway JSC"), React.createElement("a", {className: "footer-link id-no-nav", href: "https://support.google.com/googleplay/?p=about_play", target: "_blank"}, "Về APK.VN"))
+          React.createElement("div", {className: "footer-links-container"}, document.footer)
         )
       )
 
@@ -525,11 +525,20 @@ React.createElement("div", null,
           React.createElement("span", null, 
             React.createElement("span", {className: "apps medium play-button buy-button-container", 'data-doc-fetch-skip-cache': 0, 'data-doc-fetch-vouchers': 0}, 
               React.createElement("div", {className: "pon", style: {display: 'none'}}, "1"), 
-              React.createElement("button", {className: "price buy", onClick: this.handleDownload, 'data-href': downloadLink}, 
-                React.createElement("span", null, "Cài đặt ngay")
+              React.createElement("button", {className: "", onClick: this.handleDownload, 'data-href': downloadLink}, 
+                React.createElement("span", null, " Cài đặt ngay")
               )
             )
-          )
+          ), 
+          React.createElement("span", null, 
+          React.createElement("span", {className: "apps medium play-button buy-button-container", style: {minWidth: "50px", backgroundColor: "#2ecc71"}, 'data-doc-fetch-skip-cache': 0, 'data-doc-fetch-vouchers': 0}, 
+                        React.createElement("button", {className: "", onClick: this.handleDownload, 'data-href': downloadLink}, 
+                React.createElement("i", {className: "fa fa-thumbs-o-up fa-lg"}), 
+                React.createElement("span", null, " Thích")
+              )
+)
+              )
+
         ), 
         React.createElement("div", {className: "app-compatibility"}, 
           React.createElement("div", {className: "app-compatibility-final", style: {}}, 

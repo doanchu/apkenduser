@@ -324,7 +324,7 @@ var Footer = React.createClass({
     return (
       <div id="footer-content">            
         <div className="footer">
-          <div className="footer-links-container"> <span className="copyright">©2014 Eway JSC</span><a className="footer-link id-no-nav" href="https://support.google.com/googleplay/?p=about_play" target="_blank">Về APK.VN</a></div>
+          <div className="footer-links-container">{document.footer}</div>
         </div>
       </div>
 
@@ -525,11 +525,20 @@ var Content = React.createClass({
           <span>
             <span className="apps medium play-button buy-button-container" data-doc-fetch-skip-cache={0} data-doc-fetch-vouchers={0}>
               <div className="pon" style={{display: 'none'}}>1</div>
-              <button className="price buy" onClick={this.handleDownload} data-href={downloadLink}>
-                <span>Cài đặt ngay</span>    
+              <button className="" onClick={this.handleDownload} data-href={downloadLink}>                
+                <span> Cài đặt ngay</span>    
               </button>
             </span>
           </span>
+          <span>
+          <span className="apps medium play-button buy-button-container" style={{minWidth: "50px", backgroundColor: "#2ecc71"}} data-doc-fetch-skip-cache={0} data-doc-fetch-vouchers={0}>
+                        <button className="" onClick={this.handleDownload} data-href={downloadLink}>
+                <i className="fa fa-thumbs-o-up fa-lg"></i>
+                <span> Thích</span>    
+              </button>
+</span>              
+              </span>
+
         </div>                        
         <div className="app-compatibility">
           <div className="app-compatibility-final" style={{}}>
