@@ -11,9 +11,13 @@ if (window.history && window.history.pushState) {
 } else {
     loc = "hash";
 }
+var fn = function() {
+    ga('send', 'pageview');
+};
+
 
 var routes = (
-  React.createElement(Routes, {location: loc}, 
+  React.createElement(Routes, {location: loc, onChange: fn}, 
     React.createElement(Route, {name: "TopDownloads", path: "/top/downloads", route: "/top/downloads", handler: TopDownloads}
     ), 
     React.createElement(Route, {name: "TopStandings", path: "/top/standings", route: "/top/standings", handler: TopStandings}

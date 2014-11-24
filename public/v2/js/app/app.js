@@ -11,9 +11,13 @@ if (window.history && window.history.pushState) {
 } else {
     loc = "hash";
 }
+var fn = function() {
+    ga('send', 'pageview');
+};
+
 
 var routes = (
-  <Routes location={loc}>
+  <Routes location={loc} onChange={fn}>
     <Route name="TopDownloads" path="/top/downloads" route="/top/downloads" handler={TopDownloads}>    
     </Route>
     <Route name="TopStandings" path="/top/standings" route="/top/standings" handler={TopStandings}>        
