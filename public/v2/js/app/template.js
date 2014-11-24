@@ -532,7 +532,7 @@ var Content = React.createClass({
           </span>
           <span>
           <span className="apps medium play-button buy-button-container" style={{minWidth: "50px", backgroundColor: "#2ecc71"}} data-doc-fetch-skip-cache={0} data-doc-fetch-vouchers={0}>
-                        <button className="" onClick={this.handleDownload} data-href={downloadLink}>
+                        <button className="">
                 <i className="fa fa-thumbs-o-up fa-lg"></i>
                 <span> Thích</span>    
               </button>

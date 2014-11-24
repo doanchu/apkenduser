@@ -532,7 +532,7 @@ React.createElement("div", null,
           ), 
           React.createElement("span", null, 
           React.createElement("span", {className: "apps medium play-button buy-button-container", style: {minWidth: "50px", backgroundColor: "#2ecc71"}, 'data-doc-fetch-skip-cache': 0, 'data-doc-fetch-vouchers': 0}, 
-                        React.createElement("button", {className: "", onClick: this.handleDownload, 'data-href': downloadLink}, 
+                        React.createElement("button", {className: ""}, 
                 React.createElement("i", {className: "fa fa-thumbs-o-up fa-lg"}), 
                 React.createElement("span", null, " Thích")
               )

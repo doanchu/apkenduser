@@ -69,6 +69,8 @@ var redisPort int
 var serverHost string
 var serverPort int
 
+var storageDir string
+
 func readConfiguration() {
 	c, err := conf.ReadConfigFile("web.cfg")
 	if err != nil {
@@ -104,6 +106,14 @@ func readConfiguration() {
 		log.Fatal("Port is missing or invalid")
 		return
 	}
+
+	storageDir, err = c.GetString("storage", "apk")
+	if err != nil {
+		//log.Fatal("Host is missing or invalid")
+		storageDir = "public"
+		return
+	}
+
 }
 
 type justFilesFilesystem struct {
@@ -163,6 +173,7 @@ func main() {
 	}
 	handlers.Mongo = mongo
 	handlers.Host = serverHost
+	handlers.StorageDir = storageDir
 
 	// mySession := session.Clone()
 	// mySession.DB("newapk").C("daily_app_stats").Upsert(bson.M{"partner": "leduykhanhit",
@@ -170,7 +181,6 @@ func main() {
 	// 	"date": 141108},
 	// 	bson.M{"$inc": bson.M{"download": 1}})
 	// mySession.Close()
-	mongo.IncAppDownload("leduykhanhit", "vn.nmt.gamebaitienlen", 141108)
 
 	// appInfo := handlers.Mongo.GetCommonAppById("com.loveframecollage.loveframe.collage")
 

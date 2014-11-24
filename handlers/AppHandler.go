@@ -347,7 +347,7 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 		name = store.Name
 	}
 	log.Println(icon_36)
-	dir := "public/static/adflex/" + partner + "/store"
+	dir := StorageDir + "/static/adflex/" + partner + "/store"
 	queryString := fmt.Sprintf("partner=%s&app_name=%s&icon_36=%s&icon_48=%s&icon_72=%s&icon_96=%s&icon_144=%s&download_id=%s", url.QueryEscape(partner), url.QueryEscape(name), url.QueryEscape(icon_36), url.QueryEscape(icon_48), url.QueryEscape(icon_72), url.QueryEscape(icon_96), url.QueryEscape(icon_144), url.QueryEscape(appId))
 	storeServiceLink := fmt.Sprintf("http://sv11.mway.vn:88/ApkStoreService/build?%s", queryString)
 	fileName := appId + storeVersion + ".apk"
@@ -417,7 +417,7 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	switch appCommon.Download_type {
 	case "adflex":
 		adFlexLink := appCommon.Download_link["adflex"]
-		dir := "public/static/adflex/" + partner
+		dir := StorageDir + "/static/adflex/" + partner
 
 		//Check if directory exists
 		//If not create directory
