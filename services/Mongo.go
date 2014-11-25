@@ -194,6 +194,17 @@ func (m *Mongo) IncAppView(partner string, id string, date int) {
 		"id":   id,
 		"date": date},
 		bson.M{"$inc": bson.M{"view": 1}})
+
+	c.Upsert(bson.M{"partner": "@",
+		"id":   id,
+		"date": date},
+		bson.M{"$inc": bson.M{"view": 1}})
+
+	c.Upsert(bson.M{"partner": "@",
+		"id":   "@",
+		"date": date},
+		bson.M{"$inc": bson.M{"view": 1}})
+
 }
 
 func (m *Mongo) GetPartnerAppsByCategory(partner string, cid int, page int, limit int) []*models.PartnerAppInfo {
