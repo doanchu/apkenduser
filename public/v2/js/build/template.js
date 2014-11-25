@@ -43,7 +43,7 @@ var Banner = React.createClass({displayName: 'Banner',
           if (item != null) {
             var link = item.link.replace("{partner}", document.partner);
             return (
-                React.createElement("div", {className: "item"}, React.createElement(Link, {to: href, href: link}, React.createElement("img", {src: item.banner, alt: item.name, style: {width: "100%", maxWidth: "480px"}})))              
+                React.createElement("div", {className: "item"}, React.createElement(Link, {to: link, href: link}, React.createElement("img", {src: item.banner, alt: item.name, style: {width: "100%", maxWidth: "480px"}})))              
               )            
           }
         });
