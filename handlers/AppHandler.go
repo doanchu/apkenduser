@@ -576,6 +576,10 @@ func AppsInCollectionHandler(w http.ResponseWriter, r *http.Request) {
 	// log.Println(ids)
 	appCommons := Mongo.GetCommonAppsByIds(ids)
 
+	for _, app := range appCommons {
+		models.NormalizeAppCommon(app)
+	}
+
 	var byteResult []byte
 	byteResult, err = json.Marshal(appCommons)
 	w.Header().Set("Content-Type", "application/json")
@@ -665,6 +669,10 @@ func CommentsHandler(w http.ResponseWriter, r *http.Request) {
 
 func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 	result := Mongo.GetAllCategories()
+	for _, value := range result {
+		models.NormalizeCategory(value)
+	}
+
 	if result == nil {
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))

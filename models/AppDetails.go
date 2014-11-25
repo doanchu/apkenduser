@@ -1,5 +1,7 @@
 package models
 
+import "strings"
+
 type AppDetails struct {
 	Cid            int               `json:"cid"`
 	Cname          string            `json:"cname"`
@@ -24,10 +26,22 @@ type AppDetails struct {
 	Time_order     int64             `json:"time_order"`
 }
 
+func NormalizeAppCommon(a *AppCommon) {
+	for key, value := range a.Ss {
+		if strings.Index(value, "http") != 0 {
+			a.Ss[key] = "http://" + ServerHost + value
+		}
+	}
+	if strings.Index(a.Thumbnail, "http") != 0 {
+		a.Thumbnail = "http://" + ServerHost + a.Thumbnail
+	}
+}
+
 func NewAppDetails(p *PartnerAppInfo, a *AppCommon, c *Category) *AppDetails {
 	if a == nil || c == nil {
 		return nil
 	}
+	NormalizeAppCommon(a)
 	return &AppDetails{
 		Name:           p.Name,
 		Desc:           p.Desc,
@@ -52,6 +66,7 @@ func NewAppDetails(p *PartnerAppInfo, a *AppCommon, c *Category) *AppDetails {
 }
 
 func NewAppDetailsFromAppCommon(a *AppCommon, c *Category) *AppDetails {
+	NormalizeAppCommon(a)
 	return &AppDetails{
 		Name:           a.Name,
 		Desc:           a.Desc,

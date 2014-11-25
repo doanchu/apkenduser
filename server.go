@@ -8,6 +8,7 @@ import _ "gopkg.in/mgo.v2/bson"
 
 import "github.com/doanchu/apkenduser/handlers"
 import "github.com/doanchu/apkenduser/services"
+import "github.com/doanchu/apkenduser/models"
 
 import "html/template"
 import "code.google.com/p/goconf/conf"
@@ -175,6 +176,7 @@ func main() {
 	handlers.Host = serverHost
 	handlers.StorageDir = storageDir
 
+	models.ServerHost = serverHost
 	// mySession := session.Clone()
 	// mySession.DB("newapk").C("daily_app_stats").Upsert(bson.M{"partner": "leduykhanhit",
 	// 	"id":   "vn.nmt.gamebaitienlen",
