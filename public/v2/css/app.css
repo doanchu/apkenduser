@@ -639,9 +639,9 @@ body.phone-optimized .shopping-cart-page,body.phone-optimized .thank-you-page {
     padding: 0px 46px 0px 0px;
     background: #0f9d58;
 /*    border-bottom: 1px solid #aaa;*/
-    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
-    -moz-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
-    -webkit-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    box-shadow: 0 4px 8px rgba(0,0,0,.28);
+    -moz-box-shadow: 0 4px 8px rgba(0,0,0,.28);
+    -webkit-box-shadow: 0 4px 8px rgba(0,0,0,.28);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;    
