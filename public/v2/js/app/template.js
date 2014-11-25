@@ -318,8 +318,7 @@ var ActionBar = React.createClass({
             </span>
             <span className="close-button" onClick={this.closeSearchBar}> <span className="close-icon" /> </span> 
           </div>
-        </div>
-        <div id="mobile-menu-overlay" onClick={this.hideMenuBar} style={{opacity: '0.8', display: 'none', zIndex: 3}} />        
+        </div>        
       </div>
       )
   }
@@ -348,6 +347,7 @@ var Footer = React.createClass({
         <div className="footer">
           <div className="footer-links-container">{document.footer}</div>
         </div>
+        <div id="mobile-menu-overlay" onClick={this.hideMenuBar} style={{opacity: '0.8', display: 'none'} />        
       </div>
 
       )    
