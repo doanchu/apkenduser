@@ -638,10 +638,10 @@ body.phone-optimized .shopping-cart-page,body.phone-optimized .thank-you-page {
 .mobile-action-bar {
     background: #0f9d58;
 /*    border-bottom: 1px solid #aaa;*/
-/*    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
     -moz-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
     -webkit-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
-*/    height: 48px;
+    height: 48px;
     left: 0;
     position: fixed;
     text-align: center;
@@ -924,12 +924,12 @@ body.nav-open .mobile-nav {
 }
 
 body.phone-optimized #wrapper {
-    -webkit-transform: translate3d(0,0,0);
+/*    -webkit-transform: translate3d(0,0,0);
     -moz-transform: translate3d(0,0,0);
     -ms-transform: translate3d(0,0,0);
     -o-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
-    background-color: #e5e5e5;
+*/    background-color: #e5e5e5;
     position: relative
 }
 
