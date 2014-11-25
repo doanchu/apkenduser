@@ -240,7 +240,7 @@ var ItemList = React.createClass({
 });
 
 var ActionBar = React.createClass({
-  mixins: [Navigation, RouterState],  
+  mixins: [Navigation, RouterState],    
   getInitialState: function() {    
     if (this.props.query != null) {
       return {query: this.props.query};  
@@ -250,8 +250,13 @@ var ActionBar = React.createClass({
     
   },
   showMenuBar: function() {    
-    $(document.body).addClass("nav-open");
-    $("#mobile-menu-overlay").css("display", "block");
+    if ($(document.body).hasClass("nav-open")) {
+      $(document.body).removeClass("nav-open");
+      $("#mobile-menu-overlay").css("display", "none");        
+    } else {
+      $(document.body).addClass("nav-open");
+      $("#mobile-menu-overlay").css("display", "block");                  
+    }
   },
   hideMenuBar: function() {
     $(document.body).removeClass("nav-open");
