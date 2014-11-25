@@ -252,10 +252,10 @@ var ActionBar = React.createClass({
   showMenuBar: function() {    
     if ($(document.body).hasClass("nav-open")) {
       $(document.body).removeClass("nav-open");
-      $("#mobile-menu-overlay").css("display", "none");        
+      //$("#mobile-menu-overlay").css("display", "none");        
     } else {
       $(document.body).addClass("nav-open");
-      $("#mobile-menu-overlay").css("display", "block");                  
+      //$("#mobile-menu-overlay").css("display", "block");                  
     }
   },
   hideMenuBar: function() {
@@ -311,7 +311,7 @@ var ActionBar = React.createClass({
           </ul>
         </ul>         
         <div className="mobile-action-bar">
-          <span className="action-bar-menu-button" onClick={this.showMenuBar}> <span className="menu-icon" /> </span> <Link to="/" className="play-logo" href="/" /> <span className="action-bar-search-button" onClick={this.showSearchBar}> <span className="search-icon" /> </span> 
+          <span className="action-bar-menu-button" onClick={this.showMenuBar}> <i className="fa fa-align-justify fa-lg" style={{color: "#fff", marginTop: "17px"}}></i> </span> <Link to="/" className="play-logo" href="/" /> <span className="action-bar-search-button" onClick={this.showSearchBar}> <i className="fa fa-search fa-lg" style={{color: "#fff", marginTop: "17px"}}></i> </span> 
           <div className={"mobile-search-bar " + searchClass} id="search-bar">
             <span className="search-container">
               <form className="search-text-box" action="/store/search" id="gbqf" onSubmit={this.searchSubmit}>

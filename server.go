@@ -151,9 +151,10 @@ func main() {
 
 	var err error
 	var host string = mongoHost + ":" + strconv.Itoa(mongoPort)
+	log.Println(host)
 	session, err = mgo.Dial(host)
 	if err != nil {
-		log.Fatal("Fatal")
+		log.Fatal(err.Error())		
 	} else {
 		log.Println("Ready to connect to mongodb")
 	}

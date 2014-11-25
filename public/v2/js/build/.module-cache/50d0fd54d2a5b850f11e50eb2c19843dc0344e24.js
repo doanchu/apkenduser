@@ -311,7 +311,7 @@ var ActionBar = React.createClass({displayName: 'ActionBar',
           )
         ), 
         React.createElement("div", {className: "mobile-action-bar"}, 
-          React.createElement("span", {className: "action-bar-menu-button", onClick: this.showMenuBar}, " ", React.createElement("i", {className: "fa fa-align-justify fa-lg", style: {color: "#fff", marginTop: "17px"}}), " "), " ", React.createElement(Link, {to: "/", className: "play-logo", href: "/"}), " ", React.createElement("span", {className: "action-bar-search-button", onClick: this.showSearchBar}, " ", React.createElement("i", {className: "fa fa-search fa-lg", style: {color: "#fff", marginTop: "17px"}}), " "), 
+          React.createElement("span", {className: "action-bar-menu-button", onClick: this.showMenuBar}, " ", React.createElement("i", {className: "fa fa-align-justify fa-lg"}), " "), " ", React.createElement(Link, {to: "/", className: "play-logo", href: "/"}), " ", React.createElement("span", {className: "action-bar-search-button", onClick: this.showSearchBar}, " ", React.createElement("span", {className: "search-icon"}), " "), 
           React.createElement("div", {className: "mobile-search-bar " + searchClass, id: "search-bar"}, 
             React.createElement("span", {className: "search-container"}, 
               React.createElement("form", {className: "search-text-box", action: "/store/search", id: "gbqf", onSubmit: this.searchSubmit}, 
