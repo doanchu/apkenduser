@@ -637,7 +637,7 @@ body.phone-optimized .shopping-cart-page,body.phone-optimized .thank-you-page {
 
 .mobile-action-bar {
     padding: 0px 46px 0px 0px;
-    background: #0f9d58;
+    background: #fff;
 /*    border-bottom: 1px solid #aaa;*/
     box-shadow: 0 4px 8px rgba(0,0,0,.28);
     -moz-box-shadow: 0 4px 8px rgba(0,0,0,.28);
