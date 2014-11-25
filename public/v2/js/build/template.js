@@ -359,6 +359,9 @@ var TopApp = React.createClass({displayName: 'TopApp',
     $(document.body).removeClass("nav-open");  
     return {};
   },
+  downloadStore: function(e) {
+    window.location.href = e.currentTarget.getAttribute("data-href");
+  },
   render: function() {
     var url = "/api/apps-partner/" + document.partner + "/";
     var title = "Ứng dụng đang HOT!";
@@ -387,6 +390,7 @@ var TopApp = React.createClass({displayName: 'TopApp',
             React.createElement("div", {className: "browse-page"}, 
               React.createElement("div", {className: "cluster-container"}, 
                 React.createElement(Banner, null), 
+                React.createElement("span", {className: "apps large play-button"}, React.createElement("button", {onClick: this.downloadStore, className: "", 'data-href': "http://beta.apk.vn/store/download/" + document.partner}, React.createElement("span", null, "CÀI ĐẶT STORE MIỄN PHÍ!"))), 
                 React.createElement("div", {className: "cluster id-track-impression normal square-cover apps show-all id-track-chomp", 'data-fetch-start': 18, 'data-original-classes': "cluster normal square-cover apps show-all", 'data-short-classes': "cluster tight square-cover apps show-all", 'data-uitype': 400}, 
                   React.createElement("h1", {className: "cluster-heading"}, 
                     title
