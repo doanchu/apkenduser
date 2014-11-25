@@ -341,15 +341,20 @@ var VerticalShortcuts = React.createClass({
 });
 
 var Footer = React.createClass({
+  hideMenuBar: function() {
+    $(document.body).removeClass("nav-open");
+    $("#mobile-menu-overlay").css("display", "none");
+  },    
   render: function() {
     return (
+      <div>
       <div id="footer-content">            
         <div className="footer">
           <div className="footer-links-container">{document.footer}</div>
-        </div>
-        <div id="mobile-menu-overlay" onClick={this.hideMenuBar} style={{opacity: '0.8', display: 'none'} />        
+        </div>        
       </div>
-
+      <div id="mobile-menu-overlay" onClick={this.hideMenuBar} style={{opacity: '0.8', display: 'none'}} />
+      </div>
       )    
   }
 });
