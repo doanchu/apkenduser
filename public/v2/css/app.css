@@ -639,6 +639,8 @@ body.phone-optimized .shopping-cart-page,body.phone-optimized .thank-you-page {
     background: #0f9d58;
 /*    border-bottom: 1px solid #aaa;*/
     box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    -moz-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+    -webkit-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
     height: 48px;
     left: 0;
     position: fixed;
