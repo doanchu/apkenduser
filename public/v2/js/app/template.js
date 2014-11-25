@@ -541,8 +541,8 @@ var Content = React.createClass({
         </div>
         <div itemprop="author" itemscope="" itemtype="http://schema.org/Organization">                      
           <div className="document-subtitle primary"> <span itemprop="name">{size} - {this.state.data.total_download} Lượt tải</span> </div>                            
-        </div>
-        <div>  <a className="document-subtitle category" href="/store/apps/category/PERSONALIZATION"> <span itemprop="genre">{this.state.data.cname}</span> </a></div>
+        </div>        
+        <div>  <Link to={"/app/category/" + this.state.data.cid} className="document-subtitle category" href={"/app/category/" + this.state.data.cid}> <span itemprop="genre">{this.state.data.cname}</span> </Link></div>
         <div className="details-actions">
           <span>
             <span className="apps medium play-button buy-button-container" data-doc-fetch-skip-cache={0} data-doc-fetch-vouchers={0}>

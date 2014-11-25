@@ -542,7 +542,7 @@ React.createElement("div", null,
         React.createElement("div", {itemprop: "author", itemscope: "", itemtype: "http://schema.org/Organization"}, 
           React.createElement("div", {className: "document-subtitle primary"}, " ", React.createElement("span", {itemprop: "name"}, size, " - ", this.state.data.total_download, " Lượt tải"), " ")
         ), 
-        React.createElement("div", null, "  ", React.createElement("a", {className: "document-subtitle category", href: "/store/apps/category/PERSONALIZATION"}, " ", React.createElement("span", {itemprop: "genre"}, this.state.data.cname), " ")), 
+        React.createElement("div", null, "  ", React.createElement(Link, {to: "/app/category/" + this.state.data.cid, className: "document-subtitle category", href: "/app/category/" + this.state.data.cid}, " ", React.createElement("span", {itemprop: "genre"}, this.state.data.cname), " ")), 
         React.createElement("div", {className: "details-actions"}, 
           React.createElement("span", null, 
             React.createElement("span", {className: "apps medium play-button buy-button-container", 'data-doc-fetch-skip-cache': 0, 'data-doc-fetch-vouchers': 0}, 
