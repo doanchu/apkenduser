@@ -409,7 +409,7 @@ var TopApp = React.createClass({
       url = "/api/apps-like/" + document.partner + "/";
       title = "Ứng dụng được yêu thích";
     } if (this.props.route == "/top/new") {
-      url = "/api/apps-partner/" + document.partner + "/";  
+      url = "/api/apps-new/" + document.partner + "/";  
       title = "Ứng dụng mới nhất";
     }
 
