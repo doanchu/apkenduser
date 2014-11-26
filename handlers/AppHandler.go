@@ -42,17 +42,26 @@ func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Requested to apps-partner with", myPartner, page, limit)
 
 	log.Println(myPartner)
+	var appDetails []*models.AppDetails
 
-	var result []*models.PartnerAppInfo
-	result = Mongo.GetPartnerAppsByCategory(myPartner, cid, page, limit)
-	// log.Println(result)
-	if result == nil {
-		w.Header().Set("Content-Type", "application/json")
-		w.Write([]byte("[]"))
-		return
+	user := Mongo.GetUserByUsername(myPartner)
+	log.Println(user)
+	if user == nil || user.Store == 0 {
+		appCommons := Mongo.GetCommonAppsByCategory(cid, page, limit)
+
+		appDetails = CreateAppDetailsFromAppCommon(appCommons)
+	} else {
+		var result []*models.PartnerAppInfo
+		result = Mongo.GetPartnerAppsByCategory(myPartner, cid, page, limit)
+		// log.Println(result)
+		if result == nil {
+			w.Header().Set("Content-Type", "application/json")
+			w.Write([]byte("[]"))
+			return
+		}
+		appDetails = CreateAppDetails(result)
 	}
 
-	appDetails := CreateAppDetails(result)
 	// log.Println(appDetails)
 	var byteResult []byte
 	byteResult, err = json.Marshal(appDetails)
@@ -96,16 +105,25 @@ func V2AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var result []*models.PartnerAppInfo
-	result = Mongo.GetPartnerAppsByCategory(myPartner, cid, page, limit)
-	// log.Println(result)
-	if result == nil {
-		w.Header().Set("Content-Type", "application/json")
-		w.Write([]byte("[]"))
-		return
-	}
+	var appDetails []*models.AppDetails
 
-	appDetails := CreateAppDetailsWithCategory(result, category)
+	user := Mongo.GetUserByUsername(myPartner)
+
+	if user == nil || user.Store == 0 {
+		commonApps := Mongo.GetCommonAppsByCategory(cid, page, limit)
+		appDetails = CreateAppDetailsFromAppCommonWithCategory(commonApps, category)
+	} else {
+		var result []*models.PartnerAppInfo
+		result = Mongo.GetPartnerAppsByCategory(myPartner, cid, page, limit)
+		// log.Println(result)
+		if result == nil {
+			w.Header().Set("Content-Type", "application/json")
+			w.Write([]byte("[]"))
+			return
+		}
+
+		appDetails = CreateAppDetailsWithCategory(result, category)
+	}
 	var finalResult = struct {
 		Cname string               `json:"cname"`
 		Apps  []*models.AppDetails `json:"apps"`
@@ -288,6 +306,15 @@ func CreateAppDetailsFromAppCommon(apps []*models.AppCommon) []*models.AppDetail
 	var appDetails = make([]*models.AppDetails, len(apps))
 	for key, value := range apps {
 		category := Mongo.GetCategoryById(value.Cid)
+		appDetails[key] = models.NewAppDetailsFromAppCommon(value, category)
+	}
+	return appDetails
+}
+
+func CreateAppDetailsFromAppCommonWithCategory(apps []*models.AppCommon, category *models.Category) []*models.AppDetails {
+	var appDetails = make([]*models.AppDetails, len(apps))
+	for key, value := range apps {
+		//category := Mongo.GetCategoryById(value.Cid)
 		appDetails[key] = models.NewAppDetailsFromAppCommon(value, category)
 	}
 	return appDetails

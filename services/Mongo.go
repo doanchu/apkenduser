@@ -245,6 +245,25 @@ func (m *Mongo) GetPartnerAppsByCategory(partner string, cid int, page int, limi
 	}
 }
 
+func (m *Mongo) GetCommonAppsByCategory(cid int, page int, limit int) []*models.AppCommon {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("app_common")
+	var result []*models.AppCommon
+	err := c.Find(bson.M{"cid": cid, "status": 1}).Skip((page - 1) * limit).Limit(limit).All(&result)
+
+	// var byteResult []byte
+	// byteResult, err = json.Marshal(result)
+	if err != nil {
+		log.Println(err.Error())
+		return nil
+	} else {
+		return result
+	}
+}
+
 func (m *Mongo) GetPartnerApp(partner string) (*models.PartnerAppInfo, error) {
 	session := m.Session.Clone()
 	defer session.Close()
