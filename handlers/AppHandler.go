@@ -233,6 +233,13 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var adminAppDetails []*models.AppDetails
+
+	if page == 1 && sortCondition == "-time_order" {
+		appCommons := Mongo.GetCommonApps(1, 3, sortCondition)
+		adminAppDetails = CreateAppDetailsFromAppCommon(appCommons)
+	}
+
 	result, err := Mongo.GetPartnerApps(myPartner, page, limit, sortCondition)
 
 	// var result []*models.PartnerAppInfo
@@ -250,6 +257,8 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	appDetails := CreateAppDetails(result)
+
+	appDetails = append(adminAppDetails, appDetails...)
 
 	//if condition == "partner-min" || condition == "partner" {
 	for _, value := range appDetails {
