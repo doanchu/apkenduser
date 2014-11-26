@@ -25,6 +25,8 @@ var routes = (
     </Route>
     <Route name="TopStandings" path="/top/standings" route="/top/standings" handler={TopStandings}>        
     </Route>      
+    <Route name="AppStandings" path="/app/standings" route="/top/standings" handler={TopStandings}>        
+    </Route>          
     <Route name="TopNew" path="/top/new" route="/top/new" handler={TopNew}>        
     </Route>            
     <Route name="Home" path="/" route="/" handler={Home}>        
