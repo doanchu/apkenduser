@@ -335,10 +335,10 @@ var VerticalShortcuts = React.createClass({displayName: 'VerticalShortcuts',
 
       React.createElement("div", {className: "vertical-shortcuts"}, 
         React.createElement("ul", {className: "vertical-shortcuts-inner"}, 
-          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/new", className: "play-button"}, "Mới nhất"), " "), 
-          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/downloads", className: "play-button"}, "Tải nhiều"), " "), 
-          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/standings", className: "play-button"}, "Yêu thích"), " "), 
-          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/app/collections", className: "play-button"}, "Chọn lọc"), " ")
+          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/new", className: "play-button btn-new"}, React.createElement("i", {className: "fa fa-2 fa-wifi"}), " Mới nhất"), " "), 
+          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/downloads", className: "play-button btn-downloads"}, " ", React.createElement("i", {className: "fa fa-2 fa-download"}), " Tải nhiều"), " "), 
+          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/top/standings", className: "play-button btn-standings"}, React.createElement("i", {className: "fa fa-2 fa-heart-o"}), " Yêu thích"), " "), 
+          React.createElement("li", {className: "shortcut"}, " ", React.createElement(Link, {to: "/app/collections", className: "play-button btn-collections"}, React.createElement("i", {className: "fa fa-2 fa-star-o"}), " Chọn lọc"), " ")
         )
       )
     );

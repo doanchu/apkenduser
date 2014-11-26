@@ -335,10 +335,10 @@ var VerticalShortcuts = React.createClass({
 
       <div className="vertical-shortcuts">
         <ul className="vertical-shortcuts-inner">
-          <li className="shortcut"> <Link to="/top/new" className="play-button">Mới nhất</Link> </li>
-          <li className="shortcut"> <Link to="/top/downloads" className="play-button">Tải nhiều</Link> </li>
-          <li className="shortcut"> <Link to="/top/standings" className="play-button">Yêu thích</Link> </li>
-          <li className="shortcut"> <Link to="/app/collections" className="play-button">Chọn lọc</Link> </li>
+          <li className="shortcut"> <Link to="/top/new" className="play-button btn-new"><i className="fa fa-2 fa-wifi"></i> Mới nhất</Link> </li>
+          <li className="shortcut"> <Link to="/top/downloads" className="play-button btn-downloads"> <i className="fa fa-2 fa-download"></i> Tải nhiều</Link> </li>
+          <li className="shortcut"> <Link to="/top/standings" className="play-button btn-standings"><i className="fa fa-2 fa-heart-o"></i> Yêu thích</Link> </li>
+          <li className="shortcut"> <Link to="/app/collections" className="play-button btn-collections"><i className="fa fa-2 fa-star-o"></i> Chọn lọc</Link> </li>
         </ul>
       </div>
     );

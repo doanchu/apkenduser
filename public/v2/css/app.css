@@ -17,7 +17,7 @@ body.phone-optimized .cluster-container:first-child {
 
 body.phone-optimized .cluster-heading {
     display: inline-block;
-    font-size: 24px;
+    font-size: 20px;
     line-height: 28px;
     margin: 0;
     min-width: 340px;
@@ -636,7 +636,7 @@ body.phone-optimized .shopping-cart-page,body.phone-optimized .thank-you-page {
 }
 
 .mobile-action-bar {
-    background: #0f9d58;
+    background: #465a65;
 /*    border-bottom: 1px solid #aaa;*/
     box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
     -moz-box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
@@ -648,6 +648,23 @@ body.phone-optimized .shopping-cart-page,body.phone-optimized .thank-you-page {
     top: 0;
     width: 100%;
     z-index: 984
+}
+
+.btn-new{
+    background: rgba(104, 159, 57, 0.72) !important;
+    color: #FFF !important;
+}
+.btn-downloads{
+    background: rgba(59, 128, 232, 0.84) !important;
+    color: #FFF !important;
+}
+.btn-standings{
+    background: rgba(237, 59, 59, 0.81) !important;
+    color: #FFF !important;
+}
+.btn-collections{
+    background: rgba(3, 155, 230, 0.72) !important;
+    color: #FFF !important;
 }
 
 .mobile-action-bar #gbqfq {
@@ -768,23 +785,23 @@ body.phone-optimized .action-bar-container {
     position: relative;
     vertical-align: top;
     width: 100%;
-	display: block;
-	margin: 0;
-	margin-right: 60px;
-	white-space: nowrap    
+    display: block;
+    margin: 0;
+    margin-right: 60px;
+    white-space: nowrap    
 }
 
 .mobile-action-bar .input-search {
-	font-size: 21px;
-	height: 40px;
-	padding: 0 5px 0 15px;
-	background: transparent;
-	border: none;
-	height: 20px;
-	margin-top: 4px;
-	padding: 0;
-	vertical-align: top;
-	width: 100%;		
+    font-size: 21px;
+    height: 40px;
+    padding: 0 5px 0 15px;
+    background: transparent;
+    border: none;
+    height: 20px;
+    margin-top: 4px;
+    padding: 0;
+    vertical-align: top;
+    width: 100%;        
 }
 
 .mobile-search-bar {
@@ -1082,11 +1099,12 @@ body.phone-optimized.nav-closing #wrapper {
 }
 
 .nav-profile-wrapper {
-    background: #555;
+    background: #B7CF47;
     display: block;
     height: 48px;
     margin-bottom: 15px;
-    width: 100%
+    width: 100%;
+    border-bottom: 2px solid #767676;
 }
 
 .nav-profile {
@@ -1120,7 +1138,7 @@ body.phone-optimized.nav-closing #wrapper {
 }
 
 .nav-profile .profile-name {
-    color: #f5f5f5;
+    color: #7C7777;
     display: inline-block;
     font-size: 18px;
     margin: 12px 0 0 3px;
@@ -2257,7 +2275,7 @@ body.phone-optimized #butterbar {
     -moz-user-select: none;
     -ms-user-select: none;
     background-color: #fff;
-    border: 1px solid rgba(0,0,0,0.17);
+    
     color: #737373;
     cursor: pointer;
     display: inline-block;
@@ -2379,7 +2397,9 @@ body.phone-optimized #butterbar {
 }
 
 .play-button.apps {
-    background-color: #b3c833
+    background-color: #b3c833;
+    border-bottom: 2px solid #767676;
+    margin-top:20px;
 }
 
 .play-button.apps:hover {
@@ -3912,7 +3932,8 @@ body.phone-optimized .card-actions.overflow-menu-button {
 }
 
 .card.tiny.apps.square-cover .cover-image,.card.small.apps.square-cover .cover-image,.card.medium.apps.square-cover .cover-image,.card.medium-long.apps.square-cover .cover-image,.card.medium-plus.apps.square-cover .cover-image,.card.medium-plus-fixed.apps.square-cover .cover-image,.card.marge.apps.square-cover .cover-image,.card.large.apps.square-cover .cover-image {
-    max-width: 73%
+    max-width: 73%;
+    width:120px;
 }
 
 .card.tiny.devices.square-cover .cover-image,.card.small.devices.square-cover .cover-image,.card.medium.devices.square-cover .cover-image,.card.medium-long.devices.square-cover .cover-image,.card.medium-plus.devices.square-cover .cover-image,.card.medium-plus-fixed.devices.square-cover .cover-image,.card.marge.devices.square-cover .cover-image,.card.large.devices.square-cover .cover-image {
@@ -3970,10 +3991,12 @@ body.phone-optimized .card-actions.overflow-menu-button {
 .card.small.devices .details {
     font-size: 11px;
     max-height: 105px
+
 }
 
 .card.medium.devices .details {
-    max-height: 150px
+    max-height: 150px;
+    
 }
 
 .card.medium.devices .title,.card.small.devices .title {
@@ -5547,6 +5570,9 @@ body.phone-optimized .ctp-header .title {
 
 .details-actions .play-button {
     margin-bottom: 5px
+}
+.play-button .fa{
+    margin-right: 5px;
 }
 
 .details-info-divider {
@@ -7445,7 +7471,9 @@ body.phone-optimized .approved-items-table-wrapper {
 }
 
 body.phone-optimized #show-more-button {
-    margin: 20px auto
+    margin: 20px auto;
+    border: 2px solid #c1d739;
+    color: #767676;
 }
 
 .bottom-loading {

@@ -24,6 +24,10 @@ var session *mgo.Session
 
 var indexTemplate *template.Template
 
+var hashKey = []byte("mylovelyapkvn")
+var blockKey = []byte("thuybeo")
+var scookie = securecookie.New(hashKey, blockKey)
+
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	template, err := indexTemplate.ParseFiles("public/index.v2.html")
