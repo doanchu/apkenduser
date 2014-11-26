@@ -190,6 +190,10 @@ func (m *Mongo) IncAppDownload(partner string, id string, date int) {
 	c.Upsert(bson.M{"id": id,
 		"partner": partner},
 		bson.M{"$inc": bson.M{"total_download": 1}})
+
+	c = db.C("app_common")
+	c.Upsert(bson.M{"id": id},
+		bson.M{"$inc": bson.M{"total_download": 1}})
 }
 
 func (m *Mongo) IncStoreDownload(partner string, date int) {

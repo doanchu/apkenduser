@@ -22,5 +22,5 @@ type AppCommon struct {
 	Time_created   int64             `json:"time_created"`
 	Time_updated   int64             `json:"time_updated"`
 	Vendor         string            `json:"vendor"`
-	Total_download int               `json:"total_download"`
+	Total_download int64             `json:"total_download"`
 }

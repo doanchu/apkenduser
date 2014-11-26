@@ -90,7 +90,7 @@ func NewAppDetailsFromAppCommon(a *AppCommon, c *Category) *AppDetails {
 		Name_seo:       a.Name_seo,
 		Partner:        "",
 		Status:         a.Status,
-		Total_download: 0,
+		Total_download: a.Total_download,
 		Total_like:     0,
 		Total_share:    0,
 		Size:           a.Size,
