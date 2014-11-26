@@ -1,6 +1,22 @@
 var Navigation = ReactRouter.Navigation;
 var RouterState = ReactRouter.ActiveState;
 
+window.createTotalDownload = function(total_download) {
+  if (total_download < 1000) {
+    return "500 - 1000";
+  } else if (1000 <= total_download < 10000) {
+    return "1000+";
+  } else if (10000 <= total_download < 50000) {
+    return "10000+";    
+  } else if (50000 <= total_download < 100000) {
+    return "50000+";
+  } else if (100000 <= total_download < 1000000) {
+    return "100000+";
+  } else if (1000000 <= total_download) {
+    return "1M+";
+  }
+};
+
 var Banner = React.createClass({displayName: 'Banner',  
   getInitialState: function() {
     return {data: []}
@@ -117,10 +133,8 @@ var Item = React.createClass({displayName: 'Item',
             React.createElement("div", {className: "reason-set"}, 
               React.createElement("span", {className: "stars-container"}, 
                 React.createElement("a", {'data-href': "/app/cdownload/" + document.partner + "/" + this.props.appId, onClick: this.handleDownload, tabindex: -1}, 
-                  React.createElement("div", {className: "reason-set-star-rating"}, 
-                    React.createElement("div", {className: "tiny-star star-rating-non-editable-container", 'aria-label': "Rated 4.3 stars out of five stars"}, 
-                      React.createElement("div", {className: "current-rating", style: {width: '85.64302444458008%'}})
-                    )
+                  React.createElement("div", {className: "reason-set-star-rating", style: {paddingBottom: "2px"}}, 
+                  this.props.size + "-" + window.createTotalDownload(this.props.downloads) + " cài đặt"
                   )
                 ), 
                 React.createElement("span", {className: "price-container"}, 
@@ -217,8 +231,21 @@ var ItemList = React.createClass({displayName: 'ItemList',
       } else {
         var items = this.state.data.map(function(item){
           if (item != null) {
+              var size = parseInt(item.size);
+              if (!isNaN(size)) {
+                  size = Math.floor(size / (1024*1024));
+                  if (size == 0) {
+                    size = parseInt(item.size);
+                    size = Math.floor(size / 1024)  ;
+                    size = size + " KB";
+                  } else {
+                    size = size + " MB";          
+                  }        
+              } else {
+                size = item.size;
+              }            
             return (
-              React.createElement(Item, {appId: item.id, name: item.name, downloads: item.total_download, cname: item.cname, cid: item.cid, thumbnail: item.thumbnail})
+              React.createElement(Item, {appId: item.id, name: item.name, size: size, downloads: item.total_download, cname: item.cname, cid: item.cid, thumbnail: item.thumbnail})
             );
           }
         })  
@@ -554,7 +581,7 @@ React.createElement("div", null,
           React.createElement("div", null, this.state.data.name)
         ), 
         React.createElement("div", {itemprop: "author", itemscope: "", itemtype: "http://schema.org/Organization"}, 
-          React.createElement("div", {className: "document-subtitle primary"}, " ", React.createElement("span", {itemprop: "name"}, size, " - ", this.state.data.total_download, " Lượt tải"), " ")
+          React.createElement("div", {className: "document-subtitle primary"}, " ", React.createElement("span", {itemprop: "name"}, size, " - ", window.createTotalDownload(this.state.data.total_download), " Lượt tải"), " ")
         ), 
         React.createElement("div", null, "  ", React.createElement(Link, {to: "/app/category/" + this.state.data.cid, className: "document-subtitle category", href: "/app/category/" + this.state.data.cid}, " ", React.createElement("span", {itemprop: "genre"}, this.state.data.cname), " ")), 
         React.createElement("div", {className: "details-actions"}, 

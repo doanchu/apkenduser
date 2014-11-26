@@ -50,6 +50,7 @@ func NewAppDetails(p *PartnerAppInfo, a *AppCommon, c *Category) *AppDetails {
 		return nil
 	}
 	NormalizeAppCommon(a)
+	totalDownload := p.Total_download + 1000
 	if p.Name != "" {
 		return &AppDetails{
 			Name:           p.Name,
@@ -61,7 +62,7 @@ func NewAppDetails(p *PartnerAppInfo, a *AppCommon, c *Category) *AppDetails {
 			Name_seo:       a.Name_seo,
 			Partner:        p.Partner,
 			Status:         p.Status,
-			Total_download: p.Total_download,
+			Total_download: totalDownload,
 			Total_like:     p.Total_like,
 			Total_share:    p.Total_share,
 			Size:           a.Size,
@@ -80,6 +81,7 @@ func NewAppDetails(p *PartnerAppInfo, a *AppCommon, c *Category) *AppDetails {
 
 func NewAppDetailsFromAppCommon(a *AppCommon, c *Category) *AppDetails {
 	NormalizeAppCommon(a)
+	totalDownload := a.Total_download + 1000
 	return &AppDetails{
 		Name:           a.Name,
 		Desc:           a.Desc,
@@ -90,7 +92,7 @@ func NewAppDetailsFromAppCommon(a *AppCommon, c *Category) *AppDetails {
 		Name_seo:       a.Name_seo,
 		Partner:        "",
 		Status:         a.Status,
-		Total_download: a.Total_download,
+		Total_download: totalDownload,
 		Total_like:     0,
 		Total_share:    0,
 		Size:           a.Size,

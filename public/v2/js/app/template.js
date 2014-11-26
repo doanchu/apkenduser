@@ -1,6 +1,22 @@
 var Navigation = ReactRouter.Navigation;
 var RouterState = ReactRouter.ActiveState;
 
+window.createTotalDownload = function(total_download) {
+  if (total_download < 1000) {
+    return "500 - 1000";
+  } else if (1000 <= total_download < 10000) {
+    return "1000+";
+  } else if (10000 <= total_download < 50000) {
+    return "10000+";    
+  } else if (50000 <= total_download < 100000) {
+    return "50000+";
+  } else if (100000 <= total_download < 1000000) {
+    return "100000+";
+  } else if (1000000 <= total_download) {
+    return "1M+";
+  }
+};
+
 var Banner = React.createClass({  
   getInitialState: function() {
     return {data: []}
@@ -117,10 +133,8 @@ var Item = React.createClass({
             <div className="reason-set">
               <span className="stars-container">
                 <a data-href={"/app/cdownload/" + document.partner + "/" + this.props.appId} onClick={this.handleDownload} tabindex={-1}>
-                  <div className="reason-set-star-rating">
-                    <div className="tiny-star star-rating-non-editable-container" aria-label="Rated 4.3 stars out of five stars">
-                      <div className="current-rating" style={{width: '85.64302444458008%'}} />
-                    </div>
+                  <div className="reason-set-star-rating" style={{paddingBottom: "2px"}}>
+                  {this.props.size + "-" + window.createTotalDownload(this.props.downloads) + " cài đặt"}
                   </div>
                 </a>
                 <span className="price-container">
@@ -217,8 +231,21 @@ var ItemList = React.createClass({
       } else {
         var items = this.state.data.map(function(item){
           if (item != null) {
+              var size = parseInt(item.size);
+              if (!isNaN(size)) {
+                  size = Math.floor(size / (1024*1024));
+                  if (size == 0) {
+                    size = parseInt(item.size);
+                    size = Math.floor(size / 1024)  ;
+                    size = size + " KB";
+                  } else {
+                    size = size + " MB";          
+                  }        
+              } else {
+                size = item.size;
+              }            
             return (
-              <Item appId={item.id} name={item.name} downloads={item.total_download} cname={item.cname} cid={item.cid} thumbnail={item.thumbnail}/>
+              <Item appId={item.id} name={item.name} size={size} downloads={item.total_download} cname={item.cname} cid={item.cid} thumbnail={item.thumbnail}/>
             );
           }
         })  
@@ -554,7 +581,7 @@ var Content = React.createClass({
           <div>{this.state.data.name}</div>
         </div>
         <div itemprop="author" itemscope="" itemtype="http://schema.org/Organization">                      
-          <div className="document-subtitle primary"> <span itemprop="name">{size} - {this.state.data.total_download} Lượt tải</span> </div>                            
+          <div className="document-subtitle primary"> <span itemprop="name">{size} - {window.createTotalDownload(this.state.data.total_download)} Lượt tải</span> </div>                            
         </div>        
         <div>  <Link to={"/app/category/" + this.state.data.cid} className="document-subtitle category" href={"/app/category/" + this.state.data.cid}> <span itemprop="genre">{this.state.data.cname}</span> </Link></div>
         <div className="details-actions">
