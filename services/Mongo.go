@@ -428,3 +428,20 @@ func (m *Mongo) GetAllBanners() []*models.Banner {
 	}
 	return result
 }
+
+func (m *Mongo) GetUserByUsername(username string) *models.User {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("users")
+
+	result := &models.User{}
+
+	err := c.Find(bson.M{"username": username}).One(result)
+	if err != nil {
+		return nil
+	} else {
+		return result
+	}
+}

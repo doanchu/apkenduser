@@ -223,9 +223,10 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 
 	log.Println(myPartner)
 
-	partnerApp, err := Mongo.GetPartnerApp(myPartner)
+	//partnerApp, err := Mongo.GetPartnerApp(myPartner)
+	user := Mongo.GetUserByUsername(myPartner)
 
-	if partnerApp == nil {
+	if user == nil || user.Store == 0 {
 		appCommon := Mongo.GetCommonApps(page, limit, sortCondition)
 		appDetails := CreateAppDetailsFromAppCommon(appCommon)
 		WriteJsonResult(w, appDetails)
