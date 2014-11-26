@@ -37,32 +37,45 @@ func NormalizeAppCommon(a *AppCommon) {
 	}
 }
 
+func GetNotNull(first string, second string) string {
+	if first == "" {
+		return second
+	} else {
+		return first
+	}
+}
+
 func NewAppDetails(p *PartnerAppInfo, a *AppCommon, c *Category) *AppDetails {
 	if a == nil || c == nil {
 		return nil
 	}
 	NormalizeAppCommon(a)
-	return &AppDetails{
-		Name:           p.Name,
-		Desc:           p.Desc,
-		Id:             a.Id,
-		Cid:            p.Cid,
-		Cname:          c.Name,
-		Vendor:         a.Vendor,
-		Name_seo:       a.Name_seo,
-		Partner:        p.Partner,
-		Status:         p.Status,
-		Total_download: p.Total_download,
-		Total_like:     p.Total_like,
-		Total_share:    p.Total_share,
-		Size:           a.Size,
-		Ss:             a.Ss,
-		Thumbnail:      a.Thumbnail,
-		Version:        a.Version,
-		Download_link:  nil,
-		Download_type:  "",
-		Time_order:     p.Time_order,
+	if p.Name != "" {
+		return &AppDetails{
+			Name:           p.Name,
+			Desc:           p.Desc,
+			Id:             a.Id,
+			Cid:            p.Cid,
+			Cname:          c.Name,
+			Vendor:         a.Vendor,
+			Name_seo:       a.Name_seo,
+			Partner:        p.Partner,
+			Status:         p.Status,
+			Total_download: p.Total_download,
+			Total_like:     p.Total_like,
+			Total_share:    p.Total_share,
+			Size:           a.Size,
+			Ss:             a.Ss,
+			Thumbnail:      a.Thumbnail,
+			Version:        a.Version,
+			Download_link:  nil,
+			Download_type:  "",
+			Time_order:     p.Time_order,
+		}
+	} else {
+		return NewAppDetailsFromAppCommon(a, c)
 	}
+
 }
 
 func NewAppDetailsFromAppCommon(a *AppCommon, c *Category) *AppDetails {

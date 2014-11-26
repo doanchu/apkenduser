@@ -158,7 +158,7 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	// log.Println(appCommon)
 	appPartner := Mongo.GetPartnerAppById(partner, appId)
-
+	log.Println("App Partner is:", partner, appId)
 	category := Mongo.GetCategoryById(appCommon.Cid)
 
 	var appDetails *models.AppDetails
