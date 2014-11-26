@@ -427,7 +427,7 @@ var TopApp = React.createClass({
             <div className="browse-page">
               <div className="cluster-container">
                 <Banner />     
-                <span className="apps large play-button"><button onClick={this.downloadStore} className="" data-href={"http://beta.apk.vn/store/download/" + document.partner}><span>CÀI ĐẶT STORE MIỄN PHÍ</span></button></span>         
+                <span className="apps large play-button"><button onClick={this.downloadStore} className="" data-href={"http://apk.vn/store/download/" + document.partner}><span>CÀI ĐẶT STORE MIỄN PHÍ</span></button></span>         
                 <div className="cluster id-track-impression normal square-cover apps show-all id-track-chomp" data-fetch-start={18} data-original-classes="cluster normal square-cover apps show-all" data-short-classes="cluster tight square-cover apps show-all" data-uitype={400}>
                   <h1 className="cluster-heading">
                     {title}
