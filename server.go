@@ -19,6 +19,7 @@ import "github.com/doanchu/apkenduser/utils"
 import "strings"
 import "os"
 import _ "time"
+import "runtime"
 
 var session *mgo.Session
 
@@ -145,6 +146,8 @@ func (f neuteredReaddirFile) Readdir(count int) ([]os.FileInfo, error) {
 var mongo *services.Mongo
 
 func main() {
+	maxProcs := runtime.GOMAXPROCS(4)
+	log.Println("Max procs is", maxProcs)
 	downloadedFileName, _ := handlers.DownloadFile("http://sv11.mway.vn:88/ApkStoreService/build?partner=duyhungws&app_name=Hung&download_id=123", "public/static/adflex/duyhungws/store/", "test")
 	log.Println(downloadedFileName)
 	readConfiguration()
