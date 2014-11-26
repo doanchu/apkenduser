@@ -154,7 +154,7 @@ func main() {
 	log.Println(host)
 	session, err = mgo.Dial(host)
 	if err != nil {
-		log.Fatal(err.Error())		
+		log.Fatal(err.Error())
 	} else {
 		log.Println("Ready to connect to mongodb")
 	}
@@ -176,6 +176,7 @@ func main() {
 	handlers.Mongo = mongo
 	handlers.Host = serverHost
 	handlers.StorageDir = storageDir
+	handlers.ServerHost = serverHost
 
 	models.ServerHost = serverHost
 	// mySession := session.Clone()
