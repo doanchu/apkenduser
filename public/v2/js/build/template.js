@@ -999,11 +999,23 @@ var AppCategoryList = React.createClass({displayName: 'AppCategoryList',
       } else {
         var items = this.state.data.map(function(item){
           if (item != null) {
+              var size = parseInt(item.size);
+              if (!isNaN(size)) {
+                  size = Math.floor(size / (1024*1024));
+                  if (size == 0) {
+                    size = parseInt(item.size);
+                    size = Math.floor(size / 1024)  ;
+                    size = size + " KB";
+                  } else {
+                    size = size + " MB";          
+                  }        
+              } else {
+                size = item.size;
+              }            
             return (
-              React.createElement(Item, {appId: item.id, name: item.name, downloads: item.total_download, cname: item.cname, thumbnail: item.thumbnail})
+              React.createElement(Item, {appId: item.id, name: item.name, size: size, downloads: item.total_download, cname: item.cname, cid: item.cid, thumbnail: item.thumbnail})
             );
-          }
-        })  
+          }        })  
         more = React.createElement("button", {className: "play-button", id: "show-more-button", style: {display: 'block'}, onClick: this.getMoreContent}, "Xem thêm");
         searchResult = (        
         React.createElement("div", null, 
@@ -1218,11 +1230,23 @@ var AppCollectionList = React.createClass({displayName: 'AppCollectionList',
       } else {        
         var items = this.state.data.map(function(item){
           if (item != null) {
+              var size = parseInt(item.size);
+              if (!isNaN(size)) {
+                  size = Math.floor(size / (1024*1024));
+                  if (size == 0) {
+                    size = parseInt(item.size);
+                    size = Math.floor(size / 1024)  ;
+                    size = size + " KB";
+                  } else {
+                    size = size + " MB";          
+                  }        
+              } else {
+                size = item.size;
+              }            
             return (
-              React.createElement(Item, {appId: item.id, name: item.name, downloads: item.total_download, cname: item.cname, thumbnail: item.thumbnail})
+              React.createElement(Item, {appId: item.id, name: item.name, size: size, downloads: item.total_download, cname: item.cname, cid: item.cid, thumbnail: item.thumbnail})
             );
-          }
-        })          
+          }        })          
         searchResult = (        
         React.createElement("div", null, 
           React.createElement(CollectionItem, {colid: this.state.id, name: this.state.name, banner: this.state.banner}), 
