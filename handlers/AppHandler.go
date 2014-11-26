@@ -236,7 +236,7 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	var adminAppDetails []*models.AppDetails
 
 	if page == 1 && sortCondition == "-time_order" {
-		appCommons := Mongo.GetCommonApps(1, 3, sortCondition)
+		appCommons := Mongo.GetCommonApps(1, 5, sortCondition)
 		adminAppDetails = CreateAppDetailsFromAppCommon(appCommons)
 	}
 
