@@ -7,3 +7,4 @@ var Cache *services.Cache
 
 var Host string
 var StorageDir string = "public"
+var ServerHost string

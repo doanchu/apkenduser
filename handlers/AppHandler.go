@@ -439,8 +439,10 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 		// log.Println("Prefix is:", prefix)
 		// log.Println("AdFlex link is: ", adFlexLink)
 		// log.Println("file name is", fileName)
+		log.Println(filePath)
 		if _, err := os.Stat(filePath); os.IsNotExist(err) {
 			downloadLink = strings.Replace(adFlexLink, "{refcode}", partner, -1)
+			log.Println("Adflex link is: ", adFlexLink)
 			resp, err := http.Get(downloadLink)
 			defer resp.Body.Close()
 			if err != nil {
@@ -459,7 +461,7 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 			io.Copy(out, resp.Body)
 
 		}
-		downloadLink = "/static/adflex/" + partner + "/" + fileName
+		downloadLink = "http://" + partner + "." + ServerHost + "/static/adflex/" + partner + "/" + fileName
 	case "static":
 		downloadLink = appCommon.Download_link["static"]
 	case "campaign":
