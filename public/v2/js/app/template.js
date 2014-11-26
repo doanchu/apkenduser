@@ -4,13 +4,13 @@ var RouterState = ReactRouter.ActiveState;
 window.createTotalDownload = function(total_download) {
   if (total_download < 1000) {
     return "500 - 1000";
-  } else if (1000 <= total_download < 10000) {
+  } else if (1000 <= total_download && total_download < 10000) {
     return "1000+";
-  } else if (10000 <= total_download < 50000) {
+  } else if (10000 <= total_download && total_download < 50000) {
     return "10000+";    
-  } else if (50000 <= total_download < 100000) {
+  } else if (50000 <= total_download && total_download < 100000) {
     return "50000+";
-  } else if (100000 <= total_download < 1000000) {
+  } else if (100000 <= total_download && total_download < 1000000) {
     return "100000+";
   } else if (1000000 <= total_download) {
     return "1M+";
