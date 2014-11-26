@@ -108,6 +108,25 @@ func (m *Mongo) GetPartnerApps(partner string, page int, limit int, sortConditio
 	}
 }
 
+func (m *Mongo) GetPartnerAppsNotIn(partner string, page int, limit int, sortCondition string, commonAppIds []string) ([]*models.PartnerAppInfo, error) {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("partner_app_info")
+	var result []*models.PartnerAppInfo
+	err := c.Find(bson.M{"partner": partner, "status": 1, "id": bson.M{"$nin": commonAppIds}}).Sort(sortCondition).Skip((page - 1) * limit).Limit(limit).All(&result)
+
+	// var byteResult []byte
+	// byteResult, err = json.Marshal(result)
+	if err != nil {
+		log.Println(err.Error())
+		return nil, err
+	} else {
+		return result, nil
+	}
+}
+
 func (m *Mongo) GetCommonApps(page int, limit int, sortCondition string) []*models.AppCommon {
 	session := m.Session.Clone()
 	defer session.Close()

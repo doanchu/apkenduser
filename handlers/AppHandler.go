@@ -240,7 +240,20 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 		adminAppDetails = CreateAppDetailsFromAppCommon(appCommons)
 	}
 
-	result, err := Mongo.GetPartnerApps(myPartner, page, limit, sortCondition)
+	var result []*models.PartnerAppInfo
+	var appIds []string
+	if len(adminAppDetails) > 0 {
+		appIds = make([]string, len(adminAppDetails))
+		for _, value := range adminAppDetails {
+			appIds = append(appIds, value.Id)
+		}
+	}
+	log.Println(appIds)
+	if len(appIds) == 0 {
+		result, err = Mongo.GetPartnerApps(myPartner, page, limit, sortCondition)
+	} else {
+		result, err = Mongo.GetPartnerAppsNotIn(myPartner, page, limit, sortCondition, appIds)
+	}
 
 	// var result []*models.PartnerAppInfo
 	// if isGetByCat == true {
