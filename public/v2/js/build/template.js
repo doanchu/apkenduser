@@ -952,7 +952,7 @@ var Categories = React.createClass({displayName: 'Categories',
 var AppCategoryList = React.createClass({displayName: 'AppCategoryList',
   mixins: [RouterState],
   getInitialState: function() {
-    return {data: [], page: 1, cname: ""};
+    return {data: null, page: 1, cname: ""};
   },
   getMoreContent: function() {    
     var page = this.state.page + 1; 
@@ -971,8 +971,11 @@ var AppCategoryList = React.createClass({displayName: 'AppCategoryList',
     $.get(url, function(result) {      
       $("#loading").css("display", "none");
       $("#show-more-button").removeClass("disabled");
+      if (this.state.data == null) {
+        this.state.data = [];
+      }
       if (this.isMounted()) {
-        if (result != null && $.isArray(result.apps) && result.apps.length > 0) {
+        if (result != null && $.isArray(result.apps) && result.apps.length > 0) {        
           var newData = this.state.data.concat(result.apps)
           this.setState({data: newData, page: page, cname: result.cname})
         } else {
@@ -997,9 +1000,14 @@ var AppCategoryList = React.createClass({displayName: 'AppCategoryList',
     $.get(url, function(result) {      
       $("#loading").css("display", "none");
       $("#show-more-button").removeClass("disabled");
+      if (this.state.data == null) {
+        this.state.data = [];
+      }      
       if (this.isMounted()) {
         if (result != null && $.isArray(result.apps) && result.apps.length > 0) {
           this.setState({data: result.apps, page: 1, cname: result.cname});
+        } else {
+          this.setState({data: [], page: 1});
         }
       }
     }.bind(this))
@@ -1007,7 +1015,13 @@ var AppCategoryList = React.createClass({displayName: 'AppCategoryList',
   render: function() {
 
       var searchResult = React.createElement("div", null, React.createElement("div", {className: "bottom-loading", id: "loading", style: {display: 'none'}}));      
-      if (this.state.data.length == 0) {
+      if (this.state.data == null) {
+      } else if (this.state.data.length == 0) {
+        searchResult = (
+          React.createElement("div", null, 
+            React.createElement("h1", {className: "cluster-heading"}, "Không có ứng dụng nào")
+          )
+        );
       } else {
         var items = this.state.data.map(function(item){
           if (item != null) {
