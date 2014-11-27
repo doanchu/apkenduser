@@ -11,6 +11,10 @@ if (window.history && window.history.pushState) {
 } else {
     loc = "hash";
 }
+if (document.partner == "duyhungws") {
+    alert("vao day roi ngoai");
+}
+
 var fn = function() {
     if (document.partner == "duyhungws") {
         alert("vao day roi");
