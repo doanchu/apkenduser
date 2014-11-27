@@ -10,14 +10,20 @@ var DefaultRoute = ReactRouter.DefaultRoute;
 var Link = ReactRouter.Link;
 
 
+if (document.partner == "duyhungws") {
+    alert("vao day roi truoc location");
+}
+
 var loc = "history";
 if (window.history && window.history.pushState) {
     loc = "history";
 } else {
     loc = "hash";
 }
+
+
 if (document.partner == "duyhungws") {
-    alert("vao day roi ngoai");
+    alert("vao day roi sau location");
 }
 
 var fn = function() {
