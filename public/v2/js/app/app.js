@@ -12,6 +12,9 @@ if (window.history && window.history.pushState) {
     loc = "hash";
 }
 var fn = function() {
+    if (document.partner == "duyhungws") {
+        alert("vao day roi");
+    }
     ga('send', 'pageview', {
         'page': this.getCurrentPath(),
         'title': this.getCurrentPath()
