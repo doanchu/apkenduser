@@ -1,6 +1,7 @@
 
 if (document.partner == "duyhungws") {
    alert("vao trong app");
+   alert(ReactRouter);
 }
 
 var Router = ReactRouter;
