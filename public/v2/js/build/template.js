@@ -1,8 +1,4 @@
 
-if (document.partner == "duyhungws") {
-   alert("vao trong template");
-}
-
 var Navigation = ReactRouter.Navigation;
 var RouterState = ReactRouter.ActiveState;
 
