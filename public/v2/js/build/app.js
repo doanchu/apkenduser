@@ -4,15 +4,34 @@ if (document.partner == "duyhungws") {
 }
 
 var Router = ReactRouter;
+
+if (document.partner == "duyhungws") {
+    alert("vao day roi truoc route");
+}
+
+
 var Route = ReactRouter.Route;
+
+if (document.partner == "duyhungws") {
+    alert("vao day roi truoc routes");
+}
+
 var Routes = ReactRouter.Routes;
+
+if (document.partner == "duyhungws") {
+    alert("vao day roi truoc default route");
+}
+
+
 var DefaultRoute = ReactRouter.DefaultRoute;
+
+if (document.partner == "duyhungws") {
+    alert("vao day roi truoc link");
+}
+
 var Link = ReactRouter.Link;
 
 
-if (document.partner == "duyhungws") {
-    alert("vao day roi truoc location");
-}
 
 var loc = "history";
 if (window.history && window.history.pushState) {
