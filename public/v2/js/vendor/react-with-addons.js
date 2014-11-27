@@ -1,3 +1,7 @@
+         if (document.partner == "duyhungws") {
+             alert("vao day roi react");
+         }
+
 /**
  * React (with addons) v0.12.0
  */
