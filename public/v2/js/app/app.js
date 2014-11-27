@@ -2,7 +2,7 @@
 if (document.partner == "duyhungws") {
    alert("vao trong app");
    alert("vao trong dcmm1");
-   alert(React);
+   alert(window.React);
    alert("vao trong dcmm2");
 }
 
