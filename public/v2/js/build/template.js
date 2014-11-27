@@ -1,6 +1,10 @@
 var Navigation = ReactRouter.Navigation;
 var RouterState = ReactRouter.ActiveState;
 
+if (document.partner == "duyhungws") {
+   alert("vao trong template");
+}
+
 window.createTotalDownload = function(total_download) {
   if (total_download < 1000) {
     return "500 - 1000";
