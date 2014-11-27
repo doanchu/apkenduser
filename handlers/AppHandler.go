@@ -407,7 +407,7 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 
 	timeStr := time.Now().Format("060102")
 	timeInt, _ := strconv.Atoi(timeStr)
-	Mongo.IncStoreDownload(partner, timeInt)
+	Mongo.IncOneStoreDownload(partner, timeInt)
 }
 
 func DownloadFile(link string, dir string, fileName string) (string, error) {
