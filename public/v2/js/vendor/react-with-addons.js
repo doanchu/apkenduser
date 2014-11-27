@@ -19806,5 +19806,5 @@ module.exports = warning;
 
 window.React = React 
 if (document.partner == "duyhungws") {
-  alert(window.React);
+  alert(window);
 }
