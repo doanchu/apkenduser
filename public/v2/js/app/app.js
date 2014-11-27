@@ -31,8 +31,6 @@ if (document.partner == "duyhungws") {
 
 var Link = ReactRouter.Link;
 
-
-
 var loc = "history";
 if (window.history && window.history.pushState) {
     loc = "history";
