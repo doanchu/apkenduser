@@ -526,6 +526,75 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	//w.Write([]byte(downloadLink))
 }
 
+func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	appId := vars["app_id"]
+	partner := vars["subdomain"]
+
+	appCommon := Mongo.GetCommonAppById(appId)
+	var downloadLink string = ""
+	switch appCommon.Download_type {
+	case "adflex":
+		adFlexLink := appCommon.Download_link["adflex"]
+		dir := StorageDir + "/static/adflex/" + partner
+
+		//Check if directory exists
+		//If not create directory
+		if _, err := os.Stat(dir); os.IsNotExist(err) {
+			err = os.MkdirAll(dir, 0777)
+			if err != nil {
+				log.Println(err.Error())
+			}
+
+		}
+
+		//Get file from Adflex
+		prefix := "http://sv8.mway.vn:88/AdFlexWrapperService/download2/" + appId + "/"
+		fileName := strings.Replace(strings.Replace(adFlexLink, prefix, "", -1), "?partner={refcode}", "", -1)
+		filePath := dir + "/" + fileName
+		//First check if the file exists
+		//If not create the file
+
+		// log.Println("Prefix is:", prefix)
+		// log.Println("AdFlex link is: ", adFlexLink)
+		// log.Println("file name is", fileName)
+		log.Println(filePath)
+		if _, err := os.Stat(filePath); os.IsNotExist(err) {
+			downloadLink = strings.Replace(adFlexLink, "{refcode}", partner, -1)
+			log.Println("Adflex link is: ", adFlexLink)
+			resp, err := http.Get(downloadLink)
+			defer resp.Body.Close()
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				w.Write([]byte("There are some errors"))
+				return
+			}
+
+			out, err := os.Create(filePath)
+			defer out.Close()
+			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
+				w.Write([]byte("There are some errors"))
+				return
+			}
+			io.Copy(out, resp.Body)
+
+		}
+		downloadLink = "http://" + partner + "." + ServerHost + "/static/adflex/" + partner + "/" + fileName
+	case "static":
+		downloadLink = appCommon.Download_link["static"]
+	case "campaign":
+		downloadLink = appCommon.Download_link["campaign"]
+		downloadLink = strings.Replace(downloadLink, "{partner}", partner, -1)
+	}
+	timeStr := time.Now().Format("060102")
+	timeInt, _ := strconv.Atoi(timeStr)
+	Mongo.IncAppDownload(partner, appId, timeInt)
+	log.Println("Download link is", downloadLink)
+	http.Redirect(w, r, downloadLink, http.StatusFound)
+	//w.Write([]byte(downloadLink))
+}
+
 func SearchAppsHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	_ = err

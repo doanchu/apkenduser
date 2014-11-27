@@ -271,6 +271,7 @@ func main() {
 	router.HandleFunc("/api/banners", handlers.BannersHandler)
 
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
+	subRouter.HandleFunc("/app/download/{app_id}.apk", handlers.AppOldDownloadHandler)
 	subRouter.PathPrefix("/assets").Handler(http.FileServer(fs))
 	subRouter.PathPrefix("/").HandlerFunc(handleIndex)
 	//http.Handle("/", router)
