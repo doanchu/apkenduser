@@ -19804,7 +19804,7 @@ module.exports = warning;
 },{"./emptyFunction":121}]},{},[1])(1)
 });
 
-window.React = React 
 if (document.partner == "duyhungws") {
   alert("fuck you android");
 }
+window.React = React 
