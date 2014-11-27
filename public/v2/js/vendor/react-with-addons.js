@@ -19803,3 +19803,5 @@ module.exports = warning;
 
 },{"./emptyFunction":121}]},{},[1])(1)
 });
+
+window.React = React        
