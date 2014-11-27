@@ -1,3 +1,8 @@
+
+if (document.partner == "duyhungws") {
+   alert("vao trong app");
+}
+
 var Router = ReactRouter;
 var Route = ReactRouter.Route;
 var Routes = ReactRouter.Routes;
