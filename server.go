@@ -145,6 +145,25 @@ func (f neuteredReaddirFile) Readdir(count int) ([]os.FileInfo, error) {
 
 var mongo *services.Mongo
 
+func parkDomainMiddleWare(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+	log.Println("Host is", r.Host)
+	hostPart := strings.Split(r.Host, ":")[0]
+
+	if strings.Contains(hostPart, "."+serverHost) {
+		next.ServeHTTP(w, r)
+	} else {
+		webStore := mongo.GetWebStoreByDomain(hostPart)
+		if webStore == nil {
+			next.ServeHTTP(w, r)
+		} else {
+			log.Println(webStore)
+			r.Host = webStore.Domain_partner + "." + serverHost
+			log.Println(r.Host)
+			next.ServeHTTP(w, r)
+		}
+	}
+}
+
 func main() {
 	maxProcs := runtime.GOMAXPROCS(4)
 	log.Println("Max procs is", maxProcs)
@@ -259,6 +278,7 @@ func main() {
 	rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(fs))
 	//rootRouter.PathPrefix("/static/adflex").HandlerFunc(handleDownload)
 	rootRouter.PathPrefix("/").Handler(negroni.New(
+		negroni.HandlerFunc(parkDomainMiddleWare),
 		gzip.Gzip(gzip.DefaultCompression),
 		negroni.Wrap(router),
 	))
