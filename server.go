@@ -30,30 +30,46 @@ var blockKey = []byte("thuybeo")
 
 //var scookie = securecookie.New(hashKey, blockKey)
 
+var myTemplate, _ = indexTemplate.ParseFiles("public/index.v2.html")
+
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	template, err := indexTemplate.ParseFiles("public/index.v2.html")
-	if err != nil {
-		w.Write([]byte("There are some errors"))
-		return
-	}
+	//template, err := indexTemplate.ParseFiles("public/index.v2.html")
+	// if err != nil {
+	// 	w.Write([]byte("There are some errors"))
+	// 	return
+	// }
 
-	store := mongo.GetStoreByPartnerId(vars["subdomain"])
+	//store := mongo.GetStoreByPartnerId(vars["subdomain"])
+	store := mongo.GetWebStoreByPartner(vars["subdomain"])
 	name := "Android Store"
+	keywords := "APK.VN,apk.vn,kho ứng dụng lớn nhất,kho ứng dụng"
+	description := "APK.VN - Kho ứng dụng lớn nhất Việt Nam"
+	favicon := ""
 
 	if store != nil {
-		name = store.Name
+		name = store.Domain_title
+		keywords = store.Domain_meta_kw
+		description = store.Domain_meta_desc
+		favicon = store.Domain_fav
 	}
 
 	data := struct {
-		Partner string
-		Name    string
+		Partner     string
+		Name        string
+		Keywords    string
+		Description string
+		Favicon     string
 	}{
-		Partner: vars["subdomain"],
-		Name:    name,
+		Partner:     vars["subdomain"],
+		Name:        name,
+		Keywords:    keywords,
+		Description: description,
+		Favicon:     favicon,
 	}
+
 	log.Println(data.Partner)
-	template.Execute(w, data)
+	myTemplate.Execute(w, data)
 	//http.ServeFile(w, r, "public/index.html")
 }
 

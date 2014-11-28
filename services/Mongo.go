@@ -48,6 +48,25 @@ func (m *Mongo) GetWebStoreByDomain(domain string) *models.WebStore {
 	return result
 }
 
+func (m *Mongo) GetWebStoreByPartner(partner string) *models.WebStore {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("web_store")
+
+	result := &models.WebStore{}
+
+	err := c.Find(bson.M{"domain_partner": partner}).One(result)
+
+	if err != nil {
+		log.Println(err.Error())
+		return nil
+	}
+
+	return result
+}
+
 func (m *Mongo) GetCommentsByAppId(id string, page int, limit int) []*models.Comment {
 	session := m.Session.Clone()
 	defer session.Close()
