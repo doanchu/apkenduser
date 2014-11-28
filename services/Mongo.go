@@ -230,6 +230,34 @@ func (m *Mongo) IncOneStoreDownload(partner string, date int) {
 
 }
 
+func (m *Mongo) IncOneAppDownload(partner string, appId string, date int) {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("daily_app_stats")
+
+	c.Upsert(bson.M{"partner": partner,
+		"id":   appId,
+		"date": date},
+		bson.M{"$inc": bson.M{"1download": 1}})
+
+	c.Upsert(bson.M{"partner": partner,
+		"id":   "@",
+		"date": date},
+		bson.M{"$inc": bson.M{"1download": 1}})
+
+	c.Upsert(bson.M{"partner": "@",
+		"id":   appId,
+		"date": date},
+		bson.M{"$inc": bson.M{"1download": 1}})
+
+	c.Upsert(bson.M{"partner": "@",
+		"id":   "@",
+		"date": date},
+		bson.M{"$inc": bson.M{"1download": 1}})
+}
+
 func (m *Mongo) IncAppView(partner string, id string, date int) {
 	session := m.Session.Clone()
 	defer session.Close()
@@ -243,6 +271,11 @@ func (m *Mongo) IncAppView(partner string, id string, date int) {
 
 	c.Upsert(bson.M{"partner": "@",
 		"id":   id,
+		"date": date},
+		bson.M{"$inc": bson.M{"view": 1}})
+
+	c.Upsert(bson.M{"partner": partner,
+		"id":   "@",
 		"date": date},
 		bson.M{"$inc": bson.M{"view": 1}})
 
