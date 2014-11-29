@@ -282,6 +282,7 @@ func main() {
 	router.HandleFunc("/app/download/{partner}/{app_id}", handlers.AppDownloadHandler)
 	router.HandleFunc("/app/cdownload/{partner}/{app_id}", handlers.OneDownloadHandler)
 	router.HandleFunc("/api/collection-details/{partner}/{col_id}", handlers.AppCollectionHandler)
+	router.HandleFunc("/api/store/{partner}", handlers.StoreHandler)
 	router.HandleFunc("/api/apps-in-collection/{partner}/{col_id}", handlers.AppsInCollectionHandler)
 	router.HandleFunc("/api/apps-category/{partner}/{cid}/{page}/{limit}", handlers.AppCategoryHandler)
 	router.HandleFunc("/api/v2/apps-category/{partner}/{cid}/{page}/{limit}", handlers.V2AppCategoryHandler)

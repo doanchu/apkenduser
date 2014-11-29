@@ -173,7 +173,20 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	timeStr := time.Now().Format("060102")
 	timeInt, _ := strconv.Atoi(timeStr)
 	Mongo.IncAppView(partner, appId, timeInt)
+}
 
+func StoreHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	// log.Println(vars)
+	partner := vars["partner"]
+
+	store := Mongo.GetStoreByPartnerId(partner)
+	if store == nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte("{}"))
+		return
+	}
+	WriteJsonResult(w, store)
 }
 
 func WriteJsonResult(w http.ResponseWriter, result interface{}) {
