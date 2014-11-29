@@ -46,12 +46,15 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	keywords := "APK.VN,apk.vn,kho ứng dụng lớn nhất,kho ứng dụng"
 	description := "APK.VN - Kho ứng dụng lớn nhất Việt Nam"
 	favicon := ""
+	analytics := ""
 
 	if store != nil {
 		name = store.Domain_title
 		keywords = store.Domain_meta_kw
 		description = store.Domain_meta_desc
 		favicon = store.Domain_fav
+		analytics = store.Domain_analytic
+
 	}
 
 	data := struct {
@@ -60,12 +63,14 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		Keywords    string
 		Description string
 		Favicon     string
+		Analytics   string
 	}{
 		Partner:     vars["subdomain"],
 		Name:        name,
 		Keywords:    keywords,
 		Description: description,
 		Favicon:     favicon,
+		Analytics:   analytics,
 	}
 
 	log.Println(data.Partner)

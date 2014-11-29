@@ -22,6 +22,12 @@ var fn = function() {
         'page': this.getCurrentPath(),
         'title': this.getCurrentPath()
     });
+    if (document.analytics != null) {
+        ga('pubTracker.send', 'pageview', {
+            'page': this.getCurrentPath(),
+            'title': this.getCurrentPath()
+        });
+    }
 };
 
 

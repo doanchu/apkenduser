@@ -7,4 +7,5 @@ type WebStore struct {
 	Domain_partner   string
 	Domain_link      string
 	Domain_fav       string
+	Domain_analytic  string
 }
