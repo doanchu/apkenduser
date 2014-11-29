@@ -586,7 +586,7 @@ React.createElement("div", null,
       React.createElement("div", {className: "cover-container"}, " ", React.createElement("img", {className: "cover-image", src: this.state.data.thumbnail, alt: "Cover art", 'aria-hidden': "true", itemprop: "image"}), " "), 
       React.createElement("div", {className: "info-container"}, 
         React.createElement("div", {className: "document-title", itemprop: "name"}, 
-          React.createElement("div", null, this.state.data.name)
+          React.createElement("div", {dangerouslySetInnerHTML: {__html: this.state.data.name}})
         ), 
         React.createElement("div", {itemprop: "author", itemscope: "", itemtype: "http://schema.org/Organization"}, 
           React.createElement("div", {className: "document-subtitle primary"}, " ", React.createElement("span", {itemprop: "name"}, size, " - ", window.createTotalDownload(this.state.data.total_download), " Lượt tải"), " ")

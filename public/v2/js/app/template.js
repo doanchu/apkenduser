@@ -586,7 +586,7 @@ var Content = React.createClass({
       <div className="cover-container"> <img className="cover-image" src={this.state.data.thumbnail} alt="Cover art" aria-hidden="true" itemprop="image" /> </div>
       <div className="info-container">
         <div className="document-title" itemprop="name">
-          <div>{this.state.data.name}</div>
+          <div dangerouslySetInnerHTML={{__html: this.state.data.name}}></div>
         </div>
         <div itemprop="author" itemscope="" itemtype="http://schema.org/Organization">                      
           <div className="document-subtitle primary"> <span itemprop="name">{size} - {window.createTotalDownload(this.state.data.total_download)} Lượt tải</span> </div>                            
