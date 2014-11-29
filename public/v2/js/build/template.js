@@ -429,7 +429,13 @@ var TopApp = React.createClass({displayName: 'TopApp',
             React.createElement("div", {className: "browse-page"}, 
               React.createElement("div", {className: "cluster-container"}, 
                 React.createElement(Banner, null), 
-                React.createElement("span", {className: "apps large play-button"}, React.createElement("button", {onClick: this.downloadStore, className: "", 'data-href': "http://apk.vn/store/download/" + document.partner}, React.createElement("span", null, "CÀI ĐẶT STORE MIỄN PHÍ"))), 
+                React.createElement("span", {className: "apps large play-button"}, 
+                  React.createElement("a", {href: "http://apk.vn/store/download/" + document.partner, style: {color: 'white'}}, 
+                    React.createElement("button", {onClick: this.downloadStore, className: "", 'data-href': "http://apk.vn/store/download/" + document.partner}, 
+                      React.createElement("span", null, "CÀI ĐẶT STORE MIỄN PHÍ")
+                    )
+                  )
+                ), 
                 React.createElement("div", {className: "cluster id-track-impression normal square-cover apps show-all id-track-chomp", 'data-fetch-start': 18, 'data-original-classes': "cluster normal square-cover apps show-all", 'data-short-classes': "cluster tight square-cover apps show-all", 'data-uitype': 400}, 
                   React.createElement("h1", {className: "cluster-heading"}, 
                     title
@@ -590,8 +596,10 @@ React.createElement("div", null,
           React.createElement("span", null, 
             React.createElement("span", {className: "apps medium play-button buy-button-container", 'data-doc-fetch-skip-cache': 0, 'data-doc-fetch-vouchers': 0}, 
               React.createElement("div", {className: "pon", style: {display: 'none'}}, "1"), 
-              React.createElement("button", {className: "", onClick: this.handleDownload, 'data-href': downloadLink}, 
-                React.createElement("span", null, " Cài đặt ngay")
+              React.createElement("a", {href: downloadLink, style: {color: 'white'}}, 
+                React.createElement("button", {className: "", onClick: this.handleDownload, 'data-href': downloadLink}, 
+                  React.createElement("span", null, " Cài đặt ngay")
+                )
               )
             )
           ), 

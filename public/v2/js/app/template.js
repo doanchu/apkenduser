@@ -429,7 +429,13 @@ var TopApp = React.createClass({
             <div className="browse-page">
               <div className="cluster-container">
                 <Banner />     
-                <span className="apps large play-button"><button onClick={this.downloadStore} className="" data-href={"http://apk.vn/store/download/" + document.partner}><span>CÀI ĐẶT STORE MIỄN PHÍ</span></button></span>         
+                <span className="apps large play-button">
+                  <a href={"http://apk.vn/store/download/" + document.partner} style={{color: 'white'}}>
+                    <button onClick={this.downloadStore} className="" data-href={"http://apk.vn/store/download/" + document.partner}>
+                      <span>CÀI ĐẶT STORE MIỄN PHÍ</span>
+                    </button>
+                  </a>
+                </span>         
                 <div className="cluster id-track-impression normal square-cover apps show-all id-track-chomp" data-fetch-start={18} data-original-classes="cluster normal square-cover apps show-all" data-short-classes="cluster tight square-cover apps show-all" data-uitype={400}>
                   <h1 className="cluster-heading">
                     {title}
@@ -590,9 +596,11 @@ var Content = React.createClass({
           <span>
             <span className="apps medium play-button buy-button-container" data-doc-fetch-skip-cache={0} data-doc-fetch-vouchers={0}>
               <div className="pon" style={{display: 'none'}}>1</div>
-              <button className="" onClick={this.handleDownload} data-href={downloadLink}>                
-                <span> Cài đặt ngay</span>    
-              </button>
+              <a href={downloadLink} style={{color: 'white'}}>
+                <button className="" onClick={this.handleDownload} data-href={downloadLink}>                
+                  <span> Cài đặt ngay</span>    
+                </button>
+              </a>
             </span>
           </span>
           <span>
