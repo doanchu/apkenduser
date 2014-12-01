@@ -47,6 +47,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	description := "APK.VN - Kho ứng dụng lớn nhất Việt Nam"
 	favicon := ""
 	analytics := ""
+	footer := ""
 
 	if store != nil {
 		name = store.Domain_title
