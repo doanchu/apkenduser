@@ -546,6 +546,10 @@ func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	partner := vars["subdomain"]
 
 	appCommon := Mongo.GetCommonAppById(appId)
+	if appCommon == nil {
+		http.Error(w, "App Not Found", http.StatusNotFound)
+		return
+	}
 	var downloadLink string = ""
 	switch appCommon.Download_type {
 	case "adflex":

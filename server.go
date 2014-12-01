@@ -294,6 +294,9 @@ func main() {
 
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
 	subRouter.HandleFunc("/app/download/{app_id}.apk", handlers.AppOldDownloadHandler)
+	subRouter.HandleFunc("/manager", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "http://"+serverHost+"/manager", http.StatusFound)
+	})
 	subRouter.PathPrefix("/assets").Handler(http.FileServer(fs))
 	subRouter.PathPrefix("/").HandlerFunc(handleIndex)
 	//http.Handle("/", router)
