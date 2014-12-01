@@ -54,7 +54,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		description = store.Domain_meta_desc
 		favicon = store.Domain_fav
 		analytics = store.Domain_analytic
-
+		footer = store.Domain_footer
 	}
 
 	data := struct {
@@ -64,6 +64,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		Description string
 		Favicon     string
 		Analytics   string
+		Footer      string
 	}{
 		Partner:     vars["subdomain"],
 		Name:        name,
@@ -71,6 +72,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		Description: description,
 		Favicon:     favicon,
 		Analytics:   analytics,
+		Footer:      footer,
 	}
 
 	log.Println(data.Partner)

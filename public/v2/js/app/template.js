@@ -384,7 +384,7 @@ var Footer = React.createClass({
       <div>
       <div id="footer-content">            
         <div className="footer">
-          <div className="footer-links-container">{document.footer}</div>
+          <div className="footer-links-container" dangerouslySetInnerHTML={{__html: document.footer}}></div>
         </div>        
       </div>
       <div id="mobile-menu-overlay" onClick={this.hideMenuBar} style={{opacity: '0.8', display: 'none'}} />

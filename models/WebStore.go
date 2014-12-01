@@ -8,4 +8,5 @@ type WebStore struct {
 	Domain_link      string
 	Domain_fav       string
 	Domain_analytic  string
+	Domain_footer    string
 }
