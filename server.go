@@ -189,6 +189,12 @@ func parkDomainMiddleWare(w http.ResponseWriter, r *http.Request, next http.Hand
 }
 
 func main() {
+	f, err := os.OpenFile("apkenduser.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatal("error opening file: %v", err)
+	}
+	defer f.Close()
+	log.SetOutput(f)
 	maxProcs := runtime.GOMAXPROCS(4)
 	log.Println("Max procs is", maxProcs)
 	downloadedFileName, _ := handlers.DownloadFile("http://sv11.mway.vn:88/ApkStoreService/build?partner=duyhungws&app_name=Hung&download_id=123", "public/static/adflex/duyhungws/store/", "test")
@@ -200,7 +206,7 @@ func main() {
 	s = utils.ClearVietnameseChars(s)
 	log.Println(s)
 
-	var err error
+	//var err error
 	var host string = mongoHost + ":" + strconv.Itoa(mongoPort)
 	log.Println(host)
 	session, err = mgo.Dial(host)
