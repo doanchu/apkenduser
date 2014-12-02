@@ -539,8 +539,7 @@ var Content = React.createClass({
     if (document.source != null && document.source != "") {
       source = "?source=" + document.source;
     }              
-    var url = "/api/app/" + document.partner + "/" + this.props.appId + source;            
-    alert(url);
+    var url = "/api/app/" + document.partner + "/" + this.props.appId + source;                
     $.get(url, function(result) {  
       if (this.isMounted()) {                
         this.setState({data: result})        
