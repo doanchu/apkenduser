@@ -554,6 +554,7 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	timeInt, _ := strconv.Atoi(timeStr)
 
 	source := r.Form.Get("source")
+	log.Println("Download source is: ", r.Host)
 	if source == "" {
 		if strings.Index(r.Host, ":3000") != -1 {
 			source = "app"
