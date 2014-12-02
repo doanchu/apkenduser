@@ -557,6 +557,7 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	if source == "" {
 		if strings.Index(r.Host, ":3000") != -1 {
 			source = "app"
+			log.Println("****************source is*************", source)
 		}
 	}
 
