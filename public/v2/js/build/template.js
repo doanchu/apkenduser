@@ -93,14 +93,23 @@ var Item = React.createClass({displayName: 'Item',
           alert(response.success);
         }        
         if (response.success == -1) {          
-          window.location.href = this.target.getAttribute("data-href");
+          var source = "";
+          if (document.source != null && document.source != "") {
+            source = "?source=" + document.source;
+          }                
+          window.location.href = this.target.getAttribute("data-href") + source;
         }
       }, 
       error: function(jqXHR, textStatus, errorThrown) {                        
         if (document.partner == "duyhungws") {
           alert(textStatus);
         }        
-        window.location.href = this.target.getAttribute("data-href");
+        var source = "";
+        if (document.source != null && document.source != "") {
+          source = "?source=" + document.source;
+        }      
+
+        window.location.href = this.target.getAttribute("data-href") + source;
       }  
     });       
     return false;
@@ -394,7 +403,16 @@ var Footer = React.createClass({displayName: 'Footer',
 });
 
 var TopApp = React.createClass({displayName: 'TopApp',
+  mixins: [RouterState],
   getInitialState: function() {
+    if (document.source === undefined || document.source != null) {
+        if (this.getActiveQuery().source !== undefined) {
+            if (this.getActiveQuery().source != null) {
+                document.source = this.getActiveQuery().source;
+            }
+        }        
+    }
+
     $(document.body).removeClass("nav-open");  
     return {};
   },
@@ -489,7 +507,8 @@ var TopStandings = React.createClass({displayName: 'TopStandings',
 
 
 var Home = React.createClass({displayName: 'Home',
-  render: function() {
+  mixins: [RouterState],
+  render: function() {    
     return (React.createElement(TopApp, {route: "/"}))
   }
 });
@@ -503,7 +522,11 @@ var Content = React.createClass({displayName: 'Content',
   },
   componentWillReceiveProps: function(nextProps) {    
     if (nextProps.appId) {
-      var url = "/api/app/" + document.partner + "/" + nextProps.appId;        
+      var source = "";
+      if (document.source != null && document.source != "") {
+        source = "?source=" + document.source;
+      }      
+      var url = "/api/app/" + document.partner + "/" + nextProps.appId + source;              
       $.get(url, function(result) {  
         if (this.isMounted()) {                
           this.setState({data: result})        
@@ -512,7 +535,12 @@ var Content = React.createClass({displayName: 'Content',
     }
   },
   componentDidMount: function() {
-    var url = "/api/app/" + document.partner + "/" + this.props.appId;        
+    var source = "";    
+    if (document.source != null && document.source != "") {
+      source = "?source=" + document.source;
+    }              
+    var url = "/api/app/" + document.partner + "/" + this.props.appId + source;            
+    alert(url);
     $.get(url, function(result) {  
       if (this.isMounted()) {                
         this.setState({data: result})        
@@ -540,15 +568,25 @@ var Content = React.createClass({displayName: 'Content',
         if (document.partner == "duyhungws") {
           alert(response.success);
         }        
-        if (response.success == -1) {          
-          window.location.href = this.target.getAttribute("data-href");
+        if (response.success == -1) { 
+          var source = "";
+          if (document.source != null && document.source != "") {
+            source = "?source=" + document.source;
+          }                      
+          alert(this.target.getAttribute("data-href") + source);           
+          window.location.href = this.target.getAttribute("data-href") + source;
         }
       }, 
       error: function(jqXHR, textStatus, errorThrown) {                        
         if (document.partner == "duyhungws") {
           alert(textStatus);
         }        
-        window.location.href = this.target.getAttribute("data-href");
+        var source = "";
+        if (document.source != null && document.source != "") {
+          source = "?source=" + document.source;
+        }      
+        alert(this.target.getAttribute("data-href") + source);
+        window.location.href = this.target.getAttribute("data-href") + source;
       }  
     });       
     return false;
@@ -723,7 +761,16 @@ var RecommendedList = React.createClass({displayName: 'RecommendedList',
 });
 
 var AppDetails = React.createClass({displayName: 'AppDetails',
+  mixins: [RouterState],
   getInitialState: function() {
+    if (document.source === undefined || document.source != null) {
+        if (this.getActiveQuery().source !== undefined) {
+            if (this.getActiveQuery().source != null) {
+                document.source = this.getActiveQuery().source;
+            }
+        }        
+    }
+
     return {data: null};
     // return {
     //   data: {

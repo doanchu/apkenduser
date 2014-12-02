@@ -203,26 +203,31 @@ func (m *Mongo) SearchCommonApps(query string, page int, limit int) []*models.Ap
 	}
 }
 
-func (m *Mongo) IncAppDownload(partner string, id string, date int) {
+func (m *Mongo) IncAppDownload(partner string, id string, date int, source string) {
 	session := m.Session.Clone()
 	defer session.Close()
 
 	db := session.DB(m.DB)
 	c := db.C("daily_app_stats")
+
+	if source == "" {
+		source = "direct"
+	}
+
 	c.Upsert(bson.M{"partner": partner,
 		"id":   id,
 		"date": date},
-		bson.M{"$inc": bson.M{"download": 1}})
+		bson.M{"$inc": bson.M{"download": 1, "downloads." + source: 1}})
 
 	c.Upsert(bson.M{"partner": "@",
 		"id":   "@",
 		"date": date},
-		bson.M{"$inc": bson.M{"download": 1}})
+		bson.M{"$inc": bson.M{"download": 1, "downloads." + source: 1}})
 
 	c.Upsert(bson.M{"partner": "@",
 		"id":   id,
 		"date": date},
-		bson.M{"$inc": bson.M{"download": 1}})
+		bson.M{"$inc": bson.M{"download": 1, "downloads." + source: 1}})
 
 	c = db.C("partner_app_info")
 	c.Upsert(bson.M{"id": id,
@@ -234,75 +239,88 @@ func (m *Mongo) IncAppDownload(partner string, id string, date int) {
 		bson.M{"$inc": bson.M{"total_download": 1}})
 }
 
-func (m *Mongo) IncOneStoreDownload(partner string, date int) {
+func (m *Mongo) IncOneStoreDownload(partner string, date int, source string) {
 	session := m.Session.Clone()
 	defer session.Close()
 
 	db := session.DB(m.DB)
 	c := db.C("daily_store_stats")
+
+	if source == "" {
+		source = "direct"
+	}
+
 	c.Upsert(bson.M{"partner": partner,
 		"date": date},
-		bson.M{"$inc": bson.M{"1download": 1}})
+		bson.M{"$inc": bson.M{"1download": 1, "1downloads." + source: 1}})
 	c.Upsert(bson.M{"partner": "@",
 		"date": date},
-		bson.M{"$inc": bson.M{"1download": 1}})
+		bson.M{"$inc": bson.M{"1download": 1, "1downloads." + source: 1}})
 
 }
 
-func (m *Mongo) IncOneAppDownload(partner string, appId string, date int) {
+func (m *Mongo) IncOneAppDownload(partner string, appId string, date int, source string) {
 	session := m.Session.Clone()
 	defer session.Close()
 
 	db := session.DB(m.DB)
 	c := db.C("daily_app_stats")
 
+	if source == "" {
+		source = "direct"
+	}
+
 	c.Upsert(bson.M{"partner": partner,
 		"id":   appId,
 		"date": date},
-		bson.M{"$inc": bson.M{"1download": 1}})
+		bson.M{"$inc": bson.M{"1download": 1, "1downloads." + source: 1}})
 
 	c.Upsert(bson.M{"partner": partner,
 		"id":   "@",
 		"date": date},
-		bson.M{"$inc": bson.M{"1download": 1}})
+		bson.M{"$inc": bson.M{"1download": 1, "1downloads." + source: 1}})
 
 	c.Upsert(bson.M{"partner": "@",
 		"id":   appId,
 		"date": date},
-		bson.M{"$inc": bson.M{"1download": 1}})
+		bson.M{"$inc": bson.M{"1download": 1, "1downloads." + source: 1}})
 
 	c.Upsert(bson.M{"partner": "@",
 		"id":   "@",
 		"date": date},
-		bson.M{"$inc": bson.M{"1download": 1}})
+		bson.M{"$inc": bson.M{"1download": 1, "1downloads." + source: 1}})
 }
 
-func (m *Mongo) IncAppView(partner string, id string, date int) {
+func (m *Mongo) IncAppView(partner string, id string, date int, source string) {
 	session := m.Session.Clone()
 	defer session.Close()
 
 	db := session.DB(m.DB)
 	c := db.C("daily_app_stats")
+
+	if source == "" {
+		source = "direct"
+	}
+
 	c.Upsert(bson.M{"partner": partner,
 		"id":   id,
 		"date": date},
-		bson.M{"$inc": bson.M{"view": 1}})
+		bson.M{"$inc": bson.M{"view": 1, "views." + source: 1}})
 
 	c.Upsert(bson.M{"partner": "@",
 		"id":   id,
 		"date": date},
-		bson.M{"$inc": bson.M{"view": 1}})
+		bson.M{"$inc": bson.M{"view": 1, "views." + source: 1}})
 
 	c.Upsert(bson.M{"partner": partner,
 		"id":   "@",
 		"date": date},
-		bson.M{"$inc": bson.M{"view": 1}})
+		bson.M{"$inc": bson.M{"view": 1, "views." + source: 1}})
 
 	c.Upsert(bson.M{"partner": "@",
 		"id":   "@",
 		"date": date},
-		bson.M{"$inc": bson.M{"view": 1}})
-
+		bson.M{"$inc": bson.M{"view": 1, "views." + source: 1}})
 }
 
 func (m *Mongo) GetPartnerAppsByCategory(partner string, cid int, page int, limit int) []*models.PartnerAppInfo {

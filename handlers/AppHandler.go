@@ -145,8 +145,8 @@ func V2AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
 	vars := mux.Vars(r)
-	// log.Println(vars)
 	partner := vars["partner"]
 
 	appId := vars["app_id"]
@@ -172,7 +172,16 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	WriteJsonResult(w, appDetails)
 	timeStr := time.Now().Format("060102")
 	timeInt, _ := strconv.Atoi(timeStr)
-	Mongo.IncAppView(partner, appId, timeInt)
+
+	source := r.Form.Get("source")
+	// log.Println(r.Form)
+	if source == "" {
+		if strings.Index(r.Host, ":3000") != -1 {
+			source = "app"
+		}
+	}
+	log.Println("Source is", source)
+	Mongo.IncAppView(partner, appId, timeInt, source)
 }
 
 func StoreHandler(w http.ResponseWriter, r *http.Request) {
@@ -386,6 +395,7 @@ func CreateAppDetailsWithCategory(apps []*models.PartnerAppInfo, category *model
 }
 
 func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
 	vars := mux.Vars(r)
 	appId := vars["app_id"]
 	partner := vars["partner"]
@@ -420,8 +430,15 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 
 	timeStr := time.Now().Format("060102")
 	timeInt, _ := strconv.Atoi(timeStr)
-	Mongo.IncOneStoreDownload(partner, timeInt)
-	Mongo.IncOneAppDownload(partner, appId, timeInt)
+
+	source := r.Form.Get("source")
+	if source == "" {
+		if strings.Index(r.Host, ":3000") != -1 {
+			source = "app"
+		}
+	}
+	Mongo.IncOneStoreDownload(partner, timeInt, source)
+	Mongo.IncOneAppDownload(partner, appId, timeInt, source)
 }
 
 func DownloadFile(link string, dir string, fileName string) (string, error) {
@@ -472,6 +489,7 @@ func DownloadFile(link string, dir string, fileName string) (string, error) {
 }
 
 func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
 	vars := mux.Vars(r)
 	appId := vars["app_id"]
 	partner := vars["partner"]
@@ -534,13 +552,22 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	timeStr := time.Now().Format("060102")
 	timeInt, _ := strconv.Atoi(timeStr)
-	Mongo.IncAppDownload(partner, appId, timeInt)
+
+	source := r.Form.Get("source")
+	if source == "" {
+		if strings.Index(r.Host, ":3000") != -1 {
+			source = "app"
+		}
+	}
+
+	Mongo.IncAppDownload(partner, appId, timeInt, source)
 	log.Println("Download link is", downloadLink)
 	http.Redirect(w, r, downloadLink, http.StatusFound)
 	//w.Write([]byte(downloadLink))
 }
 
 func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
 	vars := mux.Vars(r)
 	appId := vars["app_id"]
 	partner := vars["subdomain"]
@@ -607,7 +634,15 @@ func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	timeStr := time.Now().Format("060102")
 	timeInt, _ := strconv.Atoi(timeStr)
-	Mongo.IncAppDownload(partner, appId, timeInt)
+
+	source := r.Form.Get("source")
+	if source == "" {
+		if strings.Index(r.Host, ":3000") != -1 {
+			source = "app"
+		}
+	}
+
+	Mongo.IncAppDownload(partner, appId, timeInt, source)
 	log.Println("Download link is", downloadLink)
 	http.Redirect(w, r, downloadLink, http.StatusFound)
 	//w.Write([]byte(downloadLink))

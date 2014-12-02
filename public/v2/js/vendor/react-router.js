@@ -621,7 +621,7 @@ var Routes = React.createClass({
     return findMatches(Path.withoutQuery(path), routes, this.props.defaultRoute, this.props.notFoundRoute);
   },
 
-  updateLocation: function (path, actionType) {
+  updateLocation: function (path, actionType) {    
     if (this.state.path === path)
       return; // Nothing to do!
 
@@ -1339,8 +1339,7 @@ var LocationContext = {
 
     if (location) {
       PathStore.setup(location);
-      PathStore.addChangeListener(this.handlePathChange);
-
+      PathStore.addChangeListener(this.handlePathChange);      
       if (this.updateLocation)
         this.updateLocation(PathStore.getCurrentPath(), PathStore.getCurrentActionType());
     }
