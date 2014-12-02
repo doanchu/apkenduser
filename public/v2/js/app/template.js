@@ -571,8 +571,7 @@ var Content = React.createClass({
           var source = "";
           if (document.source != null && document.source != "") {
             source = "?source=" + document.source;
-          }                      
-          alert(this.target.getAttribute("data-href") + source);           
+          }                                
           window.location.href = this.target.getAttribute("data-href") + source;
         }
       }, 
@@ -583,8 +582,7 @@ var Content = React.createClass({
         var source = "";
         if (document.source != null && document.source != "") {
           source = "?source=" + document.source;
-        }      
-        alert(this.target.getAttribute("data-href") + source);
+        }              
         window.location.href = this.target.getAttribute("data-href") + source;
       }  
     });       
