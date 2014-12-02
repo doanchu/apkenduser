@@ -173,7 +173,7 @@ func parkDomainMiddleWare(w http.ResponseWriter, r *http.Request, next http.Hand
 	log.Println("Host is", r.Host)
 	hostPart := strings.Split(r.Host, ":")[0]
 
-	if strings.Contains(hostPart, "."+serverHost) {
+	if hostPart == "apk.vn" || strings.Contains(hostPart, "."+serverHost) {
 		next.ServeHTTP(w, r)
 	} else {
 		webStore := mongo.GetWebStoreByDomain(hostPart)
