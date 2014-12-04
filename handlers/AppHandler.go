@@ -267,8 +267,11 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	user := Mongo.GetUserByUsername(myPartner)
 
 	if user == nil || user.Store == 0 {
-		appCommon := Mongo.GetCommonApps(page, limit, sortCondition)
-		appDetails := CreateAppDetailsFromAppCommon(appCommon)
+		// appCommon := Mongo.GetCommonApps(page, limit, sortCondition)
+		// appDetails := CreateAppDetailsFromAppCommon(appCommon)
+		tempAppInfo, _ := Mongo.GetPartnerApps("beoiu", page, limit, sortCondition)
+		appDetails := CreateAppDetails(tempAppInfo)
+
 		WriteJsonResult(w, appDetails)
 		return
 	}
@@ -280,6 +283,7 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 		//adminAppDetails = CreateAppDetailsFromAppCommon(appCommons)
 		tempAppInfo, _ := Mongo.GetPartnerApps("beoiu", 1, 5, sortCondition)
 		adminAppDetails = CreateAppDetails(tempAppInfo)
+		log.Println("Admin apps are:", adminAppDetails)
 	}
 
 	var result []*models.PartnerAppInfo
@@ -292,7 +296,6 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	log.Println(appIds)
 	if len(appIds) == 0 {
 		result, err = Mongo.GetPartnerApps(myPartner, page, limit, sortCondition)
 	} else {
