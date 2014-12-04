@@ -643,8 +643,7 @@ func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	if source == "" {
 		if strings.Index(r.Host, ":3000") != -1 {
 			source = "app"
-		}
-		else {
+		} else {
 			log.Println("Request URI is:", r.RequestURI)
 		}
 	}
