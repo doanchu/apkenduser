@@ -302,7 +302,7 @@ func main() {
 	router.HandleFunc("/api/banners", handlers.BannersHandler)
 
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
-	subRouter.HandleFunc("/app/download/{app_id}.apk", handlers.AppOldDownloadHandler)
+	subRouter.HandleFunc("/app/download/{app_id}.apk", handlers.OneDownloadHandler)
 	subRouter.HandleFunc("/manager", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "http://"+serverHost+"/manager", http.StatusFound)
 	})

@@ -400,6 +400,10 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	appId := vars["app_id"]
 	partner := vars["partner"]
 
+	if partner == "" {
+		partner = vars["subdomain"]
+	}
+
 	store := Mongo.GetStoreByPartnerId(partner)
 	storeVersion := Cache.GetStoreVersion()
 	name := "Android Store"
