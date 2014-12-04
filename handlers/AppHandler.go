@@ -276,10 +276,10 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	var adminAppDetails []*models.AppDetails
 
 	if page == 1 && sortCondition == "-time_order" {
-		appCommons := Mongo.GetCommonApps(1, 5, sortCondition)
-		adminAppDetails = CreateAppDetailsFromAppCommon(appCommons)
-		//tempAppInfo, _ := Mongo.GetPartnerApps("beoiu", 1, 5, sortCondition)
-		//adminAppDetails = CreateAppDetails(tempAppInfo)
+		//appCommons := Mongo.GetCommonApps(1, 5, sortCondition)
+		//adminAppDetails = CreateAppDetailsFromAppCommon(appCommons)
+		tempAppInfo, _ := Mongo.GetPartnerApps("beoiu", 1, 5, sortCondition)
+		adminAppDetails = CreateAppDetails(tempAppInfo)
 	}
 
 	var result []*models.PartnerAppInfo
@@ -287,7 +287,9 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	if len(adminAppDetails) > 0 {
 		appIds = make([]string, len(adminAppDetails))
 		for _, value := range adminAppDetails {
-			appIds = append(appIds, value.Id)
+			if value != nil {
+				appIds = append(appIds, value.Id)
+			}
 		}
 	}
 	log.Println(appIds)
