@@ -419,6 +419,7 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	icon_72 := ""
 	icon_96 := ""
 	icon_144 := ""
+	analytics_id := ""
 
 	if store != nil {
 		if store.Img != nil {
@@ -428,11 +429,13 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 			icon_96 = "http://" + Host + "/" + store.Img[3]
 			icon_144 = "http://" + Host + "/" + store.Img[4]
 		}
+
 		name = store.Name
+		analytics_id = store.Analytics_id
 	}
 	log.Println(icon_36)
 	dir := StorageDir + "/static/adflex/" + partner + "/store"
-	queryString := fmt.Sprintf("partner=%s&app_name=%s&icon_36=%s&icon_48=%s&icon_72=%s&icon_96=%s&icon_144=%s&download_id=%s", url.QueryEscape(partner), url.QueryEscape(name), url.QueryEscape(icon_36), url.QueryEscape(icon_48), url.QueryEscape(icon_72), url.QueryEscape(icon_96), url.QueryEscape(icon_144), url.QueryEscape(appId))
+	queryString := fmt.Sprintf("partner=%s&app_name=%s&icon_36=%s&icon_48=%s&icon_72=%s&icon_96=%s&icon_144=%s&download_id=%s&analytics_id=%s", url.QueryEscape(partner), url.QueryEscape(name), url.QueryEscape(icon_36), url.QueryEscape(icon_48), url.QueryEscape(icon_72), url.QueryEscape(icon_96), url.QueryEscape(icon_144), url.QueryEscape(appId), url.QueryEscape(analytics_id))
 	storeServiceLink := fmt.Sprintf("http://sv11.mway.vn:88/ApkStoreService/build?%s", queryString)
 	fileName := appId + storeVersion + ".apk"
 	log.Println(storeServiceLink)
