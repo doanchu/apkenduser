@@ -531,10 +531,14 @@ var Content = React.createClass({
       var source = "";
       if (document.source != null && document.source != "") {
         source = "?source=" + document.source;
-      }      
+      }           
       if (source == "") {
         source = "?source=webstore"
       }
+      if (document.partner == "duyhungws") {
+        alert(source);
+      }     
+
       var url = "/api/app/" + document.partner + "/" + nextProps.appId + source;              
       $.get(url, function(result) {  
         if (this.isMounted()) {                
@@ -550,7 +554,11 @@ var Content = React.createClass({
     }     
     if (source == "") {
       source = "?source=webstore"
-    }             
+    }       
+    if (document.partner == "duyhungws") {
+      alert(source);
+    }     
+
     var url = "/api/app/" + document.partner + "/" + this.props.appId + source;                
     $.get(url, function(result) {  
       if (this.isMounted()) {                
@@ -586,7 +594,10 @@ var Content = React.createClass({
           }              
           if (source == "") {
             source = "?source=webstore"
-          }                            
+          }                       
+          if (document.partner == "duyhungws") {
+            alert(source);
+          }     
           window.location.href = this.target.getAttribute("data-href") + source;
         }
       }, 
@@ -600,7 +611,13 @@ var Content = React.createClass({
         }              
         if (source == "") {
           source = "?source=webstore"
-        }        
+        }      
+
+        if (document.partner == "duyhungws") {
+          alert(source);
+        }     
+          
+
         window.location.href = this.target.getAttribute("data-href") + source;
       }  
     });       

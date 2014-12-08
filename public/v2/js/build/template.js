@@ -96,6 +96,9 @@ var Item = React.createClass({displayName: 'Item',
           var source = "";
           if (document.source != null && document.source != "") {
             source = "?source=" + document.source;
+          }
+          if (source == "") {
+            source = "?source=webstore"
           }                
           window.location.href = this.target.getAttribute("data-href") + source;
         }
@@ -108,6 +111,9 @@ var Item = React.createClass({displayName: 'Item',
         if (document.source != null && document.source != "") {
           source = "?source=" + document.source;
         }      
+        if (source == "") {
+          source = "?source=webstore"
+        }        
 
         window.location.href = this.target.getAttribute("data-href") + source;
       }  
@@ -525,7 +531,14 @@ var Content = React.createClass({displayName: 'Content',
       var source = "";
       if (document.source != null && document.source != "") {
         source = "?source=" + document.source;
-      }      
+      }           
+      if (source == "") {
+        source = "?source=webstore"
+      }
+      if (document.partner == "duyhungws") {
+        alert(source);
+      }     
+
       var url = "/api/app/" + document.partner + "/" + nextProps.appId + source;              
       $.get(url, function(result) {  
         if (this.isMounted()) {                
@@ -538,7 +551,14 @@ var Content = React.createClass({displayName: 'Content',
     var source = "";    
     if (document.source != null && document.source != "") {
       source = "?source=" + document.source;
-    }              
+    }     
+    if (source == "") {
+      source = "?source=webstore"
+    }       
+    if (document.partner == "duyhungws") {
+      alert(source);
+    }     
+
     var url = "/api/app/" + document.partner + "/" + this.props.appId + source;                
     $.get(url, function(result) {  
       if (this.isMounted()) {                
@@ -571,7 +591,13 @@ var Content = React.createClass({displayName: 'Content',
           var source = "";
           if (document.source != null && document.source != "") {
             source = "?source=" + document.source;
-          }                                
+          }              
+          if (source == "") {
+            source = "?source=webstore"
+          }                       
+          if (document.partner == "duyhungws") {
+            alert(source);
+          }     
           window.location.href = this.target.getAttribute("data-href") + source;
         }
       }, 
@@ -583,6 +609,15 @@ var Content = React.createClass({displayName: 'Content',
         if (document.source != null && document.source != "") {
           source = "?source=" + document.source;
         }              
+        if (source == "") {
+          source = "?source=webstore"
+        }      
+
+        if (document.partner == "duyhungws") {
+          alert(source);
+        }     
+          
+
         window.location.href = this.target.getAttribute("data-href") + source;
       }  
     });       
