@@ -96,6 +96,9 @@ var Item = React.createClass({
           var source = "";
           if (document.source != null && document.source != "") {
             source = "?source=" + document.source;
+          }
+          if (source == "") {
+            source = "?source=webstore"
           }                
           window.location.href = this.target.getAttribute("data-href") + source;
         }
@@ -108,6 +111,9 @@ var Item = React.createClass({
         if (document.source != null && document.source != "") {
           source = "?source=" + document.source;
         }      
+        if (source == "") {
+          source = "?source=webstore"
+        }        
 
         window.location.href = this.target.getAttribute("data-href") + source;
       }  
@@ -526,6 +532,9 @@ var Content = React.createClass({
       if (document.source != null && document.source != "") {
         source = "?source=" + document.source;
       }      
+      if (source == "") {
+        source = "?source=webstore"
+      }
       var url = "/api/app/" + document.partner + "/" + nextProps.appId + source;              
       $.get(url, function(result) {  
         if (this.isMounted()) {                
@@ -538,7 +547,10 @@ var Content = React.createClass({
     var source = "";    
     if (document.source != null && document.source != "") {
       source = "?source=" + document.source;
-    }              
+    }     
+    if (source == "") {
+      source = "?source=webstore"
+    }             
     var url = "/api/app/" + document.partner + "/" + this.props.appId + source;                
     $.get(url, function(result) {  
       if (this.isMounted()) {                
@@ -571,7 +583,10 @@ var Content = React.createClass({
           var source = "";
           if (document.source != null && document.source != "") {
             source = "?source=" + document.source;
-          }                                
+          }              
+          if (source == "") {
+            source = "?source=webstore"
+          }                            
           window.location.href = this.target.getAttribute("data-href") + source;
         }
       }, 
@@ -583,6 +598,9 @@ var Content = React.createClass({
         if (document.source != null && document.source != "") {
           source = "?source=" + document.source;
         }              
+        if (source == "") {
+          source = "?source=webstore"
+        }        
         window.location.href = this.target.getAttribute("data-href") + source;
       }  
     });       

@@ -296,6 +296,7 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
+	log.Println("App IDs length is", len(appIds))
 	if len(appIds) == 0 {
 		result, err = Mongo.GetPartnerApps(myPartner, page, limit, sortCondition)
 	} else {
