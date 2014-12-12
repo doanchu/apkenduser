@@ -12288,7 +12288,7 @@ padding-top: 3px;
     margin-right: 20px;
 }
 #banner .data .desc .rate{
-    background-image: url('star.png');
+    background-image: url('/v2/images/star.png');
     background-repeat: no-repeat;
     padding-left: 60px;
     background-position: 0px 1px;
@@ -12315,3 +12315,4 @@ padding-top: 3px;
     text-rendering: optimizeLegibility;
     text-decoration: none;
 }
+
