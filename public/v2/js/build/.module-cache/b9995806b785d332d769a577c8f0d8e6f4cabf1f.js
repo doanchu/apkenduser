@@ -18,6 +18,13 @@ if (window.history && window.history.pushState) {
 }
 
 var fn = function() {
+    if (document.source != null) {
+        if (this.getActiveQuery().source !== undefined) {
+            if (this.getActiveQuery().source != null) {
+                document.source = this.getActiveQuery().source();
+            }
+        }        
+    }
     ga('send', 'pageview', {
         'page': this.getCurrentPath(),
         'title': this.getCurrentPath()
@@ -66,5 +73,4 @@ var routes = (
   )
 );
 
-var mainContent = document.getElementById("mainContent");
-React.render(routes, mainContent);
+React.render(routes, document.body);

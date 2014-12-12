@@ -1,6 +1,28 @@
+
+if (document.partner == "duyhungws") {
+   alert("vao trong app");
+   alert(ReactRouter);
+}
+
 var Router = ReactRouter;
+
+if (document.partner == "duyhungws") {
+    alert("vao day roi truoc route");
+}
+
+
 var Route = ReactRouter.Route;
+
+if (document.partner == "duyhungws") {
+    alert("vao day roi truoc routes");
+}
+
 var Routes = ReactRouter.Routes;
+
+if (document.partner == "duyhungws") {
+    alert("vao day roi truoc default route");
+}
+
 
 var DefaultRoute = ReactRouter.DefaultRoute;
 
@@ -17,17 +39,19 @@ if (window.history && window.history.pushState) {
     loc = "hash";
 }
 
+
+if (document.partner == "duyhungws") {
+    alert("vao day roi sau location");
+}
+
 var fn = function() {
+    if (document.partner == "duyhungws") {
+        alert("vao day roi");
+    }
     ga('send', 'pageview', {
         'page': this.getCurrentPath(),
         'title': this.getCurrentPath()
     });
-    if (document.analytics != null) {
-        ga('pubTracker.send', 'pageview', {
-            'page': this.getCurrentPath(),
-            'title': this.getCurrentPath()
-        });
-    }
 };
 
 
@@ -66,5 +90,4 @@ var routes = (
   )
 );
 
-var mainContent = document.getElementById("mainContent");
-React.render(routes, mainContent);
+React.render(routes, document.body);

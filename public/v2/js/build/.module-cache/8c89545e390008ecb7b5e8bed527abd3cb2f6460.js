@@ -17,7 +17,7 @@ if (window.history && window.history.pushState) {
     loc = "hash";
 }
 
-var fn = function() {
+var fn = function(e) {
     ga('send', 'pageview', {
         'page': this.getCurrentPath(),
         'title': this.getCurrentPath()
@@ -66,5 +66,4 @@ var routes = (
   )
 );
 
-var mainContent = document.getElementById("mainContent");
-React.render(routes, mainContent);
+React.render(routes, document.body);

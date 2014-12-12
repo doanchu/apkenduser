@@ -4,11 +4,14 @@ import "gopkg.in/mgo.v2"
 import "gopkg.in/mgo.v2/bson"
 import "github.com/doanchu/apkenduser/models"
 import "log"
+import "math/rand"
 
 type Mongo struct {
 	Session *mgo.Session
 	DB      string
 }
+
+var r = rand.New(rand.NewSource(99))
 
 func (m *Mongo) GetStoreByPartnerId(partner string) *models.Store {
 	session := m.Session.Clone()
@@ -580,6 +583,30 @@ func (m *Mongo) GetUserByUsername(username string) *models.User {
 
 	err := c.Find(bson.M{"username": username}).One(result)
 	if err != nil {
+		return nil
+	} else {
+		return result
+	}
+}
+
+func (m *Mongo) GetRandomAppAds() *models.AppAds {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("app_ads")
+
+	result := &models.AppAds{}
+	mid := r.Float32()
+	err := c.Find(bson.M{"status": 1, "ads_type.popup": 1, "random": bson.M{"$gte": mid}}).One(result)
+	if err == mgo.ErrNotFound {
+		err = c.Find(bson.M{"status": 1, "ads_type.popup": 1, "random": bson.M{"$lte": mid}}).One(result)
+		if err != nil {
+			return nil
+		} else {
+			return result
+		}
+	} else if err != nil {
 		return nil
 	} else {
 		return result

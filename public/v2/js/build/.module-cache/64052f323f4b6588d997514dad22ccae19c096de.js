@@ -66,5 +66,4 @@ var routes = (
   )
 );
 
-var mainContent = document.getElementById("mainContent");
-React.render(routes, mainContent);
+React.render(routes, document.body);

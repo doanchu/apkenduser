@@ -1,14 +1,9 @@
 var Router = ReactRouter;
 var Route = ReactRouter.Route;
 var Routes = ReactRouter.Routes;
-
 var DefaultRoute = ReactRouter.DefaultRoute;
-
-if (document.partner == "duyhungws") {
-    alert("vao day roi truoc link");
-}
-
 var Link = ReactRouter.Link;
+
 
 var loc = "history";
 if (window.history && window.history.pushState) {
@@ -16,18 +11,14 @@ if (window.history && window.history.pushState) {
 } else {
     loc = "hash";
 }
-
 var fn = function() {
+    if (document.partner == "duyhungws") {
+        alert("vao day roi");
+    }
     ga('send', 'pageview', {
         'page': this.getCurrentPath(),
         'title': this.getCurrentPath()
     });
-    if (document.analytics != null) {
-        ga('pubTracker.send', 'pageview', {
-            'page': this.getCurrentPath(),
-            'title': this.getCurrentPath()
-        });
-    }
 };
 
 
@@ -66,5 +57,4 @@ var routes = (
   )
 );
 
-var mainContent = document.getElementById("mainContent");
-React.render(routes, mainContent);
+React.render(routes, document.body);

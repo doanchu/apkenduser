@@ -20,6 +20,7 @@ import "strings"
 import "os"
 import _ "time"
 import "runtime"
+import "errors"
 
 var session *mgo.Session
 
@@ -30,7 +31,25 @@ var blockKey = []byte("thuybeo")
 
 //var scookie = securecookie.New(hashKey, blockKey)
 
-var myTemplate, _ = indexTemplate.ParseFiles("public/index.v2.html")
+//var myTemplate, _ = indexTemplate.ParseFiles("public/index.v2.html")
+
+func dict(values ...interface{}) (map[string]interface{}, error) {
+	if len(values)%2 != 0 {
+		return nil, errors.New("invalid dict call")
+	}
+	dict := make(map[string]interface{}, len(values)/2)
+	for i := 0; i < len(values); i += 2 {
+		key, ok := values[i].(string)
+		if !ok {
+			return nil, errors.New("dict keys must be strings")
+		}
+		dict[key] = values[i+1]
+	}
+	return dict, nil
+}
+
+var templateDir = "./templates/"
+var myTemplate = template.New("home")
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -58,26 +77,58 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		footer = store.Domain_footer
 	}
 
+	myAds := mongo.GetRandomAppAds()
+	log.Println(myAds)
+	hasPopup := false
+	popupName := ""
+	popupTitle := ""
+	popupContent := ""
+	popupIcon := ""
+	link_download := ""
+
+	if myAds != nil {
+		hasPopup = true
+		popupName = myAds.Name
+		popupTitle = myAds.Title_ads
+		popupContent = myAds.Content
+		popupIcon = myAds.Icon
+		link_download = strings.Replace(myAds.Link_download, "{partner}", vars["subdomain"], -1)
+	}
+
+	log.Println("Popup Title is", popupTitle)
+	log.Println("Popup Name is", popupName)
 	data := struct {
-		Partner     string
-		Name        string
-		Keywords    string
-		Description string
-		Favicon     string
-		Analytics   string
-		Footer      string
+		Partner      string
+		Name         string
+		Keywords     string
+		Description  string
+		Favicon      string
+		Analytics    string
+		Footer       string
+		HasPopup     bool
+		PopupName    string
+		PopupTitle   string
+		PopupContent string
+		PopupIcon    string
+		PopupLink    string
 	}{
-		Partner:     vars["subdomain"],
-		Name:        name,
-		Keywords:    keywords,
-		Description: description,
-		Favicon:     favicon,
-		Analytics:   analytics,
-		Footer:      footer,
+		Partner:      vars["subdomain"],
+		Name:         name,
+		Keywords:     keywords,
+		Description:  description,
+		Favicon:      favicon,
+		Analytics:    analytics,
+		Footer:       footer,
+		HasPopup:     hasPopup,
+		PopupName:    popupName,
+		PopupTitle:   popupTitle,
+		PopupContent: popupContent,
+		PopupIcon:    popupIcon,
+		PopupLink:    link_download,
 	}
 
 	log.Println(data.Partner)
-	myTemplate.Execute(w, data)
+	myTemplate.ExecuteTemplate(w, "index", data)
 	//http.ServeFile(w, r, "public/index.html")
 }
 
@@ -205,6 +256,12 @@ func main() {
 
 	s = utils.ClearVietnameseChars(s)
 	log.Println(s)
+	// funcMap := template.FuncMap{}
+	// funcMap["dict"] = dict
+	// myTemplate.Funcs(funcMap)
+
+	myTemplate.ParseFiles(templateDir+"index.v2.html", templateDir+"popup.html")
+	myTemplate, _ = template.ParseFiles(templateDir+"index.v2.html", templateDir+"popup.html")
 
 	//var err error
 	var host string = mongoHost + ":" + strconv.Itoa(mongoPort)
@@ -236,6 +293,13 @@ func main() {
 	handlers.ServerHost = serverHost
 
 	models.ServerHost = serverHost
+
+	myAds := mongo.GetRandomAppAds()
+	log.Println(myAds)
+
+	myAds = mongo.GetRandomAppAds()
+	log.Println(myAds)
+
 	// mySession := session.Clone()
 	// mySession.DB("newapk").C("daily_app_stats").Upsert(bson.M{"partner": "leduykhanhit",
 	// 	"id":   "vn.nmt.gamebaitienlen",

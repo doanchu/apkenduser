@@ -19,7 +19,7 @@
          document.partner="{{.Partner}}";
          document.storeName="{{.Name}}";
          document.footer = {{.Footer}};   
-         document.analytics = "{{.Analytics}}";     
+         document.analytics = "{{.Analytics}}";              
          document.source = "";       
       </script>
       <script>
@@ -36,56 +36,15 @@
       </script>
    </head>
    <body class="no-focus-outline phone-optimized" style="zoom: 1;">      
-      <div id="popup-wrap">
-              <div id="banner">
-                      <div class="head">
-                      <div class="bg-head" >
-                               <h4>{{.PopupTitle}}</h4>       
-                               <span onclick="closeApp()" class="close">
-                                  x</span>
-                      </div>
-
-                      </div>
-                      <div class="data">
-                          <div class="img">
-                              <img onload="loadImage()" src="http://apk.vn/static/images/2014/12/01/1417408345/1417408345.jpg"/>
-                          </div>
-                          <div class="desc">
-                                      <span class="title">{{.PopupName}}</span>
-                                      <span class="rate"> (10.000+)</span>
-                                      <span class="desc-content">{{.PopupContent}}</span>
-                          </div>
-                  </div>
-
-              <div class="footter">
-                  <a class="download" href="#">T?i mi?n phÌ</a>
-              </div>
-
-              </div>
-      </div>
-      <div id="mainContent"><div>  
-      <script type="text/javascript">
-
-        function closeApp() {
-         document.getElementById('popup-').style.display = 'none';
-          //document.getElementById('popup-bg-apk').style.display = 'none';
-        }
-    
-        function loadImage() { 
-         if (/(^|;)\s*apk-popup=/.test(document.cookie)) {
-         document.getElementById('popup-').style.display = 'none'; 
-        }else { 
-            document.cookie = "apk-popup=true; max-age=" + 10 ; 
-        }}
-
-     </script>      
+    {{if .HasPopup}} {{template "popup" .}} {{end}}
+      <div id="mainContent"><div>          
       <script src="/owl-carousel/jquery-1.9.1.min.js"></script>
       <script src="/owl-carousel/owl.carousel.min.js"></script>
       <!--<script src="/v2/js/vendor/jquery-1.10.2.min.js"></script>-->
       <script src="/v2/js/vendor/react-with-addons.min.js"></script>       
       <script src="/v2/js/vendor/react-router.js"></script>        
       <script type="text/javascript" src="/v2/js/build/template.js"></script>
-      <script type="text/javascript" src="/v2/js/build/app.js"></script>
+      <script type="text/javascript" src="/v2/js/build/app.js"></script>      
    </body>
 </html>
 {{end}}

@@ -1,0 +1,107 @@
+2014/12/02 16:48:56 Max procs is 1
+2014/12/02 16:48:56 test
+2014/12/02 16:48:56 len is 46
+2014/12/02 16:48:56 Bo dau tieng viet
+2014/12/02 16:48:56 sv12.mway.vn:27017
+2014/12/02 16:48:56 Ready to connect to mongodb
+2014/12/02 16:48:56 &{ObjectIdHex("5461f08eac0d6060310adc54") 2048 7  com.digiplex.game 2048 0 1759332 [] 1  http://apk.vn/static/images/2014/05/15/1400121286/86.png 2.6 map[static:http://apk.vn/static/files/2014/05/15/1400121259/2048.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.digiplex.game/2048.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400121224 1408953680 digiplex.in 763}
+2014/12/02 16:48:56 &{ObjectIdHex("5461f08eac0d6060310adc4a") Flappy Birds - Phiên bản Chim TO 7  com.dotgears.flappybird flappy birds phien ban chim to 0 894000 [] 1  http://apk.vn/static/images/2014/05/14/1400064755/icon.png 1.3 map[static:http://apk.vn/static/files/2014/08/27/1409112269/flappy_bird.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.dotgears.flappybird/flappy_bird.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400064699 1409114477 .GEARS Studios  745}
+2014/12/04 10:05:57 Max procs is 1
+2014/12/04 10:05:57 test
+2014/12/04 10:05:57 len is 46
+2014/12/04 10:05:57 Bo dau tieng viet
+2014/12/04 10:05:57 sv12.mway.vn:27017
+2014/12/04 10:05:57 Ready to connect to mongodb
+2014/12/04 10:05:57 &{ObjectIdHex("5461f08eac0d6060310adc54") 2048 7  com.digiplex.game 2048 0 1759332 [] 1  http://apk.vn/static/images/2014/05/15/1400121286/86.png 2.6 map[static:http://apk.vn/static/files/2014/05/15/1400121259/2048.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.digiplex.game/2048.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400121224 1408953680 digiplex.in 994}
+2014/12/04 10:05:57 &{ObjectIdHex("5461f08eac0d6060310adc4a") Flappy Birds - Phiên bản Chim TO 7  com.dotgears.flappybird flappy birds phien ban chim to 0 894000 [] 1  http://apk.vn/static/images/2014/05/14/1400064755/icon.png 1.3 map[static:http://apk.vn/static/files/2014/08/27/1409112269/flappy_bird.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.dotgears.flappybird/flappy_bird.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400064699 1409114477 .GEARS Studios  956}
+2014/12/04 10:15:26 Max procs is 1
+2014/12/04 10:15:26 test
+2014/12/04 10:15:26 len is 46
+2014/12/04 10:15:26 Bo dau tieng viet
+2014/12/04 10:15:26 sv12.mway.vn:27017
+2014/12/04 10:15:27 Ready to connect to mongodb
+2014/12/04 10:15:27 &{ObjectIdHex("5461f08eac0d6060310adc54") 2048 7  com.digiplex.game 2048 0 1759332 [] 1  http://apk.vn/static/images/2014/05/15/1400121286/86.png 2.6 map[adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.digiplex.game/2048.apk?partner={refcode} static:http://apk.vn/static/files/2014/05/15/1400121259/2048.apk] adflex [start close app app_top app_bottom] 1400121224 1408953680 digiplex.in 996}
+2014/12/04 10:15:27 &{ObjectIdHex("5461f08eac0d6060310adc4a") Flappy Birds - Phiên bản Chim TO 7  com.dotgears.flappybird flappy birds phien ban chim to 0 894000 [] 1  http://apk.vn/static/images/2014/05/14/1400064755/icon.png 1.3 map[static:http://apk.vn/static/files/2014/08/27/1409112269/flappy_bird.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.dotgears.flappybird/flappy_bird.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400064699 1409114477 .GEARS Studios  956}
+2014/12/04 10:15:51 Max procs is 1
+2014/12/04 10:15:51 test
+2014/12/04 10:15:51 len is 46
+2014/12/04 10:15:51 Bo dau tieng viet
+2014/12/04 10:15:51 sv12.mway.vn:27017
+2014/12/04 10:15:52 Ready to connect to mongodb
+2014/12/04 10:15:52 &{ObjectIdHex("5461f08eac0d6060310adc54") 2048 7  com.digiplex.game 2048 0 1759332 [] 1  http://apk.vn/static/images/2014/05/15/1400121286/86.png 2.6 map[static:http://apk.vn/static/files/2014/05/15/1400121259/2048.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.digiplex.game/2048.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400121224 1408953680 digiplex.in 996}
+2014/12/04 10:15:52 &{ObjectIdHex("5461f08eac0d6060310adc4a") Flappy Birds - Phiên bản Chim TO 7  com.dotgears.flappybird flappy birds phien ban chim to 0 894000 [] 1  http://apk.vn/static/images/2014/05/14/1400064755/icon.png 1.3 map[static:http://apk.vn/static/files/2014/08/27/1409112269/flappy_bird.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.dotgears.flappybird/flappy_bird.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400064699 1409114477 .GEARS Studios  956}
+2014/12/04 10:58:15 Max procs is 1
+2014/12/04 10:58:15 test
+2014/12/04 10:58:15 len is 46
+2014/12/04 10:58:15 Bo dau tieng viet
+2014/12/04 10:58:15 sv12.mway.vn:27017
+2014/12/04 10:58:15 Ready to connect to mongodb
+2014/12/04 10:58:15 &{ObjectIdHex("5461f08eac0d6060310adc54") 2048 7  com.digiplex.game 2048 0 1759332 [] 1  http://apk.vn/static/images/2014/05/15/1400121286/86.png 2.6 map[static:http://apk.vn/static/files/2014/05/15/1400121259/2048.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.digiplex.game/2048.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400121224 1408953680 digiplex.in 997}
+2014/12/04 10:58:15 &{ObjectIdHex("5461f08eac0d6060310adc4a") Flappy Birds - Phiên bản Chim TO 7  com.dotgears.flappybird flappy birds phien ban chim to 0 894000 [] 1  http://apk.vn/static/images/2014/05/14/1400064755/icon.png 1.3 map[static:http://apk.vn/static/files/2014/08/27/1409112269/flappy_bird.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.dotgears.flappybird/flappy_bird.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400064699 1409114477 .GEARS Studios  957}
+2014/12/04 11:00:28 Max procs is 1
+2014/12/04 11:00:28 test
+2014/12/04 11:00:28 len is 46
+2014/12/04 11:00:28 Bo dau tieng viet
+2014/12/04 11:00:28 sv12.mway.vn:27017
+2014/12/04 11:00:30 Ready to connect to mongodb
+2014/12/04 11:00:43 &{ObjectIdHex("5461f08eac0d6060310adc54") 2048 7  com.digiplex.game 2048 0 1759332 [] 1  http://apk.vn/static/images/2014/05/15/1400121286/86.png 2.6 map[static:http://apk.vn/static/files/2014/05/15/1400121259/2048.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.digiplex.game/2048.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400121224 1408953680 digiplex.in 997}
+2014/12/04 11:00:43 &{ObjectIdHex("5461f08eac0d6060310adc4a") Flappy Birds - Phiên bản Chim TO 7  com.dotgears.flappybird flappy birds phien ban chim to 0 894000 [] 1  http://apk.vn/static/images/2014/05/14/1400064755/icon.png 1.3 map[static:http://apk.vn/static/files/2014/08/27/1409112269/flappy_bird.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.dotgears.flappybird/flappy_bird.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400064699 1409114477 .GEARS Studios  957}
+2014/12/04 11:01:06 Max procs is 1
+2014/12/04 11:01:06 test
+2014/12/04 11:01:06 len is 46
+2014/12/04 11:01:06 Bo dau tieng viet
+2014/12/04 11:01:06 sv12.mway.vn:27017
+2014/12/04 11:01:07 Ready to connect to mongodb
+2014/12/04 11:01:07 &{ObjectIdHex("5461f08eac0d6060310adc54") 2048 7  com.digiplex.game 2048 0 1759332 [] 1  http://apk.vn/static/images/2014/05/15/1400121286/86.png 2.6 map[static:http://apk.vn/static/files/2014/05/15/1400121259/2048.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.digiplex.game/2048.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400121224 1408953680 digiplex.in 997}
+2014/12/04 11:01:07 &{ObjectIdHex("5461f08eac0d6060310adc4a") Flappy Birds - Phiên bản Chim TO 7  com.dotgears.flappybird flappy birds phien ban chim to 0 894000 [] 1  http://apk.vn/static/images/2014/05/14/1400064755/icon.png 1.3 map[static:http://apk.vn/static/files/2014/08/27/1409112269/flappy_bird.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.dotgears.flappybird/flappy_bird.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400064699 1409114477 .GEARS Studios  957}
+2014/12/04 11:01:15 Host is testdv.apk.de:3000
+2014/12/04 11:01:15 not found
+2014/12/04 11:01:15 testdv
+2014/12/04 11:01:15 Host is testdv.apk.de:3000
+2014/12/04 11:01:15 Host is testdv.apk.de:3000
+2014/12/04 11:01:15 Host is testdv.apk.de:3000
+2014/12/04 11:01:15 Host is testdv.apk.de:3000
+2014/12/04 11:01:15 Host is testdv.apk.de:3000
+2014/12/04 11:01:15 Host is testdv.apk.de:3000
+2014/12/04 11:01:15 Host is testdv.apk.de:3000
+2014/12/04 11:01:15 Host is testdv.apk.de:3000
+2014/12/04 11:01:15 Host is testdv.apk.de:3000
+2014/12/04 11:01:16 Host is testdv.apk.de:3000
+2014/12/04 11:01:16 Host is testdv.apk.de:3000
+2014/12/04 11:01:16 Host is testdv.apk.de:3000
+2014/12/04 11:01:16 Host is testdv.apk.de:3000
+2014/12/04 11:01:16 map[condition:partner partner:testdv page:1 limit:10]
+2014/12/04 11:01:16 Requested to apps-partner with testdv 1 10
+2014/12/04 11:01:16 testdv
+2014/12/04 11:01:16 Host is testdv.apk.de:3000
+2014/12/04 11:01:17 not found
+2014/12/04 11:01:17 testdv
+2014/12/04 11:01:17 Host is testdv.apk.de:3000
+2014/12/04 11:01:17 Host is testdv.apk.de:3000
+2014/12/04 11:01:17 Host is testdv.apk.de:3000
+2014/12/04 11:01:17 Host is testdv.apk.de:3000
+2014/12/04 11:01:17 Host is testdv.apk.de:3000
+2014/12/04 11:11:17 Max procs is 1
+2014/12/04 11:11:17 test
+2014/12/04 11:11:17 len is 46
+2014/12/04 11:11:17 Bo dau tieng viet
+2014/12/04 11:11:17 sv12.mway.vn:27017
+2014/12/04 11:11:18 Ready to connect to mongodb
+2014/12/04 11:11:18 &{ObjectIdHex("5461f08eac0d6060310adc54") 2048 7  com.digiplex.game 2048 0 1759332 [] 1  http://apk.vn/static/images/2014/05/15/1400121286/86.png 2.6 map[static:http://apk.vn/static/files/2014/05/15/1400121259/2048.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.digiplex.game/2048.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400121224 1408953680 digiplex.in 997}
+2014/12/04 11:11:18 &{ObjectIdHex("5461f08eac0d6060310adc4a") Flappy Birds - Phiên bản Chim TO 7  com.dotgears.flappybird flappy birds phien ban chim to 0 894000 [] 1  http://apk.vn/static/images/2014/05/14/1400064755/icon.png 1.3 map[static:http://apk.vn/static/files/2014/08/27/1409112269/flappy_bird.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.dotgears.flappybird/flappy_bird.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400064699 1409114477 .GEARS Studios  959}
+2014/12/04 11:11:20 Host is testdv.apk.de:3000
+2014/12/04 11:11:20 not found
+2014/12/04 11:11:20 testdv
+2014/12/04 11:11:20 Host is testdv.apk.de:3000
+2014/12/04 11:11:20 Host is testdv.apk.de:3000
+2014/12/04 11:11:20 map[condition:partner partner:testdv page:1 limit:10]
+2014/12/04 11:11:20 Requested to apps-partner with testdv 1 10
+2014/12/04 11:11:20 testdv
+2014/12/04 11:11:20 Host is testdv.apk.de:3000
+2014/12/04 11:11:20 Host is testdv.apk.de:3000
+2014/12/04 11:11:20 Host is testdv.apk.de:3000
+2014/12/04 11:11:20 Host is testdv.apk.de:3000
+2014/12/04 11:11:20 Host is testdv.apk.de:3000
+2014/12/04 11:11:21 Host is testdv.apk.de:3000
+2014/12/04 11:11:21 not found
+2014/12/04 11:11:21 testdv
