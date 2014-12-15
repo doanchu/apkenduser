@@ -92,7 +92,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		popupTitle = myAds.Title_ads
 		popupContent = myAds.Content
 		popupIcon = myAds.Icon
-		link_download = strings.Replace(myAds.Link_download, "{partner}", vars["subdomain"], -1) + "&source=popup"
+		link_download = strings.Replace(myAds.Link_download, "{partner}", vars["subdomain"], -1) + "?source=popup"
 		if strings.Index(link_download, "http") == -1 {
 			link_download = "http://apk.vn" + link_download
 		}
