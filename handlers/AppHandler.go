@@ -266,6 +266,7 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	//partnerApp, err := Mongo.GetPartnerApp(myPartner)
 	user := Mongo.GetUserByUsername(myPartner)
 
+	//If there is no user or the user is using default store, get the apps from store beoiu
 	if user == nil || user.Store == 0 {
 		// appCommon := Mongo.GetCommonApps(page, limit, sortCondition)
 		// appDetails := CreateAppDetailsFromAppCommon(appCommon)
@@ -278,7 +279,8 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 
 	var adminAppDetails []*models.AppDetails
 
-	if page == 1 && sortCondition == "-time_order" {
+	//If current page is 1, get top 5 apps from admin's store
+	if sortCondition == "-time_order" {
 		//appCommons := Mongo.GetCommonApps(1, 5, sortCondition)
 		//adminAppDetails = CreateAppDetailsFromAppCommon(appCommons)
 		tempAppInfo, _ := Mongo.GetPartnerApps("beoiu", 1, 5, sortCondition)
@@ -319,7 +321,9 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 
 	appDetails := CreateAppDetails(result)
 
-	appDetails = append(adminAppDetails, appDetails...)
+	if page == 1 {
+		appDetails = append(adminAppDetails, appDetails...)
+	}
 
 	//if condition == "partner-min" || condition == "partner" {
 	for _, value := range appDetails {
