@@ -356,7 +356,7 @@ func main() {
 	router.HandleFunc("/api/app/{partner}/{app_id}", handlers.AppPartnerHandler)
 	router.HandleFunc("/app/search/{query}/{page}/{limit}", handlers.SearchAppsHandler)
 	router.HandleFunc("/app/download/{partner}/{app_id}", handlers.AppDownloadHandler)
-	router.HandleFunc("/app/cdownload/{partner}/{app_id}", handlers.OneDownloadHandler)
+	router.HandleFunc("/app/cdownload/{partner}/{app_id}", handlers.AppDownloadHandler)
 	router.HandleFunc("/api/collection-details/{partner}/{col_id}", handlers.AppCollectionHandler)
 	router.HandleFunc("/api/store/{partner}", handlers.StoreHandler)
 	router.HandleFunc("/api/apps-in-collection/{partner}/{col_id}", handlers.AppsInCollectionHandler)
@@ -369,7 +369,7 @@ func main() {
 	router.HandleFunc("/api/banners", handlers.BannersHandler)
 
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
-	subRouter.HandleFunc("/app/download/{app_id}.apk", handlers.OneDownloadHandler)
+	subRouter.HandleFunc("/app/download/{app_id}.apk", handlers.AppDownloadHandler)
 	subRouter.HandleFunc("/manager", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "http://"+serverHost+"/manager", http.StatusFound)
 	})
