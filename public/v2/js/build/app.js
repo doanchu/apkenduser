@@ -1,6 +1,7 @@
 var Router = ReactRouter;
 var Route = ReactRouter.Route;
 var Routes = ReactRouter.Routes;
+var NotFoundRoute = ReactRouter.NotFoundRoute;
 
 var DefaultRoute = ReactRouter.DefaultRoute;
 
