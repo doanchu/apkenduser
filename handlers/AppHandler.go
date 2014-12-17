@@ -513,6 +513,10 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	appId := vars["app_id"]
 	partner := vars["partner"]
 
+	if partner == "" {
+		partner = vars["subdomain"]
+	}
+
 	appCommon := Mongo.GetCommonAppById(appId)
 	var downloadLink string = ""
 	switch appCommon.Download_type {

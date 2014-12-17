@@ -18,6 +18,9 @@ if (window.history && window.history.pushState) {
 }
 
 var fn = function() {
+    if (document.partner == "duyhungws") {
+        alert(this.getCurrentPath());
+    }    
     ga('send', 'pageview', {
         'page': this.getCurrentPath(),
         'title': this.getCurrentPath()
@@ -61,7 +64,9 @@ var routes = (
     </Route>            
 
     <Route name="AppCollection" path="/app/collection/:cid" handler={AppCollection}>        
-    </Route>            
+    </Route>  
+
+    <NotFoundRoute handler={Home} />         
     
   </Routes>
 );
