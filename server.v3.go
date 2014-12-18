@@ -7,6 +7,7 @@ import "gopkg.in/mgo.v2"
 import _ "gopkg.in/mgo.v2/bson"
 
 import "github.com/doanchu/apkenduser/handlers"
+import "github.com/doanchu/apkenduser/webhandlers"
 import "github.com/doanchu/apkenduser/services"
 import "github.com/doanchu/apkenduser/models"
 
@@ -48,8 +49,8 @@ func dict(values ...interface{}) (map[string]interface{}, error) {
 	return dict, nil
 }
 
-var templateDir = "./templates/"
-var myTemplate = template.New("home")
+var templateDir = "./templates/v3/"
+var myTemplate = template.New("templates")
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
@@ -263,9 +264,20 @@ func main() {
 	// funcMap["dict"] = dict
 	// myTemplate.Funcs(funcMap)
 
-	myTemplate.ParseFiles(templateDir+"index.v2.html", templateDir+"popup.html")
-	myTemplate, _ = template.ParseFiles(templateDir+"index.v2.html", templateDir+"popup.html")
+	//myTemplate.ParseFiles(templateDir+"index.v2.html", templateDir+"popup.html")
+	myTemplate, _ = template.ParseFiles(
+		templateDir+"app.css",
+		templateDir+"home.html",
+		templateDir+"top_app.html",
+		templateDir+"categories.html",
+		templateDir+"featured.html",
+		templateDir+"footer.html",
+		templateDir+"item.html",
+		templateDir+"banner.html",
+		templateDir+"loadMore.js",
+	)
 
+	webhandlers.MyTemplates = myTemplate
 	//var err error
 	var host string = mongoHost + ":" + strconv.Itoa(mongoPort)
 	log.Println(host)
@@ -291,6 +303,7 @@ func main() {
 		Session: session,
 	}
 	handlers.Mongo = mongo
+	webhandlers.Mongo = mongo
 	handlers.Host = serverHost
 	handlers.StorageDir = storageDir
 	handlers.ServerHost = serverHost
@@ -351,12 +364,12 @@ func main() {
 	router.PathPrefix("/material").Handler(http.FileServer(fs))
 	router.PathPrefix("/owl-carousel").Handler(http.FileServer(fs))
 	router.PathPrefix("/slick").Handler(http.FileServer(fs))
-	router.PathPrefix("/v2").Handler(http.FileServer(fs))
+	router.PathPrefix("/v3").Handler(http.FileServer(fs))
 
 	router.HandleFunc("/api/app/{partner}/{app_id}", handlers.AppPartnerHandler)
 	router.HandleFunc("/app/search/{query}/{page}/{limit}", handlers.SearchAppsHandler)
 	router.HandleFunc("/app/download/{partner}/{app_id}", handlers.AppDownloadHandler)
-	router.HandleFunc("/app/cdownload/{partner}/{app_id}", handlers.OneDownloadHandler)
+	router.HandleFunc("/app/cdownload/{partner}/{app_id}", handlers.AppDownloadHandler)
 	router.HandleFunc("/api/collection-details/{partner}/{col_id}", handlers.AppCollectionHandler)
 	router.HandleFunc("/api/store/{partner}", handlers.StoreHandler)
 	router.HandleFunc("/api/apps-in-collection/{partner}/{col_id}", handlers.AppsInCollectionHandler)
@@ -369,12 +382,15 @@ func main() {
 	router.HandleFunc("/api/banners", handlers.BannersHandler)
 
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
-	subRouter.HandleFunc("/app/download/{app_id}.apk", handlers.OneDownloadHandler)
+	subRouter.HandleFunc("/app/download/{app_id}.apk", handlers.AppDownloadHandler)
 	subRouter.HandleFunc("/manager", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "http://"+serverHost+"/manager", http.StatusFound)
 	})
 	subRouter.PathPrefix("/assets").Handler(http.FileServer(fs))
-	subRouter.PathPrefix("/").HandlerFunc(handleIndex)
+	//subRouter.PathPrefix("/").HandlerFunc(webhandlers.HomeHandler))
+	subRouter.HandleFunc("/", webhandlers.HomeHandler)
+	subRouter.HandleFunc("/top/{condition:downloads|new|standings}", webhandlers.TopAppHandler)
+	subRouter.HandleFunc("/app/categories", webhandlers.CategoriesHandler)
 	//http.Handle("/", router)
 	//err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
 	rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(fs))

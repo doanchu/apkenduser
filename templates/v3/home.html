@@ -1,0 +1,67 @@
+{{define "home"}}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<meta name="format-detection" content="email=no">
+<meta name="format-detection" content="address=no"> 
+<meta name="format-detection" content="telephone=no"/>
+<meta name="keywords" content="{{.Sdetails.Keywords}}" />
+<meta name="description" content="{{.Sdetails.Description}}" />
+<link href="{{.Sdetails.Favicon}}" rel="SHORTCUT ICON">
+{{template "mainStyle"}}
+<title>{{.Sdetails.Name}}</title>
+</head><body>
+<div class="wrap">
+    <div class="header">
+	    <div class="logoBox clearFix">
+		    <div class="leftArea"><a href="/" class="logo"></a><a href="/"></a></div><a href="/search/" class="bntSearch"></a>
+		</div>
+		<div class="navBox">
+		    <span class="active"><a href="/" class="home">Home</a></span><span><a href="/top/downloads/">Top</a></span><span><a href="/app/collections/">Chọc lọc</a></span><span ><a href="/apps/categories">Thể loại</a></span>
+		</div>
+	</div>	
+	<div class="container">
+		{{template "banner"}}
+	    <div class="mb10">		    
+			<div class="tabIndexContent mb10">
+				<div class="item db">
+					<ul class="publicList allInfoList mb10" id="more_soft"> 
+
+					</ul>	
+				</div>
+
+			</div>	
+        </div>		
+        <div class="mb10" id="loading"><a href="javascript:loadmore();" class="btnSeeMore">Xem thêm >></a></div>
+		<p class="toTopbox"><a href="#" class="backTotop">Lên đầu</a></p>
+	</div>
+	
+<script type="text/javascript" src="/v3/js/jquery.js"></script>
+<script type="text/javascript" src="/v3/js/touchScroll.js"></script>
+<script type="text/javascript" src="/v3/js/touchSlider.js"></script>
+{{template "footer"}}
+{{template "loadMore" .}}
+<script type="text/javascript">
+	var active=0,
+		as=document.getElementById('pagenavi').getElementsByTagName('a');
+	for(var i=0;i<as.length;i++){
+		(function(){
+			var j=i;
+			as[i].onclick=function(){
+				t2.slide(j);
+				return false;
+			}
+		})();
+	}
+	var t1=new TouchScroll({id:'wrapper','width':5,'opacity':0.7,color:'#555',minLength:20});
+	var t2=new TouchSlider({id:'slider', speed:600, timeout:6000, before:function(index){
+		as[active].className='';
+		active=index;
+		as[active].className='active';
+	}});
+</script>
+</body>
+</html> 
+{{end}}

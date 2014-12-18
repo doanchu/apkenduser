@@ -1,0 +1,12 @@
+{{define "appItem"}}
+						<li>
+						   <div class="box">
+							   <a href="/app/{{.Id}}.html" class="pic"><img src="{{.Icon}}"/></a><em class="rightArea"><a href="{{.DownloadLink}}" class="btnDown"></a></em>
+							   <div class="baseContent">
+								   <p class="pCategory"><a href="/app/{{.Id}}.html"></a></p>
+								   <p class="pAppName"><a href="{{.Link}}">{{.Name}}/a></p>
+								   <p class="pInfo"><span class="size">{{.Size}}</span> | <span class="downNum">{{.Total_download}}</span> lượt tải</p>
+							   </div>
+						   </div>
+						</li>
+{{end}}

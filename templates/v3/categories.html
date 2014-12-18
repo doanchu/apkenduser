@@ -1,0 +1,42 @@
+{{define "categories"}}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<meta name="format-detection" content="email=no">
+<meta name="format-detection" content="address=no"> 
+<meta name="format-detection" content="telephone=no"/>
+<meta name="keywords" content="{{.Sdetails.Keywords}}" />
+<meta name="description" content="{{.Sdetails.Description}}" />
+<link href="{{.Sdetails.Favicon}}" rel="SHORTCUT ICON">
+{{template "mainStyle"}}
+<title>{{.Sdetails.Name}}</title>
+</head><body>
+<div class="wrap">
+    <div class="header">
+	    <div class="logoBox clearFix">
+		    <div class="leftArea"><a href="/" class="logo"></a><a href="/"></a></div><a href="/search/" class="bntSearch"></a>
+		</div>
+		<div class="navBox">
+		    <span><a href="/">Trang chủ</a></span><span><a href="/top/downloads">Top</a></span><span><a href="/app/collections">Chọc lọc</a></span><span class="active"><a href="/apps/categories">Thể loại</a></span>
+		</div>
+	</div>	
+	<div class="container">	    
+	    <ul class="publicList mb10">
+		    {{range .AppList}}
+		    	<li>
+				   <div class="box">
+				       <a href="/app/category/{{.Id}}" class="categoryLink"></a><span class="pic"><img src={{.Icon}}/></span><em class="rightArea"><span class="arrow"></span></em>
+				       <div class="categoryContent"><p class="pCategory"><strong>{{.Name}}</strong></p></div>
+				   </div>
+				</li>
+			{{end}}			
+	    </ul>		
+	</div>
+{{template "footer"}}
+</div>
+</body>
+</html>
+<script type="text/javascript" src="http://img.1mobile.com/web2/m.1mobile.com/wap/js/jquery-1.10.2.js"></script>
+{{end}}

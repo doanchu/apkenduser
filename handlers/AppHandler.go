@@ -568,7 +568,7 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		downloadLink = "http://" + partner + "." + ServerHost + "/static/adflex/" + partner + "/" + fileName
 	case "static":
-		downloadLink = appCommon.Download_link["static"]
+		downloadLink = "http://apk.vn/" + appCommon.Download_link["static"]
 	case "campaign":
 		downloadLink = appCommon.Download_link["campaign"]
 		downloadLink = strings.Replace(downloadLink, "{partner}", partner, -1)
