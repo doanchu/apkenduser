@@ -255,10 +255,12 @@ func main() {
 	log.Println(downloadedFileName)
 	readConfiguration()
 	fs := justFilesFilesystem{http.Dir("public")}
-	s := "Bỏ dấu tiếng việt"
+	s := "Bỏ dấu tiếng việt         ! adf___"
 
 	s = utils.ClearVietnameseChars(s)
 	log.Println(s)
+	s = utils.ClearNonAlphabetChars(s)
+	log.Println("Replaced all non alphabet chars", s)
 	// funcMap := template.FuncMap{}
 	// funcMap["dict"] = dict
 	// myTemplate.Funcs(funcMap)

@@ -270,6 +270,7 @@ func main() {
 		templateDir+"home.html",
 		templateDir+"top_app.html",
 		templateDir+"categories.html",
+		templateDir+"category.html",
 		templateDir+"featured.html",
 		templateDir+"footer.html",
 		templateDir+"item.html",
@@ -391,6 +392,7 @@ func main() {
 	subRouter.HandleFunc("/", webhandlers.HomeHandler)
 	subRouter.HandleFunc("/top/{condition:downloads|new|standings}", webhandlers.TopAppHandler)
 	subRouter.HandleFunc("/app/categories", webhandlers.CategoriesHandler)
+	subRouter.HandleFunc("/app/category/{cid}", webhandlers.CategoryHandler)
 	//http.Handle("/", router)
 	//err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
 	rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(fs))

@@ -6,6 +6,7 @@ import "github.com/gorilla/mux"
 import "encoding/json"
 import "github.com/doanchu/apkenduser/models"
 import "html/template"
+import "strconv"
 
 // import "strconv"
 import "log"
@@ -252,6 +253,56 @@ func TopAppHandler(w http.ResponseWriter, r *http.Request) {
 	MyTemplates.ExecuteTemplate(w, "topApp", data)
 }
 
+func CategoryHandler(w http.ResponseWriter, r *http.Request) {
+	var err error
+
+	vars := mux.Vars(r)
+	storeDetails := GetStoreDetails(vars["subdomain"])
+
+	myPartner := vars["subdomain"]
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	limit := 100
+	page := 1
+	cid, err := strconv.Atoi((vars["cid"]))
+	category := Mongo.GetCategoryById(cid)
+
+	var appDetails []*models.AppDetails
+	user := Mongo.GetUserByUsername(myPartner)
+	log.Println(user)
+	if user == nil || user.Store == 0 {
+		appCommons := Mongo.GetCommonAppsByCategory(cid, page, limit)
+
+		appDetails = CreateAppDetailsFromAppCommon(appCommons)
+	} else {
+		var result []*models.PartnerAppInfo
+		result = Mongo.GetPartnerAppsByCategory(myPartner, cid, page, limit)
+		// log.Println(result)
+		if result != nil {
+			appDetails = CreateAppDetails(result)
+		}
+	}
+
+	var dataJSON = getJSONString(appDetails)
+
+	data := struct {
+		Sdetails *StoreDetails
+		Page     string
+		Cname    string
+		AppList  template.JS
+	}{
+		Sdetails: storeDetails,
+		AppList:  template.JS(dataJSON),
+		Page:     category.Name,
+		Cname:    category.Name,
+	}
+	log.Println(dataJSON)
+	MyTemplates.ExecuteTemplate(w, "category", data)
+}
+
 func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
@@ -322,4 +373,13 @@ func getJSONString(result interface{}) string {
 		return string(byteResult)
 	}
 
+}
+
+func CreateAppDetailsFromAppCommon(apps []*models.AppCommon) []*models.AppDetails {
+	var appDetails = make([]*models.AppDetails, len(apps))
+	for key, value := range apps {
+		category := Mongo.GetCategoryById(value.Cid)
+		appDetails[key] = models.NewAppDetailsFromAppCommon(value, category)
+	}
+	return appDetails
 }

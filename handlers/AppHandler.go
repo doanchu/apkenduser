@@ -535,8 +535,9 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		//Get file from Adflex
-		prefix := "http://sv8.mway.vn:88/AdFlexWrapperService/download2/" + appId + "/"
-		fileName := strings.Replace(strings.Replace(adFlexLink, prefix, "", -1), "?partner={refcode}", "", -1)
+		// prefix := "http://sv8.mway.vn:88/AdFlexWrapperService/download2/" + appId + "/"
+		// fileName := strings.Replace(strings.Replace(adFlexLink, prefix, "", -1), "?partner={refcode}", "", -1)
+		fileName := utils.ClearNonAlphabetChars(utils.ClearVietnameseChars(appCommon.Name)) + ".apk"
 		filePath := dir + "/" + fileName
 		//First check if the file exists
 		//If not create the file
@@ -544,7 +545,7 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 		// log.Println("Prefix is:", prefix)
 		// log.Println("AdFlex link is: ", adFlexLink)
 		// log.Println("file name is", fileName)
-		log.Println(filePath)
+
 		if _, err := os.Stat(filePath); os.IsNotExist(err) {
 			downloadLink = strings.Replace(adFlexLink, "{refcode}", partner, -1)
 			log.Println("Adflex link is: ", adFlexLink)
@@ -621,10 +622,8 @@ func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		//Get file from Adflex
-		prefix := "http://sv8.mway.vn:88/AdFlexWrapperService/download2/" + appId + "/"
-		fileName := strings.Replace(strings.Replace(adFlexLink, prefix, "", -1), "?partner={refcode}", "", -1)
-		filePath := dir + "/" + fileName
-		//First check if the file exists
+		fileName := utils.ClearNonAlphabetChars(utils.ClearVietnameseChars(appCommon.Name)) + ".apk"
+		filePath := dir + "/" + fileName //First check if the file exists
 		//If not create the file
 
 		// log.Println("Prefix is:", prefix)

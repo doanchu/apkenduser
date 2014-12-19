@@ -2,6 +2,7 @@ package utils
 
 import (
 	"log"
+	"regexp"
 	"strings"
 )
 
@@ -44,4 +45,12 @@ func ClearVietnameseChars(s string) string {
 
 	}
 	return s
+}
+
+var r, _ = regexp.Compile("[^a-z ]")
+var mulSpaces, _ = regexp.Compile(" +")
+
+func ClearNonAlphabetChars(s string) string {
+	result := strings.Replace(strings.Trim(mulSpaces.ReplaceAllString(r.ReplaceAllString(strings.ToLower(s), " "), " "), " "), " ", "_", -1)
+	return result
 }
