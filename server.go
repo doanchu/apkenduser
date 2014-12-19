@@ -372,6 +372,7 @@ func main() {
 
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
 	subRouter.HandleFunc("/app/download/{app_id}.apk", handlers.OneDownloadHandler)
+	subRouter.HandleFunc("/download/{app_id}.html", handlers.OneDownloadHandler)
 	subRouter.HandleFunc("/manager", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "http://"+serverHost+"/manager", http.StatusFound)
 	})
