@@ -487,11 +487,12 @@ func DownloadFile(link string, dir string, fileName string) (string, error) {
 		defer resp.Body.Close()
 
 		out, err := os.Create(dir + "/" + fileName)
-		defer out.Close()
 
 		if err != nil {
 			return "", err
 		}
+		defer out.Close()
+
 		io.Copy(out, resp.Body)
 		return fileName, nil
 	} else {
@@ -555,20 +556,20 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 			downloadLink = strings.Replace(adFlexLink, "{refcode}", partner, -1)
 			log.Println("Adflex link is: ", adFlexLink)
 			resp, err := http.Get(downloadLink)
-			defer resp.Body.Close()
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
 				w.Write([]byte("There are some errors"))
 				return
 			}
+			defer resp.Body.Close()
 
 			out, err := os.Create(filePath)
-			defer out.Close()
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
 				w.Write([]byte("There are some errors"))
 				return
 			}
+			defer out.Close()
 			io.Copy(out, resp.Body)
 
 		}
@@ -647,12 +648,12 @@ func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
 			}
 
 			out, err := os.Create(filePath)
-			defer out.Close()
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
 				w.Write([]byte("There are some errors"))
 				return
 			}
+			defer out.Close()
 			io.Copy(out, resp.Body)
 
 		}
