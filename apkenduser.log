@@ -475,3 +475,109 @@
 2014/12/20 10:28:31 1
 2014/12/20 10:28:31 1
 2014/12/20 10:28:31 1
+2014/12/20 10:37:11 Max procs is 1
+2014/12/20 10:37:11 test
+2014/12/20 10:37:11 len is 46
+2014/12/20 10:37:11 Bo dau tieng viet         ! adf___
+2014/12/20 10:37:11 Replaced all non alphabet chars bo_dau_tieng_viet_adf
+2014/12/20 10:37:11 sv12.mway.vn:27017
+2014/12/20 10:37:11 Ready to connect to mongodb
+2014/12/20 10:37:11 &{Game Bài Truyền Thống NPlay - Rảnh Thì Chơi Đến với NPlay bạn sẽ được trải nghiệm với đa dạng các thể loại bài truyền thống như : TIẾN LÊN, MẬU BINH, XÌ TỐ, BÀI CÀO, BẦU CUA, XÌ DÁCH, PHỎM và một số loại bài khác. Game được cài đặt HOÀN TOÀN MIỄN PHÍ trên các thiết bị di động giúp game thủ có thể so tài mọi lúc mọi nơi. /static/images/ads/icon/2014/12/16/1418698781/unnamed (2).png http://{partner}.apk.vn/app/cdownload/{partner}/com.hdtt.nplay}
+2014/12/20 10:37:11 &{LOL Truyền Kỳ Liên Minh Huyền Thoại Liên Minh Huyền Thoại – Game chiến thuật thẻ bài kết hợp lối chơi MOBA mới nhất trên smartphone. Game tái hiện những trận đánh kinh điển, những nhân vật nổi tiếng trong LOL – Liên Minh Huyền Thoại trên PC. /static/images/ads/icon/2014/12/12/1418353220/unnamed.png http://{partner}.apk.vn/app/cdownload/{partner}/com.ingamevn.lmhtmobile.yolo}
+2014/12/20 10:37:11 &{ObjectIdHex("5461f08eac0d6060310adc54") 2048 7  com.digiplex.game 2048 0 1759332 [] 1  http://apk.vn/static/images/2014/05/15/1400121286/86.png 2.6 map[static:http://apk.vn/static/files/2014/05/15/1400121259/2048.apk adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.digiplex.game/2048.apk?partner={refcode}] adflex [start close app app_top app_bottom] 1400121224 1408953680 digiplex.in 1920}
+2014/12/20 10:37:11 &{ObjectIdHex("5461f08eac0d6060310adc4a") Flappy Birds - Phiên bản Chim TO 7  com.dotgears.flappybird flappy birds phien ban chim to 0 894000 [] 1  http://apk.vn/static/images/2014/05/14/1400064755/icon.png 1.3 map[adflex:http://sv8.mway.vn:88/AdFlexWrapperService/download2/com.dotgears.flappybird/flappy_bird.apk?partner={refcode} static:http://apk.vn/static/files/2014/08/27/1409112269/flappy_bird.apk] adflex [start close app app_top app_bottom] 1400064699 1409114477 .GEARS Studios  2944}
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 &{LOL Truyền Kỳ Liên Minh Huyền Thoại Liên Minh Huyền Thoại – Game chiến thuật thẻ bài kết hợp lối chơi MOBA mới nhất trên smartphone. Game tái hiện những trận đánh kinh điển, những nhân vật nổi tiếng trong LOL – Liên Minh Huyền Thoại trên PC. /static/images/ads/icon/2014/12/12/1418353220/unnamed.png http://{partner}.apk.vn/app/cdownload/{partner}/com.ingamevn.lmhtmobile.yolo}
+2014/12/20 10:37:13 Popup Title is LOL Truyền Kỳ
+2014/12/20 10:37:13 Popup Name is Liên Minh Huyền Thoại
+2014/12/20 10:37:13 beoiu
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 map[partner:beoiu page:1 limit:10 condition:partner]
+2014/12/20 10:37:13 Requested to apps-partner with beoiu 1 10
+2014/12/20 10:37:13 beoiu
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 Host is beoiu.apk.de:3001
+2014/12/20 10:37:13 1
+2014/12/20 10:37:13 1
+2014/12/20 10:37:13 1
+2014/12/20 10:37:13 1
+2014/12/20 10:37:13 1
+2014/12/20 10:37:13 Admin apps are: [0xc20836e240 0xc20836efc0 0xc20838fe60 0xc20838e6c0 0xc20838ec60]
+2014/12/20 10:37:13 App IDs length is 10
+2014/12/20 10:37:13 1
+2014/12/20 10:37:13 1
+2014/12/20 10:37:15 1
+2014/12/20 10:37:15 1
+2014/12/20 10:37:15 1
+2014/12/20 10:37:15 1
+2014/12/20 10:37:15 1
+2014/12/20 10:37:15 1
+2014/12/20 10:37:15 1
+2014/12/20 10:37:15 1
+2014/12/20 10:37:20 Host is beoiu.apk.de:3001
+2014/12/20 10:37:22 Host is beoiu.apk.de:3001
+2014/12/20 10:37:22 &{Game Bài Hot BigKool - Game đánh bài 2014 Thế giới giải trí tuyệt vời trên di động. Bạn có thể chơi những game bài, game casino... ở khắp mọi nơi cùng với chiếc điện thoại của mình!!! /static/images/ads/icon/2014/12/08/1418031031/hapkm.png http://{partner}.apk.vn/app/cdownload/{partner}/bigkool.gamehd}
+2014/12/20 10:37:22 Popup Title is Game Bài Hot
+2014/12/20 10:37:22 Popup Name is BigKool - Game đánh bài 2014
+2014/12/20 10:37:22 beoiu
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 map[partner:beoiu page:1 limit:10 condition:partner]
+2014/12/20 10:37:23 Requested to apps-partner with beoiu 1 10
+2014/12/20 10:37:23 beoiu
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 Host is beoiu.apk.de:3001
+2014/12/20 10:37:23 1
+2014/12/20 10:37:23 1
+2014/12/20 10:37:23 1
+2014/12/20 10:37:23 1
+2014/12/20 10:37:23 1
+2014/12/20 10:37:23 Admin apps are: [0xc20836f320 0xc20838e480 0xc20838f680 0xc20838ea20 0xc2080b2fc0]
+2014/12/20 10:37:23 App IDs length is 10
+2014/12/20 10:37:24 1
+2014/12/20 10:37:24 1
+2014/12/20 10:37:24 1
+2014/12/20 10:37:24 1
+2014/12/20 10:37:24 1
+2014/12/20 10:37:24 1
+2014/12/20 10:37:24 1
+2014/12/20 10:37:24 1
+2014/12/20 10:37:24 1
+2014/12/20 10:37:24 1
