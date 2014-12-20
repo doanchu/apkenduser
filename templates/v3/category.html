@@ -1,0 +1,44 @@
+{{define "category"}}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<meta name="format-detection" content="email=no">
+<meta name="format-detection" content="address=no"> 
+<meta name="format-detection" content="telephone=no"/>
+<meta name="keywords" content="{{.Sdetails.Keywords}}" />
+<meta name="description" content="{{.Sdetails.Description}}" />
+<link href="{{.Sdetails.Favicon}}" rel="SHORTCUT ICON">
+{{template "mainStyle"}}
+<title>{{.Sdetails.Name}}</title>
+</head><body>
+<div class="wrap">
+	<div class="header">
+	    <div class="currentLocation"><a href="javascript:history.back(-1)" class="btnBack">Trở lại</a><h3 class="tit">{{.Cname}}</h3><a href="/" class="backHome"></a></div>
+	</div>
+	<div class="container">
+	    <div class="mb10">		    
+			<div class="tabIndexContent mb10">
+				<div class="item db">
+					<ul class="publicList allInfoList mb10" id="more_soft"> 
+
+					</ul>	
+				</div>
+
+			</div>	
+        </div>		
+        <div class="mb10" id="loading"><a href="javascript:loadmore();" class="btnSeeMore">Xem thêm >></a></div>
+		<p class="toTopbox"><a href="#" class="backTotop">Lên đầu</a></p>
+	</div>
+{{template "footer"}}	
+<script type="text/javascript" src="/v3/js/jquery.js"></script>
+<script type="text/javascript" src="/v3/js/touchScroll.js"></script>
+<script type="text/javascript" src="/v3/js/touchSlider.js"></script>
+
+{{template "loadMore" .}}
+	
+</body>
+
+</html>
+{{end}}
