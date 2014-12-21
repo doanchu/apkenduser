@@ -15,6 +15,8 @@ import "github.com/doanchu/apkenduser/utils"
 import "time"
 import "fmt"
 import "net/url"
+import "net"
+import "bytes"
 
 func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -290,7 +292,7 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 		//adminAppDetails = CreateAppDetailsFromAppCommon(appCommons)
 		tempAppInfo, _ := Mongo.GetPartnerApps("beoiu", 1, 5, sortCondition)
 		adminAppDetails = CreateAppDetails(tempAppInfo)
-		log.Println("Admin apps are:", adminAppDetails)
+		//log.Println("Admin apps are:", adminAppDetails)
 	}
 
 	var result []*models.PartnerAppInfo
@@ -303,7 +305,7 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	log.Println("App IDs length is", len(appIds))
+	//log.Println("App IDs length is", len(appIds))
 	if len(appIds) == 0 {
 		result, err = Mongo.GetPartnerApps(myPartner, page, limit, sortCondition)
 	} else {
@@ -366,11 +368,11 @@ func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
 		id := value.Id
 		appCommon := Mongo.GetCommonAppById(id)
 		if appCommon == nil {
-			log.Println(value.Id)
+			//log.Println(value.Id)
 			appDetails[key] = nil
 			continue
 		}
-		log.Println(appCommon.Status)
+		//log.Println(appCommon.Status)
 		if appCommon.Status == 1 {
 			category := Mongo.GetCategoryById(value.Cid)
 			appDetails[key] = models.NewAppDetails(value, appCommon, category)
@@ -392,11 +394,11 @@ func CreateAppDetailsWithCategory(apps []*models.PartnerAppInfo, category *model
 		id := value.Id
 		appCommon := Mongo.GetCommonAppById(id)
 		if appCommon == nil {
-			log.Println(value.Id)
+			//log.Println(value.Id)
 			appDetails[key] = nil
 			continue
 		}
-		log.Println(appCommon.Status)
+		//log.Println(appCommon.Status)
 		if appCommon.Status == 1 {
 			//category := Mongo.GetCategoryById(value.Cid)
 			appDetails[key] = models.NewAppDetails(value, appCommon, category)
@@ -443,7 +445,7 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 		name = store.Name
 		analytics_id = store.Analytics_id
 	}
-	log.Println(icon_36)
+	//log.Println(icon_36)
 	dir := StorageDir + "/static/adflex/" + partner + "/store"
 	queryString := fmt.Sprintf("partner=%s&app_name=%s&icon_36=%s&icon_48=%s&icon_72=%s&icon_96=%s&icon_144=%s&download_id=%s&analytics_id=%s", url.QueryEscape(partner), url.QueryEscape(name), url.QueryEscape(icon_36), url.QueryEscape(icon_48), url.QueryEscape(icon_72), url.QueryEscape(icon_96), url.QueryEscape(icon_144), url.QueryEscape(appId), url.QueryEscape(analytics_id))
 	storeServiceLink := fmt.Sprintf("http://sv11.mway.vn:88/ApkStoreService/build?%s", queryString)
@@ -453,7 +455,7 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	if appCommon != nil {
 		fileName = utils.ClearNonAlphabetChars(utils.ClearVietnameseChars(appCommon.Name)) + "_" + storeVersion + ".apk"
 	}
-	log.Println(storeServiceLink)
+	//log.Println(storeServiceLink)
 	downloadedFileName, _ := DownloadFile(storeServiceLink, dir, fileName)
 	http.Redirect(w, r, "/static/adflex/"+partner+"/store/"+downloadedFileName, http.StatusFound)
 
@@ -894,8 +896,106 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 	WriteJsonResult(w, result)
 }
 
+type IPRange struct {
+	Min string
+	Max string
+}
+
+var mobiIPs []*IPRange = []*IPRange{
+	&IPRange{"113.187.0.0", "113.187.0.255"},     // 113.187.0.0/24
+	&IPRange{"183.91.6.0", "183.91.6.255"},       // 183.91.6.0/24
+	&IPRange{"203.162.240.0", "203.162.240.255"}, // 203.162.240.0/24 new
+	// SG
+	&IPRange{"123.30.87.0", "123.30.87.15"},      // 123.30.87.0/28 HCSFGi-1
+	&IPRange{"123.30.83.16", "123.30.83.23"},     // 123.30.83.16/29 HCSFGi-2
+	&IPRange{"222.255.208.0", "222.255.208.255"}, // 222.255.208.0/24 new
+	&IPRange{"222.255.209.0", "222.255.209.255"}, // 222.255.209.0/24 new
+	&IPRange{"123.30.165.0", "123.30.165.127"},   // 123.30.165.0/25 HCSFGi-1
+	&IPRange{"123.30.165.128", "123.30.165.255"}, // 123.30.165.128/25: HCSFGi-2
+	&IPRange{"113.187.16.0", "113.187.17.255"},   // 113.187.16.0/23
+	// CMC
+	&IPRange{"101.99.46.240", "101.99.46.255"}, // 101.99.46.240/28
+	&IPRange{"101.99.29.240", "101.99.29.255"}, // 101.99.29.240/28
+	// Proxy
+	&IPRange{"203.162.21.107", "203.162.21.107"},
+	&IPRange{"113.187.31.252", "113.187.31.252"},
+	&IPRange{"113.187.4.0", "113.187.4.255"}, //Moi them
+	&IPRange{"113.187.3.0", "113.187.3.255"},
+	&IPRange{"113.187.5.0", "113.187.5.255"},
+	&IPRange{"113.187.22.0", "113.187.22.255"},
+	&IPRange{"113.187.23.0", "113.187.23.255"},
+}
+var viettelIPs []*IPRange = []*IPRange{
+	&IPRange{"27.64.0.0", "27.64.255.255"},     // 27.64.0.0/16
+	&IPRange{"27.65.0.0", "27.65.255.255"},     // 27.65.0.0/16
+	&IPRange{"27.76.0.0", "27.76.255.255"},     // 27.76.0.0/16
+	&IPRange{"27.77.0.0", "27.77.255.255"},     // 27.77.0.0/16
+	&IPRange{"171.224.0.0", "171.224.255.255"}, // 171.224.0.0/16
+	&IPRange{"171.225.0.0", "171.225.255.255"}, // 171.225.0.0/16
+	&IPRange{"171.228.0.0", "171.228.255.255"}, // 171.228.0.0/16
+	&IPRange{"171.230.0.0", "171.230.255.255"}, // 171.230.0.0/16
+	&IPRange{"171.231.0.0", "171.231.255.255"}, // 171.231.0.0/16
+	&IPRange{"171.232.0.0", "171.232.255.255"}, // 171.232.0.0/16
+	&IPRange{"171.233.0.0", "171.233.255.255"}, // 171.233.0.0/16
+	&IPRange{"171.234.0.0", "171.234.255.255"}, // 171.234.0.0/16
+	&IPRange{"171.236.0.0", "171.236.255.255"}, // 171.236.0.0/16
+	&IPRange{"171.238.0.0", "171.238.255.255"}, // 171.238.0.0/16
+	&IPRange{"171.240.0.0", "171.240.255.255"}, // 171.240.0.0/16
+	&IPRange{"171.241.0.0", "171.241.255.255"}, // 171.241.0.0/16
+	&IPRange{"171.244.0.0", "171.244.255.255"}, // 171.244.0.0/16
+	&IPRange{"171.248.0.0", "171.248.255.255"}, // 171.248.0.0/16
+	&IPRange{"171.249.0.0", "171.249.255.255"}, // 171.249.0.0/16
+	&IPRange{"171.250.0.0", "171.250.255.255"}, // 171.250.0.0/16
+	&IPRange{"125.234.49.48", "125.234.49.63"}, // 125.234.49.48/28
+	&IPRange{"125.235.49.48", "125.235.49.63"}, // 125.235.49.48/28
+	&IPRange{"125.234.72.0", "125.234.72.255"}, //New
+	&IPRange{"27.66.0.0", "27.66.255.255"},
+	&IPRange{"171.255.5.0", "171.255.5.255"},
+	&IPRange{"171.255.6.0", "171.255.6.255"},
+}
+
+var vinaIPs []*IPRange = []*IPRange{
+	&IPRange{"113.185.0.0", "113.185.31.255"},
+	&IPRange{"203.162.0.0", "203.162.255.255"},
+}
+
+func isInRange(ipStr string, ranges []*IPRange) bool {
+	ip := net.ParseIP(ipStr)
+	for _, value := range ranges {
+		min := net.ParseIP(value.Min)
+		max := net.ParseIP(value.Max)
+		if bytes.Compare(ip, min) >= 0 && bytes.Compare(ip, max) <= 0 {
+			return true
+		}
+	}
+	return false
+}
+
 func BannersHandler(w http.ResponseWriter, r *http.Request) {
-	result := Mongo.GetAllBanners()
+	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+	if r.Header.Get("X-FORWARDED-FOR") != "" {
+		ips := strings.Split(r.Header.Get("X-FORWARDED-FOR"), ",")
+		ip = strings.TrimSpace(ips[0])
+	}
+	log.Println("IP is", ip)
+	op := ""
+	if isInRange(ip, mobiIPs) {
+		op = "mb"
+	} else if isInRange(ip, vinaIPs) {
+		op = "vn"
+	} else if isInRange(ip, viettelIPs) {
+		op = "vt"
+	}
+	var result []*models.Banner = nil
+	log.Println("op is", op)
+	if op != "" {
+		result = Mongo.GetAllBanners()
+	} else {
+		result = Mongo.GetBannersForNonCell()
+		for _, value := range result {
+			value.Link = strings.Replace(value.Link, "{op}", op, -1)
+		}
+	}
 	if result == nil {
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte("[]"))

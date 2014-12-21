@@ -224,7 +224,7 @@ func (f neuteredReaddirFile) Readdir(count int) ([]os.FileInfo, error) {
 var mongo *services.Mongo
 
 func parkDomainMiddleWare(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	log.Println("Host is", r.Host)
+	//log.Println("Host is", r.Host)
 	hostPart := strings.Split(r.Host, ":")[0]
 
 	if hostPart == "apk.vn" || strings.Contains(hostPart, "."+serverHost) {
