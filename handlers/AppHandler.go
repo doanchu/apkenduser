@@ -151,6 +151,11 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 
 	appId := vars["app_id"]
 
+	newApp := Mongo.GetAppMapper(appId)
+	if newApp != nil {
+		appId = newApp.New_app
+	}
+
 	appCommon := Mongo.GetCommonAppById(appId)
 	if appCommon == nil {
 		w.Write([]byte("{}"))

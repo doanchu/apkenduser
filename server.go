@@ -248,7 +248,7 @@ func main() {
 		log.Fatal("error opening file: %v", err)
 	}
 	defer f.Close()
-	log.SetOutput(f)
+	//log.SetOutput(f)
 	maxProcs := runtime.GOMAXPROCS(4)
 	log.Println("Max procs is", maxProcs)
 	downloadedFileName, _ := handlers.DownloadFile("http://sv11.mway.vn:88/ApkStoreService/build?partner=duyhungws&app_name=Hung&download_id=123", "public/static/adflex/duyhungws/store/", "test")
@@ -318,6 +318,9 @@ func main() {
 		Pool: services.NewRedisPool(redisHost + ":" + strconv.Itoa(redisPort)),
 		DB:   handlers.Mongo,
 	}
+
+	result := mongo.GetAppMapper("mp3.zing.vn")
+	log.Println("App Mapper is", result)
 
 	// colResult := handlers.Mongo.GetCollectionById(bson.ObjectIdHex("545e003560e24d82ea541e21"))
 	// log.Println(colResult)

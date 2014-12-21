@@ -612,3 +612,21 @@ func (m *Mongo) GetRandomAppAds() *models.AppAds {
 		return result
 	}
 }
+
+func (m *Mongo) GetAppMapper(oldAppId string) *models.AppMapper {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("app_mapper")
+
+	result := &models.AppMapper{}
+
+	err := c.Find(bson.M{"old_app": oldAppId}).One(result)
+
+	if err != nil {
+		return nil
+	} else {
+		return result
+	}
+}
