@@ -957,7 +957,6 @@ var viettelIPs []*IPRange = []*IPRange{
 var vinaIPs []*IPRange = []*IPRange{
 	&IPRange{"113.185.0.0", "113.185.31.255"},
 	&IPRange{"203.162.0.0", "203.162.255.255"},
-	&IPRange{"127.0.0.1", "127.0.0.1"},
 }
 
 func isInRange(ipStr string, ranges []*IPRange) bool {
@@ -994,7 +993,6 @@ func BannersHandler(w http.ResponseWriter, r *http.Request) {
 		for _, value := range result {
 			value.Link = strings.Replace(value.Link, "{op}", op, -1)
 		}
-
 	} else {
 		result = Mongo.GetBannersForNonCell()
 	}
