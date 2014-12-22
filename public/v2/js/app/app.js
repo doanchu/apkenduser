@@ -54,7 +54,13 @@ var routes = (
     <Route name="AppDetailsWhenOneDownload" path="/app/cdownload/:partner/:appId" route="/app/cdownload" handler={AppDetails}>        
     </Route>     
 
+    <Route name="AppDetailsWhenOneOldDownload" path="/app/download/:app_id.apk" route="/app/download" handler={AppDetails}>        
+    </Route>     
+
     <Route name="AppDetailsWhenDownload" path="/app/download/:partner/:appId" route="/app/download" handler={AppDetails}>        
+    </Route>     
+
+    <Route name="AppDetailsWhenOldDownload" path="/download/:app_id.html" route="/app/download" handler={AppDetails}>        
     </Route>     
 
 
