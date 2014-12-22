@@ -833,6 +833,10 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
       // if (this.state.data != null && this.state.data.name != null) {
       //   content = <Content data={this.state.data}/>;
       // }
+      var isDownloading = false;
+      if (this.props.route == "/app/cdownload" || this.props.route == "/app/download") {
+        isDownloading = true;  
+      }
 
     return (
       React.createElement("div", null, 
@@ -848,7 +852,7 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
             )
           ), 
           
-          React.createElement(Content, {appId: this.props.params.appId, isDownloading: false}), 
+          React.createElement(Content, {appId: this.props.params.appId, isDownloading: isDownloading}), 
           React.createElement("div", {className: "overlay-background", style: {display: 'none'}}), 
           React.createElement("div", {className: "overlay-wrapper", style: {display: 'none'}}, 
             React.createElement("div", {className: "overlay-content-wrapper"}, 

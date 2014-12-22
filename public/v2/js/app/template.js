@@ -833,6 +833,10 @@ var AppDetails = React.createClass({
       // if (this.state.data != null && this.state.data.name != null) {
       //   content = <Content data={this.state.data}/>;
       // }
+      var isDownloading = false;
+      if (this.props.route == "/app/cdownload" || this.props.route == "/app/download") {
+        isDownloading = true;  
+      }
 
     return (
       <div>
@@ -848,7 +852,7 @@ var AppDetails = React.createClass({
             </div>
           </div>          
           
-          <Content appId={this.props.params.appId} isDownloading={false} />
+          <Content appId={this.props.params.appId} isDownloading={isDownloading} />
           <div className="overlay-background" style={{display: 'none'}} />
           <div className="overlay-wrapper" style={{display: 'none'}}>
             <div className="overlay-content-wrapper">
