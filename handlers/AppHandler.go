@@ -697,7 +697,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		PopupIcon    string
 		PopupLink    string
 	}{
-		Partner:      vars["subdomain"],
+		Partner:      partner,
 		Name:         name,
 		Keywords:     keywords,
 		Description:  description,
