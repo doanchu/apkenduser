@@ -836,7 +836,7 @@ var AppDetails = React.createClass({
       var isDownloading = false;
       if (this.props.route == "/app/cdownload" || this.props.route == "/app/download") {
         isDownloading = true;  
-      }
+      }      
 
     return (
       <div>
