@@ -653,10 +653,9 @@ var Content = React.createClass({displayName: 'Content',
                   React.createElement("span", null, " Cài đặt ngay")
                 );
     if (this.props.isDownloading == true) {
-        downloadButton = React.createElement("button", {className: "", 'data-href': downloadLink, disabled: true}, 
-                  React.createElement("span", null, " Ứng dụng đang được tải về")
+        downloadButton = React.createElement("button", {className: "", 'data-href': downloadLink}, 
+                  React.createElement("span", null, " Ứng dụng của bạn đang được cài đặt")
                 );
-        downloadLink = "#";
     }                
     return (
 React.createElement("div", {itemscope: "itemscope", itemtype: "http://schema.org/MobileApplication", id: "body-content", role: "main"}, 
@@ -848,7 +847,7 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
             )
           ), 
           
-          React.createElement(Content, {appId: this.props.params.appId, isDownloading: false}), 
+          React.createElement(Content, {appId: this.props.params.appId, isDownloading: true}), 
           React.createElement("div", {className: "overlay-background", style: {display: 'none'}}), 
           React.createElement("div", {className: "overlay-wrapper", style: {display: 'none'}}, 
             React.createElement("div", {className: "overlay-content-wrapper"}, 

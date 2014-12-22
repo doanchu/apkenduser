@@ -268,6 +268,7 @@ func main() {
 	myTemplate.ParseFiles(templateDir+"index.v2.html", templateDir+"popup.html")
 	myTemplate, _ = template.ParseFiles(templateDir+"index.v2.html", templateDir+"popup.html")
 
+	handlers.MyTemplate = myTemplate
 	//var err error
 	var host string = mongoHost + ":" + strconv.Itoa(mongoPort)
 	log.Println(host)

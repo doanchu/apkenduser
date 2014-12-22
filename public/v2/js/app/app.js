@@ -50,6 +50,14 @@ var routes = (
 
     <Route name="AppDetails" path="/app/:appId.html" handler={AppDetails}>        
     </Route>     
+
+    <Route name="AppDetailsWhenOneDownload" path="/app/cdownload/:partner/:appId" route="/app/cdownload" handler={AppDetails}>        
+    </Route>     
+
+    <Route name="AppDetailsWhenDownload" path="/app/download/:partner/:appId" route="/app/download" handler={AppDetails}>        
+    </Route>     
+
+
     <Route name="AppSearchQuery" path="/app/search/:query" handler={AppSearch}>        
     </Route>    
     <Route name="AppSearch" path="/app/search" handler={AppSearch}>        

@@ -648,6 +648,16 @@ var Content = React.createClass({
     } else {
       size = this.state.data.size;
     }
+
+    var downloadButton = <button className="" onClick={this.handleDownload} data-href={downloadLink}>                
+                  <span> Cài đặt ngay</span>    
+                </button>;
+    if (this.props.isDownloading == true) {
+        downloadButton = <button className="" data-href={downloadLink} disabled>                
+                  <span> Ứng dụng đang được tải về</span>    
+                </button>;
+        downloadLink = "#";
+    }                
     return (
 <div itemscope="itemscope" itemtype="http://schema.org/MobileApplication" id="body-content" role="main">      
 <div>
@@ -667,9 +677,7 @@ var Content = React.createClass({
             <span className="apps medium play-button buy-button-container" data-doc-fetch-skip-cache={0} data-doc-fetch-vouchers={0}>
               <div className="pon" style={{display: 'none'}}>1</div>
               <a href={downloadLink} style={{color: 'white'}}>
-                <button className="" onClick={this.handleDownload} data-href={downloadLink}>                
-                  <span> Cài đặt ngay</span>    
-                </button>
+              {downloadButton}
               </a>
             </span>
           </span>
@@ -840,7 +848,7 @@ var AppDetails = React.createClass({
             </div>
           </div>          
           
-          <Content appId={this.props.params.appId}/>
+          <Content appId={this.props.params.appId} isDownloading={false} />
           <div className="overlay-background" style={{display: 'none'}} />
           <div className="overlay-wrapper" style={{display: 'none'}}>
             <div className="overlay-content-wrapper">

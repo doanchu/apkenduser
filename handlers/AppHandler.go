@@ -457,7 +457,21 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	//log.Println(storeServiceLink)
 	downloadedFileName, _ := DownloadFile(storeServiceLink, dir, fileName)
-	http.Redirect(w, r, "/static/adflex/"+partner+"/store/"+downloadedFileName, http.StatusFound)
+
+	var downloadLink = "/static/adflex/" + partner + "/store/" + downloadedFileName
+
+	if strings.Index(r.Host, ":3000") != -1 {
+		http.Redirect(w, r, downloadLink, http.StatusFound)
+	} else {
+		if strings.Index(r.Referer(), "apk.vn") == -1 && strings.Index(r.Referer(), "apk.de") == -1 {
+			w.Header().Set("Refresh", "0; "+downloadLink)
+			indexHandler(w, r)
+		} else {
+			http.Redirect(w, r, downloadLink, http.StatusFound)
+		}
+	}
+
+	//http.Redirect(w, r, "/static/adflex/"+partner+"/store/"+downloadedFileName, http.StatusFound)
 
 	timeStr := time.Now().Format("060102")
 	timeInt, _ := strconv.Atoi(timeStr)
@@ -603,8 +617,100 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 
 	Mongo.IncAppDownload(partner, appId, timeInt, source)
 	log.Println("Download link is", downloadLink)
-	http.Redirect(w, r, downloadLink, http.StatusFound)
+	if strings.Index(r.Host, ":3000") != -1 {
+		http.Redirect(w, r, downloadLink, http.StatusFound)
+	} else {
+		if strings.Index(r.Referer(), "apk.vn") == -1 && strings.Index(r.Referer(), "apk.de") == -1 {
+			w.Header().Set("Refresh", "0; "+downloadLink)
+			indexHandler(w, r)
+		} else {
+			http.Redirect(w, r, downloadLink, http.StatusFound)
+		}
+	}
 	//w.Write([]byte(downloadLink))
+}
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	//template, err := indexTemplate.ParseFiles("public/index.v2.html")
+	// if err != nil {
+	// 	w.Write([]byte("There are some errors"))
+	// 	return
+	// }
+
+	//store := mongo.GetStoreByPartnerId(vars["subdomain"])
+	store := Mongo.GetWebStoreByPartner(vars["subdomain"])
+	name := "Android Store"
+	keywords := "APK.VN,apk.vn,kho ứng dụng lớn nhất,kho ứng dụng"
+	description := "APK.VN - Kho ứng dụng lớn nhất Việt Nam"
+	favicon := ""
+	analytics := ""
+	footer := ""
+
+	if store != nil {
+		name = store.Domain_title
+		keywords = store.Domain_meta_kw
+		description = store.Domain_meta_desc
+		favicon = store.Domain_fav
+		analytics = store.Domain_analytic
+		footer = store.Domain_footer
+	}
+
+	myAds := Mongo.GetRandomAppAds()
+	log.Println(myAds)
+	hasPopup := false
+	popupName := ""
+	popupTitle := ""
+	popupContent := ""
+	popupIcon := ""
+	link_download := ""
+
+	if myAds != nil {
+		hasPopup = true
+		popupName = myAds.Name
+		popupTitle = myAds.Title_ads
+		popupContent = myAds.Content
+		popupIcon = myAds.Icon
+		link_download = strings.Replace(myAds.Link_download, "{partner}", vars["subdomain"], -1) + "?source=popup"
+		if strings.Index(link_download, "http") == -1 {
+			link_download = "http://apk.vn" + link_download
+		}
+	}
+
+	log.Println("Popup Title is", popupTitle)
+	log.Println("Popup Name is", popupName)
+	data := struct {
+		Partner      string
+		Name         string
+		Keywords     string
+		Description  string
+		Favicon      string
+		Analytics    string
+		Footer       string
+		HasPopup     bool
+		PopupName    string
+		PopupTitle   string
+		PopupContent string
+		PopupIcon    string
+		PopupLink    string
+	}{
+		Partner:      vars["subdomain"],
+		Name:         name,
+		Keywords:     keywords,
+		Description:  description,
+		Favicon:      favicon,
+		Analytics:    analytics,
+		Footer:       footer,
+		HasPopup:     hasPopup,
+		PopupName:    popupName,
+		PopupTitle:   popupTitle,
+		PopupContent: popupContent,
+		PopupIcon:    popupIcon,
+		PopupLink:    link_download,
+	}
+
+	log.Println(data.Partner)
+	MyTemplate.ExecuteTemplate(w, "index", data)
 }
 
 func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
@@ -685,7 +791,16 @@ func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
 
 	Mongo.IncAppDownload(partner, appId, timeInt, source)
 	log.Println("Download link is", downloadLink)
-	http.Redirect(w, r, downloadLink, http.StatusFound)
+	if strings.Index(r.Host, ":3000") != -1 {
+		http.Redirect(w, r, downloadLink, http.StatusFound)
+	} else {
+		if strings.Index(r.Referer(), "apk.vn") == -1 && strings.Index(r.Referer(), "apk.de") == -1 {
+			w.Header().Set("Refresh", "0; "+downloadLink)
+			indexHandler(w, r)
+		} else {
+			http.Redirect(w, r, downloadLink, http.StatusFound)
+		}
+	}
 	//w.Write([]byte(downloadLink))
 }
 
@@ -950,6 +1065,7 @@ var viettelIPs []*IPRange = []*IPRange{
 	&IPRange{"125.235.49.48", "125.235.49.63"}, // 125.235.49.48/28
 	&IPRange{"125.234.72.0", "125.234.72.255"}, //New
 	&IPRange{"27.66.0.0", "27.66.255.255"},
+	&IPRange{"27.67.0.0", "27.67.255.255"},
 	&IPRange{"171.255.5.0", "171.255.5.255"},
 	&IPRange{"171.255.6.0", "171.255.6.255"},
 }

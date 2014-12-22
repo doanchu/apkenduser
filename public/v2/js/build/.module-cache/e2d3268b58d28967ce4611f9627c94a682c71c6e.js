@@ -653,10 +653,9 @@ var Content = React.createClass({displayName: 'Content',
                   React.createElement("span", null, " Cài đặt ngay")
                 );
     if (this.props.isDownloading == true) {
-        downloadButton = React.createElement("button", {className: "", 'data-href': downloadLink, disabled: true}, 
-                  React.createElement("span", null, " Ứng dụng đang được tải về")
+        downloadButton = React.createElement("button", {className: "", 'data-href': downloadLink}, 
+                  React.createElement("span", null, " Ứng dụng của bạn đang được cài đặt")
                 );
-        downloadLink = "#";
     }                
     return (
 React.createElement("div", {itemscope: "itemscope", itemtype: "http://schema.org/MobileApplication", id: "body-content", role: "main"}, 

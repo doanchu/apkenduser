@@ -848,7 +848,7 @@ var AppDetails = React.createClass({displayName: 'AppDetails',
             )
           ), 
           
-          React.createElement(Content, {appId: this.props.params.appId, isDownloading: false}), 
+          React.createElement(Content, {appId: this.props.params.appId, isDownloading: true}), 
           React.createElement("div", {className: "overlay-background", style: {display: 'none'}}), 
           React.createElement("div", {className: "overlay-wrapper", style: {display: 'none'}}, 
             React.createElement("div", {className: "overlay-content-wrapper"}, 
