@@ -637,9 +637,12 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	// 	w.Write([]byte("There are some errors"))
 	// 	return
 	// }
-
+	var partner string = vars["subdomain"]
+	if partner == "" {
+		partner = vars["partner"]
+	}
 	//store := mongo.GetStoreByPartnerId(vars["subdomain"])
-	store := Mongo.GetWebStoreByPartner(vars["subdomain"])
+	store := Mongo.GetWebStoreByPartner(partner)
 	name := "Android Store"
 	keywords := "APK.VN,apk.vn,kho ứng dụng lớn nhất,kho ứng dụng"
 	description := "APK.VN - Kho ứng dụng lớn nhất Việt Nam"
