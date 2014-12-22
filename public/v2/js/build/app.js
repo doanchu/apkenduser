@@ -54,13 +54,13 @@ var routes = (
     React.createElement(Route, {name: "AppDetailsWhenOneDownload", path: "/app/cdownload/:partner/:appId", route: "/app/cdownload", handler: AppDetails}
     ), 
 
-    React.createElement(Route, {name: "AppDetailsWhenOneOldDownload", path: "/app/download/:app_id.apk", route: "/app/download", handler: AppDetails}
+    React.createElement(Route, {name: "AppDetailsWhenOneOldDownload", path: "/app/download/:appId.apk", route: "/app/download", handler: AppDetails}
     ), 
 
     React.createElement(Route, {name: "AppDetailsWhenDownload", path: "/app/download/:partner/:appId", route: "/app/download", handler: AppDetails}
     ), 
 
-    React.createElement(Route, {name: "AppDetailsWhenOldDownload", path: "/download/:app_id.html", route: "/app/download", handler: AppDetails}
+    React.createElement(Route, {name: "AppDetailsWhenOldDownload", path: "/download/:appId.html", route: "/app/download", handler: AppDetails}
     ), 
 
 
