@@ -660,6 +660,7 @@ var Content = React.createClass({displayName: 'Content',
     }                
     return (
 React.createElement("div", {itemscope: "itemscope", itemtype: "http://schema.org/MobileApplication", id: "body-content", role: "main"}, 
+React.createElement(VerticalShortcuts, null), 
 React.createElement("div", null, 
   React.createElement("div", {className: "details-wrapper apps square-cover id-track-partial-impression", 'data-uitype': 209}, 
     React.createElement("div", {className: "details-info"}, 

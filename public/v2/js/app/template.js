@@ -660,6 +660,7 @@ var Content = React.createClass({
     }                
     return (
 <div itemscope="itemscope" itemtype="http://schema.org/MobileApplication" id="body-content" role="main">      
+<VerticalShortcuts />
 <div>
   <div className="details-wrapper apps square-cover id-track-partial-impression" data-uitype={209}>
     <div className="details-info">
