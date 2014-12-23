@@ -5,6 +5,8 @@ import "gopkg.in/mgo.v2/bson"
 import "github.com/doanchu/apkenduser/models"
 import "log"
 import "math/rand"
+import "strconv"
+import "time"
 
 type Mongo struct {
 	Session *mgo.Session
@@ -204,6 +206,19 @@ func (m *Mongo) SearchCommonApps(query string, page int, limit int) []*models.Ap
 	} else {
 		return result
 	}
+}
+
+func (m *Mongo) IncIpStats(ip string, appId string, action string) {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("ip_stats")
+	timeStr := time.Now().Format("060102")
+	timeInt, _ := strconv.Atoi(timeStr)
+
+	c.Upsert(bson.M{"ip": ip, "id": appId, "date": timeInt}, bson.M{"$inc": bson.M{action: 1}})
+	c.Upsert(bson.M{"ip": ip, "id": "@", "date": timeInt}, bson.M{"$inc": bson.M{action: 1}})
 }
 
 func (m *Mongo) IncAppDownload(partner string, id string, date int, source string) {
