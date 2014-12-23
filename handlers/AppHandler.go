@@ -1122,3 +1122,16 @@ func BannersHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	WriteJsonResult(w, result)
 }
+
+func AdsHandler(w http.ResponseWriter, r *http.Request) {
+	config := Mongo.GetAdsConfig("ads_in_app")
+	details := Mongo.GetAppAds()
+	result := struct {
+		Config *models.SystemConfig `json:"config"`
+		Ads    interface{}          `json:"ads"`
+	}{
+		Config: config,
+		Ads:    details,
+	}
+	WriteJsonResult(w, result)
+}

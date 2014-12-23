@@ -645,3 +645,38 @@ func (m *Mongo) GetAppMapper(oldAppId string) *models.AppMapper {
 		return result
 	}
 }
+
+func (m *Mongo) GetAdsConfig(config string) *models.SystemConfig {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("system_config")
+
+	result := &models.SystemConfig{}
+
+	err := c.Find(bson.M{"type": config}).One(result)
+
+	if err != nil {
+		return nil
+	} else {
+		return result
+	}
+}
+
+func (m *Mongo) GetAppAds() []*interface{} {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("banner_inapp_ads")
+
+	var result []*interface{}
+	err := c.Find(bson.M{}).All(&result)
+
+	if err != nil {
+		return nil
+	} else {
+		return result
+	}
+}

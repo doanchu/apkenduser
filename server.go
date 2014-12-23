@@ -21,6 +21,7 @@ import "os"
 import _ "time"
 import "runtime"
 import "errors"
+import "encoding/json"
 
 var session *mgo.Session
 
@@ -320,7 +321,10 @@ func main() {
 		DB:   handlers.Mongo,
 	}
 
-	result := mongo.GetAppMapper("mp3.zing.vn")
+	result := mongo.GetAppAds()
+	resultStr, _ := json.Marshal(result)
+	log.Println("All Ads are: ", string(resultStr))
+
 	log.Println("App Mapper is", result)
 
 	// colResult := handlers.Mongo.GetCollectionById(bson.ObjectIdHex("545e003560e24d82ea541e21"))
@@ -373,6 +377,7 @@ func main() {
 	router.HandleFunc("/api/comments/{app_id}/{page}/{limit}", handlers.CommentsHandler)
 	router.HandleFunc("/api/categories", handlers.CategoriesHandler)
 	router.HandleFunc("/api/banners", handlers.BannersHandler)
+	router.HandleFunc("/api/app-ads", handlers.AdsHandler)
 
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
 	subRouter.HandleFunc("/app/download/{app_id}.apk", handlers.OneDownloadHandler)
