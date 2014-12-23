@@ -208,7 +208,7 @@ func (m *Mongo) SearchCommonApps(query string, page int, limit int) []*models.Ap
 	}
 }
 
-func (m *Mongo) IncIpStats(ip string, appId string, action string) {
+func (m *Mongo) IncIpStats(ip string, partner string, appId string, action string) {
 	session := m.Session.Clone()
 	defer session.Close()
 
@@ -217,8 +217,10 @@ func (m *Mongo) IncIpStats(ip string, appId string, action string) {
 	timeStr := time.Now().Format("060102")
 	timeInt, _ := strconv.Atoi(timeStr)
 
-	c.Upsert(bson.M{"ip": ip, "id": appId, "date": timeInt}, bson.M{"$inc": bson.M{action: 1}})
-	c.Upsert(bson.M{"ip": ip, "id": "@", "date": timeInt}, bson.M{"$inc": bson.M{action: 1}})
+	c.Upsert(bson.M{"ip": ip, "partner": partner, "id": appId, "date": timeInt}, bson.M{"$inc": bson.M{action: 1}})
+	c.Upsert(bson.M{"ip": ip, "partner": "@", "id": appId, "date": timeInt}, bson.M{"$inc": bson.M{action: 1}})
+	c.Upsert(bson.M{"ip": ip, "partner": partner, "id": "@", "date": timeInt}, bson.M{"$inc": bson.M{action: 1}})
+	c.Upsert(bson.M{"ip": ip, "partner": "@", "id": "@", "date": timeInt}, bson.M{"$inc": bson.M{action: 1}})
 }
 
 func (m *Mongo) IncAppDownload(partner string, id string, date int, source string) {

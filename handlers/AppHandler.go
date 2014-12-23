@@ -484,7 +484,7 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	Mongo.IncOneStoreDownload(partner, timeInt, source)
 	Mongo.IncOneAppDownload(partner, appId, timeInt, source)
-	Mongo.IncIpStats(GetOriginalIp(r), appId, "s_c_dl")
+	Mongo.IncIpStats(GetOriginalIp(r), partner, appId, "s_c_dl")
 }
 
 func DownloadFile(link string, dir string, fileName string) (string, error) {
@@ -628,7 +628,7 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, downloadLink, http.StatusFound)
 		}
 	}
-	Mongo.IncIpStats(GetOriginalIp(r), appId, "a_dl")
+	Mongo.IncIpStats(GetOriginalIp(r), partner, appId, "a_dl")
 	//w.Write([]byte(downloadLink))
 }
 
@@ -806,7 +806,7 @@ func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, downloadLink, http.StatusFound)
 		}
 	}
-	Mongo.IncIpStats(GetOriginalIp(r), appId, "a_dl")
+	Mongo.IncIpStats(GetOriginalIp(r), partner, appId, "a_dl")
 	//w.Write([]byte(downloadLink))
 }
 
