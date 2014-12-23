@@ -1124,11 +1124,11 @@ func BannersHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func AdsHandler(w http.ResponseWriter, r *http.Request) {
-	config := Mongo.GetAdsConfig("ads_in_app")
+	config := Mongo.GetAdsConfig("ads_in_app").Config
 	details := Mongo.GetAppAds()
 	result := struct {
-		Config *models.SystemConfig `json:"config"`
-		Ads    interface{}          `json:"ads"`
+		Config interface{} `json:"config"`
+		Ads    interface{} `json:"ads"`
 	}{
 		Config: config,
 		Ads:    details,
