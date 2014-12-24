@@ -419,6 +419,11 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	appId := vars["app_id"]
 	partner := vars["partner"]
 
+	newApp := Mongo.GetAppMapper(appId)
+	if newApp != nil {
+		appId = newApp.New_app
+	}
+
 	if partner == "" {
 		partner = vars["subdomain"]
 	}
@@ -540,6 +545,11 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	appId := vars["app_id"]
 	partner := vars["partner"]
+
+	newApp := Mongo.GetAppMapper(appId)
+	if newApp != nil {
+		appId = newApp.New_app
+	}
 
 	if partner == "" {
 		partner = vars["subdomain"]
@@ -723,6 +733,11 @@ func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	appId := vars["app_id"]
 	partner := vars["subdomain"]
+
+	newApp := Mongo.GetAppMapper(appId)
+	if newApp != nil {
+		appId = newApp.New_app
+	}
 
 	appCommon := Mongo.GetCommonAppById(appId)
 	if appCommon == nil {
