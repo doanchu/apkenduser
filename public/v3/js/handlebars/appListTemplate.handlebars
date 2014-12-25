@@ -1,0 +1,26 @@
+{{#each .}}
+{{#if .}}
+<li>
+    <div class="app_list_b_cnt"><a href="/app/{{id}}.html"
+                                   class="app_list_b_link app_list_c_link clearfix"
+                                   data-hover="app_list_b_link_hover"><img
+            src="{{thumbnail}}"
+            class="img_app_list_b">
+        <dl class="app_list_b_main bfc">
+            <dt class="app_list_b_tit">{{name}}</dt>
+            <dd class="app_list_c_info clearfix">
+                <p class="app_list_c_score"><span class="icon_score"><i style="width:82%;"></i></span></p>
+
+                <p class="app_list_d_downloads"><i class="icon_list_down"></i>{{total_download}}</p></dd>
+        </dl>
+        <p class="app_list_c_des"></p></a>
+
+        <p class="app_list_b_download"><a href="javascript:void(0)" class="btn_app_download"
+                                          data-hover="btn_app_download_hover"
+                                          onclick="market_download(this)"
+                                          data-name="{{id}}"
+                                          data-href="/app/download/{{id}}">Tải về</a><span
+                class="app_list_b_price">Miễn phí</span></p></div>
+</li>
+{{/if}}
+{{/each}}

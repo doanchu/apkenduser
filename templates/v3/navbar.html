@@ -1,0 +1,15 @@
+{{define "navbar"}}
+<nav class="main_menu">
+    <div class="main_menu_box" id="J-nav-scroll">
+        <div class="main_menu_box_cnt">
+            <ul class="main_menu_list clearfix">
+                <li {{if eq . "categories"}} class="active" {{end}} ><a href="/app/categories" data-hover="main_menu_hover">Thể loại</a></li>
+                <li {{if eq . "home"}} class="active" {{end}} ><a href="/" data-hover="main_menu_hover">Trang chủ</a></li>
+                <li {{if eq . "downloads"}} class="active" {{end}} ><a href="/top/downloads" data-hover="main_menu_hover">Top ứng dụng</a></li>
+                <li {{if eq . "collections"}} class="active" {{end}} ><a href="/app/collections" data-hover="main_menu_hover">Chọn lọc</a></li>
+            </ul>
+        </div>
+    </div>
+    <p class="main_menu_tip"></p>
+</nav>
+{{end}}

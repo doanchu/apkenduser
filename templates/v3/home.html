@@ -2,66 +2,169 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-<meta name="format-detection" content="email=no">
-<meta name="format-detection" content="address=no"> 
-<meta name="format-detection" content="telephone=no"/>
-<meta name="keywords" content="{{.Sdetails.Keywords}}" />
-<meta name="description" content="{{.Sdetails.Description}}" />
-<link href="{{.Sdetails.Favicon}}" rel="SHORTCUT ICON">
-{{template "mainStyle"}}
-<title>{{.Sdetails.Name}}</title>
-</head><body>
-<div class="wrap">
-    <div class="header">
-	    <div class="logoBox clearFix">
-		    <div class="leftArea"><a href="/" class="logo"></a><a href="/"></a></div><a href="/search/" class="bntSearch"></a>
-		</div>
-		<div class="navBox">
-		    <span class="active"><a href="/" class="home">Home</a></span><span><a href="/top/downloads/">Top</a></span><span><a href="/app/collections/">Chọc lọc</a></span><span ><a href="/apps/categories">Thể loại</a></span>
-		</div>
-	</div>	
-	<div class="container">
-		{{template "banner"}}
-	    <div class="mb10">		    
-			<div class="tabIndexContent mb10">
-				<div class="item db">
-					<ul class="publicList allInfoList mb10" id="more_soft"> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>{{.Sdetails.Name}}</title>    
+    <meta name="keywords"
+          content="{{.Sdetails.Keywords}}">
+    <meta name="description"
+          content="{{.Sdetails.Description}}">
+    <link rel="stylesheet" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/css/base.css">
+    <link rel="shortcut icon" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/img/favicon.ico">
+</head>
+<body class="bg">
+<header class="nav_box" id="J-nav-box" data-classname="nav_box_active"><a id="J-top"></a>
+    <ul class="nav_list clearfix">
+        <li class="nav_control fl"><a href="javascript:void(0);" class="icon_menu" data-hover="icon_menu_hover"
+                                      data-id="J-sub-nav-list" data-mask="true" data-checkclass="true">1Mobile
+            Categories</a></li>
+        <li class="nav_function fr"><a href="#" class="icon_search" data-hover="icon_search_hover" data-id="J-nav-box"
+                                       data-checkclass="true">Search</a></li>
+        <li class="fr"><a href="http://market.1mobile.com/"
+                          style="font-size:18px;color:#fff;line-height: 50px;border-right: 1px solid #00B885;padding-right: 10px;">Kho ứng dụng</a></li>
+        <li class="nav_content bfc"><a href="/" class="logo"><i class="icon_logo"></i>{{.Sdetails.Name}}</a></li>
+    </ul>
+    <div class="tool_search_box">
+        <form method="get" action="/search/">
+            <ul class="tool_search_list clearfix">
+                <li class="tool_search_cnt"><p class="tool_search_list_p"><input type="search" class="txt_search"
+                                                                                 name="keyword" autocomplete="off"
+                                                                                 id="J-txt-search"><a
+                        href="javascript:void(0);" class="btn_txt_clear" data-hover="btn_txt_clear_hover"
+                        id="J-clear-txt"></a></p></li>
+                <li class="tool_search_sub"><a href="javascript:void(0);" class="btn_search_cancel" id="J-btn-cancel"
+                                               data-hover="btn_search_cancel_hover">&nbsp;&nbsp;&nbsp;Huỷ&nbsp;&nbsp;&nbsp;</a></li>
+            </ul>
+        </form>
+    </div>
+</header>
+<dl class="sub_nav_list" id="J-sub-nav-list" data-classname="sub_nav_list_active">
+    <dd><a href="/top_download_local/" data-hover="sub_nav_link_hover">Trang chủ<i class="icon_arrow_right"></i></a>
+    </dd>
+    <dd><a href="/top_new_local/" data-hover="sub_nav_link_hover">Top ứng dụng<i class="icon_arrow_right"></i></a></dd>
+    <dd><a href="/top_download/" data-hover="sub_nav_link_hover">Chọn lọc<i class="icon_arrow_right"></i></a></dd>
+    <dd><a href="/top_new/" data-hover="sub_nav_link_hover">Thể loại<i class="icon_arrow_right"></i></a></dd>
 
-					</ul>	
-				</div>
+</dl>
+<section class="tool_search_tip tool_search_tip_cnt_show" id="J-search-box">
+    <div class="p8">
+        <div class="tool_search_tip_cnt" id="J-search-cnt">
+            <ul class="hot_keywords clearfix">
+                <li><a href="/search/?keyword=Clean+Master" data-hover="hot_keywords_hover">APK.VN gợi ý</a></li>
+            </ul>
+            <h3 class="recommended_tit">APK.VN gợi ý</h3>
+            <ul class="app_list_a recommended_list clearfix">
+                <li>
+                    <div class="app_list_a_cnt"><a href="/com.cjenm.chachacha.html" class="app_list_a_link"
+                                                   data-hover="app_list_a_link_hover"><img
+                            src="http://imgsdown.1mobile.com/group1/M00/89/99/S340LlPDDbiAInu-AACL730CHmc385.png"
+                            class="app_list_a_img">
 
-			</div>	
-        </div>		
-        <div class="mb10" id="loading"><a href="javascript:loadmore();" class="btnSeeMore">Xem thêm >></a></div>
-		<p class="toTopbox"><a href="#" class="backTotop">Lên đầu</a></p>
-	</div>
-	
-<script type="text/javascript" src="/v3/js/jquery.js"></script>
-<script type="text/javascript" src="/v3/js/touchScroll.js"></script>
-<script type="text/javascript" src="/v3/js/touchSlider.js"></script>
-{{template "footer"}}
-{{template "loadMore" .}}
-<script type="text/javascript">
-	var active=0,
-		as=document.getElementById('pagenavi').getElementsByTagName('a');
-	for(var i=0;i<as.length;i++){
-		(function(){
-			var j=i;
-			as[i].onclick=function(){
-				t2.slide(j);
-				return false;
-			}
-		})();
-	}
-	var t1=new TouchScroll({id:'wrapper','width':5,'opacity':0.7,color:'#555',minLength:20});
-	var t2=new TouchSlider({id:'slider', speed:600, timeout:6000, before:function(index){
-		as[active].className='';
-		active=index;
-		as[active].className='active';
-	}});
-</script>
+                        <p class="app_list_a_tit">APK.VN gợi ý</p></a></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+{{template "navbar" "home"}}
+<div class="container">
+    <!--Slider begins-->
+    {{range .Portions}}
+	    <section class="mt5">
+	        <div class="p8"><a href="{{.Banner.Link}}"><img
+	                src="http://beoiu.apk.vn/static/banner/2014/11/24/1416799304/STORE-SPEED.jpg" class="index_img"
+	                title=""></a></div>
+	    </section>
+	    {{if .FirstCategory}}
+	    <section class="mt5"><a href="/app/category/{{.FirstCategory.Id}}" class="app_list_head p8"
+	                            data-hover="app_list_head_hover">
+	        <div class="clearfix"><h2 class="app_list_head_tit fl">{{.FirstCategory.Name}}</h2> <span
+	                class="btn_more fr">Xem thêm</span></div>
+	        <p class="app_list_head_des">{{.FirstCategory.Sub}}</p></a>
+
+	        <div class="p8">
+	            <ul class="app_list_a clearfix">
+	            {{range .FirstLine}}
+	            	{{if .}}
+		                <li>
+		                    <div class="app_list_a_cnt"><a href="/app/{{.Id}}.html" class="app_list_a_link"
+		                                                   data-hover="app_list_a_link_hover"><img
+		                            src="{{.Thumbnail}}"
+		                            class="app_list_a_img">
+
+		                        <p class="app_list_a_tit">{{.Name}}</p><span class="icon_score"><i
+		                                style="width:84%;"></i></span></a><a href="javascript:void(0);" class="btn_download"
+		                                                                     data-hover="btn_download_hover"
+		                                                                     onclick="market_download(this)"
+		                                                                     data-name="{{.Id}}"
+		                                                                     data-href="/app/{{.Id}}.html">Tải về</a>
+		                    </div>
+		                </li>  
+	                {{end}}          
+	            {{end}}
+	            </ul>
+	        </div>
+	    </section>
+	    {{end}}
+	    {{if .SecondCategory}}
+	    <section class="mt5"><a href="/app/category/{{.SecondCategory.Id}}" class="app_list_head p8"
+	                            data-hover="app_list_head_hover">
+	        <div class="clearfix"><h2 class="app_list_head_tit fl">{{.SecondCategory.Name}}</h2> <span
+	                class="btn_more fr">Xem thêm</span></div>
+	        <p class="app_list_head_des">{{.SecondCategory.Sub}}</p></a>
+
+	        <div class="p8">
+	            <ul class="app_list_a clearfix">
+	            {{range .SecondLine}}
+	            	{{if .}}
+		                <li>
+		                    <div class="app_list_a_cnt"><a href="/app/{{.Id}}.html" class="app_list_a_link"
+		                                                   data-hover="app_list_a_link_hover"><img
+		                            src="{{.Thumbnail}}"
+		                            class="app_list_a_img">
+
+		                        <p class="app_list_a_tit">{{.Name}}</p><span class="icon_score"><i
+		                                style="width:84%;"></i></span></a><a href="javascript:void(0);" class="btn_download"
+		                                                                     data-hover="btn_download_hover"
+		                                                                     onclick="market_download(this)"
+		                                                                     data-name="{{.Id}}"
+		                                                                     data-href="/app/{{.Id}}.html">Tải về</a>
+		                    </div>
+		                </li>  
+	                {{end}}             
+	            {{end}}
+	            </ul>
+	        </div>
+	    </section>
+	    {{end}}	    
+    {{end}}
+</div>
+<footer class="foot_box mt20">
+    <ul class="foot_list">
+        <li class="foot_market clearfix"><a href="http://market.1mobile.com/?from=new_version" class="fl"><i
+                class="icon_market"></i>{{.Sdetails.Name}}</a><a href="#J-top" class="btn_top fr"
+                                                             data-hover="btn_top_hover">toTop</a></li>
+        <li class="foot_share"><a href="https://www.facebook.com/apk.vn"><i class="icon_facebook"></i>Facebook</a><a
+                href="https://twitter.com/apk.vn"><i class="icon_twitter"></i>Twitter</a><a
+                href="https://www.youtube.com/user/apk.vn"><i class="icon_youtube"></i>Youtube</a></li>
+        <li class="clearfix"><span class="sites_tit fl">{{.Sdetails.Name}}}</span>
+
+            <p class="sites_cnt bfc"><a href="http://www.1mobile.com/">English</a><span class="split">|</span><a
+                    href="http://www.1mobile.co.id/">Bahasa Indonesia</a><span class="split"></span>
+            </p></li>
+        <li class="foot_copy">&copy; 2014 1Mobile All rights reserved.</li>
+    </ul>
+</footer>
+<section class="bar_market"><a href="#" class="market_link"> <span class="icon_market_big fl"></span> <span
+        class="btn_download_big fr">Tải về ngay</span>
+
+    <div class="market_des bfc"><p>{{.Sdetails.Name}}</p>1,500,000 ứng dụng miễn phí</div>
+</a></section>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/zepto.min.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/iscroll-min.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/template.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/common.js"></script>
+<script type="text/javascript" src="http://img.1mobile.com/web2/m.1mobile.com/wap/js/ga.js"></script>
 </body>
-</html> 
+</html>
 {{end}}

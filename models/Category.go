@@ -9,6 +9,7 @@ type Category struct {
 	Partner    string `json:"partner"`
 	Permanlink string `json:"permalink"`
 	Status     int    `json:"status"`
+	Sub        string `json:"sub"`
 }
 
 func NormalizeCategory(cat *Category) {

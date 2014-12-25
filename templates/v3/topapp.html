@@ -1,0 +1,180 @@
+{{define "topApp"}}
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>Local Top - Top Charts Apps &amp; Games free download | m.1mobile.com</title>
+    <meta name="keywords" content="Local Top, Top charts, Top download, Top trends, free download, Top Androis Apps, Top Android Games, 1Mobile, 1Mobile Market,Steel Avengers: Scorched Earth,Facebook,Snapchat,Twitter,Pinterest,">
+    <meta name="description" content="Top Android Apps &amp; Games  free download in m.1mobile.com, Apps &amp; Games in local top, Apps &amp; Games in global top">
+    <link rel="stylesheet" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/css/base.css">
+    <link rel="shortcut icon" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/img/favicon.ico">
+</head>
+<body class="bg">
+<header class="nav_box" id="J-nav-box" data-classname="nav_box_active"><a id="J-top"></a>
+    <ul class="nav_list clearfix">
+        <li class="nav_control fl"><a href="javascript:void(0);" class="icon_menu" data-hover="icon_menu_hover" data-id="J-sub-nav-list" data-mask="true" data-checkclass="true">1Mobile Categories</a></li>
+        <li class="nav_function fr"><a href="#" class="icon_search" data-hover="icon_search_hover" data-id="J-nav-box" data-checkclass="true">Search</a></li>
+        <li class="fr"><a href="http://market.1mobile.com/" style="font-size:18px;color:#fff;line-height: 50px;border-right: 1px solid #00B885;padding-right: 10px;">Official Web</a></li>
+        <li class="nav_content bfc"><a href="/" class="logo"><i class="icon_logo"></i>1Mobile</a></li>
+    </ul>
+    <div class="tool_search_box">
+        <form method="get" action="/search/">
+            <ul class="tool_search_list clearfix">
+                <li class="tool_search_cnt"><p class="tool_search_list_p"><input type="search" class="txt_search" name="keyword" autocomplete="off" id="J-txt-search"><a href="javascript:void(0);" class="btn_txt_clear" data-hover="btn_txt_clear_hover" id="J-clear-txt"></a></p></li>
+                <li class="tool_search_sub"><a href="javascript:void(0);" class="btn_search_cancel" id="J-btn-cancel" data-hover="btn_search_cancel_hover">Cancel</a></li>
+            </ul>
+        </form>
+    </div>
+</header>
+<dl class="sub_nav_list" id="J-sub-nav-list" data-classname="sub_nav_list_active">
+    <dd><a href="/top_download_local/" data-hover="sub_nav_link_hover">Trang chủ<i class="icon_arrow_right"></i></a>
+    </dd>
+    <dd><a href="/top_new_local/" data-hover="sub_nav_link_hover">Top ứng dụng<i class="icon_arrow_right"></i></a></dd>
+    <dd><a href="/top_download/" data-hover="sub_nav_link_hover">Chọn lọc<i class="icon_arrow_right"></i></a></dd>
+    <dd><a href="/top_new/" data-hover="sub_nav_link_hover">Thể loại<i class="icon_arrow_right"></i></a></dd>
+</dl>
+<section class="tool_search_tip tool_search_tip_cnt_show" id="J-search-box">
+    <div class="p8">
+        <div class="tool_search_tip_cnt" id="J-search-cnt">
+            <ul class="hot_keywords clearfix">
+                <li><a href="/search/?keyword=Clean+Master" data-hover="hot_keywords_hover">APK.VN gợi ý</a></li>
+            </ul>
+            <h3 class="recommended_tit">APK.VN gợi ý</h3>
+            <ul class="app_list_a recommended_list clearfix">
+                <li>
+                    <div class="app_list_a_cnt"><a href="/com.cjenm.chachacha.html" class="app_list_a_link"
+                                                   data-hover="app_list_a_link_hover"><img
+                            src="http://imgsdown.1mobile.com/group1/M00/89/99/S340LlPDDbiAInu-AACL730CHmc385.png"
+                            class="app_list_a_img">
+
+                        <p class="app_list_a_tit">APK.VN gợi ý</p></a></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+{{template "navbar" "downloads"}}
+<nav class="sub_menu">
+    <div class="sub_menu_box">
+        <ul class="sub_menu_list clearfix">
+            <li class="active"><a href="/top/downloads" data-hover="sub_menu_hover">Tải nhiều</a></li>
+            <li><a href="/top/new" data-hover="sub_menu_hover">Mới nhất</a></li>
+            <li><a href="/top/standings" data-hover="sub_menu_hover">Yêu thích</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <section class="p8">
+        <ul class="app_list_b app_list_c" id="J-topcharts">
+        </ul>
+        <div id="J-loading">
+            <p class="loading_box"><span class="icon_loading"></span></p>
+            <a href="javascript:void(0);" class="btn_see_more" data-hover="btn_see_more_hover" id="J-seemore"><i class="icon_arror"></i>Ấn vào đây để xem thêm</a>
+        </div>
+    </section>
+</div>
+<footer class="foot_box mt20">
+    <ul class="foot_list">
+        <li class="foot_market clearfix"><a href="http://market.1mobile.com/?from=new_version" class="fl"><i
+                class="icon_market"></i>{{.Sdetails.Name}}</a><a href="#J-top" class="btn_top fr"
+                                                             data-hover="btn_top_hover">toTop</a></li>
+        <li class="foot_share"><a href="https://www.facebook.com/apk.vn"><i class="icon_facebook"></i>Facebook</a><a
+                href="https://twitter.com/apk.vn"><i class="icon_twitter"></i>Twitter</a><a
+                href="https://www.youtube.com/user/apk.vn"><i class="icon_youtube"></i>Youtube</a></li>
+        <li class="clearfix"><span class="sites_tit fl">{{.Sdetails.Name}}}</span>
+
+            <p class="sites_cnt bfc"><a href="http://www.1mobile.com/">English</a><span class="split">|</span><a
+                    href="http://www.1mobile.co.id/">Bahasa Indonesia</a><span class="split"></span>
+            </p></li>
+        <li class="foot_copy">&copy; 2014 1Mobile All rights reserved.</li>
+    </ul>
+</footer>
+<section class="bar_market"><a href="#" class="market_link"> <span class="icon_market_big fl"></span> <span
+        class="btn_download_big fr">Tải về ngay</span>
+
+    <div class="market_des bfc"><p>{{.Sdetails.Name}}</p>1,500,000 ứng dụng miễn phí</div>
+</a></section>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/zepto.min.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/iscroll-min.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/template.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/common.js"></script>
+<script type="text/javascript" src="http://img.1mobile.com/web2/m.1mobile.com/wap/js/ga.js"></script>
+<script src="/v3/js/handlebars.runtime.js"></script>
+<script src="/v3/js/handlebars/template.js"></script>
+<script type="text/javascript">
+    var initialData = {{.AppList}};
+    var template = Handlebars.templates.appListTemplate(initialData);    
+    var partner = {{.Sdetails.Partner}};
+    $("#J-topcharts").append(template);
+</script>
+<script>
+
+    (function () {
+        var nCurrentPage = 2,
+                pagesCount = 0,
+                $loadingBox = $('#J-loading'),
+                $btnSeeMore = $('#J-seemore'),
+                $list = $('#J-topcharts'),
+                responseData = false,
+                seeMore = function (e) {
+                    e.preventDefault();
+                    $loadingBox.removeClass('loading_seemore');
+                    $loadingBox.addClass('loading');
+                    nCurrentPage++;
+                    $(window).unbind('scroll', loadingData);
+                    getData();
+                },
+                renderingData = function () {
+                    var tempCommentData;
+                    $loadingBox.addClass('loading');
+                    var html = Handlebars.templates.appListTemplate(responseData);    
+                    $loadingBox.removeClass('loading');
+                    $list.append(html);                   
+                    if (responseData != null && responseData.length > 0) {
+                        nCurrentPage++;
+                    } 
+                    $(window).bind('scroll', loadingData);
+                },
+                readData = function (data) {
+                    responseData = data;
+                    renderingData(responseData);
+                },
+                getData = function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/apps-download/beoiu/' + nCurrentPage + "/10",
+                        dataType: 'json',
+                        success: readData
+                    })
+                },
+                getLoadingBoxTop = function () {
+                    return $loadingBox.offset().top;
+                },
+                getScrollPosition = function () {
+                    var nScrollTop = document.body.scrollTop ? document.body.scrollTop : document.documentElement.scrollTop;
+                    return nScrollTop + $(window).height();
+                },
+                isLoading = function () {
+                    if (getScrollPosition() > getLoadingBoxTop()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                loadingData = function () {
+                    if (isLoading()) {
+                        $loadingBox.addClass('loading');
+                        $(window).unbind('scroll', loadingData);
+                        window.setTimeout(function () {
+                            getData();
+                        }, 150);
+
+                    }
+                };
+        $(window).bind('scroll', loadingData);
+        $btnSeeMore.bind('click', seeMore);        
+    })();
+</script>
+</body>
+</html>
+{{end}}

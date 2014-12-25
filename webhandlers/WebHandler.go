@@ -163,18 +163,44 @@ func GetStoreDetails(partner string) *StoreDetails {
 	}
 }
 
+func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
+	var appDetails = make([]*models.AppDetails, len(apps))
+
+	for key, value := range apps {
+		id := value.Id
+		appCommon := Mongo.GetCommonAppById(id)
+		if appCommon == nil {
+			//log.Println(value.Id)
+			appDetails[key] = nil
+			continue
+		}
+		//log.Println(appCommon.Status)
+		if appCommon.Status == 1 {
+			category := Mongo.GetCategoryById(value.Cid)
+			appDetails[key] = models.NewAppDetails(value, appCommon, category)
+			appDetails[key].Desc = ""
+			appDetails[key].Ss = nil
+		} else {
+			appDetails[key] = nil
+		}
+	}
+
+	return appDetails
+}
+
+type HomePortion struct {
+	Banner         *models.Banner
+	FirstCategory  *models.Category
+	FirstLine      []*models.AppDetails
+	SecondCategory *models.Category
+	SecondLine     []*models.AppDetails
+}
+
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
-	log.Println("This is the love")
+	log.Println("This is home page")
 	vars := mux.Vars(r)
-	//template, err := indexTemplate.ParseFiles("public/index.v2.html")
-	// if err != nil {
-	// 	w.Write([]byte("There are some errors"))
-	// 	return
-	// }
 
-	//store := mongo.GetStoreByPartnerId(vars["subdomain"])
-	//store := Mongo.GetWebStoreByPartner(vars["subdomain"])
 	storeDetails := GetStoreDetails(vars["subdomain"])
 
 	myPartner := vars["subdomain"]
@@ -183,23 +209,46 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	limit := 100
-	page := 1
+	banners := Mongo.GetAllBanners()
+	categories := Mongo.GetAllCategories()
 
-	var sortCondition string = "-time_order"
-	appDetails := GetAppDetails(myPartner, page, limit, sortCondition)
-	var dataJSON = getJSONString(appDetails)
+	pos := 0
+	bannerPos := 0
+	currentPortion := &HomePortion{}
+	portions := make([]*HomePortion, 0, len(categories)/2+1)
+	myPartner = "beoiu"
+	for _, cat := range categories {
+		if pos%2 == 0 {
+			currentPortion = &HomePortion{}
+			if bannerPos > len(banners)-1 {
+				bannerPos = 0
+			}
+			currentPortion.Banner = banners[bannerPos]
+			currentPortion.FirstCategory = cat
+			tempAppInfo := Mongo.GetPartnerAppsByCategory(myPartner, cat.Id, 1, 3)
+			currentPortion.FirstLine = CreateAppDetails(tempAppInfo)
+		} else {
+			currentPortion.SecondCategory = cat
+			tempAppInfo := Mongo.GetPartnerAppsByCategory(myPartner, cat.Id, 1, 3)
+			currentPortion.SecondLine = CreateAppDetails(tempAppInfo)
+			portions = append(portions, currentPortion)
+		}
+		pos = pos + 1
+	}
+	if currentPortion.SecondCategory == nil {
+		portions = append(portions, currentPortion)
+	}
 
 	data := struct {
 		Sdetails *StoreDetails
 		Page     string
-		AppList  template.JS
+		Portions []*HomePortion
 	}{
 		Sdetails: storeDetails,
-		AppList:  template.JS(dataJSON),
+		Portions: portions,
 		Page:     "Trang chủ",
 	}
-	log.Println(dataJSON)
+	log.Println(storeDetails)
 	MyTemplates.ExecuteTemplate(w, "home", data)
 }
 
@@ -223,7 +272,7 @@ func TopAppHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	limit := 100
+	limit := 10
 	page := 1
 
 	condition := vars["condition"]
@@ -325,31 +374,6 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 
 	log.Println(result[0])
 	MyTemplates.ExecuteTemplate(w, "categories", data)
-}
-
-func CreateAppDetails(apps []*models.PartnerAppInfo) []*models.AppDetails {
-	var appDetails = make([]*models.AppDetails, len(apps))
-
-	for key, value := range apps {
-		id := value.Id
-		appCommon := Mongo.GetCommonAppById(id)
-		if appCommon == nil {
-			appDetails[key] = nil
-			continue
-		}
-
-		if appCommon.Status == 1 {
-			category := Mongo.GetCategoryById(value.Cid)
-			appDetails[key] = models.NewAppDetails(value, appCommon, category)
-			appDetails[key].Desc = ""
-			appDetails[key].Ss = nil
-		} else {
-			appDetails[key] = nil
-		}
-
-	}
-
-	return appDetails
 }
 
 func WriteJsonResult(w http.ResponseWriter, result interface{}) {

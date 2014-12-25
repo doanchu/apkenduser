@@ -268,7 +268,8 @@ func main() {
 	myTemplate, _ = template.ParseFiles(
 		templateDir+"app.css",
 		templateDir+"home.html",
-		templateDir+"top_app.html",
+		templateDir+"navbar.html",
+		templateDir+"topapp.html",
 		templateDir+"categories.html",
 		templateDir+"category.html",
 		templateDir+"featured.html",
