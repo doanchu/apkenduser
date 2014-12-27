@@ -158,7 +158,7 @@ var serverPort int
 var storageDir string
 
 func readConfiguration() {
-	c, err := conf.ReadConfigFile("web.cfg")
+	c, err := conf.ReadConfigFile("web.v3.cfg")
 	if err != nil {
 		log.Fatal("Cannot read configuration file")
 		return
