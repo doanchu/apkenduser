@@ -1,0 +1,131 @@
+{{define "appdetails"}}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>Interstellar - free download of Android version | m.1mobile.com </title>
+    <meta name="keywords"
+          content=".Sdetails.Keywords">
+    <meta name="description"
+          content="{{.Sdetails.Description}}">
+    <link rel="stylesheet" href="/v3/base.css">
+    <link rel="shortcut icon" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/img/favicon.ico">
+</head>
+<body class="bg">
+<header class="nav_box subnav_box"><a id="J-top"></a>
+  <ul class="nav_list clearfix">
+    <li class="nav_control fl"><a href="javascript:history.go(-1);" class="icon_back" data-hover="icon_back_hover">back</a></li>    
+    <li class="nav_function fr"><a href="/search/" class="icon_search" data-hover="icon_search_hover">Search</a><a href="javascript:void(0);" class="icon_nav_more" data-hover="icon_nav_more_hover" data-id="J-all-nav-list" data-mask="true" data-checkclass="true">more navigation</a></li>
+    <li class="nav_content bfc"><span class="subnav_tit">Chi tiết</span></li>
+  </ul>
+</header>
+<dl class="all_nav_list" id="J-all-nav-list" data-classname="all_nav_list_active">
+  <dd><a href="/" class="cate_nav_link" data-hover="cate_nav_link_hover">Trang chủ<i class="icon_nav_cate"></i></a></dd>
+  <dd><a href="/top/hot" class="apps_nav_link" data-hover="apps_nav_link_hover">Top ứng dụng<i class="icon_nav_apps"></i></a></dd>
+  <dd><a href="/app/collections" class="games_nav_link" data-hover="games_nav_link_hover">Chọn lọc<i class="icon_nav_games"></i></a></dd>
+  <dd><a href="/app/categories" class="top_nav_link" data-hover="top_nav_link_hover">Thể loại<i class="icon_nav_top"></i></a></dd>
+</dl>
+<div class="container">
+    <div id="J-detail-info">
+        <section class="detail_baseinfo clearfix"><img
+                src="{{.App.Thumbnail}}"
+                class="img_baseinfo">
+            <dl class="detail_baseinfo_list bfc">
+                <dt>{{.App.Name}}</dt>
+                <dd class="detail_baseinfo_other">{{.App.Vendor}}</dd>
+                <dd class="detail_baseinfo_score clearfix">{{.App.Total_download}} Lượt tải
+                </dd>
+                <dd class="detail_baesinfo_speed"><a href="javascript:void(0)" class="btn_detail_download"
+                                                     data-hover="btn_detail_download_hover"
+                                                     data-name="{{.App.Id}}"
+                                                     data-href="/app/download/{{.App.Id}}"
+                                                     onclick="market_download(this)">Tải về</a></dd>
+            </dl>
+            <!-- <div class="detail_speedup"><i class="icon_speedup fl"></i><div class="bfc"><strong>speed up 80%</strong><p>Mobile Market has provided quick download service for 300 million users all over the world</p></div></div>-->
+        </section>
+        <section class="detail_screenshort">
+            <div class="detail_screenshort_box" id="J-screenshort">
+                <ul class="detail_screenshort_list clearfix">
+                    {{range .App.Ss}}
+                    <li><a href="{{.}}"
+                           target="_blank" data-hover="detail_screenshort_hover"
+                           data-loading="/v3/img/loading.gif"><img
+                            src="{{.}}"></a>
+                    </li>
+                    {{end}}                    
+                </ul>
+            </div>
+        </section>
+        <section class="detail_moreinfo">
+            <ul class="detail_moreinfo_list">
+                <li class="clearfix"><span class="fl">Lượt tải: {{.App.Total_download}}</span><span class="fr">37.9MB</span></li>
+            </ul>
+        </section>
+        <section class="detail_item mt20" id="J-description" data-classname="detail_item_des_more"><h2
+                class="detail_item_tit">MÔ TẢ</h2> <a href="javascript:void(0);" class="detail_item_cnt"
+                                                            data-hover="detail_item_cnt_hover" data-id="J-description"
+                                                            data-checkclass="true">{{.ShortDesc}}<p class="btn_detail_view"><i
+                    class="icon_arror"></i></p></a> <a href="javascript:void(0);"
+                                                       class="detail_item_cnt detail_item_cnt_more"
+                                                       data-id="J-description">{{.Desc}}<p
+                    class="btn_detail_view"><i class="icon_arror_up"></i></p></a></section>
+
+        <section class="mt5">
+            <div class="app_list_head p8">
+                <div class="clearfix"><h2 class="app_list_head_tit fl">Các ứng dụng cùng thể loại</h2>
+                    <!-- <a href="/developer/paramount-digital-entertainment.html?pkgname=com.paramount.interstellar" class="btn_more fr" data-hover="btn_more_hover">More</a>-->
+                </div>
+            </div>
+            <div class="p8">
+                <ul class="app_list_a clearfix">
+                    {{range .RelatedApps}}
+                    <li>
+                        <div class="app_list_a_cnt"><a href="/app/{{.Id}}.html" class="app_list_a_link"
+                                                       data-hover="app_list_a_link_hover"><img
+                                src="{{.Thumbnail}}"
+                                class="app_list_a_img">
+
+                            <p class="app_list_a_tit">{{.Name}}</p><span class="icon_score"><i
+                                    style="width:100%;"></i></span></a><a href="javascript:void(0)" class="btn_download"
+                                                                          data-hover="btn_download_hover"
+                                                                          data-name="{{.Id}}"
+                                                                          data-href="/app/cdownload/{{.Id}}"
+                                                                          onclick="market_download(this)">Tải về</a>
+                        </div>
+                    </li>
+                    {{end}}
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+<footer class="foot_box mt20">
+    <ul class="foot_list">
+        <li class="foot_market clearfix"><a href="http://market.1mobile.com/?from=new_version" class="fl"><i
+                class="icon_market"></i>{{.Sdetails.Name}}</a><a href="#J-top" class="btn_top fr"
+                                                             data-hover="btn_top_hover">toTop</a></li>
+        <li class="foot_share"><a href="https://www.facebook.com/apk.vn"><i class="icon_facebook"></i>Facebook</a><a
+                href="https://twitter.com/apk.vn"><i class="icon_twitter"></i>Twitter</a><a
+                href="https://www.youtube.com/user/apk.vn"><i class="icon_youtube"></i>Youtube</a></li>
+        <li class="clearfix"><span class="sites_tit fl">{{.Sdetails.Name}}}</span>
+
+            <p class="sites_cnt bfc"><a href="http://www.1mobile.com/">English</a><span class="split">|</span><a
+                    href="http://www.1mobile.co.id/">Bahasa Indonesia</a><span class="split"></span>
+            </p></li>
+        <li class="foot_copy">&copy; 2014 1Mobile All rights reserved.</li>
+    </ul>
+</footer>
+<section class="bar_market"><a href="#" class="market_link"> <span class="icon_market_big fl"></span> <span
+        class="btn_download_big fr">Download</span>
+
+    <div class="market_des bfc"><p>1Mobile Market</p>More than 1,200,000 Android Apps free download</div>
+</a></section>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/zepto.min.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/iscroll-min.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/template.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/common.js"></script>
+<script type="text/javascript" src="http://img.1mobile.com/web2/m.1mobile.com/wap/js/ga.js"></script>
+</body>
+</html>
+{{end}}

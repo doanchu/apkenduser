@@ -6,6 +6,7 @@ type AppDetails struct {
 	Cid            int               `json:"cid"`
 	Cname          string            `json:"cname"`
 	Desc           string            `json:"desc"`
+	ShortDesc      string            `json:shortdesc`
 	Id             string            `json:"id"`
 	Name           string            `json:"name"`
 	Vendor         string            `json:"vendor"`
@@ -55,6 +56,7 @@ func NewAppDetails(p *PartnerAppInfo, a *AppCommon, c *Category) *AppDetails {
 		return &AppDetails{
 			Name:           p.Name,
 			Desc:           p.Desc,
+			ShortDesc:      Left(p.Desc, 200),
 			Id:             a.Id,
 			Cid:            p.Cid,
 			Cname:          c.Name,
@@ -79,12 +81,25 @@ func NewAppDetails(p *PartnerAppInfo, a *AppCommon, c *Category) *AppDetails {
 
 }
 
+func min(x, y int) int {
+	if x < y {
+		return x
+	} else {
+		return y
+	}
+}
+func Left(input string, no int) string {
+	var temp []rune = []rune(input)
+	return string(temp[:min(len(temp), no)])
+}
+
 func NewAppDetailsFromAppCommon(a *AppCommon, c *Category) *AppDetails {
 	NormalizeAppCommon(a)
 	totalDownload := a.Total_download + 1000
 	return &AppDetails{
 		Name:           a.Name,
 		Desc:           a.Desc,
+		ShortDesc:      Left(a.Desc, 200),
 		Id:             a.Id,
 		Cid:            a.Cid,
 		Cname:          c.Name,

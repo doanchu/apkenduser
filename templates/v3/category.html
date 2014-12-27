@@ -1,44 +1,140 @@
 {{define "category"}}
 <!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-<meta name="format-detection" content="email=no">
-<meta name="format-detection" content="address=no"> 
-<meta name="format-detection" content="telephone=no"/>
-<meta name="keywords" content="{{.Sdetails.Keywords}}" />
-<meta name="description" content="{{.Sdetails.Description}}" />
-<link href="{{.Sdetails.Favicon}}" rel="SHORTCUT ICON">
-{{template "mainStyle"}}
-<title>{{.Sdetails.Name}}</title>
-</head><body>
-<div class="wrap">
-	<div class="header">
-	    <div class="currentLocation"><a href="javascript:history.back(-1)" class="btnBack">Trở lại</a><h3 class="tit">{{.Cname}}</h3><a href="/" class="backHome"></a></div>
-	</div>
-	<div class="container">
-	    <div class="mb10">		    
-			<div class="tabIndexContent mb10">
-				<div class="item db">
-					<ul class="publicList allInfoList mb10" id="more_soft"> 
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>Local Top - Top Charts Apps &amp; Games free download | m.1mobile.com</title>
+    <meta name="keywords" content="Local Top, Top charts, Top download, Top trends, free download, Top Androis Apps, Top Android Games, 1Mobile, 1Mobile Market,Steel Avengers: Scorched Earth,Facebook,Snapchat,Twitter,Pinterest,">
+    <meta name="description" content="Top Android Apps &amp; Games  free download in m.1mobile.com, Apps &amp; Games in local top, Apps &amp; Games in global top">
+    <link rel="stylesheet" href="/v3/base.css">
+    <link rel="shortcut icon" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/img/favicon.ico">
+</head>
+<body class="bg">
+<header class="nav_box subnav_box"><a id="J-top"></a>
+  <ul class="nav_list clearfix">
+    <li class="nav_control fl"><a href="javascript:history.go(-1);" class="icon_back" data-hover="icon_back_hover">back</a></li>    
+    <li class="nav_function fr"><a href="/search/" class="icon_search" data-hover="icon_search_hover">Search</a><a href="javascript:void(0);" class="icon_nav_more" data-hover="icon_nav_more_hover" data-id="J-all-nav-list" data-mask="true" data-checkclass="true">more navigation</a></li>
+    <li class="nav_content bfc"><span class="subnav_tit">{{.Cname}}</span></li>
+  </ul>
+</header>
+<dl class="all_nav_list" id="J-all-nav-list" data-classname="all_nav_list_active">
+  <dd><a href="/categories/" class="cate_nav_link" data-hover="cate_nav_link_hover">Trang chủ<i class="icon_nav_cate"></i></a></dd>
+  <dd><a href="/apps/" class="apps_nav_link" data-hover="apps_nav_link_hover">Top ứng dụng<i class="icon_nav_apps"></i></a></dd>
+  <dd><a href="/games/" class="games_nav_link" data-hover="games_nav_link_hover">Chọn lọc<i class="icon_nav_games"></i></a></dd>
+  <dd><a href="/top_download_local/" class="top_nav_link" data-hover="top_nav_link_hover">Thể loại<i class="icon_nav_top"></i></a></dd>
+</dl>
+<div class="container">
+    <section class="p8">
+        <ul class="app_list_b app_list_c" id="J-topcharts">
+        </ul>
+        <div id="J-loading">
+            <p class="loading_box"><span class="icon_loading"></span></p>
+            <a href="javascript:void(0);" class="btn_see_more" data-hover="btn_see_more_hover" id="J-seemore"><i class="icon_arror"></i>Ấn vào đây để xem thêm</a>
+        </div>
+    </section>
+</div>
+<footer class="foot_box mt20">
+    <ul class="foot_list">
+        <li class="foot_market clearfix"><a href="http://market.1mobile.com/?from=new_version" class="fl"><i
+                class="icon_market"></i>{{.Sdetails.Name}}</a><a href="#J-top" class="btn_top fr"
+                                                             data-hover="btn_top_hover">toTop</a></li>
+        <li class="foot_share"><a href="https://www.facebook.com/apk.vn"><i class="icon_facebook"></i>Facebook</a><a
+                href="https://twitter.com/apk.vn"><i class="icon_twitter"></i>Twitter</a><a
+                href="https://www.youtube.com/user/apk.vn"><i class="icon_youtube"></i>Youtube</a></li>
+        <li class="clearfix"><span class="sites_tit fl">{{.Sdetails.Name}}}</span>
 
-					</ul>	
-				</div>
+            <p class="sites_cnt bfc"><a href="http://www.1mobile.com/">English</a><span class="split">|</span><a
+                    href="http://www.1mobile.co.id/">Bahasa Indonesia</a><span class="split"></span>
+            </p></li>
+        <li class="foot_copy">&copy; 2014 1Mobile All rights reserved.</li>
+    </ul>
+</footer>
+<section class="bar_market"><a href="#" class="market_link"> <span class="icon_market_big fl"></span> <span
+        class="btn_download_big fr">Tải về ngay</span>
 
-			</div>	
-        </div>		
-        <div class="mb10" id="loading"><a href="javascript:loadmore();" class="btnSeeMore">Xem thêm >></a></div>
-		<p class="toTopbox"><a href="#" class="backTotop">Lên đầu</a></p>
-	</div>
-{{template "footer"}}	
-<script type="text/javascript" src="/v3/js/jquery.js"></script>
-<script type="text/javascript" src="/v3/js/touchScroll.js"></script>
-<script type="text/javascript" src="/v3/js/touchSlider.js"></script>
+    <div class="market_des bfc"><p>{{.Sdetails.Name}}</p>1,500,000 ứng dụng miễn phí</div>
+</a></section>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/zepto.min.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/iscroll-min.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/template.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/common.js"></script>
+<script type="text/javascript" src="http://img.1mobile.com/web2/m.1mobile.com/wap/js/ga.js"></script>
+<script src="/v3/js/handlebars.runtime.js"></script>
+<script src="/v3/js/handlebars/template.js"></script>
+<script type="text/javascript">
+    var initialData = {{.AppList}};
+    var template = Handlebars.templates.appListTemplate(initialData);    
+    var partner = {{.Sdetails.Partner}};
+    $("#J-topcharts").append(template);
+</script>
+<script>
 
-{{template "loadMore" .}}
-	
+    (function () {
+        var nCurrentPage = 2,
+                pagesCount = 0,
+                $loadingBox = $('#J-loading'),
+                $btnSeeMore = $('#J-seemore'),
+                $list = $('#J-topcharts'),
+                responseData = false,
+                seeMore = function (e) {
+                    e.preventDefault();
+                    $loadingBox.removeClass('loading_seemore');
+                    $loadingBox.addClass('loading');
+                    nCurrentPage++;
+                    $(window).unbind('scroll', loadingData);
+                    getData();
+                },
+                renderingData = function () {
+                    var tempCommentData;
+                    $loadingBox.addClass('loading');
+                    var html = Handlebars.templates.appListTemplate(responseData);    
+                    $loadingBox.removeClass('loading');
+                    $list.append(html);                   
+                    if (responseData != null && responseData.length > 0) {
+                        nCurrentPage++;
+                    } 
+                    $(window).bind('scroll', loadingData);
+                },
+                readData = function (data) {
+                    responseData = data;
+                    renderingData(responseData);
+                },                
+                getData = function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/apps-category/{{.Sdetails.Partner}}/{{.Cid}}/' + nCurrentPage + "/10",
+                        dataType: 'json',
+                        success: readData
+                    })
+                },
+                getLoadingBoxTop = function () {
+                    return $loadingBox.offset().top;
+                },
+                getScrollPosition = function () {
+                    var nScrollTop = document.body.scrollTop ? document.body.scrollTop : document.documentElement.scrollTop;
+                    return nScrollTop + $(window).height();
+                },
+                isLoading = function () {
+                    if (getScrollPosition() > getLoadingBoxTop()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                loadingData = function () {
+                    if (isLoading()) {
+                        $loadingBox.addClass('loading');
+                        $(window).unbind('scroll', loadingData);
+                        window.setTimeout(function () {
+                            getData();
+                        }, 150);
+
+                    }
+                };
+        $(window).bind('scroll', loadingData);
+        $btnSeeMore.bind('click', seeMore);        
+    })();
+</script>
 </body>
-
 </html>
 {{end}}

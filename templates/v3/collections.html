@@ -1,4 +1,4 @@
-{{define "categories"}}
+{{define "collections"}}
 <!DOCTYPE html>
 <html><head>
     <meta charset="utf-8">
@@ -34,15 +34,20 @@
     <dd><a href="/top_new/" data-hover="sub_nav_link_hover">Thể loại<i class="icon_arrow_right"></i></a></dd>
 </dl>
 {{template "searchtools" .}}
-{{template "navbar" "categories"}}
+{{template "navbar" "collections"}}
 <div class="container">
     <section class="mt5">
         <div class="p8">
-            <ul class="subnav_category_list clearfix">
-            {{range .Categories}}
-                <li><a href="/app/category/{{.Id}}" data-hover="subnav_category_hover"><img
-                        src="{{.Icon}}"
-                        class="img_catetory">{{.Name}}</a></li>            
+            <ul class="applist_a clearfix">
+            {{range .Collections}}
+                <li>
+                    <div class="applist_a_cnt"><a href="/app/collection/{.Oid}" class="applist_a_link"
+                                                  data-hover="applist_a_link_hover"><img
+                            src="{{.Banner}}"
+                            class="applist_a_img">
+
+                        <p class="applist_a_tit">{{.Desc}}</p>                        
+                </li>            
             {{end}}
             </ul>
         </div>

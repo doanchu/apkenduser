@@ -1,0 +1,27 @@
+{{define "searchtools"}}
+<section class="tool_search_tip tool_search_tip_cnt_show" id="J-search-box">
+    <div class="p8">
+        <div class="tool_search_tip_cnt" id="J-search-cnt">            
+            <ul class="hot_keywords clearfix">
+            {{range .MostSearched}}
+                <li><a href="/search/?keyword={{.Name}}" data-hover="hot_keywords_hover">{{.AppName}}</a></li>
+            {{end}}
+            </ul>
+
+            <h3 class="recommended_tit">Các ứng dụng hay</h3>
+            <ul class="app_list_a recommended_list clearfix">
+            {{range .Recommended}}
+                <li>
+                    <div class="app_list_a_cnt"><a href="/app/{{.Id}}.html" class="app_list_a_link"
+                                                   data-hover="app_list_a_link_hover"><img
+                            src="{{.Thumbnail}}"
+                            class="app_list_a_img">
+
+                        <p class="app_list_a_tit">{{.Name}}</p></a></div>
+                </li>
+            {{end}}
+            </ul>
+        </div>
+    </div>    
+</section>
+{{end}}

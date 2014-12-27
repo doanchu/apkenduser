@@ -240,13 +240,17 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Sdetails *StoreDetails
-		Page     string
-		Portions []*HomePortion
+		Sdetails     *StoreDetails
+		Page         string
+		Portions     []*HomePortion
+		MostSearched []*models.AppDetails
+		Recommended  []*models.AppDetails
 	}{
-		Sdetails: storeDetails,
-		Portions: portions,
-		Page:     "Trang chủ",
+		Sdetails:     storeDetails,
+		Portions:     portions,
+		Page:         "Trang chủ",
+		MostSearched: []*models.AppDetails{},
+		Recommended:  []*models.AppDetails{},
 	}
 	log.Println(storeDetails)
 	MyTemplates.ExecuteTemplate(w, "home", data)
@@ -279,6 +283,8 @@ func TopAppHandler(w http.ResponseWriter, r *http.Request) {
 	var sortCondition string = "-time_order"
 
 	switch condition {
+	case "hot":
+		sortCondition = "-time_order"
 	case "downloads":
 		sortCondition = "-total_download"
 	case "standings":
@@ -290,16 +296,87 @@ func TopAppHandler(w http.ResponseWriter, r *http.Request) {
 	var dataJSON = getJSONString(appDetails)
 
 	data := struct {
-		Sdetails *StoreDetails
-		Page     string
-		AppList  template.JS
+		Sdetails     *StoreDetails
+		Page         string
+		AppList      template.JS
+		MostSearched []*models.AppDetails
+		Recommended  []*models.AppDetails
 	}{
-		Sdetails: storeDetails,
-		AppList:  template.JS(dataJSON),
-		Page:     condition,
+		Sdetails:     storeDetails,
+		AppList:      template.JS(dataJSON),
+		Page:         condition,
+		MostSearched: []*models.AppDetails{},
+		Recommended:  []*models.AppDetails{},
 	}
 	log.Println(dataJSON)
 	MyTemplates.ExecuteTemplate(w, "topApp", data)
+}
+
+func AppDetailsHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("App Details")
+	r.ParseForm()
+	vars := mux.Vars(r)
+	partner := vars["partner"]
+
+	appId := vars["appId"]
+
+	newApp := Mongo.GetAppMapper(appId)
+	if newApp != nil {
+		appId = newApp.New_app
+	}
+
+	appCommon := Mongo.GetCommonAppById(appId)
+	if appCommon == nil {
+		w.Write([]byte("{}"))
+		return
+	}
+	// log.Println(appCommon)
+	appPartner := Mongo.GetPartnerAppById(partner, appId)
+	log.Println("App Partner is:", partner, appId)
+	category := Mongo.GetCategoryById(appCommon.Cid)
+
+	var appDetails *models.AppDetails
+
+	if appPartner == nil {
+		appDetails = models.NewAppDetailsFromAppCommon(appCommon, category)
+	} else {
+		appDetails = models.NewAppDetails(appPartner, appCommon, category)
+	}
+
+	storeDetails := GetStoreDetails(vars["subdomain"])
+
+	var appList []*models.AppDetails
+	user := Mongo.GetUserByUsername(partner)
+
+	if user == nil || user.Store == 0 {
+		appCommons := Mongo.GetCommonAppsByCategory(appDetails.Cid, 1, 6)
+
+		appList = CreateAppDetailsFromAppCommon(appCommons)
+	} else {
+		var result []*models.PartnerAppInfo
+		result = Mongo.GetPartnerAppsByCategory(partner, appDetails.Cid, 1, 6)
+		// log.Println(result)
+		if result != nil {
+			appList = CreateAppDetails(result)
+		}
+	}
+
+	data := struct {
+		Sdetails    *StoreDetails
+		App         *models.AppDetails
+		Desc        template.HTML
+		ShortDesc   template.HTML
+		RelatedApps []*models.AppDetails
+	}{
+		Sdetails:    storeDetails,
+		App:         appDetails,
+		Desc:        template.HTML(appDetails.Desc),
+		ShortDesc:   template.HTML(appDetails.ShortDesc),
+		RelatedApps: appList,
+	}
+
+	MyTemplates.ExecuteTemplate(w, "appdetails", data)
+
 }
 
 func CategoryHandler(w http.ResponseWriter, r *http.Request) {
@@ -341,12 +418,14 @@ func CategoryHandler(w http.ResponseWriter, r *http.Request) {
 		Sdetails *StoreDetails
 		Page     string
 		Cname    string
+		Cid      int
 		AppList  template.JS
 	}{
 		Sdetails: storeDetails,
 		AppList:  template.JS(dataJSON),
 		Page:     category.Name,
 		Cname:    category.Name,
+		Cid:      category.Id,
 	}
 	log.Println(dataJSON)
 	MyTemplates.ExecuteTemplate(w, "category", data)
@@ -363,17 +442,46 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 	storeDetails := GetStoreDetails(vars["subdomain"])
 
 	data := struct {
-		Sdetails *StoreDetails
-		Page     string
-		AppList  []*models.Category
+		Sdetails     *StoreDetails
+		Page         string
+		Categories   []*models.Category
+		MostSearched []*models.AppDetails
+		Recommended  []*models.AppDetails
 	}{
-		Sdetails: storeDetails,
-		AppList:  result,
-		Page:     "categories",
+		Sdetails:     storeDetails,
+		Categories:   result,
+		Page:         "categories",
+		MostSearched: []*models.AppDetails{},
+		Recommended:  []*models.AppDetails{},
 	}
 
 	log.Println(result[0])
 	MyTemplates.ExecuteTemplate(w, "categories", data)
+}
+
+func CollectionsHandler(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	result := Mongo.GetAllCollections()
+
+	storeDetails := GetStoreDetails(vars["subdomain"])
+
+	data := struct {
+		Sdetails     *StoreDetails
+		Page         string
+		Collections  []*models.Collection
+		MostSearched []*models.AppDetails
+		Recommended  []*models.AppDetails
+	}{
+		Sdetails:     storeDetails,
+		Collections:  result,
+		Page:         "collections",
+		MostSearched: []*models.AppDetails{},
+		Recommended:  []*models.AppDetails{},
+	}
+
+	log.Println(result[0])
+	MyTemplates.ExecuteTemplate(w, "collections", data)
 }
 
 func WriteJsonResult(w http.ResponseWriter, result interface{}) {

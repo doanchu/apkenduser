@@ -243,7 +243,17 @@ func parkDomainMiddleWare(w http.ResponseWriter, r *http.Request, next http.Hand
 	}
 }
 
+func max(x, y int) int {
+	if x > y {
+		return x
+	} else {
+		return y
+	}
+}
 func main() {
+	testStr := "thisisthefirststring"
+	var love []rune = []rune(testStr)
+	log.Println(string(love[:int(max(len(love), 10))]))
 	f, err := os.OpenFile("apkenduser.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal("error opening file: %v", err)
@@ -272,11 +282,14 @@ func main() {
 		templateDir+"topapp.html",
 		templateDir+"categories.html",
 		templateDir+"category.html",
+		templateDir+"collections.html",
 		templateDir+"featured.html",
 		templateDir+"footer.html",
 		templateDir+"item.html",
 		templateDir+"banner.html",
 		templateDir+"loadMore.js",
+		templateDir+"appdetails.html",
+		templateDir+"searchtools.html",
 	)
 
 	webhandlers.MyTemplates = myTemplate
@@ -391,9 +404,11 @@ func main() {
 	subRouter.PathPrefix("/assets").Handler(http.FileServer(fs))
 	//subRouter.PathPrefix("/").HandlerFunc(webhandlers.HomeHandler))
 	subRouter.HandleFunc("/", webhandlers.HomeHandler)
-	subRouter.HandleFunc("/top/{condition:downloads|new|standings}", webhandlers.TopAppHandler)
+	subRouter.HandleFunc("/top/{condition:downloads|new|standings|hot}", webhandlers.TopAppHandler)
 	subRouter.HandleFunc("/app/categories", webhandlers.CategoriesHandler)
+	subRouter.HandleFunc("/app/collections", webhandlers.CollectionsHandler)
 	subRouter.HandleFunc("/app/category/{cid}", webhandlers.CategoryHandler)
+	subRouter.HandleFunc("/app/{appId}.html", webhandlers.AppDetailsHandler)
 	//http.Handle("/", router)
 	//err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
 	rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(fs))

@@ -6,7 +6,7 @@
     <title>Local Top - Top Charts Apps &amp; Games free download | m.1mobile.com</title>
     <meta name="keywords" content="Local Top, Top charts, Top download, Top trends, free download, Top Androis Apps, Top Android Games, 1Mobile, 1Mobile Market,Steel Avengers: Scorched Earth,Facebook,Snapchat,Twitter,Pinterest,">
     <meta name="description" content="Top Android Apps &amp; Games  free download in m.1mobile.com, Apps &amp; Games in local top, Apps &amp; Games in global top">
-    <link rel="stylesheet" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/css/base.css">
+    <link rel="stylesheet" href="/v3/base.css">
     <link rel="shortcut icon" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/img/favicon.ico">
 </head>
 <body class="bg">
@@ -21,7 +21,7 @@
         <form method="get" action="/search/">
             <ul class="tool_search_list clearfix">
                 <li class="tool_search_cnt"><p class="tool_search_list_p"><input type="search" class="txt_search" name="keyword" autocomplete="off" id="J-txt-search"><a href="javascript:void(0);" class="btn_txt_clear" data-hover="btn_txt_clear_hover" id="J-clear-txt"></a></p></li>
-                <li class="tool_search_sub"><a href="javascript:void(0);" class="btn_search_cancel" id="J-btn-cancel" data-hover="btn_search_cancel_hover">Cancel</a></li>
+                <li class="tool_search_sub"><a href="javascript:void(0);" class="btn_search_cancel" id="J-btn-cancel" data-hover="btn_search_cancel_hover">&nbsp;&nbsp;&nbsp;Huỷ&nbsp;&nbsp;&nbsp;</a></li>
             </ul>
         </form>
     </div>
@@ -33,33 +33,15 @@
     <dd><a href="/top_download/" data-hover="sub_nav_link_hover">Chọn lọc<i class="icon_arrow_right"></i></a></dd>
     <dd><a href="/top_new/" data-hover="sub_nav_link_hover">Thể loại<i class="icon_arrow_right"></i></a></dd>
 </dl>
-<section class="tool_search_tip tool_search_tip_cnt_show" id="J-search-box">
-    <div class="p8">
-        <div class="tool_search_tip_cnt" id="J-search-cnt">
-            <ul class="hot_keywords clearfix">
-                <li><a href="/search/?keyword=Clean+Master" data-hover="hot_keywords_hover">APK.VN gợi ý</a></li>
-            </ul>
-            <h3 class="recommended_tit">APK.VN gợi ý</h3>
-            <ul class="app_list_a recommended_list clearfix">
-                <li>
-                    <div class="app_list_a_cnt"><a href="/com.cjenm.chachacha.html" class="app_list_a_link"
-                                                   data-hover="app_list_a_link_hover"><img
-                            src="http://imgsdown.1mobile.com/group1/M00/89/99/S340LlPDDbiAInu-AACL730CHmc385.png"
-                            class="app_list_a_img">
-
-                        <p class="app_list_a_tit">APK.VN gợi ý</p></a></div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</section>
+{{template "searchtools" .}}
 {{template "navbar" "downloads"}}
 <nav class="sub_menu">
     <div class="sub_menu_box">
         <ul class="sub_menu_list clearfix">
-            <li class="active"><a href="/top/downloads" data-hover="sub_menu_hover">Tải nhiều</a></li>
-            <li><a href="/top/new" data-hover="sub_menu_hover">Mới nhất</a></li>
-            <li><a href="/top/standings" data-hover="sub_menu_hover">Yêu thích</a></li>
+            <li {{if eq .Page "hot"}}class="active"{{end}}><a href="/top/hot" data-hover="sub_menu_hover">Hot nhất</a></li>        
+            <li {{if eq .Page "downloads"}}class="active"{{end}}><a href="/top/downloads" data-hover="sub_menu_hover">Tải nhiều</a></li>
+            <li {{if eq .Page "new"}}class="active"{{end}}><a href="/top/new" data-hover="sub_menu_hover">Mới nhất</a></li>
+            <li {{if eq .Page "standings"}}class="active"{{end}}><a href="/top/standings" data-hover="sub_menu_hover">Yêu thích</a></li>
         </ul>
     </div>
 </nav>
@@ -142,7 +124,7 @@
                 getData = function () {
                     $.ajax({
                         type: 'GET',
-                        url: '/api/apps-download/beoiu/' + nCurrentPage + "/10",
+                        url: '/api/apps-{{.Page}}/beoiu/' + nCurrentPage + "/10",
                         dataType: 'json',
                         success: readData
                     })

@@ -355,7 +355,7 @@ func (m *Mongo) GetPartnerAppsByCategory(partner string, cid int, page int, limi
 	db := session.DB(m.DB)
 	c := db.C("partner_app_info")
 	var result []*models.PartnerAppInfo
-	err := c.Find(bson.M{"partner": partner, "cid": cid, "status": 1}).Skip((page - 1) * limit).Limit(limit).All(&result)
+	err := c.Find(bson.M{"partner": partner, "cid": cid, "status": 1}).Sort("-time_order").Skip((page - 1) * limit).Limit(limit).All(&result)
 
 	// var byteResult []byte
 	// byteResult, err = json.Marshal(result)
@@ -374,7 +374,7 @@ func (m *Mongo) GetCommonAppsByCategory(cid int, page int, limit int) []*models.
 	db := session.DB(m.DB)
 	c := db.C("app_common")
 	var result []*models.AppCommon
-	err := c.Find(bson.M{"cid": cid, "status": 1}).Skip((page - 1) * limit).Limit(limit).All(&result)
+	err := c.Find(bson.M{"cid": cid, "status": 1}).Sort("-time_order").Skip((page - 1) * limit).Limit(limit).All(&result)
 
 	// var byteResult []byte
 	// byteResult, err = json.Marshal(result)

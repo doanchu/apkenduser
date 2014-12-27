@@ -239,13 +239,13 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 
 	var sortCondition string
 	switch condition {
-	case "partner", "partner-min":
+	case "partner", "partner-min", "hot":
 		sortCondition = "-time_order"
 	case "like":
 		sortCondition = "-total_like"
 	case "share":
 		sortCondition = "-total_share"
-	case "download":
+	case "download", "downloads":
 		sortCondition = "-total_download"
 	case "new":
 		sortCondition = "-_id"
