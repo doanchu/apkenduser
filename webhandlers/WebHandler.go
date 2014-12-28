@@ -311,11 +311,11 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			if bannerPos > len(banners)-1 {
 				bannerPos = 0
 			}
-			bannerPos = bannerPos + 1
 			currentPortion.Banner = banners[bannerPos]
 			currentPortion.FirstCategory = cat
 			tempAppInfo := Mongo.GetPartnerAppsByCategory(myPartner, cat.Id, 1, 3)
 			currentPortion.FirstLine = CreateAppDetails(tempAppInfo)
+			bannerPos = bannerPos + 1
 		} else {
 			currentPortion.SecondCategory = cat
 			tempAppInfo := Mongo.GetPartnerAppsByCategory(myPartner, cat.Id, 1, 3)
