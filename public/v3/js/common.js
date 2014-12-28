@@ -205,7 +205,7 @@ $(document).bind('touchstart', function(e) {
       $hotKeywords.removeClass('tool_search_tip_cnt_show');
       $hotKeywords.addClass('search_tip_list_show');
       if ($txt.val().length >= 2) {
-        tipTimer = window.setTimeout(getTips, 50);
+        //tipTimer = window.setTimeout(getTips, 50);
         $btnCancel.unbind('touchend', cancleSearch);
         $btnCancel.bind('touchend', subSearch);
         $btnCancel.html('Search');
