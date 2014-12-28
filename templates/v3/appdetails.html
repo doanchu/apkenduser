@@ -11,6 +11,9 @@
           content="{{.Sdetails.Description}}">
     <link rel="stylesheet" href="/v3/base.css">
     <link rel="shortcut icon" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/img/favicon.ico">
+    <script type="text/javascript">
+        document.partner = {{.Sdetails.Partner}};
+    </script>
 </head>
 <body class="bg">
 <header class="nav_box subnav_box"><a id="J-top"></a>
@@ -75,6 +78,7 @@
             <div class="p8">
                 <ul class="app_list_a clearfix">
                     {{range .RelatedApps}}
+                    {{if .}}
                     <li>
                         <div class="app_list_a_cnt"><a href="/app/{{.Id}}.html" class="app_list_a_link"
                                                        data-hover="app_list_a_link_hover"><img
@@ -90,6 +94,7 @@
                         </div>
                     </li>
                     {{end}}
+                    {{end}}
                 </ul>
             </div>
         </section>
@@ -102,7 +107,7 @@
 <script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/zepto.min.js"></script>
 <script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/iscroll-min.js"></script>
 <script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/template.js"></script>
-<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/common.js"></script>
+<script src="/v3/js/common.js"></script>
 <script type="text/javascript" src="http://img.1mobile.com/web2/m.1mobile.com/wap/js/ga.js"></script>
 </body>
 </html>

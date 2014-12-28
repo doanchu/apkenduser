@@ -17,6 +17,7 @@ import "fmt"
 import "net/url"
 import "net"
 import "bytes"
+import "github.com/doanchu/apkenduser/webhandlers"
 
 func AppCategoryHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -151,7 +152,7 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	partner := vars["partner"]
 
-	appId := vars["app_id"]
+	appId := vars["appId"]
 
 	newApp := Mongo.GetAppMapper(appId)
 	if newApp != nil {
@@ -427,7 +428,7 @@ func CreateAppDetailsWithCategory(apps []*models.PartnerAppInfo, category *model
 func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	vars := mux.Vars(r)
-	appId := vars["app_id"]
+	appId := vars["appId"]
 	partner := vars["partner"]
 
 	newApp := Mongo.GetAppMapper(appId)
@@ -481,7 +482,7 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		if strings.Index(r.Referer(), "apk.vn") == -1 && strings.Index(r.Referer(), "apk.de") == -1 {
 			w.Header().Set("Refresh", "0; "+downloadLink)
-			indexHandler(w, r)
+			webhandlers.AppDetailsHandler(w, r)
 		} else {
 			http.Redirect(w, r, downloadLink, http.StatusFound)
 		}
@@ -554,7 +555,8 @@ func DownloadFile(link string, dir string, fileName string) (string, error) {
 func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	vars := mux.Vars(r)
-	appId := vars["app_id"]
+	appId := vars["appId"]
+
 	partner := vars["partner"]
 
 	newApp := Mongo.GetAppMapper(appId)
@@ -644,7 +646,7 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		if strings.Index(r.Referer(), "apk.vn") == -1 && strings.Index(r.Referer(), "apk.de") == -1 {
 			w.Header().Set("Refresh", "0; "+downloadLink)
-			indexHandler(w, r)
+			webhandlers.AppDetailsHandler(w, r)
 		} else {
 			http.Redirect(w, r, downloadLink, http.StatusFound)
 		}
@@ -742,7 +744,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 func AppOldDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	vars := mux.Vars(r)
-	appId := vars["app_id"]
+	appId := vars["appId"]
 	partner := vars["subdomain"]
 
 	newApp := Mongo.GetAppMapper(appId)
@@ -999,7 +1001,7 @@ func CommentsHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	vars := mux.Vars(r)
 
-	app_id := vars["app_id"]
+	app_id := vars["appId"]
 	page, err := strconv.Atoi(vars["page"])
 	if err != nil {
 		w.Write([]byte(err.Error()))

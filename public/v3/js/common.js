@@ -571,7 +571,7 @@ function market_download(that) {
     type: "get",
     async: true,
     timeout: 1000,
-    url: "http://127.0.0.1:61234/download/" + p_name + "/?jsoncallback=?&status=1",
+    url: "http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + p_name,
     dataType: "jsonp",
     success: function(json) {
       if (json.status == 1) {

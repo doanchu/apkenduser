@@ -404,19 +404,26 @@ func TopAppHandler(w http.ResponseWriter, r *http.Request) {
 	MyTemplates.ExecuteTemplate(w, "topApp", data)
 }
 
+func GetPartner(r *http.Request) string {
+	vars := mux.Vars(r)
+	if vars["partner"] != "" {
+		return vars["partner"]
+	}
+	return vars["subdomain"]
+}
+
 func AppDetailsHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("App Details")
 	r.ParseForm()
 	vars := mux.Vars(r)
-	partner := vars["partner"]
-
+	partner := GetPartner(r)
 	appId := vars["appId"]
 
 	newApp := Mongo.GetAppMapper(appId)
 	if newApp != nil {
 		appId = newApp.New_app
 	}
-
+	log.Println("AppId is", appId)
 	appCommon := Mongo.GetCommonAppById(appId)
 	if appCommon == nil {
 		w.Write([]byte("{}"))
@@ -435,7 +442,7 @@ func AppDetailsHandler(w http.ResponseWriter, r *http.Request) {
 		appDetails = models.NewAppDetails(appPartner, appCommon, category)
 	}
 
-	storeDetails := GetStoreDetails(vars["subdomain"])
+	storeDetails := GetStoreDetails(partner)
 
 	var appList []*models.AppDetails
 	user := Mongo.GetUserByUsername(partner)
