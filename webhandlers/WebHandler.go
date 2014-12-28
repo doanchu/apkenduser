@@ -13,17 +13,71 @@ import "log"
 
 // import "github.com/doanchu/apkenduser/models"
 
-// import "gopkg.in/mgo.v2/bson"
+import "gopkg.in/mgo.v2/bson"
+
 // import _ "gopkg.in/mgo.v2"
 import "strings"
 
 // import "os"
 // import "io"
-// import "github.com/doanchu/apkenduser/utils"
+import "github.com/doanchu/apkenduser/utils"
 
 // import "time"
 // import "fmt"
 // import "net/url"
+
+func SearchAppsHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	//partner := vars["partner"]
+	r.ParseForm()
+	query := r.Form.Get("keyword")
+	log.Println("Query is", query)
+	query = utils.ClearVietnameseChars(query)
+	log.Println("Query is", query)
+	//query = "\"" + query + "\""
+	page := 1
+	limit := 10
+	appCommons := Mongo.SearchCommonApps(query, page, limit)
+	// if appCommons == nil {
+	// 	w.Header().Set("Content-Type", "application/json")
+	// 	w.Write([]byte("[]"))
+	// 	return
+	// }
+	appDetails := CreateAppDetailsFromAppCommon(appCommons)
+	for _, value := range appDetails {
+		value.Desc = ""
+		value.ShortDesc = ""
+		value.Ss = nil
+		value.Download_type = ""
+		value.Download_link = nil
+	}
+
+	notFound := false
+	if len(appDetails) == 0 {
+		notFound = true
+	}
+
+	storeDetails := GetStoreDetails(vars["subdomain"])
+
+	var dataJSON = getJSONString(appDetails)
+
+	data := struct {
+		Sdetails     *StoreDetails
+		AppList      template.JS
+		Query        string
+		MostSearched []*models.AppDetails
+		Recommended  []*models.AppDetails
+		NotFound     bool
+	}{
+		Sdetails:     storeDetails,
+		AppList:      template.JS(dataJSON),
+		Query:        query,
+		MostSearched: []*models.AppDetails{},
+		Recommended:  []*models.AppDetails{},
+		NotFound:     notFound,
+	}
+	MyTemplates.ExecuteTemplate(w, "search", data)
+}
 
 func GetAppDetails(partner string, page int, limit int, sortCondition string) []*models.AppDetails {
 	//partnerApp, err := Mongo.GetPartnerApp(myPartner)
@@ -391,7 +445,7 @@ func CategoryHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	limit := 100
+	limit := 10
 	page := 1
 	cid, err := strconv.Atoi((vars["cid"]))
 	category := Mongo.GetCategoryById(cid)
@@ -482,6 +536,56 @@ func CollectionsHandler(w http.ResponseWriter, r *http.Request) {
 
 	log.Println(result[0])
 	MyTemplates.ExecuteTemplate(w, "collections", data)
+}
+
+func CollectionHandler(w http.ResponseWriter, r *http.Request) {
+	var err error
+	_ = err
+	vars := mux.Vars(r)
+
+	//partner := vars["partner"]
+	storeDetails := GetStoreDetails(vars["subdomain"])
+
+	colId := vars["colId"]
+
+	if !bson.IsObjectIdHex(colId) {
+		w.Write([]byte("There are some errors"))
+		return
+	}
+	objectId := bson.ObjectIdHex(colId)
+	result := Mongo.GetCollectionById(objectId)
+
+	ids := make([]string, len(result.Apps))
+	for key, value := range result.Apps {
+		ids[key] = value
+	}
+
+	// log.Println(ids)
+	appCommons := Mongo.GetCommonAppsByIds(ids)
+
+	resultDetails := &models.CollectionDetails{
+		Oid:       result.Oid,
+		OidHex:    result.Oid.Hex(),
+		Name:      result.Name,
+		Banner:    result.Banner,
+		Desc:      result.Desc,
+		Permalink: result.Permalink,
+		Apps:      appCommons,
+		Status:    result.Status,
+		Partner:   result.Partner,
+	}
+
+	data := struct {
+		Sdetails   *StoreDetails
+		Collection *models.CollectionDetails
+		AppList    []*models.AppCommon
+	}{
+		Sdetails:   storeDetails,
+		Collection: resultDetails,
+		AppList:    appCommons,
+	}
+	MyTemplates.ExecuteTemplate(w, "collection", data)
+
 }
 
 func WriteJsonResult(w http.ResponseWriter, result interface{}) {

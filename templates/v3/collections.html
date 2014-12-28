@@ -10,29 +10,8 @@
     <link rel="shortcut icon" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/img/favicon.ico">
 </head>
 <body class="bg">
-<header class="nav_box" id="J-nav-box" data-classname="nav_box_active"><a id="J-top"></a>
-    <ul class="nav_list clearfix">
-        <li class="nav_control fl"><a href="javascript:void(0);" class="icon_menu" data-hover="icon_menu_hover" data-id="J-sub-nav-list" data-mask="true" data-checkclass="true">1Mobile Categories</a></li>
-        <li class="nav_function fr"><a href="#" class="icon_search" data-hover="icon_search_hover" data-id="J-nav-box" data-checkclass="true">Search</a></li>
-        <li class="fr"><a href="http://market.1mobile.com/" style="font-size:18px;color:#fff;line-height: 50px;border-right: 1px solid #00B885;padding-right: 10px;">Official Web</a></li>
-        <li class="nav_content bfc"><a href="/" class="logo"><i class="icon_logo"></i>1Mobile</a></li>
-    </ul>
-    <div class="tool_search_box">
-        <form method="get" action="/search/">
-            <ul class="tool_search_list clearfix">
-                <li class="tool_search_cnt"><p class="tool_search_list_p"><input type="search" class="txt_search" name="keyword" autocomplete="off" id="J-txt-search"><a href="javascript:void(0);" class="btn_txt_clear" data-hover="btn_txt_clear_hover" id="J-clear-txt"></a></p></li>
-                <li class="tool_search_sub"><a href="javascript:void(0);" class="btn_search_cancel" id="J-btn-cancel" data-hover="btn_search_cancel_hover">&nbsp;&nbsp;&nbsp;Huỷ&nbsp;&nbsp;&nbsp;</a></li>
-            </ul>
-        </form>
-    </div>
-</header>
-<dl class="sub_nav_list" id="J-sub-nav-list" data-classname="sub_nav_list_active">
-    <dd><a href="/top_download_local/" data-hover="sub_nav_link_hover">Trang chủ<i class="icon_arrow_right"></i></a>
-    </dd>
-    <dd><a href="/top_new_local/" data-hover="sub_nav_link_hover">Top ứng dụng<i class="icon_arrow_right"></i></a></dd>
-    <dd><a href="/top_download/" data-hover="sub_nav_link_hover">Chọn lọc<i class="icon_arrow_right"></i></a></dd>
-    <dd><a href="/top_new/" data-hover="sub_nav_link_hover">Thể loại<i class="icon_arrow_right"></i></a></dd>
-</dl>
+{{template "mainHeader" .Sdetails.Name}}
+{{template "leftSidebar"}}
 {{template "searchtools" .}}
 {{template "navbar" "collections"}}
 <div class="container">
@@ -41,7 +20,7 @@
             <ul class="applist_a clearfix">
             {{range .Collections}}
                 <li>
-                    <div class="applist_a_cnt"><a href="/app/collection/{.Oid}" class="applist_a_link"
+                    <div class="applist_a_cnt"><a href="/app/collection/{{OidHex .Oid}}" class="applist_a_link"
                                                   data-hover="applist_a_link_hover"><img
                             src="{{.Banner}}"
                             class="applist_a_img">
@@ -54,26 +33,9 @@
     </section>
 </div>
 <footer class="foot_box mt20">
-    <ul class="foot_list">
-        <li class="foot_market clearfix"><a href="http://market.1mobile.com/?from=new_version" class="fl"><i
-                class="icon_market"></i>{{.Sdetails.Name}}</a><a href="#J-top" class="btn_top fr"
-                                                             data-hover="btn_top_hover">toTop</a></li>
-        <li class="foot_share"><a href="https://www.facebook.com/apk.vn"><i class="icon_facebook"></i>Facebook</a><a
-                href="https://twitter.com/apk.vn"><i class="icon_twitter"></i>Twitter</a><a
-                href="https://www.youtube.com/user/apk.vn"><i class="icon_youtube"></i>Youtube</a></li>
-        <li class="clearfix"><span class="sites_tit fl">{{.Sdetails.Name}}}</span>
-
-            <p class="sites_cnt bfc"><a href="http://www.1mobile.com/">English</a><span class="split">|</span><a
-                    href="http://www.1mobile.co.id/">Bahasa Indonesia</a><span class="split"></span>
-            </p></li>
-        <li class="foot_copy">&copy; 2014 1Mobile All rights reserved.</li>
-    </ul>
+    {{.Sdetails.Footer}}
 </footer>
-<section class="bar_market"><a href="#" class="market_link"> <span class="icon_market_big fl"></span> <span
-        class="btn_download_big fr">Tải về ngay</span>
-
-    <div class="market_des bfc"><p>{{.Sdetails.Name}}</p>1,500,000 ứng dụng miễn phí</div>
-</a></section>
+{{template "footerAds"}}
 <script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/zepto.min.js"></script>
 <script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/iscroll-min.js"></script>
 <script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/template.js"></script>

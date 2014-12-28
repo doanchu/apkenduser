@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>Interstellar - free download of Android version | m.1mobile.com </title>
+    <title>{{.App.Name}}</title>
     <meta name="keywords"
           content=".Sdetails.Keywords">
     <meta name="description"
@@ -16,16 +16,11 @@
 <header class="nav_box subnav_box"><a id="J-top"></a>
   <ul class="nav_list clearfix">
     <li class="nav_control fl"><a href="javascript:history.go(-1);" class="icon_back" data-hover="icon_back_hover">back</a></li>    
-    <li class="nav_function fr"><a href="/search/" class="icon_search" data-hover="icon_search_hover">Search</a><a href="javascript:void(0);" class="icon_nav_more" data-hover="icon_nav_more_hover" data-id="J-all-nav-list" data-mask="true" data-checkclass="true">more navigation</a></li>
+    <li class="nav_function fr"><a href="/search" class="icon_search" data-hover="icon_search_hover">Search</a><a href="javascript:void(0);" class="icon_nav_more" data-hover="icon_nav_more_hover" data-id="J-all-nav-list" data-mask="true" data-checkclass="true">more navigation</a></li>
     <li class="nav_content bfc"><span class="subnav_tit">Chi tiết</span></li>
   </ul>
 </header>
-<dl class="all_nav_list" id="J-all-nav-list" data-classname="all_nav_list_active">
-  <dd><a href="/" class="cate_nav_link" data-hover="cate_nav_link_hover">Trang chủ<i class="icon_nav_cate"></i></a></dd>
-  <dd><a href="/top/hot" class="apps_nav_link" data-hover="apps_nav_link_hover">Top ứng dụng<i class="icon_nav_apps"></i></a></dd>
-  <dd><a href="/app/collections" class="games_nav_link" data-hover="games_nav_link_hover">Chọn lọc<i class="icon_nav_games"></i></a></dd>
-  <dd><a href="/app/categories" class="top_nav_link" data-hover="top_nav_link_hover">Thể loại<i class="icon_nav_top"></i></a></dd>
-</dl>
+{{template "rightSidebar"}}
 <div class="container">
     <div id="J-detail-info">
         <section class="detail_baseinfo clearfix"><img
@@ -101,26 +96,9 @@
     </div>
 </div>
 <footer class="foot_box mt20">
-    <ul class="foot_list">
-        <li class="foot_market clearfix"><a href="http://market.1mobile.com/?from=new_version" class="fl"><i
-                class="icon_market"></i>{{.Sdetails.Name}}</a><a href="#J-top" class="btn_top fr"
-                                                             data-hover="btn_top_hover">toTop</a></li>
-        <li class="foot_share"><a href="https://www.facebook.com/apk.vn"><i class="icon_facebook"></i>Facebook</a><a
-                href="https://twitter.com/apk.vn"><i class="icon_twitter"></i>Twitter</a><a
-                href="https://www.youtube.com/user/apk.vn"><i class="icon_youtube"></i>Youtube</a></li>
-        <li class="clearfix"><span class="sites_tit fl">{{.Sdetails.Name}}}</span>
-
-            <p class="sites_cnt bfc"><a href="http://www.1mobile.com/">English</a><span class="split">|</span><a
-                    href="http://www.1mobile.co.id/">Bahasa Indonesia</a><span class="split"></span>
-            </p></li>
-        <li class="foot_copy">&copy; 2014 1Mobile All rights reserved.</li>
-    </ul>
+    {{.Sdetails.Footer}}
 </footer>
-<section class="bar_market"><a href="#" class="market_link"> <span class="icon_market_big fl"></span> <span
-        class="btn_download_big fr">Download</span>
-
-    <div class="market_des bfc"><p>1Mobile Market</p>More than 1,200,000 Android Apps free download</div>
-</a></section>
+{{template "footerAds"}}
 <script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/zepto.min.js"></script>
 <script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/iscroll-min.js"></script>
 <script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/template.js"></script>

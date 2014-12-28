@@ -15,6 +15,7 @@ type Collection struct {
 
 type CollectionDetails struct {
 	Oid       bson.ObjectId `bson:"_id"`
+	OidHex    string        `json:"oidHex"`
 	Name      string        `json:"name"`
 	Banner    string        `json:"banner"`
 	Desc      string        `json:"desc"`

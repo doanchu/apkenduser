@@ -170,6 +170,26 @@ func (m *Mongo) GetPartnerAppsNotIn(partner string, page int, limit int, sortCon
 	}
 }
 
+func (m *Mongo) GetCommonAppsByPrefix(prefix string, page int, limit int) []*models.AppCommon {
+	session := m.Session.Clone()
+	defer session.Close()
+
+	db := session.DB(m.DB)
+	c := db.C("app_common")
+	var result []*models.AppCommon
+	err := c.Find(bson.M{"name": bson.M{"$regex": bson.RegEx{"^" + prefix, ""}}, "status": 1}).Skip((page - 1) * limit).Limit(limit).All(&result)
+
+	// var byteResult []byte
+	// byteResult, err = json.Marshal(result)
+	if err != nil {
+		log.Println(err.Error())
+		return nil
+	} else {
+		return result
+	}
+
+}
+
 func (m *Mongo) GetCommonApps(page int, limit int, sortCondition string) []*models.AppCommon {
 	session := m.Session.Clone()
 	defer session.Close()

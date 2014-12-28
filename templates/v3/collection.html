@@ -1,0 +1,88 @@
+{{define "collection"}}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>{{.Sdetails.Name}}</title>    
+    <meta name="keywords"
+          content="{{.Sdetails.Keywords}}">
+    <meta name="description"
+          content="{{.Sdetails.Description}}">
+    <link rel="stylesheet" href="/v3/base.css">
+    <link rel="shortcut icon" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/img/favicon.ico"></head>
+<body class="bg">
+<header class="nav_box subnav_box"><a id="J-top"></a>
+  <ul class="nav_list clearfix">
+    <li class="nav_control fl"><a href="javascript:history.go(-1);" class="icon_back" data-hover="icon_back_hover">back</a></li>    
+    <li class="nav_function fr"><a href="/search" class="icon_search" data-hover="icon_search_hover">Search</a><a href="javascript:void(0);" class="icon_nav_more" data-hover="icon_nav_more_hover" data-id="J-all-nav-list" data-mask="true" data-checkclass="true">more navigation</a></li>
+    <li class="nav_content bfc"><span class="subnav_tit">Chọn lọc</span></li>
+  </ul>
+</header>
+{{template "rightSidebar"}}
+<div class="container">
+    <section class="mt10 p8" id="J-applists-a">
+        <div class="applists_info">
+            <div class="p8"><h1 class="applists_info_tit">{{.Collection.Name}}</h1>
+
+                <p class="applist_info_des">{{.Collection.Name}}</p>
+            </div>
+        </div>
+        <ul class="applists_list">            
+            <li><a href="/app/collection/{{.Collection.OidHex}}.html" class="applists_list_link"
+                   data-hover="applists_list_link_hover"><img
+                    src="{{.Collection.Banner}}"
+                    class="img_applists"></a>
+
+                <div class="applists_item_cnt">
+                  <a href="/app/collection/{{.Collection.OidHex}}.html" class="applists_item_link p8"
+                                                  data-hover="applists_item_link_hover">
+                    <dl>                                                
+                        <dd>{{.Collection.Desc}}
+                        </dd>
+                    </dl>
+                  </a>
+                </div>
+            </li>
+        </ul>
+        <section class="mt20">
+            <div class="mt10">
+                <ul class="app_list_b">
+                {{range .AppList}}
+                    <li>
+                        <div class="app_list_b_cnt">
+                        <a href="/app/{{.Id}}.html" class="app_list_b_link clearfix" data-hover="app_list_b_link_hover">
+                          <img src="{{.Thumbnail}}" class="img_app_list_b">
+                            <dl class="app_list_b_mina bfc">
+                                <dt class="app_list_b_tit">{{.Name}}</dt>
+                                <dd class="app_list_b_cate">{{.Vendor}}</dd>
+                                <dd class="app_list_b_socre"><span class="icon_score"><i style="width:%;"></i></span>
+                                </dd>
+                            </dl>
+                        </a>
+
+                            <p class="app_list_b_download"><a href="javascript:void(0)" class="btn_app_download"
+                                                              data-hover="btn_app_download_hover"
+                                                              data-name="{{.Id}}"
+                                                              data-href="/app/download/{{.Id}}"
+                                                              onclick="market_download(this)">Tải về</a><span
+                                    class="app_list_b_price">Miễn phí</span></p></div>
+                    </li>
+                {{end}}
+                </ul>
+            </div>
+        </section>    
+    </section>
+</div>
+<footer class="foot_box mt20">
+{{.Sdetails.Footer}}
+</footer>
+{{template "footerAds"}}
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/zepto.min.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/iscroll-min.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/template.js"></script>
+<script src="http://img.1mobile.com/web2/m.1mobile.com/wap2/js/common.js"></script>
+<script type="text/javascript" src="http://img.1mobile.com/web2/m.1mobile.com/wap/js/ga.js"></script>
+</body>
+</html>
+{{end}}

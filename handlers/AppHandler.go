@@ -218,6 +218,17 @@ func WriteJsonResult(w http.ResponseWriter, result interface{}) {
 	}
 }
 
+func SearchSuggestionHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	keywords := vars["keywords"]
+	appCommons := Mongo.GetCommonAppsByPrefix(keywords, 1, 10)
+	result := make([]string, len(appCommons))
+	for key, value := range appCommons {
+		result[key] = value.Name
+	}
+	WriteJsonResult(w, result)
+}
+
 func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	vars := mux.Vars(r)
@@ -241,7 +252,7 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	switch condition {
 	case "partner", "partner-min", "hot":
 		sortCondition = "-time_order"
-	case "like":
+	case "like", "standings":
 		sortCondition = "-total_like"
 	case "share":
 		sortCondition = "-total_share"
@@ -882,6 +893,7 @@ func AppCollectionHandler(w http.ResponseWriter, r *http.Request) {
 
 	resultDetails := &models.CollectionDetails{
 		Oid:       result.Oid,
+		OidHex:    result.Oid.Hex(),
 		Name:      result.Name,
 		Banner:    result.Banner,
 		Desc:      result.Desc,

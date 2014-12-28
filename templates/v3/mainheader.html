@@ -1,0 +1,15 @@
+{{define "mainHeader"}}
+<header class="nav_box" id="J-nav-box" data-classname="nav_box_active"><a id="J-top"></a>
+    <ul class="nav_list clearfix">
+        <li class="nav_control fl"><a href="javascript:void(0);" class="icon_menu" data-hover="icon_menu_hover"
+                                      data-id="J-sub-nav-list" data-mask="true" data-checkclass="true">1Mobile
+            Categories</a></li>
+        <li class="nav_function fr"><a href="#" class="icon_search" data-hover="icon_search_hover" data-id="J-nav-box"
+                                       data-checkclass="true">Search</a></li>
+        <li class="fr"><a href="http://market.1mobile.com/"
+                          style="font-size:18px;color:#fff;line-height: 50px;border-right: 1px solid #00B885;padding-right: 10px;">Kho ứng dụng</a></li>
+        <li class="nav_content bfc"><a href="/" class="logo">{{.}}</a></li>
+    </ul>
+    {{template "searchBox"}}
+</header>
+{{end}}

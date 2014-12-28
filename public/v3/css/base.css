@@ -69,11 +69,11 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,bu
 .icon_menu_hover,.icon_search_hover,.icon_back_hover,.icon_nav_more_hover,.icon_nav_more_hover,.icon_home_hover{background-color:#00AA7C;}
 .icon_slider{width:60px;height:50px;background-image:url(img/main_menu_tip.png);background-size:60px 50px;vertical-align:middle;}
 .icon_market,.icon_facebook,.icon_twitter,.icon_youtube{position:relative;top:-3px;overflow:hidden;vertical-align:middle;margin-right:3px;}
-.icon_market{width:25px;height:25px;background:url(img/icon_market.png) no-repeat;background-size:25px 25px;}
+.icon_market{width:25px;height:25px;background:url(img/apkvn.png) no-repeat;background-size:25px 25px;}
 .icon_facebook,.icon_twitter,.icon_youtube{width:20px;height:20px;background:url(img/icon_share.png) no-repeat;background-size:60px 20px;}
 .icon_twitter{background-position:-20px 0;}
 .icon_youtube{background-position:-40px 0;}
-.icon_market_big{width:48px;height:48px;background:url(img/icon_market.png);overflow:hidden;background-size:48px 48px;margin-right:12px;}
+.icon_market_big{width:48px;height:48px;background:url(img/apkvn.png);overflow:hidden;background-size:48px 48px;margin-right:12px;}
 .icon_back{background-image:url(img/icon_back.png);}
 .icon_nav_more{background-image:url(img/icon_nav_more.png);}
 .icon_home{background-image:url(img/icon_home.png);}
@@ -81,7 +81,7 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,bu
 @-ms-keyframes rs{from{-ms-transform:rotate(0deg);}to{-ms-transform:rotate(360deg);}}
 @-moz-keyframes rs{from{-moz-transform:rotate(0deg);}to{-moz-transform:rotate(360deg);}}
 .icon_loading{width:24px;height:24px;background:url(img/icon_loading.png);background-size:24px 24px;overflow:hidden;-webkit-animation-name:rs;-webkit-animation-duration:0.5s;-webkit-animation-iteration-count:infinite;-webkit-animation-timing-function:linear;-ms-animation-name:rs;-ms-animation-duration:0.5s;-ms-animation-iteration-count:infinite;-ms-animation-timing-function:linear;-moz-animation-name:rs;-moz-animation-duration:0.5s;-moz-animation-iteration-count:infinite;-moz-animation-timing-function:linear;}
-.icon_error_logo{display:inline-block;width:72px;height:72px;background:url(img/icon_market.png);overflow:hidden;background-size:72px 72px;margin-right:8px;}
+.icon_error_logo{display:inline-block;width:72px;height:72px;background:url(img/apkvn.png);overflow:hidden;background-size:72px 72px;margin-right:8px;}
 .icon_score,.icon_score i{position:relative;display:inline-block;width:65px;height:12px;overflow:hidden;background:url(img/icon_score.png) no-repeat;background-size:65px 24px;}
 .icon_score i{position:absolute;left:0;top:0;text-indent:-999px;background-position:0 -12px;}
 .icon_error_home,.icon_error_top,.icon_error_list{display:inline-block;width:16px;height:16px;overflow:hidden;background-image:url(img/icon_error.png);background-size:48px 16px;background-repeat:no-repeat;vertical-align:middle;margin:-3px 4px 0 0;}

@@ -4,7 +4,7 @@ import "net/http"
 import "log"
 import "github.com/gorilla/mux"
 import "gopkg.in/mgo.v2"
-import _ "gopkg.in/mgo.v2/bson"
+import "gopkg.in/mgo.v2/bson"
 
 import "github.com/doanchu/apkenduser/handlers"
 import "github.com/doanchu/apkenduser/webhandlers"
@@ -250,6 +250,11 @@ func max(x, y int) int {
 		return y
 	}
 }
+
+func OidHex(id bson.ObjectId) string {
+	return id.Hex()
+}
+
 func main() {
 	testStr := "thisisthefirststring"
 	var love []rune = []rune(testStr)
@@ -275,14 +280,18 @@ func main() {
 	// myTemplate.Funcs(funcMap)
 
 	//myTemplate.ParseFiles(templateDir+"index.v2.html", templateDir+"popup.html")
-	myTemplate, _ = template.ParseFiles(
+	myTemplate, _ = template.New("").Funcs(template.FuncMap{
+		"OidHex": OidHex,
+	}).ParseFiles(
 		templateDir+"app.css",
 		templateDir+"home.html",
 		templateDir+"navbar.html",
 		templateDir+"topapp.html",
+		templateDir+"searchBox.html",
 		templateDir+"categories.html",
 		templateDir+"category.html",
 		templateDir+"collections.html",
+		templateDir+"collection.html",
 		templateDir+"featured.html",
 		templateDir+"footer.html",
 		templateDir+"item.html",
@@ -290,8 +299,12 @@ func main() {
 		templateDir+"loadMore.js",
 		templateDir+"appdetails.html",
 		templateDir+"searchtools.html",
+		templateDir+"search.html",
+		templateDir+"rightsidebar.html",
+		templateDir+"leftsidebar.html",
+		templateDir+"mainheader.html",
+		templateDir+"footerads.html",
 	)
-
 	webhandlers.MyTemplates = myTemplate
 	//var err error
 	var host string = mongoHost + ":" + strconv.Itoa(mongoPort)
@@ -323,6 +336,8 @@ func main() {
 	handlers.StorageDir = storageDir
 	handlers.ServerHost = serverHost
 
+	prefix := mongo.GetCommonAppsByPrefix("Zalo", 1, 10)
+	log.Println("Found", len(prefix))
 	models.ServerHost = serverHost
 
 	myAds := mongo.GetRandomAppAds()
@@ -383,6 +398,8 @@ func main() {
 
 	router.HandleFunc("/api/app/{partner}/{app_id}", handlers.AppPartnerHandler)
 	router.HandleFunc("/app/search/{query}/{page}/{limit}", handlers.SearchAppsHandler)
+	router.HandleFunc("/search", webhandlers.SearchAppsHandler)
+	router.HandleFunc("/app/suggestion/{keywords}", handlers.SearchSuggestionHandler)
 	router.HandleFunc("/app/download/{partner}/{app_id}", handlers.AppDownloadHandler)
 	router.HandleFunc("/app/cdownload/{partner}/{app_id}", handlers.AppDownloadHandler)
 	router.HandleFunc("/api/collection-details/{partner}/{col_id}", handlers.AppCollectionHandler)
@@ -408,6 +425,7 @@ func main() {
 	subRouter.HandleFunc("/app/categories", webhandlers.CategoriesHandler)
 	subRouter.HandleFunc("/app/collections", webhandlers.CollectionsHandler)
 	subRouter.HandleFunc("/app/category/{cid}", webhandlers.CategoryHandler)
+	subRouter.HandleFunc("/app/collection/{colId}", webhandlers.CollectionHandler)
 	subRouter.HandleFunc("/app/{appId}.html", webhandlers.AppDetailsHandler)
 	//http.Handle("/", router)
 	//err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)

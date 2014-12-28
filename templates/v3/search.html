@@ -1,39 +1,59 @@
-{{define "topApp"}}
+{{define "search"}}
 <!DOCTYPE html>
-<html><head>
+<html>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>Local Top - Top Charts Apps &amp; Games free download | m.1mobile.com</title>
-    <meta name="keywords" content="Local Top, Top charts, Top download, Top trends, free download, Top Androis Apps, Top Android Games, 1Mobile, 1Mobile Market,Steel Avengers: Scorched Earth,Facebook,Snapchat,Twitter,Pinterest,">
-    <meta name="description" content="Top Android Apps &amp; Games  free download in m.1mobile.com, Apps &amp; Games in local top, Apps &amp; Games in global top">
-    <link rel="stylesheet" href="/v3/base.css">
+    <title> Search android apps & games free download | m.1mobile.com</title>
+    <meta name="keywords" content="Search android apps & games free download, Android, Android Apps, Android Games, Android Software, 1Mobile, 1Mobile, 1Mobile Market">
+    <meta name="description" content="Search android apps & games free download, Discover more than 1,200,000 Android Apps & Games free download.">
+    <link rel="stylesheet" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/css/base.css">
     <link rel="shortcut icon" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/img/favicon.ico">
 </head>
 <body class="bg">
-{{template "mainHeader" .Sdetails.Name}}
-{{template "leftSidebar"}}
-{{template "searchtools" .}}
-{{template "navbar" "downloads"}}
-<nav class="sub_menu">
-    <div class="sub_menu_box">
-        <ul class="sub_menu_list clearfix">
-            <li {{if eq .Page "hot"}}class="active"{{end}}><a href="/top/hot" data-hover="sub_menu_hover">Hot nhất</a></li>        
-            <li {{if eq .Page "downloads"}}class="active"{{end}}><a href="/top/downloads" data-hover="sub_menu_hover">Tải nhiều</a></li>
-            <li {{if eq .Page "new"}}class="active"{{end}}><a href="/top/new" data-hover="sub_menu_hover">Mới nhất</a></li>
-            <li {{if eq .Page "standings"}}class="active"{{end}}><a href="/top/standings" data-hover="sub_menu_hover">Yêu thích</a></li>
+<header class="nav_box subnav_box"><a id="J-top"></a>
+    <ul class="nav_list clearfix">
+        <li class="nav_control fl"><a href="/" class="icon_home" data-hover="icon_home_hover">home</a></li>
+        <li class="nav_function fr"><a href="javascript:void(0);" class="icon_nav_more" data-hover="icon_nav_more_hover" data-id="J-all-nav-list" data-mask="true" data-checkclass="true">more navigation</a></li>
+        <li class="nav_content bfc"><span class="subnav_tit">Tìm kiếm</span></li>
+    </ul>
+</header>
+<dl class="all_nav_list" id="J-all-nav-list" data-classname="all_nav_list_active">
+  <dd><a href="/" class="cate_nav_link" data-hover="cate_nav_link_hover">Trang chủ<i class="icon_nav_cate"></i></a></dd>
+  <dd><a href="/top/hot" class="apps_nav_link" data-hover="apps_nav_link_hover">Top ứng dụng<i class="icon_nav_apps"></i></a></dd>
+  <dd><a href="/app/collections" class="games_nav_link" data-hover="games_nav_link_hover">Chọn lọc<i class="icon_nav_games"></i></a></dd>
+  <dd><a href="/app/categories" class="top_nav_link" data-hover="top_nav_link_hover">Thể loại<i class="icon_nav_top"></i></a></dd>
+</dl>
+<section class="search_box p8">
+    <form method="get" action="/search" id="J-search-form">
+        <ul class="search_list clearfix">
+            <li class="search_text_box"><input type="text" class="search_text" value="" id="J-search-txt" name="keyword" autocomplete="off"></li>
+            <li class="search_sub_box"><a href="#" class="btn_search" data-hover="btn_search_hover">Tìm kiếm</a></li>
         </ul>
-    </div>
-</nav>
+    </form>
+</section>
 <div class="container">
-    <section class="p8">
-        <ul class="app_list_b app_list_c" id="J-topcharts">
-        </ul>
-        <div id="J-loading">
-            <p class="loading_box"><span class="icon_loading"></span></p>
-            <a href="javascript:void(0);" class="btn_see_more" data-hover="btn_see_more_hover" id="J-seemore"><i class="icon_arror"></i>Ấn vào đây để xem thêm</a>
-        </div>
-    </section>
+    {{if .NotFound}}<section class="search_no_result p8">Không có kết quả nào cho "{{.Query}}"</section>{{end}}
+
+    <div class="result_box" id="J-no-result">
+        <section class="p8 result_box_cnt">
+            <h3 class="pop_search_tit">Các ứng dụng hay được tìm kiếm</h3>
+            <ul class="pop_search_list clearfix">
+                <li><a href="/com.facebook.katana.html" class="search_item" data-hover="search_item_hover"><img src="http://imgsdown.1mobile.com/group1/M00/B9/E8/S340LlSZIpWACom4AAAh9nmr6EE523.png" class="img_search">Facebook</a></li>
+            </ul>
+        </section>
+        <section class="p8">
+            <ul class="app_list_b" id="J-search-result">
+            </ul>
+            <div id="J-loading">
+                <p class="loading_box"><span class="icon_loading"></span></p>
+                <a href="javascript:void(0);" class="btn_see_more" data-hover="btn_see_more_hover" id="J-seemore"><i class="icon_arror"></i>Click here to see more</a>
+            </div>
+        </section>
+    </div>
 </div>
+
+
 <footer class="foot_box mt20">
     {{.Sdetails.Footer}}
 </footer>
@@ -50,7 +70,8 @@
     var initialData = {{.AppList}};
     var template = Handlebars.templates.appListTemplate(initialData);    
     var partner = {{.Sdetails.Partner}};
-    $("#J-topcharts").append(template);
+    var query = {{.Query}}
+    $("#J-search-result").append(template);
 </script>
 <script>
 
@@ -59,7 +80,7 @@
                 pagesCount = 0,
                 $loadingBox = $('#J-loading'),
                 $btnSeeMore = $('#J-seemore'),
-                $list = $('#J-topcharts'),
+                $list = $('#J-search-result'),
                 responseData = false,
                 seeMore = function (e) {
                     e.preventDefault();
@@ -77,17 +98,20 @@
                     $list.append(html);                   
                     if (responseData != null && responseData.length > 0) {
                         nCurrentPage++;
+                        console.log("Binding scroll");
+                        $(window).bind('scroll', loadingData);
+
                     } 
-                    $(window).bind('scroll', loadingData);
                 },
                 readData = function (data) {
                     responseData = data;
                     renderingData(responseData);
                 },
                 getData = function () {
+                    console.log("getting data");
                     $.ajax({
                         type: 'GET',
-                        url: '/api/apps-{{.Page}}/beoiu/' + nCurrentPage + "/10",
+                        url: '/app/search/' + query + '/' + nCurrentPage + "/10",
                         dataType: 'json',
                         success: readData
                     })
@@ -108,6 +132,7 @@
                 },
                 loadingData = function () {
                     if (isLoading()) {
+                        console.log("trying to load data");
                         $loadingBox.addClass('loading');
                         $(window).unbind('scroll', loadingData);
                         window.setTimeout(function () {
