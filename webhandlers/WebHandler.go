@@ -7,6 +7,7 @@ import "encoding/json"
 import "github.com/doanchu/apkenduser/models"
 import "html/template"
 import "strconv"
+import "net"
 
 // import "strconv"
 import "log"
@@ -250,6 +251,34 @@ type HomePortion struct {
 	SecondLine     []*models.AppDetails
 }
 
+func GetBanners(r *http.Request) []*models.Banner {
+	ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+	if r.Header.Get("X-FORWARDED-FOR") != "" {
+		ips := strings.Split(r.Header.Get("X-FORWARDED-FOR"), ",")
+		ip = strings.TrimSpace(ips[0])
+	}
+	log.Println("IP is", ip)
+	op := ""
+	if utils.IsInRange(ip, utils.MobiIPs) {
+		op = "mb"
+	} else if utils.IsInRange(ip, utils.VinaIPs) {
+		op = "vn"
+	} else if utils.IsInRange(ip, utils.ViettelIPs) {
+		op = "vt"
+	}
+	var banners []*models.Banner = nil
+	log.Println("op is", op)
+	if op != "" {
+		banners = Mongo.GetAllBanners()
+		for _, value := range banners {
+			value.Link = strings.Replace(value.Link, "{op}", op, -1)
+		}
+	} else {
+		banners = Mongo.GetBannersForNonCell()
+	}
+	return banners
+}
+
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	log.Println("This is home page")
@@ -263,7 +292,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	banners := Mongo.GetAllBanners()
+	banners := GetBanners(r)
 	categories := Mongo.GetAllCategories()
 
 	pos := 0
