@@ -168,7 +168,7 @@ $(document).bind('touchstart', function(e) {
   $txt.bind('focus', txtSearchFocus);
   $txt.bind('input', txtSearchChange);
   $btnClear.bind('click', txtSearchClose);
-  $btnCancel.bind('touchend', cancleSearch);
+  $btnCancel.bind('touchend', cancelSearch);
 
   function readTips(data) {
     if (data.tips.length) {
@@ -206,13 +206,13 @@ $(document).bind('touchstart', function(e) {
       $hotKeywords.addClass('search_tip_list_show');
       if ($txt.val().length >= 2) {
         //tipTimer = window.setTimeout(getTips, 50);
-        $btnCancel.unbind('touchend', cancleSearch);
+        $btnCancel.unbind('touchend', cancelSearch);
         $btnCancel.bind('touchend', subSearch);
         $btnCancel.html('Search');
       } else {
         $btnCancel.unbind('touchend', subSearch);
-        $btnCancel.bind('touchend', cancleSearch);
-        $btnCancel.html('Cancle');
+        $btnCancel.bind('touchend', cancelSearch);
+        $btnCancel.html('Huỷ');
         $('#J-search-tip').html('');
       }
     } else {
@@ -242,13 +242,13 @@ $(document).bind('touchstart', function(e) {
     $hotKeywords.hide().removeClass('tool_search_tip_cnt_show').removeClass('search_tip_list_show');
     $txt.val('');
     $btnCancel.unbind('touchend', subSearch);
-    $btnCancel.bind('touchend', cancleSearch);
-    $btnCancel.html('Cancle');
+    $btnCancel.bind('touchend', cancelSearch);
+    $btnCancel.html('Huỷ');
     $btnClear.hide();
 
   }
 
-  function cancleSearch() {
+  function cancelSearch() {
     if (document.getElementById('J-opacity-mask')) {
       closeSearch();
       removeMask();
@@ -587,7 +587,7 @@ function market_download(that) {
 }
 
 function setCookie(c_name, value, expiredays) {
-  var Cookie_Domain = "m.1mobile.com"
+  var Cookie_Domain = "apk.vn"
   var exdate = new Date();
   exdate.setHours(exdate.getHours() + expiredays);
   document.cookie = c_name + "=" + escape(value) +
