@@ -280,7 +280,7 @@ func main() {
 	// myTemplate.Funcs(funcMap)
 
 	//myTemplate.ParseFiles(templateDir+"index.v2.html", templateDir+"popup.html")
-	myTemplate, _ = template.New("").Funcs(template.FuncMap{
+	myTemplate = template.Must(template.New("").Funcs(template.FuncMap{
 		"OidHex": OidHex,
 	}).ParseFiles(
 		templateDir+"app.css",
@@ -304,7 +304,7 @@ func main() {
 		templateDir+"leftsidebar.html",
 		templateDir+"mainheader.html",
 		templateDir+"footerads.html",
-	)
+	))
 	webhandlers.MyTemplates = myTemplate
 	//var err error
 	var host string = mongoHost + ":" + strconv.Itoa(mongoPort)
