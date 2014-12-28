@@ -17,7 +17,7 @@ templates['appListTemplate'] = template({"1":function(depth0,helpers,partials,da
     + escapeExpression(((helper = (helper = helpers.total_download || (depth0 != null ? depth0.total_download : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"total_download","hash":{},"data":data}) : helper)))
     + "</p></dd>\n        </dl>\n        <p class=\"app_list_c_des\"></p></a>\n\n        <p class=\"app_list_b_download\"><a href=\"javascript:void(0)\" class=\"btn_app_download\"\n                                          data-hover=\"btn_app_download_hover\"\n                                          onclick=\"market_download(this)\"\n                                          data-name=\""
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
-    + "\"\n                                          data-href=\"/app/download/"
+    + "\"\n                                          data-href=\"/app/cdownload/"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
     + "\">Tải về</a><span\n                class=\"app_list_b_price\">Miễn phí</span></p></div>\n</li>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
