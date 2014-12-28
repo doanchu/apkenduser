@@ -294,6 +294,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	banners := GetBanners(r)
+	for _, banner := range banners {
+		banner.Link = strings.Replace(banner.Link, "{partner}", myPartner, -1)
+	}
+
 	categories := Mongo.GetAllCategories()
 
 	pos := 0
