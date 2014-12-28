@@ -573,18 +573,10 @@ function market_download(that) {
     timeout: 1000,
     url: "http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + p_name,
     dataType: "jsonp",
-    success: function(json) {
-      if (json.status == 1) {
-        $.ajax({
-          type: "get",
-          url: "http://package.1mobile.com/d_market_success.php?pkg=" + p_name + "&channel=301",
-          success: function(data) {
-
-          }
-        });
-      } else {
+    success: function(response) {
+      if (response.success == -1) {
         window.location.href = p_url;
-      }
+      }    
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
       if (XMLHttpRequest.readyState != 4) {
