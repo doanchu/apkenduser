@@ -11,9 +11,6 @@
           content="{{.Sdetails.Description}}">
     <link rel="stylesheet" href="/v3/base.css">
     <link rel="shortcut icon" href="/v3/img/favicon.png">
-    <script type="text/javascript">
-        document.partner = {{.Sdetails.Partner}};
-    </script>
 </head>
 <body class="bg">
 <header class="nav_box subnav_box"><a id="J-top"></a>
@@ -57,7 +54,7 @@
         </section>
         <section class="detail_moreinfo">
             <ul class="detail_moreinfo_list">
-                <li class="clearfix"><span class="fl">Lượt tải: {{.App.Total_download}}</span><span class="fr">37.9MB</span></li>
+                <li class="clearfix"><span class="fl">Lượt tải: {{.App.Total_download}}</span><span class="fr">{{GetSize .App.Size}}</span></li>
             </ul>
         </section>
         <section class="detail_item mt20" id="J-description" data-classname="detail_item_des_more"><h2

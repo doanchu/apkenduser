@@ -255,6 +255,17 @@ func OidHex(id bson.ObjectId) string {
 	return id.Hex()
 }
 
+func GetSize(size string) string {
+	intSize, _ := strconv.Atoi(size)
+	tmpSize := intSize / (1024 * 1024)
+	if tmpSize == 0 {
+		tmpSize = intSize / 1024
+		return strconv.Itoa(tmpSize) + " KB"
+	} else {
+		return strconv.Itoa(tmpSize) + " MB"
+	}
+}
+
 func main() {
 	testStr := "thisisthefirststring"
 	var love []rune = []rune(testStr)
@@ -281,7 +292,8 @@ func main() {
 
 	//myTemplate.ParseFiles(templateDir+"index.v2.html", templateDir+"popup.html")
 	myTemplate = template.Must(template.New("").Funcs(template.FuncMap{
-		"OidHex": OidHex,
+		"OidHex":  OidHex,
+		"GetSize": GetSize,
 	}).ParseFiles(
 		templateDir+"app.css",
 		templateDir+"home.html",
