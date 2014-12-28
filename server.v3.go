@@ -287,7 +287,7 @@ func main() {
 		templateDir+"home.html",
 		templateDir+"navbar.html",
 		templateDir+"topapp.html",
-		templateDir+"searchBox.html",
+		templateDir+"searchbox.html",
 		templateDir+"categories.html",
 		templateDir+"category.html",
 		templateDir+"collections.html",
