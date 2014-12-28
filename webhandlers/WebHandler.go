@@ -276,6 +276,7 @@ func GetBanners(r *http.Request) []*models.Banner {
 	} else {
 		banners = Mongo.GetBannersForNonCell()
 	}
+	log.Println("banner's length", len(banners))
 	return banners
 }
 
@@ -306,6 +307,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 			if bannerPos > len(banners)-1 {
 				bannerPos = 0
 			}
+			bannerPos = bannerPos + 1
 			currentPortion.Banner = banners[bannerPos]
 			currentPortion.FirstCategory = cat
 			tempAppInfo := Mongo.GetPartnerAppsByCategory(myPartner, cat.Id, 1, 3)
