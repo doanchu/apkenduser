@@ -3,9 +3,10 @@
 <html><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>Local Top - Top Charts Apps &amp; Games free download | m.1mobile.com</title>
-    <meta name="keywords" content="Local Top, Top charts, Top download, Top trends, free download, Top Androis Apps, Top Android Games, 1Mobile, 1Mobile Market,Steel Avengers: Scorched Earth,Facebook,Snapchat,Twitter,Pinterest,">
-    <meta name="description" content="Top Android Apps &amp; Games  free download in m.1mobile.com, Apps &amp; Games in local top, Apps &amp; Games in global top">
+    <meta name="keywords"
+          content="{{.Sdetails.Keywords}}">
+    <meta name="description"
+          content="{{.Sdetails.Description}}">
     <link rel="stylesheet" href="/v3/base.css">
     <link rel="shortcut icon" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/img/favicon.ico">
 </head>
@@ -77,8 +78,8 @@
                     $list.append(html);                   
                     if (responseData != null && responseData.length > 0) {
                         nCurrentPage++;
+                        $(window).bind('scroll', loadingData);
                     } 
-                    $(window).bind('scroll', loadingData);
                 },
                 readData = function (data) {
                     responseData = data;

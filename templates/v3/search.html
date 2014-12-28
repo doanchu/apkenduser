@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title> Search android apps & games free download | m.1mobile.com</title>
-    <meta name="keywords" content="Search android apps & games free download, Android, Android Apps, Android Games, Android Software, 1Mobile, 1Mobile, 1Mobile Market">
-    <meta name="description" content="Search android apps & games free download, Discover more than 1,200,000 Android Apps & Games free download.">
-    <link rel="stylesheet" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/css/base.css">
+    <meta name="keywords"
+          content="{{.Sdetails.Keywords}}">
+    <meta name="description"
+          content="{{.Sdetails.Description}}">
+    <link rel="stylesheet" href="/v3/base.css">
     <link rel="shortcut icon" href="http://img.1mobile.com/web2/m.1mobile.com/wap2/img/favicon.ico">
 </head>
 <body class="bg">
@@ -98,7 +99,6 @@
                     $list.append(html);                   
                     if (responseData != null && responseData.length > 0) {
                         nCurrentPage++;
-                        console.log("Binding scroll");
                         $(window).bind('scroll', loadingData);
 
                     } 
