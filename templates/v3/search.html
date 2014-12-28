@@ -135,7 +135,7 @@
                     }
                 },
                 loadingData = function () {
-                    if (isLoading()) {
+                    if (isLoading() && query != "") {
                         console.log("trying to load data");
                         $loadingBox.addClass('loading');
                         $(window).unbind('scroll', loadingData);
