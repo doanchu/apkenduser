@@ -57,6 +57,9 @@ func SearchAppsHandler(w http.ResponseWriter, r *http.Request) {
 	if len(appDetails) == 0 {
 		notFound = true
 	}
+	if query == "" {
+		notFound = false
+	}
 
 	storeDetails := GetStoreDetails(vars["subdomain"])
 
