@@ -613,10 +613,10 @@ function getCookie(name) {
       goMarket = function(e) {
         e.preventDefault();
         setCookie('market', 'open', 360);
-        if ($(e.target).html() == 'Download') {
-          window.open('http://package.1mobile.com/market_d.php?channel=401&url=http://f3.1mobile.com/mobile_software/channel/1MobileMarket_401.apk', '_self');
+        if ($(e.target).html() == 'Tải về ngay') {
+          window.open('http://apk.vn/store/download/' + document.partner, '_self');
         } else {
-          window.open('http://market.1mobile.com/', '_self');
+          window.open('http://apk.vn/store/download/' + document.partner, '_self');
         }
         $market.hide();
       };
