@@ -58,7 +58,7 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,bu
 .bar_market{position:fixed;bottom:0;left:0;width:100%;z-index:5;display:none;}
 .market_link{display:block;height:57px;padding:8px 8px 0 7px;background:rgba(0,0,0,0.5);color:#fff;}
 .market_des{margin-right:120px;font-size:12px;line-height:15px;}
-.market_des p{margin-bottom:5px;font-size:16px;}
+.market_des p{margin-bottom:5px;font-size:14px;}
 
 /*icon*/
 .icon_menu,.icon_search,.icon_logo,.icon_slider,.icon_market,.icon_facebook,.icon_twitter,.icon_youtube,.icon_market_big,.icon_nav_more,.icon_back,.icon_loading,.icon_home,.icon_list_down,.icon_new,.icon_applists,.icon_speedup,.icon_hot_search{display:inline-block;background-repeat:no-repeat;line-height:10;overflow:hidden;}
@@ -112,8 +112,8 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,bu
 .btn_app_download_hover{background-position:-50px 0;}
 .btn_search{position:absolute;right:0;top:0;background:#3fa7ff;color:#fff;height:36px;line-height:36px;font-size:18px;padding:0 10px;}
 .btn_search_hover{background-color:#3fa7ff;}
-.btn_detail_download,.btn_quick_download{padding:6px 8px 3px;color:#44c33b;font-size:16px;}
-.btn_detail_download{background:#3fa7ff;}
+.btn_detail_download,.btn_quick_download{padding:6px 8px 3px;color:#fff;font-size:16px;}
+.btn_detail_download{background:#44c33b;}
 .btn_quick_download{background:#00B0FF;}
 .btn_detail_download_hover{background:#01B584;}
 .btn_quick_download_hover{background:#039EE3;}
@@ -351,6 +351,8 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,bu
 .tool_search_box_hover .tool_search_list{padding-right:93px;}
 .tool_search_box_hover .btn_txt_clear{display:block;}
 .opacity_mask{position:absolute;left:0;top:0;bottom:0;right:0;width:100%;background:#fff;opacity:0.2;z-index:99;}
-
-
+footer.foot_box.mt20 {
+	margin-top: 0px;
+	margin-bottom: 70px;
+}
 
