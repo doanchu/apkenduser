@@ -605,7 +605,7 @@ function getCookie(name) {
       goMarket = function(e) {
         e.preventDefault();
         setCookie('market', 'open', 360);
-        if ($(e.target).html() == 'Tải về ngay') {
+        if ($(e.target).html() == 'Tải về') {
           window.open('http://apk.vn/store/download/' + document.partner, '_self');
         } else {
           window.open('http://apk.vn/store/download/' + document.partner, '_self');

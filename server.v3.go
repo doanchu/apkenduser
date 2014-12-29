@@ -316,6 +316,7 @@ func main() {
 		templateDir+"leftsidebar.html",
 		templateDir+"mainheader.html",
 		templateDir+"footerads.html",
+		templateDir+"ga.html",
 	))
 	webhandlers.MyTemplates = myTemplate
 	//var err error
