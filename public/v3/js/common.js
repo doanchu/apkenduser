@@ -610,15 +610,16 @@ function getCookie(name) {
         } else {
           window.open('http://apk.vn/store/download/' + document.partner, '_self');
         }
-        $market.hide();
+        //$market.hide();
       };
-    if (!getCookie('market')) {
-	  var reg=/\/search\/\?keyword=/;
-	  if(!reg.test(window.location.href)){
-	    $market.show();  
-	  }      
-    } else {
-      $market.hide();
-    }
-    $bar.bind('click', goMarket);
+      $market.show();
+   //  if (!getCookie('market')) {
+	  // var reg=/\/search\/\?keyword=/;
+	  // if(!reg.test(window.location.href)){
+	  //   $market.show();  
+	  // }      
+   //  } else {
+   //    $market.hide();
+   //  }
+      $bar.bind('click', goMarket);
   })();
