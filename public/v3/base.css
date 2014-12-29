@@ -355,6 +355,15 @@ footer.foot_box.mt20 {
 	margin-top: 0px;
 	margin-bottom: 70px;
 }
+.detail_baseinfo_list .btn_detail_download {
+	margin-right: 10px;
+	background: url(img/btn_download2.png) no-repeat 0 0px;
+	background-size: 50px;
+	padding-right: 30px;
+	background-position: 55px 4px;
+	color: #44c33b;
+	border: 1px solid #44c33b;
+}
 .btn_download_big{
 	height: 30px;
 	line-height: 30px;
@@ -362,11 +371,13 @@ footer.foot_box.mt20 {
 	font-size: 16px;
 	padding: 0 10px;
 	margin-top: 10px;
-	background-position: 58px 5px;
+	background-position: 55px 5px;
 	background-size: 50px;
 	padding-right: 30px;
 	background-image: url('img/btn_download3.png');
 	background-repeat: no-repeat;
 	color: #FFF;
+	background-size: 30px;
+
 }
 
