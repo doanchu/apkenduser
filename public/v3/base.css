@@ -7,7 +7,7 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,bu
 
 /*global*/
 .bg,.container{background-color:#ECECEC;}
-.nav_box{position:relative;background-color:#00CC95;z-index:89;}
+.nav_box{position:relative;background-color:#3fa7ff;z-index:89;}
 .nav_list li{height:48px;}
 .logo{display:inline-block;color:#fff;font-size:18px;font-weight:bold;}
 .main_menu{position:relative;width:100%;border-bottom:1px solid #ccc;background-color:#fff;white-space:nowrap;z-index:2;}
