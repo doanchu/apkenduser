@@ -355,4 +355,18 @@ footer.foot_box.mt20 {
 	margin-top: 0px;
 	margin-bottom: 70px;
 }
+.btn_download_big{
+	height: 30px;
+	line-height: 30px;
+	background-color: #44c33b;
+	font-size: 16px;
+	padding: 0 10px;
+	margin-top: 10px;
+	background-position: 58px 5px;
+	background-size: 50px;
+	padding-right: 30px;
+	background-image: url('img/btn_download3.png');
+	background-repeat: no-repeat;
+	color: #FFF;
+}
 
