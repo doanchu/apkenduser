@@ -99,8 +99,8 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,bu
 
 /*btn*/
 .btn_more,.btn_download_big,.btn_top,.btn_market_down,.btn_app_download,.btn_detail_download,.btn_quick_download{display:inline-block;}
-.btn_more{height:22px;line-height:22px;padding:0 10px;background-color:#3fa7ff;color:#fff;}
-.btn_download_big{height:30px;line-height:30px;background-color:#3fa7ff;font-size:16px;padding:0 10px;margin-top:10px;}
+.btn_more{height:22px;line-height:22px;padding:0 10px;background-color:#4E4E4E;color:#fff;}
+.btn_download_big{height:30px;line-height:30px;background-color:#44c33b;font-size:16px;padding:0 10px;margin-top:10px;}
 .btn_top{width:24px;height:24px;background-image:url(img/btn_top.png);background-size:24px 24px;overflow;hidden;text-indent:-9999px;}
 .btn_download{position:absolute;z-index:2;right:0;bottom:0;width:36px;height:36px;overflow:hidden;text-indent:-999px;overflow:hidden;background:url(img/btn_download.png) no-repeat 0 6px;background-size:66px 24px;}
 .btn_download_hover{background-position:-33px 6px;}
@@ -112,7 +112,7 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,bu
 .btn_app_download_hover{background-position:-50px 0;}
 .btn_search{position:absolute;right:0;top:0;background:#3fa7ff;color:#fff;height:36px;line-height:36px;font-size:18px;padding:0 10px;}
 .btn_search_hover{background-color:#3fa7ff;}
-.btn_detail_download,.btn_quick_download{padding:6px 8px 3px;color:#fff;font-size:16px;}
+.btn_detail_download,.btn_quick_download{padding:6px 8px 3px;color:#44c33b;font-size:16px;}
 .btn_detail_download{background:#3fa7ff;}
 .btn_quick_download{background:#00B0FF;}
 .btn_detail_download_hover{background:#01B584;}
@@ -203,7 +203,7 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,bu
 .app_list_b_cate{font-size:13px;color:#999;margin-bottom:8px;}
 .app_list_b_link_hover{background:#E5E5E5;}
 .app_list_b_download{position:absolute;right:10px;top:20px;text-align:right;}
-.app_list_b_price{display:block;color:#3fa7ff;padding:10px 2px 0 0;}
+.app_list_b_price{display:block;color:#44c33b;padding:10px 2px 0 0;}
 
 /*search_result*/
 .result_box_cnt{display:none;}
