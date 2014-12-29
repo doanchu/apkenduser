@@ -139,7 +139,7 @@ func (m *Mongo) GetPartnerApps(partner string, page int, limit int, sortConditio
 	db := session.DB(m.DB)
 	c := db.C("partner_app_info")
 	var result []*models.PartnerAppInfo
-	err := c.Find(bson.M{"partner": partner, "status": 1}).Sort(sortCondition).Skip((page - 1) * limit).Limit(limit).All(&result)
+	err := c.Find(bson.M{"partner": partner, "admin_status": 1, "status": 1}).Sort(sortCondition).Skip((page - 1) * limit).Limit(limit).All(&result)
 
 	// var byteResult []byte
 	// byteResult, err = json.Marshal(result)
@@ -158,7 +158,7 @@ func (m *Mongo) GetPartnerAppsNotIn(partner string, page int, limit int, sortCon
 	db := session.DB(m.DB)
 	c := db.C("partner_app_info")
 	var result []*models.PartnerAppInfo
-	err := c.Find(bson.M{"partner": partner, "status": 1, "id": bson.M{"$nin": commonAppIds}}).Sort(sortCondition).Skip((page - 1) * limit).Limit(limit).All(&result)
+	err := c.Find(bson.M{"partner": partner, "admin_status:": 1, "status": 1, "id": bson.M{"$nin": commonAppIds}}).Sort(sortCondition).Skip((page - 1) * limit).Limit(limit).All(&result)
 
 	// var byteResult []byte
 	// byteResult, err = json.Marshal(result)
@@ -375,7 +375,7 @@ func (m *Mongo) GetPartnerAppsByCategory(partner string, cid int, page int, limi
 	db := session.DB(m.DB)
 	c := db.C("partner_app_info")
 	var result []*models.PartnerAppInfo
-	err := c.Find(bson.M{"partner": partner, "cid": cid, "status": 1}).Sort("-time_order").Skip((page - 1) * limit).Limit(limit).All(&result)
+	err := c.Find(bson.M{"partner": partner, "cid": cid, "admin_status": 1, "status": 1}).Sort("-time_order").Skip((page - 1) * limit).Limit(limit).All(&result)
 
 	// var byteResult []byte
 	// byteResult, err = json.Marshal(result)
@@ -413,7 +413,7 @@ func (m *Mongo) GetPartnerApp(partner string) (*models.PartnerAppInfo, error) {
 	db := session.DB(m.DB)
 	c := db.C("partner_app_info")
 	result := &models.PartnerAppInfo{}
-	err := c.Find(bson.M{"partner": partner, "status": 1}).One(result)
+	err := c.Find(bson.M{"partner": partner, "admin_status": 1, "status": 1}).One(result)
 	if err != nil {
 		log.Println(err.Error())
 		return nil, err
