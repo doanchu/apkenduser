@@ -414,6 +414,7 @@ func main() {
 	readConfiguration()
 	prepareTemplate()
 	prepareMongo()
+	prepareCache()
 
 	handlers.Host = serverHost
 	handlers.StorageDir = storageDir
