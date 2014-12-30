@@ -380,6 +380,7 @@ func initRouter() {
 	subRouter.HandleFunc("/app/category/{cid}", webhandlers.CategoryHandler)
 	subRouter.HandleFunc("/app/collection/{colId}", webhandlers.CollectionHandler)
 	subRouter.HandleFunc("/app/{appId}.html", webhandlers.AppDetailsHandler)
+	subRouter.NotFoundHandler = http.HandlerFunc(webhandlers.HomeHandler)
 
 	subRouter.HandleFunc("/search", webhandlers.SearchAppsHandler)
 	subRouter.HandleFunc("/app/search", webhandlers.SearchAppsHandler)
