@@ -80,7 +80,6 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	}
 
 	myAds := mongo.GetRandomAppAds()
-	log.Println(myAds)
 	hasPopup := false
 	popupName := ""
 	popupTitle := ""
@@ -100,8 +99,6 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	log.Println("Popup Title is", popupTitle)
-	log.Println("Popup Name is", popupName)
 	data := struct {
 		Partner      string
 		Name         string
@@ -226,7 +223,6 @@ func (f neuteredReaddirFile) Readdir(count int) ([]os.FileInfo, error) {
 var mongo *services.Mongo
 
 func parkDomainMiddleWare(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	log.Println("Host is", r.Host)
 	hostPart := strings.Split(r.Host, ":")[0]
 
 	if hostPart == "apk.vn" || strings.Contains(hostPart, "."+serverHost) {
