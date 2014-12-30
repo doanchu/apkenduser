@@ -360,6 +360,7 @@ func initRouter() {
 	router.HandleFunc("/api/comments/{appId}/{page}/{limit}", handlers.CommentsHandler)
 	router.HandleFunc("/api/categories", handlers.CategoriesHandler)
 	router.HandleFunc("/api/banners", handlers.BannersHandler)
+	router.NotFoundHandler = http.HandlerFunc(webhandlers.HomeHandler)
 
 	subRouter := router.Host("{subdomain}" + "." + serverHost).Subrouter()
 	subRouter.HandleFunc("/app/download/{appId}.apk", handlers.AppDownloadHandler)
@@ -380,7 +381,6 @@ func initRouter() {
 	subRouter.HandleFunc("/app/category/{cid}", webhandlers.CategoryHandler)
 	subRouter.HandleFunc("/app/collection/{colId}", webhandlers.CollectionHandler)
 	subRouter.HandleFunc("/app/{appId}.html", webhandlers.AppDetailsHandler)
-	subRouter.NotFoundHandler = http.HandlerFunc(webhandlers.HomeHandler)
 
 	subRouter.HandleFunc("/search", webhandlers.SearchAppsHandler)
 	subRouter.HandleFunc("/app/search", webhandlers.SearchAppsHandler)
