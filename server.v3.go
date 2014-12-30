@@ -411,8 +411,6 @@ func main() {
 
 	router.HandleFunc("/api/app/{partner}/{appId}", handlers.AppPartnerHandler)
 	router.HandleFunc("/app/search/{query}/{page}/{limit}", handlers.SearchAppsHandler)
-	router.HandleFunc("/search", webhandlers.SearchAppsHandler)
-	router.HandleFunc("/app/search", webhandlers.SearchAppsHandler)
 	router.HandleFunc("/app/suggestion/{keywords}", handlers.SearchSuggestionHandler)
 	router.HandleFunc("/app/download/{partner}/{appId}", handlers.AppDownloadHandler)
 	router.HandleFunc("/app/cdownload/{partner}/{appId}", handlers.OneDownloadHandler)
@@ -446,6 +444,10 @@ func main() {
 	subRouter.HandleFunc("/app/category/{cid}", webhandlers.CategoryHandler)
 	subRouter.HandleFunc("/app/collection/{colId}", webhandlers.CollectionHandler)
 	subRouter.HandleFunc("/app/{appId}.html", webhandlers.AppDetailsHandler)
+
+	subRouter.HandleFunc("/search", webhandlers.SearchAppsHandler)
+	subRouter.HandleFunc("/app/search", webhandlers.SearchAppsHandler)
+
 	//http.Handle("/", router)
 	//err = http.ListenAndServe(":"+strconv.Itoa(serverPort), nil)
 	rootRouter.PathPrefix("/static/adflex").Handler(http.FileServer(fs))

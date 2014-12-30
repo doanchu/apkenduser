@@ -62,7 +62,6 @@ func SearchAppsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	storeDetails := GetStoreDetails(vars["subdomain"])
-
 	var dataJSON = getJSONString(appDetails)
 
 	data := struct {
