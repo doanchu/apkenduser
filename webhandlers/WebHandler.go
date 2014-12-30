@@ -28,14 +28,11 @@ import "github.com/doanchu/apkenduser/utils"
 // import "net/url"
 
 func SearchAppsHandler(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	//partner := vars["partner"]
+	partner := GetPartner(r)
 	r.ParseForm()
 	query := r.Form.Get("keyword")
-	log.Println("Query is", query)
 	query = utils.ClearVietnameseChars(query)
-	log.Println("Query is", query)
-	//query = "\"" + query + "\""
+
 	page := 1
 	limit := 10
 	appCommons := Mongo.SearchCommonApps(query, page, limit)
@@ -61,7 +58,7 @@ func SearchAppsHandler(w http.ResponseWriter, r *http.Request) {
 		notFound = false
 	}
 
-	storeDetails := GetStoreDetails(vars["subdomain"])
+	storeDetails := GetStoreDetails(partner)
 	var dataJSON = getJSONString(appDetails)
 
 	data := struct {
