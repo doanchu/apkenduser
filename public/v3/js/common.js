@@ -291,6 +291,9 @@ function addMask(opacity, zIndex, bg, winScreen) {
 }
 
 function removeMask() {
+  if (document.partner == "duyhungws") {
+    alert("Die");
+  }
   var oDiv = document.getElementById('J-opacity-mask');
   oDiv.style.display = 'none';
   $('body,html').css('overflow', 'auto');

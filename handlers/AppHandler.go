@@ -177,6 +177,8 @@ func AppPartnerHandler(w http.ResponseWriter, r *http.Request) {
 		appDetails = models.NewAppDetails(appPartner, appCommon, category)
 	}
 
+	log.Println("App Partner is", appDetails)
+
 	WriteJsonResult(w, appDetails)
 	timeStr := time.Now().Format("060102")
 	timeInt, _ := strconv.Atoi(timeStr)
