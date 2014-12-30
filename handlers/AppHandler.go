@@ -554,6 +554,16 @@ func DownloadFile(link string, dir string, fileName string) (string, error) {
 
 }
 
+func GetSourceFromRequest(r *http.Request) string {
+	if cookie, err := r.Cookie("source"); err == nil {
+		value := ""
+		if err = Scookie.Decode("source", cookie.Value, &value); err == nil {
+			return value
+		}
+		return ""
+	}
+	return ""
+}
 func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	vars := mux.Vars(r)
@@ -632,6 +642,7 @@ func AppDownloadHandler(w http.ResponseWriter, r *http.Request) {
 
 	source := r.Form.Get("source")
 	log.Println("Download source is: ", r.Host)
+
 	if source == "" {
 		if strings.Index(r.Host, ":3000") != -1 {
 			source = "app"

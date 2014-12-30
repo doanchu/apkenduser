@@ -22,15 +22,16 @@ import "os"
 import _ "time"
 import "runtime"
 import "errors"
+import "github.com/gorilla/securecookie"
 
 var session *mgo.Session
 
 var indexTemplate *template.Template
 
 var hashKey = []byte("mylovelyapkvn")
-var blockKey = []byte("thuybeo")
+var blockKey = []byte("apkvnunited")
 
-//var scookie = securecookie.New(hashKey, blockKey)
+var scookie = securecookie.New(hashKey, blockKey)
 
 //var myTemplate, _ = indexTemplate.ParseFiles("public/index.v2.html")
 
@@ -266,31 +267,7 @@ func GetSize(size string) string {
 	}
 }
 
-func main() {
-	testStr := "thisisthefirststring"
-	var love []rune = []rune(testStr)
-	log.Println(string(love[:int(max(len(love), 10))]))
-	f, err := os.OpenFile("apkenduser.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-	if err != nil {
-		log.Fatal("error opening file: %v", err)
-	}
-	defer f.Close()
-	//log.SetOutput(f)
-	maxProcs := runtime.GOMAXPROCS(4)
-	log.Println("Max procs is", maxProcs)
-	downloadedFileName, _ := handlers.DownloadFile("http://sv11.mway.vn:88/ApkStoreService/build?partner=duyhungws&app_name=Hung&download_id=123", "public/static/adflex/duyhungws/store/", "test")
-	log.Println(downloadedFileName)
-	readConfiguration()
-	fs := justFilesFilesystem{http.Dir("public")}
-	s := "Bỏ dấu tiếng việt"
-
-	s = utils.ClearVietnameseChars(s)
-	log.Println(s)
-	// funcMap := template.FuncMap{}
-	// funcMap["dict"] = dict
-	// myTemplate.Funcs(funcMap)
-
-	//myTemplate.ParseFiles(templateDir+"index.v2.html", templateDir+"popup.html")
+func prepareTemplate() {
 	myTemplate = template.Must(template.New("").Funcs(template.FuncMap{
 		"OidHex":  OidHex,
 		"GetSize": GetSize,
@@ -319,9 +296,12 @@ func main() {
 		templateDir+"ga.html",
 	))
 	webhandlers.MyTemplates = myTemplate
-	//var err error
+}
+
+func prepareMongo() {
 	var host string = mongoHost + ":" + strconv.Itoa(mongoPort)
 	log.Println(host)
+	var err error
 	session, err = mgo.Dial(host)
 	if err != nil {
 		log.Fatal(err.Error())
@@ -345,58 +325,18 @@ func main() {
 	}
 	handlers.Mongo = mongo
 	webhandlers.Mongo = mongo
-	handlers.Host = serverHost
-	handlers.StorageDir = storageDir
-	handlers.ServerHost = serverHost
+}
 
-	prefix := mongo.GetCommonAppsByPrefix("Zalo", 1, 10)
-	log.Println("Found", len(prefix))
-	models.ServerHost = serverHost
-
-	myAds := mongo.GetRandomAppAds()
-	log.Println(myAds)
-
-	myAds = mongo.GetRandomAppAds()
-	log.Println(myAds)
-
-	// mySession := session.Clone()
-	// mySession.DB("newapk").C("daily_app_stats").Upsert(bson.M{"partner": "leduykhanhit",
-	// 	"id":   "vn.nmt.gamebaitienlen",
-	// 	"date": 141108},
-	// 	bson.M{"$inc": bson.M{"download": 1}})
-	// mySession.Close()
-
-	// appInfo := handlers.Mongo.GetCommonAppById("com.loveframecollage.loveframe.collage")
-
+func prepareCache() {
 	handlers.Cache = &services.Cache{
 		Pool: services.NewRedisPool(redisHost + ":" + strconv.Itoa(redisPort)),
 		DB:   handlers.Mongo,
 	}
+}
 
-	// colResult := handlers.Mongo.GetCollectionById(bson.ObjectIdHex("545e003560e24d82ea541e21"))
-	// log.Println(colResult)
+func initRouter() {
+	fs := justFilesFilesystem{http.Dir("public")}
 
-	appCommons := handlers.Mongo.GetCommonAppsByIds([]string{"com.digiplex.game", "com.dotgears.flappybird"})
-	for _, value := range appCommons {
-		log.Println(value)
-	}
-	//log.Println(appCommons)
-
-	//indexTemplate = template.New("indexTemplate")
-	// collectionResult := handlers.Mongo.GetCollectionsByPartner("duyhungws", 1, 1)
-	// log.Println(collectionResult)
-
-	// comments := handlers.Mongo.GetCommentsByAppId("com.facebook.katana", 1, 10)
-	// log.Println(*comments[0])
-	// cache.SetCommonAppById("com.loveframecollage.loveframe.collage", appInfo)
-	// appInfo = handlers.Mongo.GetCommonAppById("com.bfusoftware.ohtv")
-	// cache.SetCommonAppById("com.bfusoftware.ohtv", appInfo)
-	// ids := []interface{}{}
-	// ids = append(ids, "com.loveframecollage.loveframe.collage", "com.bfusoftware.ohtv1")
-	// myResult := cache.GetCommonAppByIds(ids...)
-	// log.Println(myResult)
-	// charMap := map[string]string{"À": "A", "Á": "A"}
-	// log.Println(charMap["Á"])
 	rootRouter := mux.NewRouter()
 
 	router := mux.NewRouter()
@@ -462,5 +402,27 @@ func main() {
 	n.UseHandler(rootRouter)
 	n.Run(":" + strconv.Itoa(serverPort))
 	//router.Handle("/king", negroni.New())
-	log.Println(err)
+}
+
+func main() {
+	f, err := os.OpenFile("apkenduser.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatal("error opening file: %v", err)
+	}
+	defer f.Close()
+	//log.SetOutput(f)
+	maxProcs := runtime.GOMAXPROCS(4)
+	log.Println("Max procs is", maxProcs)
+	downloadedFileName, _ := handlers.DownloadFile("http://sv11.mway.vn:88/ApkStoreService/build?partner=duyhungws&app_name=Hung&download_id=123", "public/static/adflex/duyhungws/store/", "test")
+	log.Println(downloadedFileName)
+	readConfiguration()
+	prepareTemplate()
+	prepareMongo()
+
+	handlers.Host = serverHost
+	handlers.StorageDir = storageDir
+	handlers.ServerHost = serverHost
+	models.ServerHost = serverHost
+
+	initRouter()
 }
