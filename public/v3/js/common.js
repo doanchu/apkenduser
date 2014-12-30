@@ -567,6 +567,7 @@ function market_download(that) {
   var $this = $(that);
   var p_name = $this.attr('data-name');
   var p_url = $this.attr('data-href');
+  alert("http://127.0.0.1:11793/download?partner=" + document.partner + "&app_id=" + p_name);
   $.ajax({
     type: "get",
     async: true,
