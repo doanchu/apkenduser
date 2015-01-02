@@ -312,7 +312,7 @@ func AppsPartnerHandler(w http.ResponseWriter, r *http.Request) {
 	var result []*models.PartnerAppInfo
 	var appIds []string
 	if len(adminAppDetails) > 0 {
-		appIds = make([]string, len(adminAppDetails))
+		appIds = make([]string, 0, len(adminAppDetails))
 		for _, value := range adminAppDetails {
 			if value != nil {
 				appIds = append(appIds, value.Id)

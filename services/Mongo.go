@@ -158,7 +158,7 @@ func (m *Mongo) GetPartnerAppsNotIn(partner string, page int, limit int, sortCon
 	db := session.DB(m.DB)
 	c := db.C("partner_app_info")
 	var result []*models.PartnerAppInfo
-	err := c.Find(bson.M{"partner": partner, "admin_status:": 1, "status": 1, "id": bson.M{"$nin": commonAppIds}}).Sort(sortCondition).Skip((page - 1) * limit).Limit(limit).All(&result)
+	err := c.Find(bson.M{"partner": partner, "admin_status": 1, "status": 1, "id": bson.M{"$nin": commonAppIds}}).Sort(sortCondition).Skip((page - 1) * limit).Limit(limit).All(&result)
 
 	// var byteResult []byte
 	// byteResult, err = json.Marshal(result)
