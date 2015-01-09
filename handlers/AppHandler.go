@@ -467,7 +467,7 @@ func OneDownloadHandler(w http.ResponseWriter, r *http.Request) {
 	//log.Println(icon_36)
 	dir := StorageDir + "/static/adflex/" + partner + "/store"
 	queryString := fmt.Sprintf("partner=%s&app_name=%s&icon_36=%s&icon_48=%s&icon_72=%s&icon_96=%s&icon_144=%s&download_id=%s&analytics_id=%s", url.QueryEscape(partner), url.QueryEscape(name), url.QueryEscape(icon_36), url.QueryEscape(icon_48), url.QueryEscape(icon_72), url.QueryEscape(icon_96), url.QueryEscape(icon_144), url.QueryEscape(appId), url.QueryEscape(analytics_id))
-	storeServiceLink := fmt.Sprintf("http://sv12.mway.vn:88/ApkStoreService/build?%s", queryString)
+	storeServiceLink := fmt.Sprintf("http://sv12.mway.vn:88/APKStoreGenerator/build?%s", queryString)
 
 	appCommon := Mongo.GetAppCommonByAppId(appId)
 	fileName := appId + storeVersion + ".apk"
